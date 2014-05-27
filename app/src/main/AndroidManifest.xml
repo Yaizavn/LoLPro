@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.lol.lolpro.app.Objetos"
+            android:label="@string/title_activity_objetos" >
+        </activity>
     </application>
 
 </manifest>
