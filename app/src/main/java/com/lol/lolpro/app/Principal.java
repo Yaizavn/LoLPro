@@ -1,6 +1,7 @@
 package com.lol.lolpro.app;
 
 import android.content.Intent;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -18,11 +19,13 @@ public class Principal extends ActionBarActivity {
     private String[] mItems;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.app_name, R.string.close_drawer);
 
         mItems = getResources().getStringArray(R.array.titulosMenuIzquierda);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

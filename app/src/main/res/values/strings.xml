@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">LoLPro</string>
+    <string name="close_drawer">Cerrar</string>
     <string name="campeones_oferta">CAMPEONES EN OFERTA</string>
     <string name="action_settings">Settings</string>
 
