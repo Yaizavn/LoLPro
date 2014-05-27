@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">LoLPro</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="campeones_oferta">CAMPEONES EN OFERTA</string>
     <string name="action_settings">Settings</string>
 
 </resources>
