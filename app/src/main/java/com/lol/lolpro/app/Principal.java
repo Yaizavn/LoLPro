@@ -25,10 +25,21 @@ public class Principal extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.app_name, R.string.close_drawer);
 
         mItems = getResources().getStringArray(R.array.titulosMenuIzquierda);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.app_name, R.string.close_drawer) {
+            public void onDrawerClosed (View view){
+
+            }
+            public void onDrawerOpened (View view){
+
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
         mDrawerList = (ListView) findViewById(R.id.MenuIzquierda);
 
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
@@ -46,13 +57,13 @@ public class Principal extends ActionBarActivity {
     private void MostrarLayout(int posicion){
         Intent intent = null;
         switch (posicion){
-            case 1:
+            case 0:
                 intent = new Intent (Principal.this, Campeones.class);
                 break;
-            case 2:
+            case 1:
                 intent = new Intent (Principal.this, Objetos.class);
                 break;
-            case 3:
+            case 2:
                 intent = new Intent (Principal.this, Campeones.class);
                 break;
             default:
