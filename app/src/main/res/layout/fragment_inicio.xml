@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.lol.lolpro.app.Inicio$PlaceholderFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/campeones_oferta"
+        android:textAlignment="center"
+        android:textSize="24dp" />
+
+    <ImageButton
+        android:id="@+id/campeon1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="55dp" />
+
+    <ImageButton
+        android:id="@+id/campeon2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/campeon1"
+        android:layout_toRightOf="@+id/campeon1" />
+
+    <ImageButton
+        android:id="@+id/campeon3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/campeon2"
+        android:layout_toRightOf="@+id/campeon2" />
+
+    <ImageButton
+        android:id="@+id/campeon4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/campeon3"
+        android:layout_toRightOf="@+id/campeon3" />
+
+    <ImageButton
+        android:id="@+id/campeon5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/campeon4"
+        android:layout_toRightOf="@+id/campeon4" />
+
+    <ImageButton
+        android:id="@+id/campeon6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/campeon1"
+        android:layout_alignStart="@+id/campeon1"
+        android:layout_below="@+id/campeon1"
+        android:layout_marginTop="45dp" />
+
+    <ImageButton
+        android:id="@+id/campeon7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/campeon6"
+        android:layout_toRightOf="@+id/campeon6" />
+
+    <ImageButton
+        android:id="@+id/campeon8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/campeon7"
+        android:layout_toRightOf="@+id/campeon7" />
+
+    <ImageButton
+        android:id="@+id/campeon9"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/campeon8"
+        android:layout_toLeftOf="@+id/campeon5" />
+
+    <ImageButton
+        android:id="@+id/campeon10"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/campeon5"
+        android:layout_alignStart="@+id/campeon5"
+        android:layout_alignTop="@+id/campeon9" />
+
+</RelativeLayout>

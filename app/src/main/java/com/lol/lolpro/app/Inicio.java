@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 
 
 
-public class Objetos extends Fragment {
 
-    public Objetos() {
+public class Inicio extends Fragment {
+
+    public Inicio() {
         // Required empty public constructor
     }
 
@@ -20,6 +21,6 @@ public class Objetos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_objetos, container, false);
+        return inflater.inflate(R.layout.fragment_inicio, container, false);
     }
 }

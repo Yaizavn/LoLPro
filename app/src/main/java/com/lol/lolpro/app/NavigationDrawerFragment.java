@@ -1,6 +1,6 @@
 package com.lol.lolpro.app;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -100,13 +101,9 @@ public class NavigationDrawerFragment extends Fragment {
         });
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_1,
+                android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+                getResources().getStringArray(R.array.titulosMenuIzquierda)));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -126,7 +123,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout = drawerLayout;
 
         // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.ic_launcher, GravityCompat.START);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
 
         ActionBar actionBar = getActionBar();
@@ -165,7 +162,7 @@ public class NavigationDrawerFragment extends Fragment {
                     mUserLearnedDrawer = true;
                     SharedPreferences sp = PreferenceManager
                             .getDefaultSharedPreferences(getActivity());
-                    sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).commit();
+                    sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 
                 getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
@@ -199,6 +196,34 @@ public class NavigationDrawerFragment extends Fragment {
         }
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
+        }
+
+        Fragment fragment = null;
+        switch(position){
+            case 0:
+                fragment = new Inicio();
+                break;
+            case 1:
+                fragment = new Campeones();
+                break;
+            case 2:
+                fragment = new Objetos();
+                break;
+            case 3:
+                fragment = new Temporizadores();
+                break;
+            default:
+                Toast.makeText(getActivity().getApplicationContext(),"Opcion no disponible!", Toast.LENGTH_SHORT).show();
+                fragment = new Inicio();
+                position = 0;
+                break;
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.drawer_layout, fragment).commit();
+        } else {
+            //Si el fragment es nulo mostramos un mensaje de error.
+            Log.e("Error ", "Mostrar Fragment " + position);
         }
     }
 
