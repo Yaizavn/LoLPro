@@ -1,6 +1,5 @@
 package com.lol.lolpro.app;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -12,7 +11,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,7 +88,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -196,34 +194,6 @@ public class NavigationDrawerFragment extends Fragment {
         }
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
-        }
-
-        Fragment fragment = null;
-        switch(position){
-            case 0:
-                fragment = new Inicio();
-                break;
-            case 1:
-                fragment = new Campeones();
-                break;
-            case 2:
-                fragment = new Objetos();
-                break;
-            case 3:
-                fragment = new Temporizadores();
-                break;
-            default:
-                Toast.makeText(getActivity().getApplicationContext(),"Opcion no disponible!", Toast.LENGTH_SHORT).show();
-                fragment = new Inicio();
-                position = 0;
-                break;
-        }
-        if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.drawer_layout, fragment).commit();
-        } else {
-            //Si el fragment es nulo mostramos un mensaje de error.
-            Log.e("Error ", "Mostrar Fragment " + position);
         }
     }
 
