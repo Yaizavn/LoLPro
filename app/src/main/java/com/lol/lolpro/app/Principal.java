@@ -1,23 +1,14 @@
 package com.lol.lolpro.app;
 
-import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -69,7 +60,7 @@ public class Principal extends ActionBarActivity
                 fragment = new Temporizadores();
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "Opcion no disponible!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Opcion no disponible!", Toast.LENGTH_SHORT).show();
                 fragment = new Inicio();
                 position = 0;
                 break;
