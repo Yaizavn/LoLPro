@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -38,8 +37,14 @@ public class GridAdapter extends BaseAdapter{
     private final Context context;
     private final List<String> urls = new ArrayList<String>();
 
-    public GridAdapter(Context context) {
+    private String[][]datos;
+
+    //Para campeones por lo menos
+    public GridAdapter(Context context, String[][] resultado) {
         this.context = context;
+
+        datos = resultado;
+
 
         // Ensure we get a different ordering of images on each run.
         Collections.addAll(urls, URLS);
@@ -51,7 +56,8 @@ public class GridAdapter extends BaseAdapter{
         urls.addAll(copy);
     }
 
-    @Override public View getView(int position, View convertView, ViewGroup parent) {
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
         //SquaredImageView view = (SquaredImageView) convertView;
         ImageView view = (ImageView) convertView;
 
@@ -62,7 +68,6 @@ public class GridAdapter extends BaseAdapter{
 
         //Convert dp into px
         int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, this.context.getResources().getDisplayMetrics());
-        Toast.makeText(this.context, "PX: "+px, Toast.LENGTH_LONG).show();
 
         // Get the image URL for the current position.
         String url = getItem(position);
@@ -70,8 +75,8 @@ public class GridAdapter extends BaseAdapter{
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
                 .load(url) //
-                .placeholder(R.drawable.abc_ab_bottom_solid_light_holo) //
-                .error(R.drawable.abc_ab_bottom_solid_dark_holo) //
+                .placeholder(R.drawable.abc_ab_bottom_solid_light_holo) //TODO imagen palceholder
+                .error(R.drawable.abc_ab_bottom_solid_dark_holo) //TODO imagen error
                 .resize(px, px)
                 .centerCrop() // Keep proportion
                 .into(view);
@@ -79,15 +84,20 @@ public class GridAdapter extends BaseAdapter{
         return view;
     }
 
-    @Override public int getCount() {
-        return urls.size();
+    @Override
+    public int getCount() {
+        return datos.length;
     }
 
-    @Override public String getItem(int position) {
-        return urls.get(position);
+    @Override
+    public String getItem(int position) {
+        // TODO caonstante
+        // Devuelve la ruta de la imagen
+        return datos[position][2];
     }
 
-    @Override public long getItemId(int position) {
+    @Override
+    public long getItemId(int position) {
         return position;
     }
 }
