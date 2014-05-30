@@ -32,6 +32,8 @@ public class GridAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         //SquaredImageView view = (SquaredImageView) convertView;
         ImageView view = (ImageView) convertView;
+        //ERROR AQUI
+        view.setTag(getId (position));
 
         if (view == null) {
             view = new ImageView(context);
@@ -66,6 +68,12 @@ public class GridAdapter extends BaseAdapter{
         // TODO caonstante
         // Devuelve la ruta de la imagen
         return datos[position][2];
+    }
+
+    public String getId(int position) {
+        // TODO caonstante
+        // Devuelve la ruta de la imagen
+        return datos[position][0];
     }
 
     @Override

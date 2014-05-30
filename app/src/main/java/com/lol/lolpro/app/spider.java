@@ -2,6 +2,7 @@ package com.lol.lolpro.app;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
@@ -34,121 +35,121 @@ public class spider extends AsyncTask{
         _modelMap.put(2, "olaf");
         _modelMap.put(3, "galio");
         _modelMap.put(4, "twistedfate");
-        _modelMap.put(5, "XinZhao");
-        _modelMap.put(6, "Urgot");
-        _modelMap.put(7, "LeBlanc");
-        _modelMap.put(8, "Vladimir");
-        _modelMap.put(9, "Fiddlesticks");
-        _modelMap.put(10, "Kayle");
-        _modelMap.put(11, "MasterYi");
-        _modelMap.put(12, "Alistar");
-        _modelMap.put(13, "Ryze");
-        _modelMap.put(14, "Sion");
-        _modelMap.put(15, "Sivir");
-        _modelMap.put(16, "Soraka");
-        _modelMap.put(17, "Teemo");
-        _modelMap.put(18, "Tristana");
-        _modelMap.put(19, "Warwick");
-        _modelMap.put(20, "Nunu");
-        _modelMap.put(21, "MissFortune");
-        _modelMap.put(22, "Ashe");
-        _modelMap.put(23, "Tryndamere");
-        _modelMap.put(24, "Jax");
-        _modelMap.put(25, "Morgana");
-        _modelMap.put(26, "Zilean");
-        _modelMap.put(27, "Singed");
-        _modelMap.put(28, "Evelynn");
-        _modelMap.put(29, "Twitch");
-        _modelMap.put(30, "Karthus");
-        _modelMap.put(31, "ChoGath");
-        _modelMap.put(32, "Amumu");
-        _modelMap.put(33, "Rammus");
-        _modelMap.put(34, "Anivia");
-        _modelMap.put(35, "Shaco");
-        _modelMap.put(36, "DrMundo");
-        _modelMap.put(37, "Sona");
-        _modelMap.put(38, "Kassadin");
-        _modelMap.put(39, "Irelia");
-        _modelMap.put(40, "Janna");
-        _modelMap.put(41, "Gangplank");
-        _modelMap.put(42, "Corki");
-        _modelMap.put(43, "Karma");
-        _modelMap.put(44, "Taric");
-        _modelMap.put(45, "Veigar");
-        _modelMap.put(48, "Trundle");
-        _modelMap.put(50, "Swain");
-        _modelMap.put(51, "Caitlyn");
-        _modelMap.put(53, "Blitzcrank");
-        _modelMap.put(54, "Malphite");
-        _modelMap.put(55, "Katarina");
-        _modelMap.put(56, "Nocturne");
-        _modelMap.put(57, "Maokai");
-        _modelMap.put(58, "Renekton");
-        _modelMap.put(59, "JarvanIV");
-        _modelMap.put(61, "Orianna");
-        _modelMap.put(62, "Wukong");
-        _modelMap.put(63, "Brand");
-        _modelMap.put(64, "LeeSin");
-        _modelMap.put(67, "Vayne");
-        _modelMap.put(68, "Rumble");
-        _modelMap.put(69, "Cassiopeia");
-        _modelMap.put(72, "Skarner");
-        _modelMap.put(74, "Heimerdinger");
-        _modelMap.put(75, "Nasus");
-        _modelMap.put(76, "Nidalee");
-        _modelMap.put(77, "Udyr");
-        _modelMap.put(78, "Poppy");
-        _modelMap.put(79, "Gragas");
-        _modelMap.put(80, "Pantheon");
-        _modelMap.put(81, "Ezreal");
-        _modelMap.put(82, "Mordekaiser");
-        _modelMap.put(83, "Yorick");
-        _modelMap.put(84, "Akali");
-        _modelMap.put(85, "Kennen");
-        _modelMap.put(86, "Garen");
-        _modelMap.put(89, "Leona");
-        _modelMap.put(90, "Malzahar");
-        _modelMap.put(91, "Talon");
-        _modelMap.put(92, "Riven");
-        _modelMap.put(96, "KogMaw");
-        _modelMap.put(98, "Shen");
-        _modelMap.put(99, "Lux");
-        _modelMap.put(101, "Xerath");
-        _modelMap.put(102, "Shyvana");
-        _modelMap.put(103, "Ahri");
-        _modelMap.put(104, "Graves");
-        _modelMap.put(105, "Fizz");
-        _modelMap.put(106, "Volibear");
-        _modelMap.put(110, "Varus");
-        _modelMap.put(111, "Nautilus");
-        _modelMap.put(112, "Viktor");
-        _modelMap.put(113, "Sejuani");
-        _modelMap.put(114, "Fiora");
-        _modelMap.put(115, "Ziggs");
-        _modelMap.put(117, "Lulu");
-        _modelMap.put(119, "Draven");
-        _modelMap.put(120, "Hecarim");
-        _modelMap.put(122, "Darius");
-        _modelMap.put(126, "Jayce");
-        _modelMap.put(143, "Zyra");
-        _modelMap.put(131, "Diana");
-        _modelMap.put(107, "Rengar");
-        _modelMap.put(134, "Syndra");
-        _modelMap.put(121, "KhaZix");
-        _modelMap.put(60, "Elise");
-        _modelMap.put(238, "Zed");
-        _modelMap.put(267, "Nami");
-        _modelMap.put(254, "Vi");
-        _modelMap.put(412, "Thresh");
-        _modelMap.put(133, "Quinn");
-        _modelMap.put(154, "Zac");
-        _modelMap.put(127, "Lissandra");
-        _modelMap.put(266, "Aatrox");
-        _modelMap.put(236, "Lucian");
-        _modelMap.put(222, "Jinx");
-        _modelMap.put(157, "Yasuo");
-        _modelMap.put(161, "Vel'Koz");
-        _modelMap.put (201, "Braum");
+        _modelMap.put(5, "xinzhao");
+        _modelMap.put(6, "urgot");
+        _modelMap.put(7, "leblanc");
+        _modelMap.put(8, "vladimir");
+        _modelMap.put(9, "fiddlesticks");
+        _modelMap.put(10, "kayle");
+        _modelMap.put(11, "masteryi");
+        _modelMap.put(12, "alistar");
+        _modelMap.put(13, "ryze");
+        _modelMap.put(14, "sion");
+        _modelMap.put(15, "sivir");
+        _modelMap.put(16, "soraka");
+        _modelMap.put(17, "teemo");
+        _modelMap.put(18, "tristana");
+        _modelMap.put(19, "warwick");
+        _modelMap.put(20, "nunu");
+        _modelMap.put(21, "missfortune");
+        _modelMap.put(22, "ashe");
+        _modelMap.put(23, "tryndamere");
+        _modelMap.put(24, "jax");
+        _modelMap.put(25, "morgana");
+        _modelMap.put(26, "zilean");
+        _modelMap.put(27, "singed");
+        _modelMap.put(28, "evelynn");
+        _modelMap.put(29, "twitch");
+        _modelMap.put(30, "karthus");
+        _modelMap.put(31, "chogath");
+        _modelMap.put(32, "amumu");
+        _modelMap.put(33, "rammus");
+        _modelMap.put(34, "anivia");
+        _modelMap.put(35, "shaco");
+        _modelMap.put(36, "drmundo");
+        _modelMap.put(37, "sona");
+        _modelMap.put(38, "kassadin");
+        _modelMap.put(39, "irelia");
+        _modelMap.put(40, "janna");
+        _modelMap.put(41, "gangplank");
+        _modelMap.put(42, "corki");
+        _modelMap.put(43, "karma");
+        _modelMap.put(44, "taric");
+        _modelMap.put(45, "veigar");
+        _modelMap.put(48, "trundle");
+        _modelMap.put(50, "swain");
+        _modelMap.put(51, "caitlyn");
+        _modelMap.put(53, "blitzcrank");
+        _modelMap.put(54, "malphite");
+        _modelMap.put(55, "katarina");
+        _modelMap.put(56, "nocturne");
+        _modelMap.put(57, "maokai");
+        _modelMap.put(58, "renekton");
+        _modelMap.put(59, "jarvaniv");
+        _modelMap.put(61, "orianna");
+        _modelMap.put(62, "monkeyking");
+        _modelMap.put(63, "brand");
+        _modelMap.put(64, "leesin");
+        _modelMap.put(67, "vayne");
+        _modelMap.put(68, "rumble");
+        _modelMap.put(69, "cassiopeia");
+        _modelMap.put(72, "skarner");
+        _modelMap.put(74, "heimerdinger");
+        _modelMap.put(75, "nasus");
+        _modelMap.put(76, "nidalee");
+        _modelMap.put(77, "udyr");
+        _modelMap.put(78, "poppy");
+        _modelMap.put(79, "gragas");
+        _modelMap.put(80, "pantheon");
+        _modelMap.put(81, "ezreal");
+        _modelMap.put(82, "mordekaiser");
+        _modelMap.put(83, "yorick");
+        _modelMap.put(84, "akali");
+        _modelMap.put(85, "kennen");
+        _modelMap.put(86, "garen");
+        _modelMap.put(89, "leona");
+        _modelMap.put(90, "malzahar");
+        _modelMap.put(91, "talon");
+        _modelMap.put(92, "riven");
+        _modelMap.put(96, "kogmaw");
+        _modelMap.put(98, "shen");
+        _modelMap.put(99, "lux");
+        _modelMap.put(101, "xerath");
+        _modelMap.put(102, "shyvana");
+        _modelMap.put(103, "ahri");
+        _modelMap.put(104, "graves");
+        _modelMap.put(105, "fizz");
+        _modelMap.put(106, "volibear");
+        _modelMap.put(110, "varus");
+        _modelMap.put(111, "nautilus");
+        _modelMap.put(112, "viktor");
+        _modelMap.put(113, "sejuani");
+        _modelMap.put(114, "fiora");
+        _modelMap.put(115, "ziggs");
+        _modelMap.put(117, "lulu");
+        _modelMap.put(119, "draven");
+        _modelMap.put(120, "hecarim");
+        _modelMap.put(122, "darius");
+        _modelMap.put(126, "jayce");
+        _modelMap.put(143, "zyra");
+        _modelMap.put(131, "diana");
+        _modelMap.put(107, "rengar");
+        _modelMap.put(134, "syndra");
+        _modelMap.put(121, "khazix");
+        _modelMap.put(60, "elise");
+        _modelMap.put(238, "zed");
+        _modelMap.put(267, "nami");
+        _modelMap.put(254, "vi");
+        _modelMap.put(412, "thresh");
+        _modelMap.put(133, "quinn");
+        _modelMap.put(154, "zac");
+        _modelMap.put(127, "lissandra");
+        _modelMap.put(266, "aatrox");
+        _modelMap.put(236, "lucian");
+        _modelMap.put(222, "jinx");
+        _modelMap.put(157, "yasuo");
+        _modelMap.put(161, "velkoz");
+        _modelMap.put (201, "braum");
     }
 
     private final Map<String,String> urlsProcesadas = new HashMap<String, String>();
@@ -257,30 +258,38 @@ public class spider extends AsyncTask{
             //	HttpStatusException o UnsupportedMimeTypeException
             //  evitando futuros intentos
             urlsError.add(url);
+            // Obtenemos un Iterador y recorremos la lista.
+            Iterator iter = urlsError.iterator();
+            while (iter.hasNext())
+                Log.e("error", iter.next().toString());
             return;
         }
         urlsEsperando.remove(url);
         urlsProcesadas.put(url, doc.text());
 
         Elements nombre = doc.select("div.default-2-3 > h3");
-
-        for (Element nmb : nombre) {
-            Log.e("YAIZA", "ownText: "+nmb.ownText());
-        }
-
         Elements nick = doc.select("div.default-2-3");
-
-        for (Element nmb : nick) {
-            Log.e("YAIZA", "ownText: "+nmb.ownText());
-        }
-
+        Elements ciudad=doc.select ("div.faction-small");
+        Elements vida=doc.select ("span.stat-hp + span.stat-value");
+        Elements regeneracionVida=doc.select ("span.stat-hp-regen + span.stat-value");
+        Elements danioAtaque=doc.select ("span.stat-ad + span.stat-value");
+        Elements armadura=doc.select ("span.stat-armor + span.stat-value");
+        Elements velocidadAtaque=doc.select ("span.stat-as + span.stat-value");
+        Elements resistenciaMagica=doc.select ("span.stat-mr + span.stat-value");
+        Elements velocidadMovimiento=doc.select ("span.stat-ms + span.stat-value");
         Elements imagen = doc.select("div.default-1-3 > img[src]");
 
-        for (Element img : imagen) {
-            Log.e("YAIZA", "imagen____"+img.attr("abs:src"));
-        }
-
-        helper.guardarDatos(nombre.get(0).toString(), nick.get(0).toString(), "Navarro", 1, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 6, imagen.get(0).toString());
+        helper.guardarDatos(TextUtils.htmlEncode(nombre.get(0).ownText()),
+                TextUtils.htmlEncode(nick.get(0).ownText()),
+                TextUtils.htmlEncode(ciudad.get(0).ownText()),
+                TextUtils.htmlEncode(vida.get(0).ownText()),
+                TextUtils.htmlEncode(regeneracionVida.get(0).ownText()),
+                TextUtils.htmlEncode(danioAtaque.get(0).ownText()),
+                TextUtils.htmlEncode(armadura.get(0).ownText()),
+                TextUtils.htmlEncode(velocidadAtaque.get(0).ownText()),
+                TextUtils.htmlEncode(resistenciaMagica.get(0).ownText()),
+                TextUtils.htmlEncode(velocidadMovimiento.get(0).ownText()),
+                imagen.get(0).attr("abs:src"));
     }
 
     /**

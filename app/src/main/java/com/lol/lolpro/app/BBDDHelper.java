@@ -19,10 +19,10 @@ public class BBDDHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE campeones ("+
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                "nombre TEXT, nick TEXT, ciudad TEXT, vida INTEGER, regeneracionVida REAL, " +
-                "danioAtaque REAL, armadura REAL, velocidadAtaque REAL, resistenciaMagica REAL," +
-                "velocidadMovimiento INTEGER, rutaPrincipal TEXT)");
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
+                ", nombre TEXT, nick TEXT, ciudad TEXT, vida TEXT, regeneracionVida TEXT, " +
+                "danioAtaque TEXT, armadura TEXT, velocidadAtaque TEXT, resistenciaMagica TEXT," +
+                "velocidadMovimiento TEXT, rutaPrincipal TEXT)");
     }
 
     @Override
@@ -30,14 +30,16 @@ public class BBDDHelper extends SQLiteOpenHelper{
         // En caso de una nueva versión habría que actualizar las tablas
     }
 
-    public void guardarDatos(String nombre, String nick, String ciudad, int vida,
-                             float regeneracionVida, float danioAtaque, float armadura,
-                             float velocidadAtaque, float resistenciaMagica,
-                             int velocidadMovimiento, String rutaPrincipal) {
+    //TODO coger las cosas como numeros y no como texto separado en dos campos (Ej: vida 240 vidaPorNivel 95)
+
+    public void guardarDatos(String nombre, String nick, String ciudad, String vida,
+                             String regeneracionVida, String danioAtaque, String armadura,
+                             String velocidadAtaque, String resistenciaMagica,
+                             String velocidadMovimiento, String rutaPrincipal) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO campeones VALUES (null, '"+nombre+"','"+nick+"', '"+ciudad+"'," +
-                ""+vida+", "+regeneracionVida+", "+danioAtaque+", "+armadura+"," +
-                ""+velocidadAtaque+", "+resistenciaMagica+", "+velocidadMovimiento+"," +
+                "'"+vida+"', '"+regeneracionVida+"', '"+danioAtaque+"', '"+armadura+"'," +
+                "'"+velocidadAtaque+"', '"+resistenciaMagica+"', '"+velocidadMovimiento+"'," +
                 "'"+rutaPrincipal+"')");
         db.close();
     }
@@ -56,6 +58,31 @@ public class BBDDHelper extends SQLiteOpenHelper{
             result2[pos][pos2] = cursor.getString(2);
             pos2 = 0;
             pos++;
+        }
+        cursor.close();
+        db.close();
+        return result2;
+    }
+
+    public String[] obtenerDatos(int id) {
+        Vector<String> result = new Vector<String>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nombre, ciudad, vida, regeneracionVida, danioAtaque, armadura, velocidadAtaque, resistenciaMagica, velocidadMovimiento, rutaPrincipal" +
+                " FROM campeones ORDER BY nombre DESC WHERE _id="+id, null);
+        String[] result2 = new String[10];
+        int pos2 = 0;
+        if (cursor.moveToNext()){
+            result2[pos2++] = cursor.getString(1);
+            result2[pos2++] = cursor.getString(2);
+            result2[pos2++] = cursor.getString(3);
+            result2[pos2++] = cursor.getString(4);
+            result2[pos2++] = cursor.getString(5);
+            result2[pos2++] = cursor.getString(6);
+            result2[pos2++] = cursor.getString(7);
+            result2[pos2++] = cursor.getString(8);
+            result2[pos2++] = cursor.getString(9);
+            result2[pos2] = cursor.getString(10);
+            pos2 = 0;
         }
         cursor.close();
         db.close();

@@ -1,7 +1,10 @@
 package com.lol.lolpro.app;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,12 @@ import android.widget.Toast;
 
 public class Campeones extends Fragment {
 
+    OnHeadlineSelectedListener mCallback =null;
+
+    public interface OnHeadlineSelectedListener{
+        public void onArticleSelected (int index);
+    }
+
     public Campeones() {
         // Required empty public constructor
     }
@@ -21,6 +30,19 @@ public class Campeones extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_campeones, container, false);
+    }
+
+    @Override
+    public void onAttach (Activity activity) {
+        super.onAttach(activity);
+        //This makes sure that the container activity has implemented the callback interface.
+        //If not, it throws an exception
+        try{
+            mCallback = (OnHeadlineSelectedListener) activity;
+        }
+        catch(ClassCastException e){
+            throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Override
@@ -40,8 +62,12 @@ public class Campeones extends Fragment {
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Toast.makeText(getActivity(),
-                        "position: " + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),
+                  //      "position: " + position, Toast.LENGTH_SHORT).show();
+                int identificador= Integer.getInteger(v.getTag().toString());
+
+                //Send the event to the host activity
+                mCallback.onArticleSelected(identificador);
             }
         });
     }

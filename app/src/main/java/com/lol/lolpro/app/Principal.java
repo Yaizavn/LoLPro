@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 
 public class Principal extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks{
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Campeones.OnHeadlineSelectedListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -38,7 +38,7 @@ public class Principal extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        this.deleteDatabase("campeones");
+        this.deleteDatabase(this.getResources().getString(R.string.app_name));
         CargandoBBDD bdCampeones=new CargandoBBDD(this);
 
     }
@@ -117,5 +117,16 @@ public class Principal extends ActionBarActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onArticleSelected(int index) {
+        //TODO addToBackStack
+        Bundle args =new Bundle();
+        args.putInt("id", index);
+        Fragment fragment = new CampeonInfo();
+        fragment.setArguments(args);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
     }
 }
