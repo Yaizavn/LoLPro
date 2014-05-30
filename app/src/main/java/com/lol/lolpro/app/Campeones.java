@@ -27,10 +27,14 @@ public class Campeones extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         GridView grid = (GridView) view.findViewById(R.id.gridView);
 
+        /*new spider("http://gameinfo.euw.leagueoflegends.com/es/game-info/champions/").execute();//"http://gameinfo.euw.leagueoflegends.com/es/game-info/champions/").execute();
+
         BBDDHelper helper = new BBDDHelper(getActivity());
         helper.guardarDatos("Yaiza", "Villanueva", "Navarro", 1, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 6, "http://segurosyseguros.es/wp-content/uploads/2011/11/seguros-para-perros.jpg");
         helper.guardarDatos("Pepe", "Villanueva", "Navarro", 1, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 6, "http://www.perro-obediente.com/blog/wp-content/uploads/2014/04/perro.jpg");
-        helper.guardarDatos("Perro", "Villanueva", "Navarro", 1, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 6, "http://animalfiel.es/wp-content/uploads/2014/05/perro-1.jpg");
+        helper.guardarDatos("Perro", "Villanueva", "Navarro", 1, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 6, "http://animalfiel.es/wp-content/uploads/2014/05/perro-1.jpg");*/
+
+        BBDDHelper helper = new BBDDHelper(getActivity());
 
         grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutas()));
 
