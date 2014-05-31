@@ -7,7 +7,6 @@ import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.MalformedURLException;
@@ -23,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Created by sergio on 29/05/14.
  */
-public class spider extends AsyncTask{
+public class Spider extends AsyncTask{
     private String urlInicial;
     private static Map<Integer, String> _modelMap;
     BBDDHelper helper;
@@ -164,7 +163,7 @@ public class spider extends AsyncTask{
     private final ArrayList<String> urlsError = new ArrayList<String>();
 
 
-    public spider(String url){
+    public Spider(String url){
         urlInicial = url;
         Iterator it = _modelMap.entrySet().iterator();
         while (it.hasNext()) {

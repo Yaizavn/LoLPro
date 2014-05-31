@@ -22,7 +22,7 @@ public class ConnectionResult extends AsyncTask<URI, Integer, String>{
         sslCont = cont;
     }
 
-    public String getHttpResult(URI uri){
+    public String getHttpsResult(URI uri){
         try {
             // Tell the URLConnection to use a SocketFactory from our SSLContext
             URL url = uri.toURL();
@@ -47,6 +47,6 @@ public class ConnectionResult extends AsyncTask<URI, Integer, String>{
 
     @Override
     protected String doInBackground(URI... uris) {
-        return getHttpResult(uris[0]);
+        return getHttpsResult(uris[0]);
     }
 }

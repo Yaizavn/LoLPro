@@ -36,7 +36,7 @@ public class BBDDHelper extends SQLiteOpenHelper{
 
     //TODO coger las cosas como numeros y no como texto separado en dos campos (Ej: vida 240 vidaPorNivel 95)
 
-    public void guardarDatos(String nombre, String nick, String vida,
+    public void guardarCampeones(String nombre, String nick, String vida,
                              String regeneracionVida, String danioAtaque, String armadura,
                              String velocidadAtaque, String resistenciaMagica,
                              String velocidadMovimiento, String rutaPrincipal) {
@@ -122,7 +122,7 @@ public class BBDDHelper extends SQLiteOpenHelper{
             result2[pos2++] = Html.fromHtml(cursor.getString(6)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(7)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(8)).toString();
-            result2[pos2++] = Html.fromHtml(cursor.getString(9)).toString();
+            result2[pos2] = Html.fromHtml(cursor.getString(9)).toString();
         }
         cursor.close();
         db.close();
