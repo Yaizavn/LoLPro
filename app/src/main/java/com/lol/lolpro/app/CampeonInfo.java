@@ -34,14 +34,13 @@ public class CampeonInfo extends Fragment {
             datos=helper.obtenerDatos(id);
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.nick)).setText(datos[1]);
-            ((TextView) view.findViewById(R.id.ciudad)).setText(datos[2]);
-            ((TextView) view.findViewById(R.id.vida)).setText(datos[3]);
-            ((TextView) view.findViewById(R.id.regVida)).setText(datos[4]);
-            ((TextView) view.findViewById(R.id.danioAtaque)).setText(datos[5]);
-            ((TextView) view.findViewById(R.id.armadura)).setText(datos[6]);
-            ((TextView) view.findViewById(R.id.velAtaque)).setText(datos[7]);
-            ((TextView) view.findViewById(R.id.resMagica)).setText(datos[8]);
-            ((TextView) view.findViewById(R.id.velMov)).setText(datos[9]);
+            ((TextView) view.findViewById(R.id.vida)).setText(datos[2]);
+            ((TextView) view.findViewById(R.id.regVida)).setText(datos[3]);
+            ((TextView) view.findViewById(R.id.danioAtaque)).setText(datos[4]);
+            ((TextView) view.findViewById(R.id.armadura)).setText(datos[5]);
+            ((TextView) view.findViewById(R.id.velAtaque)).setText(datos[6]);
+            ((TextView) view.findViewById(R.id.resMagica)).setText(datos[7]);
+            ((TextView) view.findViewById(R.id.velMov)).setText(datos[8]);
         }
         // Inflate the layout for this fragment
         return view;

@@ -269,7 +269,6 @@ public class spider extends AsyncTask{
 
         Elements nombre = doc.select("div.default-2-3 > h3");
         Elements nick = doc.select("div.default-2-3");
-        Elements ciudad=doc.select ("div.faction-small");
         Elements vida=doc.select ("span.stat-hp + span.stat-value");
         Elements regeneracionVida=doc.select ("span.stat-hp-regen + span.stat-value");
         Elements danioAtaque=doc.select ("span.stat-ad + span.stat-value");
@@ -281,7 +280,6 @@ public class spider extends AsyncTask{
 
         helper.guardarDatos(TextUtils.htmlEncode(nombre.get(0).ownText()),
                 TextUtils.htmlEncode(nick.get(0).ownText()),
-                TextUtils.htmlEncode(ciudad.get(0).ownText()),
                 TextUtils.htmlEncode(vida.get(0).ownText()),
                 TextUtils.htmlEncode(regeneracionVida.get(0).ownText()),
                 TextUtils.htmlEncode(danioAtaque.get(0).ownText()),

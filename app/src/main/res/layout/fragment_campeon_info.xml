@@ -35,22 +35,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/ciudad"
-        android:layout_below="@+id/nick"
-        android:layout_alignLeft="@+id/nick"
-        android:layout_alignStart="@+id/nick"
-        android:layout_marginTop="33dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/vida"
-        android:layout_below="@+id/ciudad"
-        android:layout_alignLeft="@+id/ciudad"
-        android:layout_alignStart="@+id/ciudad"
-        android:layout_marginTop="31dp" />
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/nick"
+        android:layout_alignLeft="@+id/nick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,7 +68,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/armadura"
-        android:layout_above="@+id/ciudad"
         android:layout_alignLeft="@+id/danioAtaque"
         android:layout_alignStart="@+id/danioAtaque" />
 
@@ -90,9 +77,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/velAtaque"
-        android:layout_alignTop="@+id/ciudad"
         android:layout_alignLeft="@+id/armadura"
-        android:layout_alignStart="@+id/armadura" />
+        android:layout_alignStart="@+id/armadura"
+        android:layout_below="@+id/nick" />
 
     <TextView
         android:layout_width="wrap_content"

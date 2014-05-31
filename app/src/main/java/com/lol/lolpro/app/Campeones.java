@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 public class Campeones extends Fragment {
@@ -63,7 +64,7 @@ public class Campeones extends Fragment {
                   //      "position: " + position, Toast.LENGTH_SHORT).show();
                 int identificador= Integer.parseInt(v.getTag().toString());
                 Toast.makeText(getActivity(),
-                      "id: " + identificador, Toast.LENGTH_SHORT).show();
+                        "id: " + identificador, Toast.LENGTH_SHORT).show();
                 //Send the event to the host activity
                 mCallback.onChampionSelected(identificador);
             }
