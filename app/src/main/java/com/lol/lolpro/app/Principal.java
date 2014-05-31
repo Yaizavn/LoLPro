@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 
 public class Principal extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Campeones.OnHeadlineSelectedListener{
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        Campeones.OnHeadlineSelectedListener, Inicio.OnHeadlineSelectedListener,
+        Objetos.OnHeadlineSelectedListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -38,8 +40,8 @@ public class Principal extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        this.deleteDatabase(this.getResources().getString(R.string.app_name));
-        CargandoBBDD bdCampeones=new CargandoBBDD(this);
+        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        //CargandoBBDD bdCampeones=new CargandoBBDD(this);
 
     }
 
@@ -120,11 +122,22 @@ public class Principal extends ActionBarActivity
     }
 
     @Override
-    public void onArticleSelected(int index) {
+    public void onChampionSelected(int index) {
         //TODO addToBackStack
         Bundle args =new Bundle();
         args.putInt("id", index);
         Fragment fragment = new CampeonInfo();
+        fragment.setArguments(args);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+    }
+
+    @Override
+    public void onObjectSelected(int index) {
+        //TODO addToBackStack
+        Bundle args =new Bundle();
+        args.putInt("id", index);
+        Fragment fragment = new ObjetoInfo();
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();

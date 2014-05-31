@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lol.lolpro.app.CampeonInfo">
+    tools:context="com.lol.lolpro.app.CampeonInfo"
+    android:background="#ffb1ff4a">
 
     <!-- TODO: Update blank fragment layout -->
 

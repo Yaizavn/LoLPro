@@ -9,7 +9,7 @@
     tools:context="com.lol.lolpro.app.Inicio$PlaceholderFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nombreObj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,80 +18,20 @@
         android:textAlignment="center"
         android:textSize="24dp" />
 
-    <ImageButton
-        android:id="@+id/campeon1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="55dp" />
-
-    <ImageButton
-        android:id="@+id/campeon2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/campeon1"
-        android:layout_toRightOf="@+id/campeon1" />
-
-    <ImageButton
-        android:id="@+id/campeon3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/campeon2"
-        android:layout_toRightOf="@+id/campeon2" />
-
-    <ImageButton
-        android:id="@+id/campeon4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/campeon3"
-        android:layout_toRightOf="@+id/campeon3" />
-
-    <ImageButton
-        android:id="@+id/campeon5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/campeon4"
-        android:layout_toRightOf="@+id/campeon4"
-        android:clickable="false" />
-
-    <ImageButton
-        android:id="@+id/campeon6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@+id/campeon1"
-        android:layout_alignStart="@+id/campeon1"
-        android:layout_below="@+id/campeon1"
-        android:layout_marginTop="45dp" />
-
-    <ImageButton
-        android:id="@+id/campeon7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/campeon6"
-        android:layout_toRightOf="@+id/campeon6" />
-
-    <ImageButton
-        android:id="@+id/campeon8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/campeon7"
-        android:layout_toRightOf="@+id/campeon7" />
-
-    <ImageButton
-        android:id="@+id/campeon9"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/campeon8"
-        android:layout_toLeftOf="@+id/campeon5" />
-
-    <ImageButton
-        android:id="@+id/campeon10"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@+id/campeon5"
-        android:layout_alignStart="@+id/campeon5"
-        android:layout_alignTop="@+id/campeon9" />
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:columnWidth="100dp"
+        android:rowHeight="100dp"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:layout_below="@+id/nombreObj"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </GridView>
 
 </RelativeLayout>

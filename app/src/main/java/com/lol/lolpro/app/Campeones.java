@@ -18,7 +18,7 @@ public class Campeones extends Fragment {
     OnHeadlineSelectedListener mCallback =null;
 
     public interface OnHeadlineSelectedListener{
-        public void onArticleSelected (int index);
+        public void onChampionSelected (int index);
     }
 
     public Campeones() {
@@ -64,26 +64,12 @@ public class Campeones extends Fragment {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Toast.makeText(getActivity(),
                   //      "position: " + position, Toast.LENGTH_SHORT).show();
-                int identificador= Integer.getInteger(v.getTag().toString());
-
+                int identificador= Integer.parseInt(v.getTag().toString());
+                Toast.makeText(getActivity(),
+                      "id: " + identificador, Toast.LENGTH_SHORT).show();
                 //Send the event to the host activity
-                mCallback.onArticleSelected(identificador);
+                mCallback.onChampionSelected(identificador);
             }
         });
     }
 }
-
-
-/*
-        a = (TextView) findViewById(R.id.textView2);
-        b = (TextView) findViewById(R.id.textView3);
-        c = new DBCampeones (this);
-        SQLiteDatabase g =c.getWritableDatabase();
-        this.deleteDatabase("campeones"); //sacar el nombre con this.databaseList (me devuelve un Array de string con los nombres de todas las bbdd del contexto)
-        c = new DBCampeones (this);
-        c.guardarDatos("a", "b", "c", 1, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 6, "ruta");
-        c.guardarDatos("d", "e", "f", 1, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 6, "ruta");
-        d=c.listarDatos(2);
-        a.setText(d.firstElement());
-        b.setText(d.get(1));
-        */

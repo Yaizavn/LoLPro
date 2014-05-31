@@ -32,13 +32,13 @@ public class GridAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         //SquaredImageView view = (SquaredImageView) convertView;
         ImageView view = (ImageView) convertView;
-        //ERROR AQUI
-        view.setTag(getId (position));
 
         if (view == null) {
             view = new ImageView(context);
             //view.setScaleType(CENTER_CROP);
         }
+
+        view.setTag(getId (position));
 
         //Convert dp into px
         int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, this.context.getResources().getDisplayMetrics());
@@ -72,7 +72,6 @@ public class GridAdapter extends BaseAdapter{
 
     public String getId(int position) {
         // TODO caonstante
-        // Devuelve la ruta de la imagen
         return datos[position][0];
     }
 
