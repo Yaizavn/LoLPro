@@ -120,6 +120,7 @@ public class Principal extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
+    //TODO QUITAR BOTON SUPERIOR BARRA !! El example action
 
     @Override
     public void onChampionSelected(int index) {
