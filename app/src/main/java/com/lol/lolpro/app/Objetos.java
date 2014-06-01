@@ -1,7 +1,6 @@
 package com.lol.lolpro.app;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 
@@ -55,7 +53,7 @@ public class Objetos extends Fragment {
         helper.guardarObjetos("Objeto2",3,4, "resumen2",1, "http://www.perro-obediente.com/blog/wp-content/uploads/2014/04/perro.jpg");
         helper.guardarObjetos("Objeto3",5,6, "resumen3",1, "http://animalfiel.es/wp-content/uploads/2014/05/perro-1.jpg");*/
 
-        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutasObjetos()));
+        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutaObjetos()));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {

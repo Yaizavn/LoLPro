@@ -31,7 +31,7 @@ public class CampeonInfo extends Fragment {
         int id = args.getInt("id", -1);
         if (id!=-1){
             BBDDHelper helper= new BBDDHelper(getActivity());
-            datos=helper.obtenerDatos(id);
+            datos=helper.obtenerDatosCampeon(id);
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.nick)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.vida)).setText(datos[2]);

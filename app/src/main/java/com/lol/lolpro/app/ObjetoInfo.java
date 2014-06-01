@@ -1,7 +1,5 @@
 package com.lol.lolpro.app;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,6 +33,7 @@ public class ObjetoInfo extends Fragment {
             ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.descripcion)).setText(datos[3]);
             ((TextView) view.findViewById(R.id.puedesComprar)).setText(datos[4]);
+            ((TextView) view.findViewById(R.id.resumen)).setText(datos[5]);
         }
         // Inflate the layout for this fragment
         return view;

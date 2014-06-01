@@ -40,8 +40,8 @@ public class Principal extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
-        //CargandoBBDD bdCampeones=new CargandoBBDD(this);
+        this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        CargandoBBDD bdCampeones=new CargandoBBDD(this);
 
     }
 

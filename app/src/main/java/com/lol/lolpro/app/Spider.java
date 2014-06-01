@@ -277,7 +277,7 @@ public class Spider extends AsyncTask{
         Elements velocidadMovimiento=doc.select ("span.stat-ms + span.stat-value");
         Elements imagen = doc.select("div.default-1-3 > img[src]");
 
-        helper.guardarDatos(TextUtils.htmlEncode(nombre.get(0).ownText()),
+        helper.guardarCampeones(TextUtils.htmlEncode(nombre.get(0).ownText()),
                 TextUtils.htmlEncode(nick.get(0).ownText()),
                 TextUtils.htmlEncode(vida.get(0).ownText()),
                 TextUtils.htmlEncode(regeneracionVida.get(0).ownText()),
