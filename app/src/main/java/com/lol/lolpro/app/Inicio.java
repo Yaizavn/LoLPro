@@ -1,7 +1,6 @@
 package com.lol.lolpro.app;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -45,10 +44,9 @@ public class Inicio extends Fragment {
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState){
-        /*GridView grid = (GridView) view.findViewById(R.id.gridView);
+        GridView grid = (GridView) view.findViewById(R.id.gridView);
 
         BBDDHelper helper = new BBDDHelper(getActivity());
-        helper.modificarGratuito(new int[]{1,2,3,4,5,6,7,8,9});
         grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerGratuitos()));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,6 +59,6 @@ public class Inicio extends Fragment {
                 //Send the event to the host activity
                 mCallback.onChampionSelected(identificador);
             }
-        });*/
+        });
     }
 }

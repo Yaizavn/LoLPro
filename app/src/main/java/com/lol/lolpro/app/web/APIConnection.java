@@ -28,16 +28,18 @@ import javax.net.ssl.TrustManagerFactory;
  */
 public class APIConnection {
 
-    public static final int CAMPEONES = 0;
-    public static final int IMAGENES = 1;
-    public static final int OBJETOS = 2;
+    public static final int CHAMPIONS = 0;
+    public static final int IMAGES_AND_VERSIONS = 1;
+    public static final int OBJECTS = 2;
+    public static final int CHAMPION_FREE = 3;
 
     //TODO trucar la ruta BASE_URI en funcion del idioma... de forma que optenemos los campeones en su idioma ;)
     private static final String CERT_NAME = "lolcert.pem";
-    private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/static-data/euw/v1.2/";
-    private static final String CHAMPION_URI = "champion?locale=es_ES&champData=image,stats&";
-    private static final String ITEM_URI = "item?locale=es_ES&itemListData=gold,image&";
-    private static final String IMG_URI = "realm?";
+    private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
+    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats&";
+    private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=gold,image&";
+    private static final String IMG_URI = "static-data/euw/v1.2/realm?";
+    private static final String CHAMPION_FREE_URI = "euw/v1.2/champion?freeToPlay=true&";
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";
 
     private static final String CERT_ALIAS = "LOLCert";
@@ -76,14 +78,17 @@ public class APIConnection {
         // Ahora mismo solo devuelve la URI de obtener campeones
         StringBuffer url = new StringBuffer(BASE_URI);
         switch (type) {
-            case CAMPEONES:
+            case CHAMPIONS:
                 url = url.append(CHAMPION_URI).append(API_KEY);
                 break;
-            case IMAGENES:
+            case OBJECTS:
+                url = url.append(ITEM_URI).append(API_KEY);
+                break;
+            case IMAGES_AND_VERSIONS:
                 url = url.append(IMG_URI).append(API_KEY);
                 break;
-            case OBJETOS:
-                url = url.append(ITEM_URI).append(API_KEY);
+            case CHAMPION_FREE:
+                url = url.append(CHAMPION_FREE_URI).append(API_KEY);
                 break;
         }
         try {
@@ -164,7 +169,7 @@ public class APIConnection {
         Matcher match = null;
         String rutaImagen;
         switch (type) {
-            case CAMPEONES:
+            case CHAMPIONS:
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
@@ -177,17 +182,7 @@ public class APIConnection {
                             TextUtils.htmlEncode(rutaImagen + match.group(4)));
                 }
                 break;
-            case IMAGENES:
-                patt = Patrones.PATTERN_PATH_AND_VERSIONS;
-                match = patt.matcher(answer);
-                if(match.find()) {
-                    bdConnection.guardarRutaVersiones(match.group(3), match.group(2), match.group(1));
-                }
-                else{
-                    Log.e("error","Patron de versiones erroneo");
-                }
-                break;
-            case OBJETOS:
+            case OBJECTS:
                 int purchasable = 0;
                 rutaImagen = bdConnection.obtenerRutaVersionObjeto();
                 patt = Patrones.PATTERN_ITEMS;
@@ -199,6 +194,26 @@ public class APIConnection {
                             TextUtils.htmlEncode(match.group(6)), purchasable,
                             TextUtils.htmlEncode(rutaImagen+match.group(7)));
                 }
+                break;
+            case IMAGES_AND_VERSIONS:
+                patt = Patrones.PATTERN_PATH_AND_VERSIONS;
+                match = patt.matcher(answer);
+                if(match.find()) {
+                    bdConnection.guardarRutaVersiones(match.group(3), match.group(2), TextUtils.htmlEncode(match.group(1)));
+                }
+                else{
+                    Log.e("error","Patron de versiones erroneo");
+                }
+                break;
+            case CHAMPION_FREE:
+                patt = Patrones.PATTERN_CHAMPION_FREE;
+                match = patt.matcher(answer);
+                int[] ids = new int[10];
+                int pos = 0;
+                while(match.find()){
+                    ids[pos++] = Integer.parseInt(match.group(1));
+                }
+                bdConnection.modificarGratuito(ids);
                 break;
         }
     }

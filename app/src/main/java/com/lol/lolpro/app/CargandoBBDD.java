@@ -9,9 +9,10 @@ public class CargandoBBDD{
 
     public CargandoBBDD(Context contexto) {
         APIConnection api = new APIConnection(contexto);
-        api.connect2API(APIConnection.IMAGENES);
-        api.connect2API(APIConnection.CAMPEONES);
-        api.connect2API(APIConnection.OBJETOS);
+        api.connect2API(APIConnection.IMAGES_AND_VERSIONS);
+        api.connect2API(APIConnection.CHAMPIONS);
+        api.connect2API(APIConnection.OBJECTS);
+        api.connect2API(APIConnection.CHAMPION_FREE);
         Toast.makeText(contexto, "He terminado, preparate para caagrte en los pantalones xD", Toast.LENGTH_LONG);
         //Spider sp= new Spider("http://gameinfo.euw.leagueoflegends.com/es/game-info/champions/");
         //sp.execute(contexto);

@@ -2,7 +2,6 @@ package com.lol.lolpro.app;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
@@ -276,7 +275,7 @@ public class Spider extends AsyncTask{
         Elements resistenciaMagica=doc.select ("span.stat-mr + span.stat-value");
         Elements velocidadMovimiento=doc.select ("span.stat-ms + span.stat-value");
         Elements imagen = doc.select("div.default-1-3 > img[src]");
-
+/*
         helper.guardarCampeones(TextUtils.htmlEncode(nombre.get(0).ownText()),
                 TextUtils.htmlEncode(nick.get(0).ownText()),
                 TextUtils.htmlEncode(vida.get(0).ownText()),
@@ -286,7 +285,7 @@ public class Spider extends AsyncTask{
                 TextUtils.htmlEncode(velocidadAtaque.get(0).ownText()),
                 TextUtils.htmlEncode(resistenciaMagica.get(0).ownText()),
                 TextUtils.htmlEncode(velocidadMovimiento.get(0).ownText()),
-                imagen.get(0).attr("abs:src"));
+                imagen.get(0).attr("abs:src"));*/
     }
 
     /**

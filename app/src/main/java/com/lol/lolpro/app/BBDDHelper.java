@@ -66,11 +66,12 @@ public class BBDDHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void modificarGratuito(int[] id) {
+    public void modificarGratuito(int[] ids) {
+        int length = ids.length;
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE campeones SET esGratis=0 WHERE esGratis=1");
-        for (int i = 0; i < id.length; i++) {
-            db.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + id[i]);
+        for (int i = 0; i < length; i++) {
+            db.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + ids[i]);
         }
         db.close();
     }

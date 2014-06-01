@@ -28,6 +28,8 @@ public class Principal extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    //ToDo sacar pentakills en Stats
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,8 @@ public class Principal extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        this.deleteDatabase(this.getResources().getString(R.string.app_name));
-        CargandoBBDD bdCampeones=new CargandoBBDD(this);
+        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        //CargandoBBDD bdCampeones=new CargandoBBDD(this);
 
     }
 
