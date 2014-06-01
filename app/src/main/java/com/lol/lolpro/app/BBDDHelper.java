@@ -20,14 +20,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE campeones (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
+                "_id INTEGER PRIMARY KEY" +
                 ", nombre TEXT, nick TEXT, vida TEXT, regeneracionVida TEXT, " +
                 "danioAtaque TEXT, armadura TEXT, velocidadAtaque TEXT, resistenciaMagica TEXT," +
                 "velocidadMovimiento TEXT, rutaPrincipal TEXT, esGratis INTEGER)");
         db.execSQL("CREATE TABLE objetos (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
+                "_id INTEGER PRIMARY KEY" +
                 ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, puedesComprar INTEGER," +
-                "resumen TEXT, rutaPrincipal TEXT)");
+                "rutaPrincipal TEXT)");
         db.execSQL("CREATE TABLE rutaVersiones (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
                 ", ruta TEXT, versionCampeones TEXT, versionObjetos TEXT)");
@@ -40,23 +40,23 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     //TODO coger las cosas como numeros y no como texto separado en dos campos (Ej: vida 240 vidaPorNivel 95)
 
-    public void guardarCampeones(String nombre, String nick, String vida,
+    public void guardarCampeones(int id, String nombre, String nick, String vida,
                                  String regeneracionVida, String danioAtaque, String armadura,
                                  String velocidadAtaque, String resistenciaMagica,
                                  String velocidadMovimiento, String rutaPrincipal) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO campeones VALUES (null, '" + nombre + "', '" + nick + "'," +
+        db.execSQL("INSERT INTO campeones VALUES ("+id+", '" + nombre + "', '" + nick + "'," +
                 "'" + vida + "', '" + regeneracionVida + "', '" + danioAtaque + "', '" + armadura + "'," +
                 "'" + velocidadAtaque + "', '" + resistenciaMagica + "', '" + velocidadMovimiento + "'," +
                 "'" + rutaPrincipal + "', 0)");
         db.close();
     }
 
-    public void guardarObjetos(String nombre, int costeBase, int coste, String descripcion,
-                               int puedesComprar, String resumen, String rutaPrincipal) {
+    public void guardarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
+                               int puedesComprar, String rutaPrincipal) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO objetos VALUES (null, '" + nombre + "', " + costeBase + ", " + coste + "," +
-                "'" + descripcion + "', " + puedesComprar + ", '" + resumen + "','" + rutaPrincipal + "')");
+        db.execSQL("INSERT INTO objetos VALUES ("+id+", '" + nombre + "', " + costeBase + ", " + coste + "," +
+                "'" + descripcion + "', " + puedesComprar + ", '" + rutaPrincipal + "')");
         db.close();
     }
 
@@ -75,11 +75,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String[][] obtenerRutas() {
+    public String[][] obtenerRutaCampeones() {
         Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
-                "objetos ORDER BY nombre", null);
+                "campeones ORDER BY nombre", null);
         String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;
@@ -173,7 +173,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     public String[] obtenerDatosObjetos(int id) {
         Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT nombre, costeBase, coste, descripcion, puedesComprar, resumen, rutaPrincipal" +
+        Cursor cursor = db.rawQuery("SELECT nombre, costeBase, coste, descripcion, puedesComprar, rutaPrincipal" +
                 " FROM objetos WHERE _id=" + id, null);
         String[] result2 = new String[cursor.getColumnCount()];
         int pos2 = 0;
@@ -183,8 +183,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2[pos2++] = Html.fromHtml(cursor.getString(2)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(3)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(4)).toString();
-            result2[pos2++] = Html.fromHtml(cursor.getString(5)).toString();
-            result2[pos2] = Html.fromHtml(cursor.getString(6)).toString();
+            result2[pos2] = Html.fromHtml(cursor.getString(5)).toString();
         }
         cursor.close();
         db.close();

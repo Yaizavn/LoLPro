@@ -169,7 +169,7 @@ public class APIConnection {
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    bdConnection.guardarCampeones(TextUtils.htmlEncode(match.group(2)),
+                    bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),TextUtils.htmlEncode(match.group(2)),
                             TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(8)),
                             TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(6)),
                             TextUtils.htmlEncode(match.group(5)), TextUtils.htmlEncode(match.group(7)),
@@ -194,10 +194,10 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     purchasable = Boolean.parseBoolean(match.group(5))?1:0;
-                    bdConnection.guardarObjetos(TextUtils.htmlEncode(match.group(2)),
+                    bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
                             TextUtils.htmlEncode(match.group(6)), purchasable,
-                            TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(8)));
+                            TextUtils.htmlEncode(rutaImagen+match.group(7)));
                 }
                 break;
         }

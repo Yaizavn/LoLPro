@@ -56,7 +56,7 @@ public class Campeones extends Fragment {
 
         BBDDHelper helper = new BBDDHelper(getActivity());
 
-        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutas()));
+        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutaCampeones()));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {

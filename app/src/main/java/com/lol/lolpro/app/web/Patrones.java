@@ -13,6 +13,6 @@ public class Patrones {
     private final static String PPATHVERSIONS = "item\":\"(.*?)\".*?champion\":\"(.*?)\".*?cdn\":\"(.*?)\"";
     public final static Pattern PATTERN_PATH_AND_VERSIONS = Pattern.compile(PPATHVERSIONS, Pattern.DOTALL);
     // ToDo
-    private final static String PITEMS = "id\":([0-9]+).*?name\":\"(.+?)\".*?base\":([0-9]+).*?total\":([0-9]+).*?purchasable\":(true|false).*?description\":\"(.+?)\".*?plaintext\":\"(.*?)\".*?full\":\"(.*?)\"";
+    private final static String PITEMS = "\"[0-9]+\":\\{\"id\":([0-9]+).*?name\":\"(.+?)\".*?base\":([0-9]+).*?total\":([0-9]+).*?purchasable\":(true|false).*?description\":\"(.+?)\".*?full\":\"(.*?)\"";
     public final static Pattern PATTERN_ITEMS = Pattern.compile(PITEMS, Pattern.DOTALL);
 }
