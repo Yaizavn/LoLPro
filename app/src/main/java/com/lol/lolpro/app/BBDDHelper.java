@@ -102,9 +102,23 @@ public class BBDDHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT ruta, versionCampeones FROM " +
                 "rutaVersiones", null);
         String result2 = "";
-        while (cursor.moveToNext()) {
+        if (cursor.moveToNext()) {
             result2 += Html.fromHtml(cursor.getString(0)).toString() + "/";
             result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/champion/";
+        }
+        cursor.close();
+        db.close();
+        return result2;
+    }
+
+    public String obtenerVersionCampeon() {
+        Vector<String> result = new Vector<String>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT versionCampeones FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            result2 += Html.fromHtml(cursor.getString(0)).toString();
         }
         cursor.close();
         db.close();
@@ -117,9 +131,23 @@ public class BBDDHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT ruta, versionObjetos FROM " +
                 "rutaVersiones", null);
         String result2 = "";
-        while (cursor.moveToNext()) {
+        if (cursor.moveToNext()) {
             result2 += Html.fromHtml(cursor.getString(0)).toString() + "/";
             result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/item/";
+        }
+        cursor.close();
+        db.close();
+        return result2;
+    }
+
+    public String obtenerVersionObjeto() {
+        Vector<String> result = new Vector<String>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT versionObjetos FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            result2 += Html.fromHtml(cursor.getString(0)).toString();
         }
         cursor.close();
         db.close();

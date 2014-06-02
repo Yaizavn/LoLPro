@@ -1,5 +1,6 @@
 package com.lol.lolpro.app;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.lol.lolpro.app.web.APIConnection;
 
 
 public class Principal extends ActionBarActivity
@@ -43,9 +46,10 @@ public class Principal extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
-        //CargandoBBDD bdCampeones=new CargandoBBDD(this);
+        this.deleteDatabase(this.getResources().getString(R.string.app_name));
 
+        CargandoBBDD progressDialog = new CargandoBBDD(this);
+        progressDialog.execute();
     }
 
     @Override

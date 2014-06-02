@@ -15,7 +15,7 @@ import javax.net.ssl.SSLContext;
 /**
  * Created by sergio on 31/05/14.
  */
-public class ConnectionResult extends AsyncTask<URI, Integer, String>{
+public class ConnectionResult{
 
     private SSLContext sslCont;
     public ConnectionResult(SSLContext cont){
@@ -43,10 +43,5 @@ public class ConnectionResult extends AsyncTask<URI, Integer, String>{
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    protected String doInBackground(URI... uris) {
-        return getHttpsResult(uris[0]);
     }
 }

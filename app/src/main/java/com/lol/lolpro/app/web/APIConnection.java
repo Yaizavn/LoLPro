@@ -141,21 +141,15 @@ public class APIConnection {
     //Definir varios casos, campeones, ofertas...
     public String connect2API(int type/*CONSTANTES.CAMPEONES, TIPOS.OFERTA*/) {
         String respuesta = null;
-        try {
             URI uriConsulta = createURI(type);
             if (uriConsulta != null) {
                 if (!hasCert()) {
                     insertCert();
                 }
                 ConnectionResult resultado = new ConnectionResult(sslCont);
-                respuesta = resultado.execute(uriConsulta).get();
+                respuesta = resultado.getHttpsResult(uriConsulta);
                 extractAndStoreData(respuesta, type/*, CONSTANTES.CAMPEONES, TIPOS.OFERTA*/);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
         return respuesta;
     }
 
@@ -216,5 +210,16 @@ public class APIConnection {
                 bdConnection.modificarGratuito(ids);
                 break;
         }
+    }
+
+    public boolean haCambiadoVersion (){
+        String versionAntiguaCampeon = bdConnection.obtenerVersionCampeon();
+        String versionAntiguaObjetos = bdConnection.obtenerVersionObjeto();
+
+        connect2API(APIConnection.IMAGES_AND_VERSIONS);
+        if (versionAntiguaCampeon.compareTo(bdConnection.obtenerVersionCampeon())!=0|| versionAntiguaObjetos.compareTo(bdConnection.obtenerVersionObjeto())!=0){
+            return true;
+        }
+        return false;
     }
 }
