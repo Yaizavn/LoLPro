@@ -1,12 +1,12 @@
 package com.lol.lolpro.app;
 
-import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
 import com.lol.lolpro.app.web.APIConnection;
@@ -14,11 +14,11 @@ import com.lol.lolpro.app.web.APIConnection;
 public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
 
     ProgressDialog progress;
-    Context contexto;
+    ActionBarActivity contexto;
     APIConnection api;
     int accion=0; //0 es no hacer nada, 1 es inicializar, 2 es actualizar
 
-    public CargandoBBDD(Context context) {
+    public CargandoBBDD(ActionBarActivity context) {
         this.contexto=context;
         progress = new ProgressDialog(contexto);
     }
@@ -73,6 +73,11 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     }
 
     public void onPostExecute(Void unused) {
+        FragmentManager fragmentManager = contexto.getSupportFragmentManager();
+        Fragment f = new Inicio();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, f);
+        transaction.commit();
         progress.dismiss();
     }
 
