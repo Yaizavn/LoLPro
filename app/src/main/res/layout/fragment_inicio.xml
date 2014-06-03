@@ -9,7 +9,7 @@
     tools:context="com.lol.lolpro.app.Inicio$PlaceholderFragment">
 
     <TextView
-        android:id="@+id/nombreObj"
+        android:id="@+id/nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
         android:gravity="center"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
-        android:layout_below="@+id/nombreObj"
+        android:layout_below="@+id/nombre"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </GridView>

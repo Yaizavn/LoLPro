@@ -44,10 +44,13 @@ public class BBDDHelper extends SQLiteOpenHelper {
                                  String regeneracionVida, String danioAtaque, String armadura,
                                  String velocidadAtaque, String resistenciaMagica,
                                  String velocidadMovimiento, String rutaPrincipal) {
+        double velAtaque = Double.parseDouble(velocidadAtaque);
+        velAtaque=1/(1.6*(1+velAtaque));
+        velAtaque= Math.rint(velAtaque*1000)/1000;
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO campeones VALUES ("+id+", '" + nombre + "', '" + nick + "'," +
                 "'" + vida + "', '" + regeneracionVida + "', '" + danioAtaque + "', '" + armadura + "'," +
-                "'" + velocidadAtaque + "', '" + resistenciaMagica + "', '" + velocidadMovimiento + "'," +
+                "'" + velAtaque + "', '" + resistenciaMagica + "', '" + velocidadMovimiento + "'," +
                 "'" + rutaPrincipal + "', 0)");
         db.close();
     }
@@ -64,10 +67,13 @@ public class BBDDHelper extends SQLiteOpenHelper {
                                  String regeneracionVida, String danioAtaque, String armadura,
                                  String velocidadAtaque, String resistenciaMagica,
                                  String velocidadMovimiento, String rutaPrincipal) {
+        double velAtaque = Double.parseDouble(velocidadAtaque);
+        velAtaque=1/(1.6*(1+velAtaque));
+        velAtaque= Math.rint(velAtaque*1000)/1000;
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "'," +
                 "vida='" + vida + "', regeneracionVida='" + regeneracionVida + "', danioAtaque='" + danioAtaque + "', armadura='" + armadura + "'," +
-                "velocidadAtaque='" + velocidadAtaque + "', resistenciaMagica='" + resistenciaMagica + "', velocidadMovimiento='" + velocidadMovimiento + "'," +
+                "velocidadAtaque='" + velAtaque + "', resistenciaMagica='" + resistenciaMagica + "', velocidadMovimiento='" + velocidadMovimiento + "'," +
                 "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id="+id);
         db.close();
     }

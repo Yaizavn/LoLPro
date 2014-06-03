@@ -3,53 +3,138 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lol.lolpro.app.CampeonInfo"
-    android:background="#ffb1ff4a">
+    android:background="@drawable/descarga">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/nombre"
+        android:id="@+id/Imagen"
+        android:layout_gravity="left|top"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="39dp"
+        android:layout_marginLeft="15dp"
+        android:background="#ff5dff35" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Nombre"
+        android:id="@+id/nombre"
+        android:layout_gravity="left|top"
+        android:layout_alignTop="@+id/Imagen"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nick"
         android:id="@+id/nick"
-        android:layout_below="@+id/nombre"
+        android:layout_alignBottom="@+id/Imagen"
         android:layout_alignLeft="@+id/nombre"
         android:layout_alignStart="@+id/nombre"
-        android:layout_marginTop="30dp" />
+        android:textSize="18dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/vida"
+        android:layout_above="@+id/imageView2"
+        android:layout_alignLeft="@+id/Imagen"
+        android:layout_alignStart="@+id/Imagen"
+        android:layout_marginBottom="44dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/ataque"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/velmovimiento"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignLeft="@+id/imageView2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/velmovimiento" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Vida:"
+        android:id="@+id/TextoVida"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_marginLeft="7dp"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Daño de ataque:"
+        android:id="@+id/textView3"
+        android:textSize="10dp"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_toRightOf="@+id/imageView2"
+        android:layout_marginLeft="7dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Velocidad de ataque:"
+        android:id="@+id/textView4"
+        android:textSize="10dp"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_toRightOf="@+id/imageView3"
+        android:layout_marginLeft="7dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Velocidad de movimiento:"
+        android:id="@+id/textView5"
+        android:textSize="10dp"
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_toRightOf="@+id/imageView4"
+        android:layout_marginLeft="7dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="vida"
         android:id="@+id/vida"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/nick"
-        android:layout_alignLeft="@+id/nick" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/regVida"
-        android:layout_below="@+id/vida"
-        android:layout_alignLeft="@+id/vida"
-        android:layout_alignStart="@+id/vida"
-        android:layout_marginTop="42dp" />
+        android:textSize="10dp"
+        android:layout_below="@+id/TextoVida"
+        android:layout_alignLeft="@+id/TextoVida"
+        android:layout_alignStart="@+id/TextoVida" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,19 +142,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/danioAtaque"
-        android:layout_above="@+id/nick"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="59dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/armadura"
-        android:layout_alignLeft="@+id/danioAtaque"
-        android:layout_alignStart="@+id/danioAtaque" />
+        android:textSize="10dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -77,19 +153,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/velAtaque"
-        android:layout_alignLeft="@+id/armadura"
-        android:layout_alignStart="@+id/armadura"
-        android:layout_below="@+id/nick" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/resMagica"
-        android:layout_alignTop="@+id/vida"
-        android:layout_alignLeft="@+id/velAtaque"
-        android:layout_alignStart="@+id/velAtaque" />
+        android:textSize="10dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,7 +164,102 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/velMov"
-        android:layout_alignTop="@+id/regVida"
-        android:layout_alignLeft="@+id/velAtaque"
-        android:layout_alignStart="@+id/velAtaque" />
+        android:textSize="10dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView9"
+        android:layout_alignTop="@+id/TextoVida"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_marginLeft="7dp"
+        android:src="@drawable/regvida" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView10"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_marginLeft="7dp"
+        android:src="@drawable/armadura" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView11"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_marginLeft="7dp"
+        android:src="@drawable/resmagica" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Regeneración de vida:"
+        android:id="@+id/textView18"
+        android:layout_alignTop="@+id/imageView9"
+        android:layout_toRightOf="@+id/imageView9"
+        android:layout_marginLeft="7dp"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Armadura:"
+        android:id="@+id/textView19"
+        android:layout_alignTop="@+id/imageView10"
+        android:layout_toRightOf="@+id/imageView10"
+        android:layout_marginLeft="7dp"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Resistencia mágica:"
+        android:id="@+id/textView20"
+        android:layout_alignTop="@+id/imageView11"
+        android:layout_toRightOf="@+id/imageView11"
+        android:layout_marginLeft="7dp"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/regVida"
+        android:layout_below="@+id/textView18"
+        android:layout_alignLeft="@+id/textView18"
+        android:layout_alignStart="@+id/textView18"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/armadura"
+        android:layout_below="@+id/textView19"
+        android:layout_alignLeft="@+id/textView19"
+        android:layout_alignStart="@+id/textView19"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/resMagica"
+        android:layout_below="@+id/textView20"
+        android:layout_alignLeft="@+id/textView20"
+        android:layout_alignStart="@+id/textView20"
+        android:textSize="10dp" />
+
 </RelativeLayout>

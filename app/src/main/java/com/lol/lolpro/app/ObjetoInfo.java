@@ -28,7 +28,7 @@ public class ObjetoInfo extends Fragment {
         if (id!=-1){
             BBDDHelper helper= new BBDDHelper(getActivity());
             datos=helper.obtenerDatosObjetos(id);
-            ((TextView) view.findViewById(R.id.nombreObj)).setText(datos[0]);
+            ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.descripcion)).setText(datos[3]);
