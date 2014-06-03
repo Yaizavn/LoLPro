@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +33,8 @@ public class APIConnection {
     public static final int IMAGES_AND_VERSIONS = 1;
     public static final int OBJECTS = 2;
     public static final int CHAMPION_FREE = 3;
+    public static final int UPDATE_OBJECTS = 4;
+    public static final int UPDATE_CHAMPIONS = 5;
 
     //TODO trucar la ruta BASE_URI en funcion del idioma... de forma que optenemos los campeones en su idioma ;)
     private static final String CERT_NAME = "lolcert.pem";
@@ -52,7 +55,7 @@ public class APIConnection {
     private SSLContext sslCont;
     private Context context;
 
-    private BBDDHelper bdConnection;
+    public BBDDHelper bdConnection;
 
     //ToDo Inicializar todo con el singleton
     public APIConnection(Context contexto) {
@@ -79,9 +82,11 @@ public class APIConnection {
         StringBuffer url = new StringBuffer(BASE_URI);
         switch (type) {
             case CHAMPIONS:
+            case UPDATE_CHAMPIONS:
                 url = url.append(CHAMPION_URI).append(API_KEY);
                 break;
             case OBJECTS:
+            case UPDATE_OBJECTS:
                 url = url.append(ITEM_URI).append(API_KEY);
                 break;
             case IMAGES_AND_VERSIONS:
@@ -209,6 +214,33 @@ public class APIConnection {
                 }
                 bdConnection.modificarGratuito(ids);
                 break;
+            case UPDATE_CHAMPIONS:
+                rutaImagen = bdConnection.obtenerRutaVersionCampeon();
+                patt = Patrones.PATTERN_CHAMPION;
+                match = patt.matcher(answer);
+                while (match.find()) {
+                    bdConnection.modificarCampeones(Integer.parseInt(match.group(1)),TextUtils.htmlEncode(match.group(2)),
+                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(8)),
+                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(6)),
+                            TextUtils.htmlEncode(match.group(5)), TextUtils.htmlEncode(match.group(7)),
+                            TextUtils.htmlEncode(match.group(11)), TextUtils.htmlEncode(match.group(10)),
+                            TextUtils.htmlEncode(rutaImagen + match.group(4)));
+                }
+                break;
+            case UPDATE_OBJECTS:
+                int purchasable2 = 0;
+                rutaImagen = bdConnection.obtenerRutaVersionObjeto();
+                patt = Patrones.PATTERN_ITEMS;
+                match = patt.matcher(answer);
+                while (match.find()) {
+                    purchasable2 = Boolean.parseBoolean(match.group(5))?1:0;
+                    bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
+                            Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
+                            TextUtils.htmlEncode(match.group(6)), purchasable2,
+                            TextUtils.htmlEncode(rutaImagen+match.group(7)));
+                }
+                break;
+
         }
     }
 
@@ -221,5 +253,16 @@ public class APIConnection {
             return true;
         }
         return false;
+    }
+
+    public boolean hanCambiadoGratuitos (){
+        String[][] campeonesAntiguosGratuitos = bdConnection.obtenerGratuitos();
+
+        connect2API(APIConnection.CHAMPION_FREE);
+        String[][] campeonesNuevosGratuitos = bdConnection.obtenerGratuitos();
+        if (Arrays.equals(campeonesAntiguosGratuitos, campeonesNuevosGratuitos)){
+            return false;
+        }
+        return true;
     }
 }

@@ -37,6 +37,11 @@ public class Principal extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new Inicio())
+                    .commit();
+        }
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -46,7 +51,7 @@ public class Principal extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
 
         CargandoBBDD progressDialog = new CargandoBBDD(this);
         progressDialog.execute();
@@ -57,6 +62,8 @@ public class Principal extends ActionBarActivity
 
         Fragment fragment = null;
         switch(position){
+            case -1:
+                break;
             case 0:
                 fragment = new Inicio();
                 break;
@@ -135,7 +142,6 @@ public class Principal extends ActionBarActivity
 
     @Override
     public void onChampionSelected(int index) {
-        //TODO addToBackStack
         Bundle args =new Bundle();
         args.putInt("id", index);
         Fragment fragment = new CampeonInfo();
@@ -149,7 +155,6 @@ public class Principal extends ActionBarActivity
 
     @Override
     public void onObjectSelected(int index) {
-        //TODO addToBackStack
         Bundle args =new Bundle();
         args.putInt("id", index);
         Fragment fragment = new ObjetoInfo();

@@ -60,6 +60,26 @@ public class BBDDHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void modificarCampeones(int id, String nombre, String nick, String vida,
+                                 String regeneracionVida, String danioAtaque, String armadura,
+                                 String velocidadAtaque, String resistenciaMagica,
+                                 String velocidadMovimiento, String rutaPrincipal) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "'," +
+                "vida='" + vida + "', regeneracionVida='" + regeneracionVida + "', danioAtaque='" + danioAtaque + "', armadura='" + armadura + "'," +
+                "velocidadAtaque='" + velocidadAtaque + "', resistenciaMagica='" + resistenciaMagica + "', velocidadMovimiento='" + velocidadMovimiento + "'," +
+                "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id="+id);
+        db.close();
+    }
+
+    public void modificarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
+                               int puedesComprar, String rutaPrincipal) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE objetos SET nombre='" + nombre + "', costeBase=" + costeBase + ", coste=" + coste + "," +
+                "descripcion='" + descripcion + "', puedesComprar=" + puedesComprar + ", rutaPrincipal='" + rutaPrincipal + "' WHERE _id="+id);
+        db.close();
+    }
+
     public void guardarRutaVersiones(String ruta, String vCampeon, String vObjeto) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO rutaVersiones VALUES (null, '" + ruta + "','" + vCampeon + "', '" + vObjeto + "')");
@@ -223,7 +243,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal" +
-                " FROM campeones WHERE esGratis=1", null);
+                " FROM campeones WHERE esGratis=1 ORDER BY _id", null);
         String[][] result3 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;

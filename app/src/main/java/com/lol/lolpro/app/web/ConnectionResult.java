@@ -36,6 +36,8 @@ public class ConnectionResult{
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
+            in.close();
+            urlConnection.disconnect();
             return sb.toString();
         } catch (Exception e) {
             Log.e("error", "Error al conectarse a la API");

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.lol.lolpro.app.web.APIConnection;
@@ -16,7 +17,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     ProgressDialog progress;
     ActionBarActivity contexto;
     APIConnection api;
-    int accion=0; //0 es no hacer nada, 1 es inicializar, 2 es actualizar
+    int accion=3; //0 es no hacer nada, 1 es inicializar, 2 es actualizar
 
     public CargandoBBDD(ActionBarActivity context) {
         this.contexto=context;
@@ -29,10 +30,13 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
         if (accion==1) {
             inicializarBBDD();
         } else if (accion==2) {
-            actualizarBBDD();
-        }
-        else{
-            //CAMPEONES EN OFERTA
+            //TODO deberiamos hacer esto en preexecute para que en caso de que no haya cambio de api ni de gratuitos no mostrara e progress dialog, pero no funciona porque no te deja hacer api.haCambiadoVersion o api.hacambiadoGratuitos si no es asincrono y preexecute no lo es
+            if (api.haCambiadoVersion()) {
+                actualizarBBDD();
+            }
+            else if (api.hanCambiadoGratuitos()){
+                actualizarGratuitos();
+            }
         }
         return null;
     }
@@ -63,21 +67,25 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
         api = new APIConnection(contexto);
         if (!existeDb) {
             accion=1;
-            mostrarDialog();
         } else {
-            if (api.haCambiadoVersion()) {
-                accion=2;
-                mostrarDialog();
-            }
+            accion=2;
         }
+        mostrarDialog();
     }
 
     public void onPostExecute(Void unused) {
-        FragmentManager fragmentManager = contexto.getSupportFragmentManager();
+        /*FragmentManager fragmentManager = contexto.getSupportFragmentManager();
         Fragment f = new Inicio();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, f);
         transaction.commit();
+        progress.dismiss();*/
+       // else if (accion==3){
+           // Toast.makeText(contexto, "Los campeones gratuitos han sido modificados", Toast.LENGTH_SHORT);
+       // }
+        GridView grid = (GridView) contexto.findViewById(R.id.gridView);
+        GridAdapter gA= (GridAdapter) grid.getAdapter();
+        gA.refresh();
         progress.dismiss();
     }
 
@@ -93,11 +101,15 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     }
 
     public void actualizarBBDD(){
-        api.connect2API(APIConnection.CHAMPIONS);
+        api.connect2API(APIConnection.UPDATE_CHAMPIONS);
         this.publishProgress(33);
-        api.connect2API(APIConnection.OBJECTS);
+        api.connect2API(APIConnection.UPDATE_OBJECTS);
         this.publishProgress(66);
         api.connect2API(APIConnection.CHAMPION_FREE);
         this.publishProgress(100);
+    }
+
+    public void actualizarGratuitos(){
+        api.connect2API(APIConnection.CHAMPION_FREE);
     }
 }

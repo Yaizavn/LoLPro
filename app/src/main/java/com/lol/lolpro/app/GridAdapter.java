@@ -76,4 +76,9 @@ public class GridAdapter extends BaseAdapter{
     public long getItemId(int position) {
         return position;
     }
+
+    public void refresh(){
+        datos=new BBDDHelper(context).obtenerGratuitos();
+        notifyDataSetChanged();
+    }
 }
