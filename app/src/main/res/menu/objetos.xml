@@ -2,11 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.lol.lolpro.app.Objetos" >
-    <item android:id="@+id/action_example"
-        android:title="@string/action_example"
-        app:showAsAction="withText|ifRoom" />
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item android:id="@+id/action_image_refresh"
+        android:title="@string/action_image_refresh"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_data_refresh"
+        android:title="@string/action_data_refresh"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

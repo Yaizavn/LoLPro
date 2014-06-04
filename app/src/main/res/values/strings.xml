@@ -4,6 +4,8 @@
     <string name="app_name">LoLPro</string>
     <string name="close_drawer">Cerrar</string>
     <string name="campeones_oferta">CAMPEONES EN OFERTA</string>
+    <string name="action_image_refresh">Recargar imágenes</string>
+    <string name="action_data_refresh">Recargar datos</string>
     <string name="action_settings">Settings</string>
 
     <string-array name="titulosMenuIzquierda">

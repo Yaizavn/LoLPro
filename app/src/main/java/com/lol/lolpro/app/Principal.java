@@ -1,6 +1,5 @@
 package com.lol.lolpro.app;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,8 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.lol.lolpro.app.web.APIConnection;
 
 
 public class Principal extends ActionBarActivity
@@ -133,16 +130,20 @@ public class Principal extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        // ToDo save image files, delete them manually and use OKHttp for caching in older devices
+
+        if (id == R.id.action_data_refresh || id == R.id.action_image_refresh) {
+            this.deleteDatabase(this.getResources().getString(R.string.app_name));
+            CargandoBBDD progressDialog = new CargandoBBDD(this);
+            progressDialog.execute();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-    //TODO QUITAR BOTON SUPERIOR BARRA !! El example action
 
     @Override
     public void onChampionSelected(int index) {
-        Bundle args =new Bundle();
+        Bundle args = new Bundle();
         args.putInt("id", index);
         Fragment fragment = new CampeonInfo();
         fragment.setArguments(args);
@@ -155,7 +156,7 @@ public class Principal extends ActionBarActivity
 
     @Override
     public void onObjectSelected(int index) {
-        Bundle args =new Bundle();
+        Bundle args = new Bundle();
         args.putInt("id", index);
         Fragment fragment = new ObjetoInfo();
         fragment.setArguments(args);
