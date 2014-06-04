@@ -1,7 +1,6 @@
 package com.lol.lolpro.app;
 
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,13 +15,15 @@ import com.squareup.picasso.Picasso;
 public class GridAdapter extends BaseAdapter{
 
     private final Context context;
+    private int finalDP;
 
     private String[][]datos;
 
     //Para campeones por lo menos
-    public GridAdapter(Context context, String[][] resultado) {
+    public GridAdapter(Context context, String[][] data, int desiredDP) {
         this.context = context;
-        datos = resultado;
+        datos = data;
+        finalDP = desiredDP;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class GridAdapter extends BaseAdapter{
         view.setTag(getId (position));
 
         //Convert dp into px
-        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, this.context.getResources().getDisplayMetrics());
+        int px = (int)Utils.dipToPixels(context, finalDP);
 
         // Get the image URL for the current position.
         String url = getItem(position);

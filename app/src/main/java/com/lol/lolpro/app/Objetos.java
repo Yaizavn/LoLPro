@@ -53,7 +53,7 @@ public class Objetos extends Fragment {
         helper.guardarObjetos("Objeto2",3,4, "resumen2",1, "http://www.perro-obediente.com/blog/wp-content/uploads/2014/04/perro.jpg");
         helper.guardarObjetos("Objeto3",5,6, "resumen3",1, "http://animalfiel.es/wp-content/uploads/2014/05/perro-1.jpg");*/
 
-        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutaObjetos()));
+        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutaObjetos(), 100));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {

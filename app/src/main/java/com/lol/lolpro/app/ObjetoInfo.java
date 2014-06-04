@@ -25,22 +25,22 @@ public class ObjetoInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String [] datos=null;
+        String[] datos = null;
         View view= inflater.inflate(R.layout.fragment_objeto_info, container, false);
         Bundle args = getArguments();
         int id = args.getInt("id", -1);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (id!=-1){
-            BBDDHelper helper= new BBDDHelper(getActivity());
-            datos=helper.obtenerDatosObjetos(id);
-            String tienda="Si";
-            if (datos[4].compareTo("0")==0){
-                tienda="No";
+            BBDDHelper helper = new BBDDHelper(getActivity());
+            datos = helper.obtenerDatosObjetos(id);
+            String tienda = "Si";
+            if (datos[4].compareTo("0") == 0){
+                tienda = "No";
             }
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
-            ((TextView) view.findViewById(R.id.descripcion)).setText(datos[3]);
+            ((TextView) view.findViewById(R.id.descripcion)).setText(Utils.sanitizeDescription(datos[3]));
             ((TextView) view.findViewById(R.id.puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(datos[5]) //

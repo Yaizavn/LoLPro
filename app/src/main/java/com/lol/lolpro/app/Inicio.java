@@ -45,9 +45,11 @@ public class Inicio extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState){
         GridView grid = (GridView) view.findViewById(R.id.gridView);
+       // grid.setColumnWidth(Float.floatToIntBits(Utils.dipToPixels(this.getActivity(),50)));
+        grid.setNumColumns(4);
 
         BBDDHelper helper = new BBDDHelper(getActivity());
-        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerGratuitos()));
+        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerGratuitos(), 75));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {

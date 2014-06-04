@@ -249,7 +249,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal" +
-                " FROM campeones WHERE esGratis=1 ORDER BY _id", null);
+                " FROM campeones WHERE esGratis=1 ORDER BY nombre", null);
         String[][] result3 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;
