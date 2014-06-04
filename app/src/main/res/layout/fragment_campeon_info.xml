@@ -69,7 +69,7 @@
         android:layout_marginTop="32dp"
         android:src="@drawable/velataque"
         android:layout_below="@+id/imageView2"
-        android:layout_toLeftOf="@+id/textView3" />
+        android:layout_toLeftOf="@+id/TextoTienda" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Vida:"
-        android:id="@+id/TextoVida"
+        android:id="@+id/TextoCoste"
         android:layout_alignTop="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
         android:layout_marginLeft="10dp"
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Daño de ataque:"
-        android:id="@+id/textView3"
+        android:id="@+id/TextoTienda"
         android:textSize="12dp"
         android:layout_alignTop="@+id/imageView2"
         android:layout_toRightOf="@+id/imageView2"
@@ -136,9 +136,9 @@
         android:text="vida"
         android:id="@+id/vida"
         android:textSize="12dp"
-        android:layout_below="@+id/TextoVida"
-        android:layout_alignLeft="@+id/TextoVida"
-        android:layout_alignStart="@+id/TextoVida" />
+        android:layout_below="@+id/TextoCoste"
+        android:layout_alignLeft="@+id/TextoCoste"
+        android:layout_alignStart="@+id/TextoCoste" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -147,9 +147,9 @@
         android:text="Large Text"
         android:id="@+id/danioAtaque"
         android:textSize="12dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_below="@+id/TextoTienda"
+        android:layout_alignLeft="@+id/TextoTienda"
+        android:layout_alignStart="@+id/TextoTienda" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView9"
-        android:layout_alignTop="@+id/TextoVida"
+        android:layout_alignTop="@+id/TextoCoste"
         android:layout_toRightOf="@+id/textView5"
         android:layout_marginLeft="15dp"
         android:src="@drawable/regvida" />
@@ -186,7 +186,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView10"
-        android:layout_alignTop="@+id/textView3"
+        android:layout_alignTop="@+id/TextoTienda"
         android:layout_toRightOf="@+id/textView5"
         android:layout_marginLeft="15dp"
         android:src="@drawable/armadura" />
@@ -205,7 +205,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Regeneración de vida:"
-        android:id="@+id/textView18"
+        android:id="@+id/textoCosteBase"
         android:layout_alignTop="@+id/imageView9"
         android:layout_toRightOf="@+id/imageView9"
         android:layout_marginLeft="7dp"
@@ -242,9 +242,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/regVida"
-        android:layout_below="@+id/textView18"
-        android:layout_alignLeft="@+id/textView18"
-        android:layout_alignStart="@+id/textView18"
+        android:layout_below="@+id/textoCosteBase"
+        android:layout_alignLeft="@+id/textoCosteBase"
+        android:layout_alignStart="@+id/textoCosteBase"
         android:textSize="12dp" />
 
     <TextView
@@ -277,7 +277,7 @@
         android:src="@drawable/separador"
         android:layout_alignLeft="@+id/Imagen"
         android:layout_alignStart="@+id/Imagen"
-        android:layout_alignRight="@+id/textView20"
-        android:layout_alignEnd="@+id/textView20" />
+        android:layout_marginRight="11dp"
+ />
 
 </RelativeLayout>
