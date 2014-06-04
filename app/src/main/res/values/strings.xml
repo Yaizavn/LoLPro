@@ -15,6 +15,11 @@
         <item>Temporizadores</item>
     </string-array>
 
+    <string-array name="titulosCampeones">
+        <item>General</item>
+        <item>Historia</item>
+    </string-array>
+
     <string name="title_activity_objetos">Objetos</string>
     <string name="title_activity_campeones">Campeones</string>
     <string name="title_section1">Section 1</string>

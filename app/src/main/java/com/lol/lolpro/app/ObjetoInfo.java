@@ -27,8 +27,9 @@ public class ObjetoInfo extends Fragment {
                              Bundle savedInstanceState) {
         String[] datos = null;
         View view= inflater.inflate(R.layout.fragment_objeto_info, container, false);
-        Bundle args = getArguments();
-        int id = args.getInt("id", -1);
+        //Bundle args = getArguments();
+       // int id = args.getInt("id", -1);
+        int id=3345;
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (id!=-1){
             BBDDHelper helper = new BBDDHelper(getActivity());

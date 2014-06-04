@@ -80,6 +80,7 @@ public class Principal extends ActionBarActivity
                 break;
         }
         if (fragment != null) {
+            supportInvalidateOptionsMenu();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
                     transaction.replace(R.id.container, fragment);
@@ -145,7 +146,7 @@ public class Principal extends ActionBarActivity
     public void onChampionSelected(int index) {
         Bundle args = new Bundle();
         args.putInt("id", index);
-        Fragment fragment = new CampeonInfo();
+        Fragment fragment = new Champion();
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
