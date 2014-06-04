@@ -42,7 +42,7 @@ public class CampeonInfo extends Fragment {
             datos=helper.obtenerDatosCampeon(id);
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.nick)).setText(datos[1]);
-            ((TextView) view.findViewById(R.id.TextoVida)).setText(datos[2]);
+            ((TextView) view.findViewById(R.id.vida)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.regVida)).setText(datos[3]);
             ((TextView) view.findViewById(R.id.danioAtaque)).setText(datos[4]);
             ((TextView) view.findViewById(R.id.armadura)).setText(datos[5]);
