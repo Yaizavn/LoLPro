@@ -6,16 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Html;
 
-import java.util.Vector;
-
 /**
  * Clase que se encarga de la gestión de la base de datos
  */
 public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
-     *
-     * @param context
+     * Constructor que inicializa la base de datos
+     * @param context Contiene el activity principal
      */
     public BBDDHelper(Context context) {
         super(context, context.getResources().getString(R.string.app_name), null, 1);
@@ -150,24 +148,40 @@ public class BBDDHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Almacena en la base de datos la última url y la última versión de los campeones y lso objetos
+     * @param ruta última ruta conocida para las imágenes de campeones y objetos
+     * @param vCampeon última versión concoida para los campeones
+     * @param vObjeto última versión conocida para los objetos
+     */
     public void guardarRutaVersiones(String ruta, String vCampeon, String vObjeto) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO rutaVersiones VALUES (null, '" + ruta + "','" + vCampeon + "', '" + vObjeto + "')");
         db.close();
     }
 
+    /**
+     * Se encarga de poner los campeones cuyos ids se encuentran entre los dados en los parámetros como gratuitos
+     * y marcar los antiguos campeones gratuitos como no gratuitos
+     * @param ids Contiene los ids de los campeones gratuitos esa semana
+     */
     public void modificarGratuito(int[] ids) {
-        int length = ids.length;
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE campeones SET esGratis=0 WHERE esGratis=1");
-        for (int i = 0; i < length; i++) {
-            db.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + ids[i]);
+        for (int id:ids) {
+            db.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + id);
         }
         db.close();
     }
 
+    /**
+     * Se encarga de obtener el identificador, el nombre y la ruta completa de la imagen principal de todos los campeones
+     * @return Array de String en el en que en cada fila encontraremos un campeón. Además:
+     *  identificador del campeón en la primera columna
+     *  Nombre del campeón en la segunda columna
+     *  Ruta de la imagen principal del campeón en la tercera columna
+     *  */
     public String[][] obtenerRutaCampeones() {
-        Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
                 "campeones ORDER BY nombre", null);
@@ -186,66 +200,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
         return result2;
     }
 
-    public String obtenerRutaVersionCampeon() {
-        Vector<String> result = new Vector<String>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ruta, versionCampeones FROM " +
-                "rutaVersiones", null);
-        String result2 = "";
-        if (cursor.moveToNext()) {
-            result2 += Html.fromHtml(cursor.getString(0)).toString() + "/";
-            result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/champion/";
-        }
-        cursor.close();
-        db.close();
-        return result2;
-    }
-
-    public String obtenerVersionCampeon() {
-        Vector<String> result = new Vector<String>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT versionCampeones FROM " +
-                "rutaVersiones", null);
-        String result2 = "";
-        if (cursor.moveToNext()) {
-            result2 += Html.fromHtml(cursor.getString(0)).toString();
-        }
-        cursor.close();
-        db.close();
-        return result2;
-    }
-
-    public String obtenerRutaVersionObjeto() {
-        Vector<String> result = new Vector<String>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ruta, versionObjetos FROM " +
-                "rutaVersiones", null);
-        String result2 = "";
-        if (cursor.moveToNext()) {
-            result2 += Html.fromHtml(cursor.getString(0)).toString() + "/";
-            result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/item/";
-        }
-        cursor.close();
-        db.close();
-        return result2;
-    }
-
-    public String obtenerVersionObjeto() {
-        Vector<String> result = new Vector<String>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT versionObjetos FROM " +
-                "rutaVersiones", null);
-        String result2 = "";
-        if (cursor.moveToNext()) {
-            result2 += Html.fromHtml(cursor.getString(0)).toString();
-        }
-        cursor.close();
-        db.close();
-        return result2;
-    }
-
+    /**
+     * Se encarga de obtener el identificador, el nombre y la ruta completa de la imagen principal de todos los objetos
+     * @return Array de String en el en que en cada fila encontraremos un objeto. Además:
+     *  identificador del objeto en la primera columna
+     *  Nombre del objeto en la segunda columna
+     *  Ruta de la imagen principal del objeto en la tercera columna
+     */
     public String[][] obtenerRutaObjetos() {
-        Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
                 "objetos ORDER BY nombre", null);
@@ -264,8 +226,93 @@ public class BBDDHelper extends SQLiteOpenHelper {
         return result2;
     }
 
+    /**
+     * Se encarga de obtener la última ruta y versión de los campeones
+     * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
+     */
+    public String obtenerRutaVersionCampeon() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT ruta, versionCampeones FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            result2 += Html.fromHtml(cursor.getString(0)).toString() + "/";
+            result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/champion/";
+        }
+        cursor.close();
+        db.close();
+        return result2;
+    }
+
+    /**
+     * Se encarga de obtener la última versión de los campeones
+     * @return String con la última versión conocida
+     */
+    public String obtenerVersionCampeon() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT versionCampeones FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            result2 += Html.fromHtml(cursor.getString(0)).toString();
+        }
+        cursor.close();
+        db.close();
+        return result2;
+    }
+
+
+    /**
+     * Se encarga de obtener la última ruta y versión de los objetos
+     * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
+     */
+    public String obtenerRutaVersionObjeto() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT ruta, versionObjetos FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            result2 += Html.fromHtml(cursor.getString(0)).toString() + "/";
+            result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/item/";
+        }
+        cursor.close();
+        db.close();
+        return result2;
+    }
+
+    /**
+     * Se encarga de obtener la última versión de los objetos
+     * @return String con la última versión conocida
+     */
+    public String obtenerVersionObjeto() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT versionObjetos FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            result2 += Html.fromHtml(cursor.getString(0)).toString();
+        }
+        cursor.close();
+        db.close();
+        return result2;
+    }
+
+    /**
+     * Se encarga de obtener todos los datos de un campeón para un identificador dado
+     * @param id identificador único del campeón a buscar
+     * @return Array con:
+     *  Nombre en la primera posición
+     *  Nick en la segunda posición
+     *  Historia en la tercera posición
+     *  Regeneración de vida en la cuarta posición
+     *  Daño de ataque en la quinta posición
+     *  Armadura en la sexta posición
+     *  Velocidad de ataque en la septima posición
+     *  Resistencia mágica en la octava posición
+     *  Velocidad de movimiento en la novena posición
+     *  Ruta de la imagen principal en la decima posición
+     */
     public String[] obtenerDatosCampeon(int id) {
-        Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT nombre, nick, historia, vida, regeneracionVida, danioAtaque, armadura, velocidadAtaque, resistenciaMagica, velocidadMovimiento, rutaPrincipal" +
                 " FROM campeones WHERE _id=" + id, null);
@@ -282,16 +329,25 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2[pos2++] = Html.fromHtml(cursor.getString(7)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(8)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(9)).toString();
-            result2[pos2++] = Html.fromHtml(cursor.getString(10)).toString();
+            result2[pos2] = Html.fromHtml(cursor.getString(10)).toString();
         }
         cursor.close();
         db.close();
         return result2;
     }
 
-
+    /**
+     * Se encarga de obtener todos los datos de un objeto para un identificador dado
+     * @param id identificador único del objeto a buscar
+     * @return Array con:
+     *  Nombre en la primera posición
+     *  Coste base en la segunda posición
+     *  Coste en la tercera posición
+     *  Descripción de vida en la cuarta posición
+     *  Entero que indica con uno que el objeto puede comprarse en la tienda y con 0 que no puede comprarse, en la quinta posición
+     *  Ruta de la imagen principal del objeto en la sexta posición
+     *  */
     public String[] obtenerDatosObjetos(int id) {
-        Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT nombre, costeBase, coste, descripcion, puedesComprar, rutaPrincipal" +
                 " FROM objetos WHERE _id=" + id, null);
@@ -310,8 +366,15 @@ public class BBDDHelper extends SQLiteOpenHelper {
         return result2;
     }
 
+    /**
+     * Se encarga de obtener un array con los campeones gratuitos de la semana
+     * @return En cada fila encontraremos un campeón
+     *  identificador del campeón en la columna 1
+     *  Nombre del campeón en la columna 2
+     *  Ruta principal de la imagen del campeón en la columna 3
+     *
+     */
     public String[][] obtenerGratuitos() {
-        Vector<String> result = new Vector<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal" +
                 " FROM campeones WHERE esGratis=1 ORDER BY nombre", null);

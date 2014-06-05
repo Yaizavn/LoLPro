@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 
 
 /**
- * A simple {@link Fragment} subclass.
- *
+ * Implementa la funcionalidad del fragment
  */
 public class Champion extends Fragment {
 
@@ -27,10 +26,20 @@ public class Champion extends Fragment {
     private int numPages;
     private BBDDHelper helper;
 
+    /**
+     * Campeón vacio
+     */
     public Champion() {
         // Required empty public constructor
     }
 
+    /**
+     * Se encarga del tratamiento necesario para poder crear la vista
+     * @param inflater Sirve para traer un layout hecho en xml como una vista en java
+     * @param container Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista de los campeones
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,11 +52,10 @@ public class Champion extends Fragment {
         helper = new BBDDHelper(view.getContext());
         Bundle args = getArguments();
         args.putStringArray("data", helper.obtenerDatosCampeon(args.getInt("id", -1)));
-
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ChampionPageAdapter(getChildFragmentManager(), args);
-        numPages = mPagerAdapter.numPages;
+        numPages = mPagerAdapter.getCount();
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mViewPager.setAdapter(mPagerAdapter);
 
@@ -97,11 +105,19 @@ public class Champion extends Fragment {
         return view;
     }
 
+    /**
+     * Se encarga del tratamiento al cerrar el fragment
+     * Elimina los tags creados.
+     */
     public void onStop(){
         super.onStop();
         getActivity().supportInvalidateOptionsMenu();
     }
 
+    /**
+     * Se encaga del tratamiento cuando se va a iniciar el fragment
+     * Muestra los tabs que están creados
+     */
     public void onResume(){
         super.onResume();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

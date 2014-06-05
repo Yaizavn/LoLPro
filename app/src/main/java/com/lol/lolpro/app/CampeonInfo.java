@@ -12,18 +12,25 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- *
+ * Implementa la funcionalidad del fragment
  */
 public class CampeonInfo extends Fragment {
 
+    /**
+     * Constructor vacío
+     */
     public CampeonInfo() {
         // Required empty public constructor
     }
 
-
+    /**
+     * Se encarga del tratamiento necesario para poder crear la vista de información general de un campeón en particular
+     * @param inflater Sirve para traer un layout hecho en xml como una vista en java
+     * @param container Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista de los campeones
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,7 +44,6 @@ public class CampeonInfo extends Fragment {
             datos = helper.obtenerDatosCampeon(id);
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.nick)).setText(datos[1]);
-            //((TextView) view.findViewById(R.id.historia)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.vida)).setText(datos[3]);
             ((TextView) view.findViewById(R.id.regVida)).setText(datos[4]);
             ((TextView) view.findViewById(R.id.danioAtaque)).setText(datos[5]);
