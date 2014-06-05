@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.lol.lolpro.app.web.APIConnection;
@@ -18,6 +19,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     ActionBarActivity contexto;
     APIConnection api;
     int accion=3; //0 es no hacer nada, 1 es inicializar, 2 es actualizar
+    String[][] noticias;
 
     public CargandoBBDD(ActionBarActivity context) {
         this.contexto=context;
@@ -38,6 +40,8 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
                 actualizarGratuitos();
             }
         }
+        Spider sp= new Spider ();
+        noticias = sp.analizarURLs();
         return null;
     }
 
@@ -74,18 +78,11 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     }
 
     public void onPostExecute(Void unused) {
-        /*FragmentManager fragmentManager = contexto.getSupportFragmentManager();
-        Fragment f = new Inicio();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, f);
-        transaction.commit();
-        progress.dismiss();*/
-       // else if (accion==3){
-           // Toast.makeText(contexto, "Los campeones gratuitos han sido modificados", Toast.LENGTH_SHORT);
-       // }
         GridView grid = (GridView) contexto.findViewById(R.id.gridView);
         GridAdapter gA= (GridAdapter) grid.getAdapter();
         gA.refresh();
+        ListView list = (ListView) contexto.findViewById(R.id.noticias);
+        ((ListAdapter)list.getAdapter()).refresh(noticias);
         progress.dismiss();
     }
 
@@ -111,5 +108,6 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
 
     public void actualizarGratuitos(){
         api.connect2API(APIConnection.CHAMPION_FREE);
+        this.publishProgress(100);
     }
 }
