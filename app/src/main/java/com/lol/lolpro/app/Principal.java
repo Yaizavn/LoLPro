@@ -76,18 +76,15 @@ public class Principal extends ActionBarActivity
             default:
                 Toast.makeText(this, "Opcion no disponible!", Toast.LENGTH_SHORT).show();
                 fragment = new Inicio();
-                position = 0;
                 break;
         }
         if (fragment != null) {
             supportInvalidateOptionsMenu();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.container, fragment);
+            transaction.replace(R.id.container, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
-
-            updateTitle(position);
         } else {
             //Si el fragment es nulo mostramos un mensaje de error.
             Log.e("Error ", "Mostrar Fragment " + position);
@@ -144,8 +141,10 @@ public class Principal extends ActionBarActivity
 
     @Override
     public void onChampionSelected(int index) {
+        //updateTitle(1);
         Bundle args = new Bundle();
         args.putInt("id", index);
+//        args.putStringArray("data", new BBDDHelper(this).obtenerDatosCampeon(index));
         Fragment fragment = new Champion();
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();

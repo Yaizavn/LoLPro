@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 public class ObjetoInfo extends Fragment {
 
+    private BBDDHelper helper;
     public ObjetoInfo() {
         // Required empty public constructor
     }
@@ -25,23 +26,23 @@ public class ObjetoInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String[] datos = null;
         View view= inflater.inflate(R.layout.fragment_objeto_info, container, false);
-        //Bundle args = getArguments();
-       // int id = args.getInt("id", -1);
-        int id=3345;
+        helper = new BBDDHelper(view.getContext());
+        Bundle args = getArguments();
+        int id = args.getInt("id", -1);
+        String[] datos = helper.obtenerDatosObjetos(id);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
-        if (id!=-1){
-            BBDDHelper helper = new BBDDHelper(getActivity());
-            datos = helper.obtenerDatosObjetos(id);
+        if (datos != null){
+            //BBDDHelper helper = new BBDDHelper(getActivity());
+            //datos = helper.obtenerDatosObjetos(id);
             String tienda = "Si";
-            if (datos[4].compareTo("0") == 0){
+            if (datos[4].contentEquals("0")){
                 tienda = "No";
             }
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
-            ((TextView) view.findViewById(R.id.descripcion)).setText(Utils.sanitizeDescription(datos[3]));
+            ((TextView) view.findViewById(R.id.descripcion)).setText(Utils.sanitizeItemDescription(datos[3]));
             ((TextView) view.findViewById(R.id.puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(datos[5]) //

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Patrones {
 
     //TODO añadir alcance...
-    private final static String PCHAMPION = "id\":([0-9]+).*?name\":\"(.+?)\".*?title\":\"(.+?)\".*?full\":\"(.+?)\".*?armor\":([0-9]+\\.[0-9]+|[0-9]+).*?attackdamage\":([0-9]+\\.[0-9]+|[0-9]+).*?attackspeedoffset\":(-?0\\.[0-9]+|0).*?hp\":([0-9]+).*?hpregen\":([0-9]+\\.[0-9]+|[0-9]+).*?movespeed\":([0-9]+).*?spellblock\":([0-9]+)";
+    private final static String PCHAMPION = "id\":([0-9]+).*?name\":\"(.+?)\".*?title\":\"(.+?)\".*?full\":\"(.+?)\".*?lore\":\"(.+?)\".*?armor\":([0-9]+\\.[0-9]+|[0-9]+).*?attackdamage\":([0-9]+\\.[0-9]+|[0-9]+).*?attackspeedoffset\":(-?0\\.[0-9]+|0).*?hp\":([0-9]+).*?hpregen\":([0-9]+\\.[0-9]+|[0-9]+).*?movespeed\":([0-9]+).*?spellblock\":([0-9]+)";
     public final static Pattern PATTERN_CHAMPION = Pattern.compile(PCHAMPION, Pattern.DOTALL);
     private final static String PPATHVERSIONS = "item\":\"(.*?)\".*?champion\":\"(.*?)\".*?cdn\":\"(.*?)\"";
     public final static Pattern PATTERN_PATH_AND_VERSIONS = Pattern.compile(PPATHVERSIONS, Pattern.DOTALL);

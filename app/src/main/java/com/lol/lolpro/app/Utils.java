@@ -14,12 +14,15 @@ public class Utils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
     }
 
-    public static String sanitizeDescription(String description) {
-        return description.replaceAll("<br>","\\\n").replaceAll("<.*?>","").trim();
+    public static String sanitizeChampStory(String description) {
+        return description.replaceAll("<br>", "\\\n");
+    }
+    public static String sanitizeItemDescription(String description) {
+        return description.replaceAll("<br>", "\\\n").replaceAll("<.*?>", "");
         /*Pattern patt = Patrones.PATTERN_SANITIZE_DESCRIPTION;
         Matcher match = patt.matcher(description);
         while (match.find()) {
-            if(match.group().equals("<br>")){
+            if(match.group().contentEquals("<br>")){
                 match.appendReplacement(result, "\\\n");
             }
         }

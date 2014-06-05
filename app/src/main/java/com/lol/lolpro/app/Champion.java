@@ -3,7 +3,6 @@ package com.lol.lolpro.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -26,11 +25,7 @@ public class Champion extends Fragment {
     private ViewPager mViewPager;
 
     private int numPages;
-
-
-
-
-    private FragmentTabHost mTabHost;
+    private BBDDHelper helper;
 
     public Champion() {
         // Required empty public constructor
@@ -42,41 +37,12 @@ public class Champion extends Fragment {
         if(container == null){
             return null;
         }
-        /*View view = inflater.inflate(R.layout.fragment_champion, container, false);
-        mTabHost = (FragmentTabHost)view.findViewById(R.id.tabHost);
-        mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realTabContent);
-
-        Bundle args = getArguments();
-       mPagerAdapter = new ChampionPageAdapter(((ActionBarActivity) getActivity()).getSupportFragmentManager(), args);
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        mViewPager.setAdapter(mPagerAdapter);
-
-
-        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String s) {
-                //mViewPager.setCurrentItem(tab.getPosition());
-            }
-        });
-
-        mViewPager.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        // When swiping between pages, select the
-                        // corresponding tab.
-                        mTabHost.setCurrentTab(position);//.setSelectedNavigationItem(position);
-                    }
-                });
-
-        mTabHost.addTab(mTabHost.newTabSpec("fragmentb").setIndicator("Fragment B"),
-                CampeonInfo.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("fragmentc").setIndicator("Fragment C"),
-                ObjetoInfo.class, null);*/
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
+        helper = new BBDDHelper(view.getContext());
         Bundle args = getArguments();
+        args.putStringArray("data", helper.obtenerDatosCampeon(args.getInt("id", -1)));
+
         actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ChampionPageAdapter(((ActionBarActivity) getActivity()).getSupportFragmentManager(), args);
@@ -93,14 +59,10 @@ public class Champion extends Fragment {
             }
 
             @Override
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-            }
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
             @Override
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                //LASTCHANGES 5 Junio mViewPager.setCurrentItem(tab.getPosition());
-            }
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
         };
 
         mViewPager.setOnPageChangeListener(
@@ -114,16 +76,9 @@ public class Champion extends Fragment {
                 });
         if(actionBar.getTabCount() >= numPages) {
             actionBar.getTabAt(0).select();
-           /*LASTCHANGES 5 Junio for (int i = 0; i < numPages; i++){
-                if(actionBar.getTabAt(i).getText().equals("General")){
-                    actionBar.getTabAt(i).select();
-                }
-                if(actionBar.getTabAt(i).getText().equals("Historia")){
-                    actionBar.getTabAt(i).select();
-                }
-            }*/
         }
         else{
+
             // Add the tabs, specifying the tab's text and TabListener
             for (int i = 0; i < numPages; i++) {
                 actionBar.addTab(
@@ -133,14 +88,6 @@ public class Champion extends Fragment {
                 );
             }
         }
-
-
-       /* else{
-            for (int i = 0; i < numPages; i++) {
-                actionBar.selectTab(actionBar.getTabAt(i));
-            }
-
-        }*/
         // Inflate the layout for this fragment
         return view;
     }

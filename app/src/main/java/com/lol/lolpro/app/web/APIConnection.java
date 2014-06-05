@@ -17,7 +17,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +38,7 @@ public class APIConnection {
     //TODO trucar la ruta BASE_URI en funcion del idioma... de forma que optenemos los campeones en su idioma ;)
     private static final String CERT_NAME = "lolcert.pem";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
-    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats&";
+    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore&";
     private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=gold,image&";
     private static final String IMG_URI = "static-data/euw/v1.2/realm?";
     private static final String CHAMPION_FREE_URI = "euw/v1.2/champion?freeToPlay=true&";
@@ -174,11 +173,11 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),TextUtils.htmlEncode(match.group(2)),
-                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(8)),
-                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(6)),
-                            TextUtils.htmlEncode(match.group(5)), TextUtils.htmlEncode(match.group(7)),
-                            TextUtils.htmlEncode(match.group(11)), TextUtils.htmlEncode(match.group(10)),
-                            TextUtils.htmlEncode(rutaImagen + match.group(4)));
+                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(5)),
+                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
+                            TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(6)),
+                            TextUtils.htmlEncode(match.group(8)), TextUtils.htmlEncode(match.group(12)),
+                            TextUtils.htmlEncode(match.group(11)), TextUtils.htmlEncode(rutaImagen + match.group(4)));
                 }
                 break;
             case OBJECTS:
@@ -220,11 +219,11 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     bdConnection.modificarCampeones(Integer.parseInt(match.group(1)),TextUtils.htmlEncode(match.group(2)),
-                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(8)),
-                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(6)),
-                            TextUtils.htmlEncode(match.group(5)), TextUtils.htmlEncode(match.group(7)),
-                            TextUtils.htmlEncode(match.group(11)), TextUtils.htmlEncode(match.group(10)),
-                            TextUtils.htmlEncode(rutaImagen + match.group(4)));
+                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(5)),
+                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
+                            TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(6)),
+                            TextUtils.htmlEncode(match.group(8)), TextUtils.htmlEncode(match.group(12)),
+                            TextUtils.htmlEncode(match.group(11)), TextUtils.htmlEncode(rutaImagen + match.group(4)));
                 }
                 break;
             case UPDATE_OBJECTS:
