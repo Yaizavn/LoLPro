@@ -12,7 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
+/**
+ * Activity principal en el que se colocarán todos los fragments
+ */
 public class Principal extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         Campeones.OnHeadlineSelectedListener, Inicio.OnHeadlineSelectedListener,
@@ -30,6 +32,11 @@ public class Principal extends ActionBarActivity
 
     //ToDo sacar pentakills en Stats
 
+    /**
+     * Se encarga de inicializar el activity para que contenga lo necesario para poder dibujar los fragments
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,11 @@ public class Principal extends ActionBarActivity
         progressDialog.execute();
     }
 
+    /**
+     * Se encarga de la navegación a través de la barra de navegaciónd e su izquierda
+     *
+     * @param position
+     */
     @Override
     public void onNavigationDrawerItemSelected(int position) {
 
@@ -87,12 +99,20 @@ public class Principal extends ActionBarActivity
         }
     }
 
+    /**
+     * Se encarga de actualizar el título cuando pulsas otro ítem d e la barra de navegación
+     *
+     * @param number
+     */
     public void updateTitle(int number) {
         mTitle = getResources().getStringArray(R.array.titulosMenuIzquierda)[number];
         mNavigationDrawerFragment.getList().setItemChecked(number, true);
         getActionBar().setTitle(mTitle);
     }
 
+    /**
+     * Se envarga de restaurar la barra de acción
+     */
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -100,7 +120,12 @@ public class Principal extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
-
+    /**
+     * Se encarga de crear el menú de opciones
+     *
+     * @param menu menu que contendrá el menú de opciones
+     * @return true si el menú ha podido ser creado, false en caso contrario
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -114,6 +139,12 @@ public class Principal extends ActionBarActivity
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Acción al pulsar sobre un item de la barra settings
+     *
+     * @param item item seleccionado
+     * @return true si la acción ha podido ser realizada, false en caso contrario
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -131,6 +162,11 @@ public class Principal extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Se encarga del manejo al seleccionar un campeón en campeones o en inicio
+     *
+     * @param index Posición del campeón seleccionado
+     */
     @Override
     public void onChampionSelected(int index) {
         Bundle args = new Bundle();
@@ -144,6 +180,11 @@ public class Principal extends ActionBarActivity
         transaction.commit();
     }
 
+    /**
+     * Se encarga del manejo al seleccionar un objeto en objetos
+     *
+     * @param index Posición del campeón seleccionado
+     */
     @Override
     public void onObjectSelected(int index) {
         Bundle args = new Bundle();

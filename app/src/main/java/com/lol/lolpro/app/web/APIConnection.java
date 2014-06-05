@@ -48,13 +48,11 @@ public class APIConnection {
     //TODO singleton para evitar validar muchos certificados
     //public static final APIConnection API_CONNECTION = ;
     //TODO sacar variables de certificado y eso
-
+    public BBDDHelper bdConnection;
     private KeyStore keyStore;
     private TrustManagerFactory tmf;
     private SSLContext sslCont;
     private Context context;
-
-    public BBDDHelper bdConnection;
 
     //ToDo Inicializar todo con el singleton
     public APIConnection(Context contexto) {
@@ -145,15 +143,15 @@ public class APIConnection {
     //Definir varios casos, campeones, ofertas...
     public String connect2API(int type/*CONSTANTES.CAMPEONES, TIPOS.OFERTA*/) {
         String respuesta = null;
-            URI uriConsulta = createURI(type);
-            if (uriConsulta != null) {
-                if (!hasCert()) {
-                    insertCert();
-                }
-                ConnectionResult resultado = new ConnectionResult(sslCont);
-                respuesta = resultado.getHttpsResult(uriConsulta);
-                extractAndStoreData(respuesta, type/*, CONSTANTES.CAMPEONES, TIPOS.OFERTA*/);
+        URI uriConsulta = createURI(type);
+        if (uriConsulta != null) {
+            if (!hasCert()) {
+                insertCert();
             }
+            ConnectionResult resultado = new ConnectionResult(sslCont);
+            respuesta = resultado.getHttpsResult(uriConsulta);
+            extractAndStoreData(respuesta, type/*, CONSTANTES.CAMPEONES, TIPOS.OFERTA*/);
+        }
         return respuesta;
     }
 
@@ -172,7 +170,7 @@ public class APIConnection {
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),TextUtils.htmlEncode(match.group(2)),
+                    bdConnection.guardarCampeones(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
                             TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(5)),
                             TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
                             TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(6)),
@@ -186,21 +184,20 @@ public class APIConnection {
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    purchasable = Boolean.parseBoolean(match.group(5))?1:0;
+                    purchasable = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
                     bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
                             TextUtils.htmlEncode(match.group(6)), purchasable,
-                            TextUtils.htmlEncode(rutaImagen+match.group(7)));
+                            TextUtils.htmlEncode(rutaImagen + match.group(7)));
                 }
                 break;
             case IMAGES_AND_VERSIONS:
                 patt = Patrones.PATTERN_PATH_AND_VERSIONS;
                 match = patt.matcher(answer);
-                if(match.find()) {
+                if (match.find()) {
                     bdConnection.guardarRutaVersiones(match.group(3), match.group(2), TextUtils.htmlEncode(match.group(1)));
-                }
-                else{
-                    Log.e("error","Patron de versiones erroneo");
+                } else {
+                    Log.e("error", "Patron de versiones erroneo");
                 }
                 break;
             case CHAMPION_FREE:
@@ -208,7 +205,7 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 int[] ids = new int[10];
                 int pos = 0;
-                while(match.find()){
+                while (match.find()) {
                     ids[pos++] = Integer.parseInt(match.group(1));
                 }
                 bdConnection.modificarGratuito(ids);
@@ -218,7 +215,7 @@ public class APIConnection {
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    bdConnection.modificarCampeones(Integer.parseInt(match.group(1)),TextUtils.htmlEncode(match.group(2)),
+                    bdConnection.modificarCampeones(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
                             TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(5)),
                             TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
                             TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(6)),
@@ -232,34 +229,34 @@ public class APIConnection {
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    purchasable2 = Boolean.parseBoolean(match.group(5))?1:0;
+                    purchasable2 = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
                     bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
                             TextUtils.htmlEncode(match.group(6)), purchasable2,
-                            TextUtils.htmlEncode(rutaImagen+match.group(7)));
+                            TextUtils.htmlEncode(rutaImagen + match.group(7)));
                 }
                 break;
 
         }
     }
 
-    public boolean haCambiadoVersion (){
+    public boolean haCambiadoVersion() {
         String versionAntiguaCampeon = bdConnection.obtenerVersionCampeon();
         String versionAntiguaObjetos = bdConnection.obtenerVersionObjeto();
 
         connect2API(APIConnection.IMAGES_AND_VERSIONS);
-        if (versionAntiguaCampeon.compareTo(bdConnection.obtenerVersionCampeon())!=0|| versionAntiguaObjetos.compareTo(bdConnection.obtenerVersionObjeto())!=0){
+        if (versionAntiguaCampeon.compareTo(bdConnection.obtenerVersionCampeon()) != 0 || versionAntiguaObjetos.compareTo(bdConnection.obtenerVersionObjeto()) != 0) {
             return true;
         }
         return false;
     }
 
-    public boolean hanCambiadoGratuitos (){
+    public boolean hanCambiadoGratuitos() {
         String[][] campeonesAntiguosGratuitos = bdConnection.obtenerGratuitos();
 
         connect2API(APIConnection.CHAMPION_FREE);
         String[][] campeonesNuevosGratuitos = bdConnection.obtenerGratuitos();
-        if (Arrays.equals(campeonesAntiguosGratuitos, campeonesNuevosGratuitos)){
+        if (Arrays.equals(campeonesAntiguosGratuitos, campeonesNuevosGratuitos)) {
             return false;
         }
         return true;

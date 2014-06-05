@@ -22,8 +22,9 @@ public class Historia extends Fragment {
 
     /**
      * Se encarga del tratamiento necesario para poder crear la vista
-     * @param inflater Sirve para traer un layout hecho en xml como una vista en java
-     * @param container Contenedos para otros elementos View
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
      * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
      * @return Vista de la historia de los campeones
      */
@@ -39,9 +40,9 @@ public class Historia extends Fragment {
         // Defino la nueva fuente cargandola desde el fichero .ttf
         Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Hand_Of_Sean_Demo.ttf");
 
-        if(datos != null){
-            TextView historia = (TextView)view.findViewById(R.id.historia);
-            TextView nombre =(TextView)view.findViewById(R.id.nombreCampeon);
+        if (datos != null) {
+            TextView historia = (TextView) view.findViewById(R.id.historia);
+            TextView nombre = (TextView) view.findViewById(R.id.nombreCampeon);
 
             // Aplico el nuevo tipo de letra
             historia.setTypeface(miPropiaTypeFace);

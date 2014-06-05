@@ -26,8 +26,9 @@ public class Campeones extends Fragment {
 
     /**
      * Se encarga del tratamiento necesario para poder crear la vista
-     * @param inflater Sirve para traer un layout hecho en xml como una vista en java
-     * @param container Contenedos para otros elementos View
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
      * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
      * @return Vista de los campeones
      */
@@ -42,6 +43,7 @@ public class Campeones extends Fragment {
 
     /**
      * Método al que se llamará una vez el fragment ha sido asociado a un activity
+     *
      * @param activity Activity al que está asociado un fragment
      */
     @Override
@@ -57,8 +59,9 @@ public class Campeones extends Fragment {
     }
 
     /**
-     * Método al que se llama una vez seha creado la vista en Oncreate()
-     * @param view Vista en java hecha a partir del layout asociado
+     * Método al que se llama una vez se ha creado la vista en Oncreate()
+     *
+     * @param view               Vista en java hecha a partir del layout asociado
      * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
      */
     @Override
@@ -84,6 +87,7 @@ public class Campeones extends Fragment {
     public interface OnHeadlineSelectedListener {
         /**
          * Método definido en principal que se encarga de el tratamiento al seleccionar a un campeón
+         *
          * @param index Posición del campeón seleccionado
          */
         public void onChampionSelected(int index);

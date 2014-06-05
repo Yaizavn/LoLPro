@@ -26,8 +26,9 @@ public class CampeonInfo extends Fragment {
 
     /**
      * Se encarga del tratamiento necesario para poder crear la vista de información general de un campeón en particular
-     * @param inflater Sirve para traer un layout hecho en xml como una vista en java
-     * @param container Contenedos para otros elementos View
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
      * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
      * @return Vista de los campeones
      */
@@ -39,7 +40,7 @@ public class CampeonInfo extends Fragment {
         String[] datos = args.getStringArray("data");
         View view = inflater.inflate(R.layout.fragment_campeon_info, container, false);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
-        if (datos != null){
+        if (datos != null) {
             BBDDHelper helper = new BBDDHelper(getActivity());
             datos = helper.obtenerDatosCampeon(id);
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
@@ -55,7 +56,7 @@ public class CampeonInfo extends Fragment {
                     .load(datos[10]) //
                     .placeholder(R.drawable.abc_ab_bottom_solid_light_holo) //TODO imagen palceholder
                     .error(R.drawable.abc_ab_bottom_solid_dark_holo) //TODO imagen error
-                    .resize(px,px)
+                    .resize(px, px)
                     .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }

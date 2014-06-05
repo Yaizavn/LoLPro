@@ -35,8 +35,9 @@ public class Champion extends Fragment {
 
     /**
      * Se encarga del tratamiento necesario para poder crear la vista
-     * @param inflater Sirve para traer un layout hecho en xml como una vista en java
-     * @param container Contenedos para otros elementos View
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
      * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
      * @return Vista de los campeones
      */
@@ -46,7 +47,7 @@ public class Champion extends Fragment {
         if (container == null) {
             return null;
         }
-        ((Principal)getActivity()).updateTitle(1);
+        ((Principal) getActivity()).updateTitle(1);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
         helper = new BBDDHelper(view.getContext());
@@ -109,7 +110,7 @@ public class Champion extends Fragment {
      * Se encarga del tratamiento al cerrar el fragment
      * Elimina los tags creados.
      */
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         getActivity().supportInvalidateOptionsMenu();
     }
@@ -118,7 +119,7 @@ public class Champion extends Fragment {
      * Se encaga del tratamiento cuando se va a iniciar el fragment
      * Muestra los tabs que están creados
      */
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }

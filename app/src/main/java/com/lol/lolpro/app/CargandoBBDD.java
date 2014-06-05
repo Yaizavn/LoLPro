@@ -29,6 +29,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
 
     /**
      * Tarea que se ejecuta de forma asíncrona y se encarga de coger los datos necesarios del api para tener los datos de la aplicación actualizados
+     *
      * @param voids null
      * @return null
      */
@@ -77,7 +78,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     public void onPreExecute() {
         Boolean existeDb = false;
         String[] bbdds = contexto.databaseList();
-        for (String bbdd:bbdds) {
+        for (String bbdd : bbdds) {
             if (bbdd.compareTo(contexto.getResources().getString(R.string.app_name)) == 0) {
                 existeDb = true;
             }

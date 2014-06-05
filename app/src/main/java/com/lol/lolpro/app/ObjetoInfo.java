@@ -11,19 +11,29 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+
+/**
+ * Implementa la funcionalidad del fragment
+ */
 public class ObjetoInfo extends Fragment {
 
     private BBDDHelper helper;
 
+    /**
+     * Constructor vacío
+     */
     public ObjetoInfo() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
+    /**
+     * Se encarga del tratamiento necesario para poder crear la vista de información general de un objeto en particular
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista de los objetos
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,8 +45,6 @@ public class ObjetoInfo extends Fragment {
         String[] datos = helper.obtenerDatosObjetos(id);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null) {
-            //BBDDHelper helper = new BBDDHelper(getActivity());
-            //datos = helper.obtenerDatosObjetos(id);
             String tienda = "Si";
             if (datos[4].contentEquals("0")) {
                 tienda = "No";

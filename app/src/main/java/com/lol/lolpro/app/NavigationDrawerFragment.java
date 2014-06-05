@@ -57,9 +57,17 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+    /**
+     * Constructor vacío
+     */
     public NavigationDrawerFragment() {
     }
 
+    /**
+     * Se encarga de la creación de la barra de navegación de la parte izquierad de la pantalla
+     *
+     * @param savedInstanceState bundle con los parámetros asociados al fragment
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +86,11 @@ public class NavigationDrawerFragment extends Fragment {
         selectItem(mCurrentSelectedPosition);
     }
 
+    /**
+     * Se encarga de añadir el fragment con la barra de navegación una vez el activity ha sido creado
+     *
+     * @param savedInstanceState bundle con los parámetros asociados al fragment
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -85,6 +98,14 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    /**
+     * Se encarga de crear los auditores necesarios uan vez ya visualizamos la bara en el activity
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista con la barra de navegación
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -179,6 +200,11 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    /**
+     * Se encarga de seleccionar el item para el que esamos visualizando el fragment
+     *
+     * @param position posición del item a seleccionar
+     */
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
@@ -192,6 +218,11 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
+    /**
+     * Método al que se llamará una vez el fragment ha sido asociado a un activity
+     *
+     * @param activity Activity al que está asociado un fragment
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -202,18 +233,31 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
+    /**
+     * Se llama cuando se elimina la barra de navegación de la página
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         mCallbacks = null;
     }
 
+    /**
+     * COnserva la última posición guardada en la barra de navegación
+     *
+     * @param outState bundle en el que se guardarán los parámetros asociados al fragment
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
+    /**
+     * Se llama al cambiar la configuración
+     *
+     * @param newConfig configuración que sobreescribirá a la antigua
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -221,6 +265,12 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * Usado cuando se crean las opciones del menu
+     *
+     * @param menu     Menu en el que se han creado las opciones
+     * @param inflater Sirve para traer un layout hecho en xml como una vista en java
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // If the drawer is open, show the global app actions in the action bar. See also
@@ -232,15 +282,25 @@ public class NavigationDrawerFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * LLamado cuando se selecciona un item del menu
+     *
+     * @param item item seleccioando
+     * @return True si el item ha podido seleccionarse, false en caso contrario
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Obtiene la lista que contedrá los items de la barar de navegación
+     *
+     * @return ListView con la lista
+     */
     public ListView getList() {
         return mDrawerListView;
     }
@@ -256,6 +316,11 @@ public class NavigationDrawerFragment extends Fragment {
         //actionBar.setTitle(R.string.app_name);
     }
 
+    /**
+     * Obtiene la barra de navegación principal
+     *
+     * @return Barra de navegación
+     */
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }

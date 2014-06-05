@@ -10,19 +10,20 @@ import com.squareup.picasso.Picasso;
 
 
 /**
- * Adaptador para mostrar los objetos y campeones en un gridview uasndo Picasso
+ * Adaptador para mostrar los objetos y campeones en un gridview usando Picasso
  */
-public class GridAdapter extends BaseAdapter{
+public class GridAdapter extends BaseAdapter {
 
     private final Context context;
     private int finalDP;
 
-    private String[][]datos;
+    private String[][] datos;
 
     /**
      * Constructor
-     * @param context recibe el activity al que está asociado el fragment
-     * @param data datos de los campeones o los objetos
+     *
+     * @param context   recibe el activity al que está asociado el fragment
+     * @param data      datos de los campeones o los objetos
      * @param desiredDP Dp que tendrán las imágenes
      */
     public GridAdapter(Context context, String[][] data, int desiredDP) {
@@ -33,9 +34,10 @@ public class GridAdapter extends BaseAdapter{
 
     /**
      * Crea un view con la imagen del campeón u objeto que se encuentra en una posición determinada para añadirlo al grid
-     * @param position Posición de la imagen a crear
+     *
+     * @param position    Posición de la imagen a crear
      * @param convertView ImageView en el que se insertará la imagen
-     * @param parent null
+     * @param parent      null
      * @return Imageview con la imagen creada
      */
     @Override
@@ -48,10 +50,10 @@ public class GridAdapter extends BaseAdapter{
             //view.setScaleType(CENTER_CROP);
         }
 
-        view.setTag(getId (position));
+        view.setTag(getId(position));
 
         //Convert dp into px
-        int px = (int)Utils.dipToPixels(context, finalDP);
+        int px = (int) Utils.dipToPixels(context, finalDP);
 
         // Get the image URL for the current position.
         String url = getItem(position);
@@ -70,6 +72,7 @@ public class GridAdapter extends BaseAdapter{
 
     /**
      * Devuelve la longitud del array datos, es decir tantos campeones u objetos como haya en el array
+     *
      * @return Número de campeones u objetos en datos
      */
     @Override
@@ -79,6 +82,7 @@ public class GridAdapter extends BaseAdapter{
 
     /**
      * Devuelve la ruta de la imagen del array datos
+     *
      * @param position posición del campeón u objeto para el que se devolverá la ruta
      * @return Ruta de la imagen del campeón u objeto
      */
@@ -87,17 +91,19 @@ public class GridAdapter extends BaseAdapter{
         return datos[position][2];
     }
 
-/**
- * Devuelve el identificador del campeón u objeto
- * @param position posición del campeón u objeto para el que se devolverá el identificador
- * @return Identificados único del campeón u objeto
- * */
+    /**
+     * Devuelve el identificador del campeón u objeto
+     *
+     * @param position posición del campeón u objeto para el que se devolverá el identificador
+     * @return Identificados único del campeón u objeto
+     */
     public String getId(int position) {
         return datos[position][0];
     }
 
     /**
      * Calcula posición del grid en la que se insertará el campeón u objeto
+     *
      * @param position posición del campeón u objeto para el que se devolverá el identificador
      * @return posición del grid en la que se insertará el campeón u objeto
      */
@@ -109,8 +115,8 @@ public class GridAdapter extends BaseAdapter{
     /**
      * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
      */
-    public void refresh(){
-        datos=new BBDDHelper(context).obtenerGratuitos();
+    public void refresh() {
+        datos = new BBDDHelper(context).obtenerGratuitos();
         notifyDataSetChanged();
     }
 }

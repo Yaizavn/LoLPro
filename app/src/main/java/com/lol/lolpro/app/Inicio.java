@@ -12,50 +12,68 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
-
+/**
+ * Implementa la funcionalidad del fragment
+ */
 public class Inicio extends Fragment {
 
     OnHeadlineSelectedListener mCallback = null;
 
-    public interface OnHeadlineSelectedListener{
-        public void onChampionSelected (int index);
-    }
-
+    /**
+     * Constructor vacío
+     */
     public Inicio() {
         // Required empty public constructor
     }
 
+    /**
+     * Se encarga del tratamiento necesario para poder crear la vista
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista de los campeones
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((Principal)getActivity()).updateTitle(Constants.DRAWER_INITIAL);
+        ((Principal) getActivity()).updateTitle(Constants.DRAWER_INITIAL);
         return inflater.inflate(R.layout.fragment_inicio, container, false);
     }
 
+    /**
+     * Método al que se llamará una vez el fragment ha sido asociado a un activity
+     *
+     * @param activity Activity al que está asociado un fragment
+     */
     @Override
-    public void onAttach (Activity activity) {
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
         //This makes sure that the container activity has implemented the callback interface.
         //If not, it throws an exception
-        try{
+        try {
             mCallback = (OnHeadlineSelectedListener) activity;
-        }
-        catch(ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
         }
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    /**
+     * Método al que se llama una vez seha creado la vista en Oncreate()
+     *
+     * @param view               Vista en java hecha a partir del layout asociado
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     */
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         GridView grid = (GridView) view.findViewById(R.id.gridView);
         ListView list = (ListView) view.findViewById(R.id.noticias);
-       // grid.setColumnWidth(Float.floatToIntBits(Utils.dipToPixels(this.getActivity(),50)));
         grid.setNumColumns(4);
 
         BBDDHelper helper = new BBDDHelper(getActivity());
         grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerGratuitos(), 75));
         list.setAdapter(new ListAdapter(getActivity()));
-        ((ListAdapter)list.getAdapter()).refresh();
+        ((ListAdapter) list.getAdapter()).refresh();
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -73,5 +91,14 @@ public class Inicio extends Fragment {
                 startActivity(i);
             }
         });
+    }
+
+    public interface OnHeadlineSelectedListener {
+        /**
+         * Método definido en principal que se encarga de el tratamiento al seleccionar a un campeón
+         *
+         * @param index Posición del campeón seleccionado
+         */
+        public void onChampionSelected(int index);
     }
 }

@@ -13,6 +13,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Constructor que inicializa la base de datos
+     *
      * @param context Contiene el activity principal
      */
     public BBDDHelper(Context context) {
@@ -21,6 +22,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de crear las tablas de la base de datos
+     *
      * @param db Base de datos en la que se crearán las tablas
      */
     @Override
@@ -41,7 +43,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Método sobreescrito que se encarga del cambio de versión al actualizar las tablas
-     * @param db Base de datos en la que se actualizarán las tablas
+     *
+     * @param db         Base de datos en la que se actualizarán las tablas
      * @param oldVersion versión antigua
      * @param newVersion versión nueva a actualizar
      */
@@ -52,18 +55,19 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de guardar los datos de un campeón en la tabla campeones
-     * @param id Identificador único de cada campeón
-     * @param nombre Nombre del campeón
-     * @param nick Nick del campeón
-     * @param historia Historia del campeón
-     * @param vida Vida del campeón
-     * @param regeneracionVida Regeneración de vida por segundo del campeón
-     * @param danioAtaque Daño de ataque del campeón
-     * @param armadura Resistencia de ataques físicos del campeón
-     * @param velocidadAtaque Velocidad de ataque por segundo del campeón
-     * @param resistenciaMagica Resistencia a habilidaddes o poder mágico del campeón
+     *
+     * @param id                  Identificador único de cada campeón
+     * @param nombre              Nombre del campeón
+     * @param nick                Nick del campeón
+     * @param historia            Historia del campeón
+     * @param vida                Vida del campeón
+     * @param regeneracionVida    Regeneración de vida por segundo del campeón
+     * @param danioAtaque         Daño de ataque del campeón
+     * @param armadura            Resistencia de ataques físicos del campeón
+     * @param velocidadAtaque     Velocidad de ataque por segundo del campeón
+     * @param resistenciaMagica   Resistencia a habilidaddes o poder mágico del campeón
      * @param velocidadMovimiento Número de unidades que se desplaza el acmpeón por segundo
-     * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del campeón
+     * @param rutaPrincipal       Ruta en la que se encuentra la imagen principal del campeón
      */
     public void guardarCampeones(int id, String nombre, String nick, String historia, String vida,
                                  String regeneracionVida, String danioAtaque, String armadura,
@@ -83,13 +87,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de guardar los datos de un objeto en la tabla objetos
-     * @param id Identificador único para cada objeto
-     * @param nombre Nombre del objeto
-     * @param costeBase Coste del objeto sin tener en cuenta la jerarquía
-     * @param coste Coste total del objeto sumando todos los objetos de su jerarquía
-     * @param descripcion Descrición del objeto
+     *
+     * @param id            Identificador único para cada objeto
+     * @param nombre        Nombre del objeto
+     * @param costeBase     Coste del objeto sin tener en cuenta la jerarquía
+     * @param coste         Coste total del objeto sumando todos los objetos de su jerarquía
+     * @param descripcion   Descrición del objeto
      * @param puedesComprar Indica con 1 que el objeto se encuentra en la tienda y con 0 que no
-     * @param rutaPrincipal  Ruta en la que se encuentra la imagen principal del objeto
+     * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del objeto
      */
     public void guardarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
                                int puedesComprar, String rutaPrincipal) {
@@ -101,18 +106,19 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de actualizar los datos de un campeón si ha sufrido cambios debido a un cambio de versión
-     * @param id Identificador único de cada campeón
-     * @param nombre Nombre del campeón
-     * @param nick Nick del campeón
-     * @param historia Historia del campeón
-     * @param vida Vida del campeón
-     * @param regeneracionVida Regeneración de vida por segundo del campeón
-     * @param danioAtaque Daño de ataque del campeón
-     * @param armadura Resistencia de ataques físicos del campeón
-     * @param velocidadAtaque Velocidad de ataque por segundo del campeón
-     * @param resistenciaMagica Resistencia a habilidaddes o poder mágico del campeón
+     *
+     * @param id                  Identificador único de cada campeón
+     * @param nombre              Nombre del campeón
+     * @param nick                Nick del campeón
+     * @param historia            Historia del campeón
+     * @param vida                Vida del campeón
+     * @param regeneracionVida    Regeneración de vida por segundo del campeón
+     * @param danioAtaque         Daño de ataque del campeón
+     * @param armadura            Resistencia de ataques físicos del campeón
+     * @param velocidadAtaque     Velocidad de ataque por segundo del campeón
+     * @param resistenciaMagica   Resistencia a habilidaddes o poder mágico del campeón
      * @param velocidadMovimiento Número de unidades que se desplaza el acmpeón por segundo
-     * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del campeón
+     * @param rutaPrincipal       Ruta en la que se encuentra la imagen principal del campeón
      */
     public void modificarCampeones(int id, String nombre, String nick, String historia, String vida,
                                    String regeneracionVida, String danioAtaque, String armadura,
@@ -132,13 +138,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de actualizar los datos de un objeto si ha sufrido cambios debido a un cambio de versión
-     * @param id Identificador único para cada objeto
-     * @param nombre Nombre del objeto
-     * @param costeBase Coste del objeto sin tener en cuenta la jerarquía
-     * @param coste Coste total del objeto sumando todos los objetos de su jerarquía
-     * @param descripcion Descrición del objeto
+     *
+     * @param id            Identificador único para cada objeto
+     * @param nombre        Nombre del objeto
+     * @param costeBase     Coste del objeto sin tener en cuenta la jerarquía
+     * @param coste         Coste total del objeto sumando todos los objetos de su jerarquía
+     * @param descripcion   Descrición del objeto
      * @param puedesComprar Indica con 1 que el objeto se encuentra en la tienda y con 0 que no
-     * @param rutaPrincipal  Ruta en la que se encuentra la imagen principal del objeto
+     * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del objeto
      */
     public void modificarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
                                  int puedesComprar, String rutaPrincipal) {
@@ -150,9 +157,10 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Almacena en la base de datos la última url y la última versión de los campeones y lso objetos
-     * @param ruta última ruta conocida para las imágenes de campeones y objetos
+     *
+     * @param ruta     última ruta conocida para las imágenes de campeones y objetos
      * @param vCampeon última versión concoida para los campeones
-     * @param vObjeto última versión conocida para los objetos
+     * @param vObjeto  última versión conocida para los objetos
      */
     public void guardarRutaVersiones(String ruta, String vCampeon, String vObjeto) {
         SQLiteDatabase db = getWritableDatabase();
@@ -163,12 +171,13 @@ public class BBDDHelper extends SQLiteOpenHelper {
     /**
      * Se encarga de poner los campeones cuyos ids se encuentran entre los dados en los parámetros como gratuitos
      * y marcar los antiguos campeones gratuitos como no gratuitos
+     *
      * @param ids Contiene los ids de los campeones gratuitos esa semana
      */
     public void modificarGratuito(int[] ids) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE campeones SET esGratis=0 WHERE esGratis=1");
-        for (int id:ids) {
+        for (int id : ids) {
             db.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + id);
         }
         db.close();
@@ -176,11 +185,12 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener el identificador, el nombre y la ruta completa de la imagen principal de todos los campeones
+     *
      * @return Array de String en el en que en cada fila encontraremos un campeón. Además:
-     *  identificador del campeón en la primera columna
-     *  Nombre del campeón en la segunda columna
-     *  Ruta de la imagen principal del campeón en la tercera columna
-     *  */
+     * identificador del campeón en la primera columna
+     * Nombre del campeón en la segunda columna
+     * Ruta de la imagen principal del campeón en la tercera columna
+     */
     public String[][] obtenerRutaCampeones() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
@@ -202,10 +212,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener el identificador, el nombre y la ruta completa de la imagen principal de todos los objetos
+     *
      * @return Array de String en el en que en cada fila encontraremos un objeto. Además:
-     *  identificador del objeto en la primera columna
-     *  Nombre del objeto en la segunda columna
-     *  Ruta de la imagen principal del objeto en la tercera columna
+     * identificador del objeto en la primera columna
+     * Nombre del objeto en la segunda columna
+     * Ruta de la imagen principal del objeto en la tercera columna
      */
     public String[][] obtenerRutaObjetos() {
         SQLiteDatabase db = getReadableDatabase();
@@ -228,6 +239,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener la última ruta y versión de los campeones
+     *
      * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
      */
     public String obtenerRutaVersionCampeon() {
@@ -246,6 +258,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener la última versión de los campeones
+     *
      * @return String con la última versión conocida
      */
     public String obtenerVersionCampeon() {
@@ -264,6 +277,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener la última ruta y versión de los objetos
+     *
      * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
      */
     public String obtenerRutaVersionObjeto() {
@@ -282,6 +296,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener la última versión de los objetos
+     *
      * @return String con la última versión conocida
      */
     public String obtenerVersionObjeto() {
@@ -299,18 +314,19 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener todos los datos de un campeón para un identificador dado
+     *
      * @param id identificador único del campeón a buscar
      * @return Array con:
-     *  Nombre en la primera posición
-     *  Nick en la segunda posición
-     *  Historia en la tercera posición
-     *  Regeneración de vida en la cuarta posición
-     *  Daño de ataque en la quinta posición
-     *  Armadura en la sexta posición
-     *  Velocidad de ataque en la septima posición
-     *  Resistencia mágica en la octava posición
-     *  Velocidad de movimiento en la novena posición
-     *  Ruta de la imagen principal en la decima posición
+     * Nombre en la primera posición
+     * Nick en la segunda posición
+     * Historia en la tercera posición
+     * Regeneración de vida en la cuarta posición
+     * Daño de ataque en la quinta posición
+     * Armadura en la sexta posición
+     * Velocidad de ataque en la septima posición
+     * Resistencia mágica en la octava posición
+     * Velocidad de movimiento en la novena posición
+     * Ruta de la imagen principal en la decima posición
      */
     public String[] obtenerDatosCampeon(int id) {
         SQLiteDatabase db = getReadableDatabase();
@@ -338,15 +354,16 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener todos los datos de un objeto para un identificador dado
+     *
      * @param id identificador único del objeto a buscar
      * @return Array con:
-     *  Nombre en la primera posición
-     *  Coste base en la segunda posición
-     *  Coste en la tercera posición
-     *  Descripción de vida en la cuarta posición
-     *  Entero que indica con uno que el objeto puede comprarse en la tienda y con 0 que no puede comprarse, en la quinta posición
-     *  Ruta de la imagen principal del objeto en la sexta posición
-     *  */
+     * Nombre en la primera posición
+     * Coste base en la segunda posición
+     * Coste en la tercera posición
+     * Descripción de vida en la cuarta posición
+     * Entero que indica con uno que el objeto puede comprarse en la tienda y con 0 que no puede comprarse, en la quinta posición
+     * Ruta de la imagen principal del objeto en la sexta posición
+     */
     public String[] obtenerDatosObjetos(int id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT nombre, costeBase, coste, descripcion, puedesComprar, rutaPrincipal" +
@@ -368,11 +385,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     /**
      * Se encarga de obtener un array con los campeones gratuitos de la semana
-     * @return En cada fila encontraremos un campeón
-     *  identificador del campeón en la columna 1
-     *  Nombre del campeón en la columna 2
-     *  Ruta principal de la imagen del campeón en la columna 3
      *
+     * @return En cada fila encontraremos un campeón
+     * identificador del campeón en la columna 1
+     * Nombre del campeón en la columna 2
+     * Ruta principal de la imagen del campeón en la columna 3
      */
     public String[][] obtenerGratuitos() {
         SQLiteDatabase db = getReadableDatabase();

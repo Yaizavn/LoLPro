@@ -15,14 +15,15 @@ import javax.net.ssl.SSLContext;
 /**
  * Created by sergio on 31/05/14.
  */
-public class ConnectionResult{
+public class ConnectionResult {
 
     private SSLContext sslCont;
-    public ConnectionResult(SSLContext cont){
+
+    public ConnectionResult(SSLContext cont) {
         sslCont = cont;
     }
 
-    public String getHttpsResult(URI uri){
+    public String getHttpsResult(URI uri) {
         try {
             // Tell the URLConnection to use a SocketFactory from our SSLContext
             URL url = uri.toURL();

@@ -14,7 +14,8 @@ public class ChampionPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Constructor
-     * @param fm Se encarga de la gestión de los fragments
+     *
+     * @param fm   Se encarga de la gestión de los fragments
      * @param args Bundle que contiene los elementos asociados a un fragment, en este caso los datos de los campeones
      */
     public ChampionPageAdapter(FragmentManager fm, Bundle args) {
@@ -25,13 +26,14 @@ public class ChampionPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Se encarga de crear los fragments dentro de champions
+     *
      * @param position posición del tab que se creará
      * @return fragment para el tab asociado a la posición
      */
     @Override
     public Fragment getItem(int position) {
         Fragment frg = null;
-        switch(position){
+        switch (position) {
             case 0:
                 frg = new CampeonInfo();
                 break;
@@ -47,6 +49,7 @@ public class ChampionPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Se encarga de obtener el número de tabs que tiene champion
+     *
      * @return
      */
     @Override

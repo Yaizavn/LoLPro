@@ -10,18 +10,25 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 
+/**
+ * Implementa la funcionalidad del fragment
+ */
 public class Objetos extends Fragment {
 
     OnHeadlineSelectedListener mCallback = null;
 
-    public interface OnHeadlineSelectedListener {
-        public void onObjectSelected(int index);
-    }
-
+    /**
+     * Constructor vacío
+     */
     public Objetos() {
         // Required empty public constructor
     }
 
+    /**
+     * Método al que se llamará una vez el fragment ha sido asociado a un activity
+     *
+     * @param activity Activity al que está asociado un fragment
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -34,6 +41,14 @@ public class Objetos extends Fragment {
         }
     }
 
+    /**
+     * Se encarga del tratamiento necesario para poder crear la vista
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista de los objetos
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +57,12 @@ public class Objetos extends Fragment {
         return inflater.inflate(R.layout.fragment_objetos, container, false);
     }
 
+    /**
+     * Método al que se llama una vez se ha creado la vista en Oncreate()
+     *
+     * @param view               Vista en java hecha a partir del layout asociado
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         BBDDHelper helper = new BBDDHelper(getActivity());
@@ -54,5 +75,14 @@ public class Objetos extends Fragment {
             }
         });
         // TOCLOSE
+    }
+
+    public interface OnHeadlineSelectedListener {
+        /**
+         * Método definido en principal que se encarga de el tratamiento al seleccionar un objeto
+         *
+         * @param index Posición del objeto seleccionado
+         */
+        public void onObjectSelected(int index);
     }
 }
