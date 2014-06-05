@@ -40,8 +40,8 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
                 actualizarGratuitos();
             }
         }
-        Spider sp= new Spider ();
-        noticias = sp.analizarURLs();
+        //Spider sp= new Spider ();
+        //noticias = sp.analizarURLs();
         return null;
     }
 
@@ -81,8 +81,8 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
         GridView grid = (GridView) contexto.findViewById(R.id.gridView);
         GridAdapter gA= (GridAdapter) grid.getAdapter();
         gA.refresh();
-        ListView list = (ListView) contexto.findViewById(R.id.noticias);
-        ((ListAdapter)list.getAdapter()).refresh(noticias);
+        //ListView list = (ListView) contexto.findViewById(R.id.noticias);
+        //((ListAdapter)list.getAdapter()).refresh();
         progress.dismiss();
     }
 

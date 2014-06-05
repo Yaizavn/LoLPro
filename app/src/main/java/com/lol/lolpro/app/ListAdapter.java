@@ -2,6 +2,7 @@ package com.lol.lolpro.app;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
@@ -61,8 +62,21 @@ public class ListAdapter extends BaseAdapter {
         return position;
     }
 
-    public void refresh(String[][] noticias){
-        datos=noticias.clone();
-        notifyDataSetChanged();
+    public void refresh(){
+        //datos=noticias.clone();
+        new AsyncTask<Void, Void, Void>(){
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Spider sp = new Spider ();
+                datos = sp.analizarURLs();
+                return null;
+            }
+            @Override
+            public void onPostExecute(Void unused) {
+                notifyDataSetChanged();
+                return;
+            }
+        }.execute();
     }
 }

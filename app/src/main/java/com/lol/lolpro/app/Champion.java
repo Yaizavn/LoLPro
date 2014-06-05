@@ -1,6 +1,7 @@
 package com.lol.lolpro.app;
 
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -45,7 +46,7 @@ public class Champion extends Fragment {
 
         actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        mPagerAdapter = new ChampionPageAdapter(((ActionBarActivity) getActivity()).getSupportFragmentManager(), args);
+        mPagerAdapter = new ChampionPageAdapter(getChildFragmentManager(), args);
         numPages = mPagerAdapter.numPages;
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mViewPager.setAdapter(mPagerAdapter);
@@ -92,9 +93,9 @@ public class Champion extends Fragment {
         return view;
     }
 
-    @Override
+    /*@Override
     public void onPause(){
         super.onPause();
         getActivity().supportInvalidateOptionsMenu();
-    }
+    }*/
 }

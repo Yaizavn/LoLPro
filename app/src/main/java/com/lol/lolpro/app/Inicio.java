@@ -56,6 +56,7 @@ public class Inicio extends Fragment {
         BBDDHelper helper = new BBDDHelper(getActivity());
         grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerGratuitos(), 75));
         list.setAdapter(new ListAdapter(getActivity()));
+        ((ListAdapter)list.getAdapter()).refresh();
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
