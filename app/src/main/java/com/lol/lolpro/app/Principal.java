@@ -69,9 +69,6 @@ public class Principal extends ActionBarActivity
             case 2:
                 fragment = new Objetos();
                 break;
-            case 3:
-                fragment = new Temporizadores();
-                break;
             default:
                 Toast.makeText(this, "Opcion no disponible!", Toast.LENGTH_SHORT).show();
                 fragment = new Inicio();

@@ -12,7 +12,6 @@
         <item>Inicio</item>
         <item>Campeones</item>
         <item>Objetos</item>
-        <item>Temporizadores</item>
     </string-array>
 
     <string-array name="titulosCampeones">

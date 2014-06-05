@@ -19,14 +19,5 @@ public class Utils {
     }
     public static String sanitizeItemDescription(String description) {
         return description.replaceAll("<br>", "\\\n").replaceAll("<.*?>", "");
-        /*Pattern patt = Patrones.PATTERN_SANITIZE_DESCRIPTION;
-        Matcher match = patt.matcher(description);
-        while (match.find()) {
-            if(match.group().contentEquals("<br>")){
-                match.appendReplacement(result, "\\\n");
-            }
-        }
-        match = patt.matcher(result.toString());
-        return match.replaceAll("");*/
     }
 }
