@@ -28,6 +28,7 @@ public class Campeones extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((Principal)getActivity()).updateTitle(1);
+
         return inflater.inflate(R.layout.fragment_campeones, container, false);
     }
 

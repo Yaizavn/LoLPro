@@ -94,6 +94,7 @@ public class Principal extends ActionBarActivity
 
     public void updateTitle(int number) {
         mTitle = getResources().getStringArray(R.array.titulosMenuIzquierda)[number];
+        mNavigationDrawerFragment.getList().setItemChecked(number, true);
         getActionBar().setTitle(mTitle);
     }
 

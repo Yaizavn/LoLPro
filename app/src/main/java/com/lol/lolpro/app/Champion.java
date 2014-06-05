@@ -34,7 +34,7 @@ public class Champion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(container == null){
+        if (container == null) {
             return null;
         }
         ((Principal)getActivity()).updateTitle(1);
@@ -43,7 +43,8 @@ public class Champion extends Fragment {
         helper = new BBDDHelper(view.getContext());
         Bundle args = getArguments();
         args.putStringArray("data", helper.obtenerDatosCampeon(args.getInt("id", -1)));
-        actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
+
+        actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ChampionPageAdapter(getChildFragmentManager(), args);
         numPages = mPagerAdapter.numPages;
@@ -59,10 +60,12 @@ public class Champion extends Fragment {
             }
 
             @Override
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            }
 
             @Override
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            }
         };
 
         mViewPager.setOnPageChangeListener(
@@ -73,14 +76,14 @@ public class Champion extends Fragment {
                         // corresponding tab.
                         actionBar.setSelectedNavigationItem(position);
                     }
-                });
-        if(actionBar.getTabCount() >= numPages) {
-            for(int i = 0; i < numPages; i++){
+                }
+        );
+        if (actionBar.getTabCount() >= numPages) {
+            for (int i = 0; i < numPages; i++) {
                 actionBar.getTabAt(i).setTabListener(tabListener);
             }
             actionBar.getTabAt(0).select();
-        }
-        else{
+        } else {
             // Add the tabs, specifying the tab's text and TabListener
             for (int i = 0; i < numPages; i++) {
                 actionBar.addTab(
@@ -94,8 +97,13 @@ public class Champion extends Fragment {
         return view;
     }
 
-    public void onPause() {
+    public void onStop(){
         super.onPause();
         getActivity().supportInvalidateOptionsMenu();
+    }
+
+    public void onResume(){
+        super.onResume();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
 }
