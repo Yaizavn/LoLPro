@@ -78,9 +78,6 @@ public class Champion extends Fragment {
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
         Bundle args = getArguments();
         actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
-        if(actionBar.getTabCount() >= numPages) {
-            actionBar.removeAllTabs();
-        }
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ChampionPageAdapter(((ActionBarActivity) getActivity()).getSupportFragmentManager(), args);
         numPages = mPagerAdapter.numPages;
@@ -102,7 +99,7 @@ public class Champion extends Fragment {
 
             @Override
             public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                //LASTCHANGES 5 Junio mViewPager.setCurrentItem(tab.getPosition());
             }
         };
 
@@ -112,17 +109,31 @@ public class Champion extends Fragment {
                     public void onPageSelected(int position) {
                         // When swiping between pages, select the
                         // corresponding tab.
-                        ((ActionBarActivity)getActivity()).getSupportActionBar().setSelectedNavigationItem(position);
+                        actionBar.setSelectedNavigationItem(position);
                     }
                 });
-        // Add the tabs, specifying the tab's text and TabListener
-        for (int i = 0; i < numPages; i++) {
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(getResources().getStringArray(R.array.titulosCampeones)[i])
-                            .setTabListener(tabListener)
-            );
+        if(actionBar.getTabCount() >= numPages) {
+           /*LASTCHANGES 5 Junio for (int i = 0; i < numPages; i++){
+                if(actionBar.getTabAt(i).getText().equals("General")){
+                    actionBar.getTabAt(i).select();
+                }
+                if(actionBar.getTabAt(i).getText().equals("Historia")){
+                    actionBar.getTabAt(i).select();
+                }
+            }*/
         }
+        else{
+
+            // Add the tabs, specifying the tab's text and TabListener
+            for (int i = 0; i < numPages; i++) {
+                actionBar.addTab(
+                        actionBar.newTab()
+                                .setText(getResources().getStringArray(R.array.titulosCampeones)[i])
+                                .setTabListener(tabListener)
+                );
+            }
+        }
+
 
        /* else{
             for (int i = 0; i < numPages; i++) {
