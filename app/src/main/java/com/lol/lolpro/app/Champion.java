@@ -1,7 +1,6 @@
 package com.lol.lolpro.app;
 
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -76,10 +75,12 @@ public class Champion extends Fragment {
                     }
                 });
         if(actionBar.getTabCount() >= numPages) {
+            for(int i = 0; i < numPages; i++){
+                actionBar.getTabAt(i).setTabListener(tabListener);
+            }
             actionBar.getTabAt(0).select();
         }
         else{
-
             // Add the tabs, specifying the tab's text and TabListener
             for (int i = 0; i < numPages; i++) {
                 actionBar.addTab(
