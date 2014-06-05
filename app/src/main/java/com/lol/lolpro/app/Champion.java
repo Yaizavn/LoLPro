@@ -98,7 +98,7 @@ public class Champion extends Fragment {
     }
 
     public void onStop(){
-        super.onPause();
+        super.onStop();
         getActivity().supportInvalidateOptionsMenu();
     }
 
