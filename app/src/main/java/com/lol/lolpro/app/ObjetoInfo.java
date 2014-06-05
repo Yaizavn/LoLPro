@@ -26,6 +26,7 @@ public class ObjetoInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((Principal)getActivity()).updateTitle(2);
         View view= inflater.inflate(R.layout.fragment_objeto_info, container, false);
         helper = new BBDDHelper(view.getContext());
         Bundle args = getArguments();

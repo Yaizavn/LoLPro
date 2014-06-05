@@ -9,14 +9,22 @@ import android.text.Html;
 import java.util.Vector;
 
 /**
- * Created by sergio on 29/05/14.
+ * Clase que se encarga de la gestión de la base de datos
  */
 public class BBDDHelper extends SQLiteOpenHelper {
 
+    /**
+     *
+     * @param context
+     */
     public BBDDHelper(Context context) {
         super(context, context.getResources().getString(R.string.app_name), null, 1);
     }
 
+    /**
+     * Se encarga de crear las tablas de la base de datos
+     * @param db Base de datos en la que se crearán las tablas
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE campeones (" +
@@ -33,57 +41,112 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 ", ruta TEXT, versionCampeones TEXT, versionObjetos TEXT)");
     }
 
+    /**
+     * Método sobreescrito que se encarga del cambio de versión al actualizar las tablas
+     * @param db Base de datos en la que se actualizarán las tablas
+     * @param oldVersion versión antigua
+     * @param newVersion versión nueva a actualizar
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // En caso de una nueva versión habría que actualizar las tablas
     }
 
-    //TODO coger las cosas como numeros y no como texto separado en dos campos (Ej: vida 240 vidaPorNivel 95)
-
+    /**
+     * Se encarga de guardar los datos de un campeón en la tabla campeones
+     * @param id Identificador único de cada campeón
+     * @param nombre Nombre del campeón
+     * @param nick Nick del campeón
+     * @param historia Historia del campeón
+     * @param vida Vida del campeón
+     * @param regeneracionVida Regeneración de vida por segundo del campeón
+     * @param danioAtaque Daño de ataque del campeón
+     * @param armadura Resistencia de ataques físicos del campeón
+     * @param velocidadAtaque Velocidad de ataque por segundo del campeón
+     * @param resistenciaMagica Resistencia a habilidaddes o poder mágico del campeón
+     * @param velocidadMovimiento Número de unidades que se desplaza el acmpeón por segundo
+     * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del campeón
+     */
     public void guardarCampeones(int id, String nombre, String nick, String historia, String vida,
                                  String regeneracionVida, String danioAtaque, String armadura,
                                  String velocidadAtaque, String resistenciaMagica,
                                  String velocidadMovimiento, String rutaPrincipal) {
         double velAtaque = Double.parseDouble(velocidadAtaque);
-        velAtaque=1/(1.6*(1+velAtaque));
-        velAtaque= Math.rint(velAtaque*1000)/1000;
+        velAtaque = 1 / (1.6 * (1 + velAtaque));
+        //Redondeo de tres cifras
+        velAtaque = Math.rint(velAtaque * 1000) / 1000;
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO campeones VALUES ("+id+", '" + nombre + "', '" + nick + "','" +
+        db.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + nombre + "', '" + nick + "','" +
                 historia + "', '" + vida + "', '" + regeneracionVida + "', '" + danioAtaque + "', '" + armadura + "'," +
                 "'" + velAtaque + "', '" + resistenciaMagica + "', '" + velocidadMovimiento + "'," +
                 "'" + rutaPrincipal + "', 0)");
         db.close();
     }
 
+    /**
+     * Se encarga de guardar los datos de un objeto en la tabla objetos
+     * @param id Identificador único para cada objeto
+     * @param nombre Nombre del objeto
+     * @param costeBase Coste del objeto sin tener en cuenta la jerarquía
+     * @param coste Coste total del objeto sumando todos los objetos de su jerarquía
+     * @param descripcion Descrición del objeto
+     * @param puedesComprar Indica con 1 que el objeto se encuentra en la tienda y con 0 que no
+     * @param rutaPrincipal  Ruta en la que se encuentra la imagen principal del objeto
+     */
     public void guardarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
                                int puedesComprar, String rutaPrincipal) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO objetos VALUES ("+id+", '" + nombre + "', " + costeBase + ", " + coste + "," +
+        db.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + nombre + "', " + costeBase + ", " + coste + "," +
                 "'" + descripcion + "', " + puedesComprar + ", '" + rutaPrincipal + "')");
         db.close();
     }
 
+    /**
+     * Se encarga de actualizar los datos de un campeón si ha sufrido cambios debido a un cambio de versión
+     * @param id Identificador único de cada campeón
+     * @param nombre Nombre del campeón
+     * @param nick Nick del campeón
+     * @param historia Historia del campeón
+     * @param vida Vida del campeón
+     * @param regeneracionVida Regeneración de vida por segundo del campeón
+     * @param danioAtaque Daño de ataque del campeón
+     * @param armadura Resistencia de ataques físicos del campeón
+     * @param velocidadAtaque Velocidad de ataque por segundo del campeón
+     * @param resistenciaMagica Resistencia a habilidaddes o poder mágico del campeón
+     * @param velocidadMovimiento Número de unidades que se desplaza el acmpeón por segundo
+     * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del campeón
+     */
     public void modificarCampeones(int id, String nombre, String nick, String historia, String vida,
-                                 String regeneracionVida, String danioAtaque, String armadura,
-                                 String velocidadAtaque, String resistenciaMagica,
-                                 String velocidadMovimiento, String rutaPrincipal) {
+                                   String regeneracionVida, String danioAtaque, String armadura,
+                                   String velocidadAtaque, String resistenciaMagica,
+                                   String velocidadMovimiento, String rutaPrincipal) {
         double velAtaque = Double.parseDouble(velocidadAtaque);
-        velAtaque=1/(1.6*(1+velAtaque));
-        velAtaque= Math.rint(velAtaque*1000)/1000;
+        velAtaque = 1 / (1.6 * (1 + velAtaque));
+        velAtaque = Math.rint(velAtaque * 1000) / 1000;
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', historia='" + historia + "', " +
                 "vida='" + vida + "', regeneracionVida='" + regeneracionVida + "', danioAtaque='" + danioAtaque + "'," +
                 "armadura='" + armadura + "', velocidadAtaque='" + velAtaque + "', resistenciaMagica='" + resistenciaMagica +
                 "', velocidadMovimiento='" + velocidadMovimiento + "'," +
-                "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id="+id);
+                "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id=" + id);
         db.close();
     }
 
+    /**
+     * Se encarga de actualizar los datos de un objeto si ha sufrido cambios debido a un cambio de versión
+     * @param id Identificador único para cada objeto
+     * @param nombre Nombre del objeto
+     * @param costeBase Coste del objeto sin tener en cuenta la jerarquía
+     * @param coste Coste total del objeto sumando todos los objetos de su jerarquía
+     * @param descripcion Descrición del objeto
+     * @param puedesComprar Indica con 1 que el objeto se encuentra en la tienda y con 0 que no
+     * @param rutaPrincipal  Ruta en la que se encuentra la imagen principal del objeto
+     */
     public void modificarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
-                               int puedesComprar, String rutaPrincipal) {
+                                 int puedesComprar, String rutaPrincipal) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE objetos SET nombre='" + nombre + "', costeBase=" + costeBase + ", coste=" + coste + "," +
-                "descripcion='" + descripcion + "', puedesComprar=" + puedesComprar + ", rutaPrincipal='" + rutaPrincipal + "' WHERE _id="+id);
+                "descripcion='" + descripcion + "', puedesComprar=" + puedesComprar + ", rutaPrincipal='" + rutaPrincipal + "' WHERE _id=" + id);
         db.close();
     }
 

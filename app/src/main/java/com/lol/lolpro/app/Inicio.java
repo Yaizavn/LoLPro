@@ -31,6 +31,7 @@ public class Inicio extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ((Principal)getActivity()).updateTitle(0);
         return inflater.inflate(R.layout.fragment_inicio, container, false);
     }
 

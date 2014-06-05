@@ -37,12 +37,12 @@ public class Champion extends Fragment {
         if(container == null){
             return null;
         }
+        ((Principal)getActivity()).updateTitle(1);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
         helper = new BBDDHelper(view.getContext());
         Bundle args = getArguments();
         args.putStringArray("data", helper.obtenerDatosCampeon(args.getInt("id", -1)));
-
         actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ChampionPageAdapter(getChildFragmentManager(), args);
@@ -94,9 +94,8 @@ public class Champion extends Fragment {
         return view;
     }
 
-    /*@Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         getActivity().supportInvalidateOptionsMenu();
-    }*/
+    }
 }
