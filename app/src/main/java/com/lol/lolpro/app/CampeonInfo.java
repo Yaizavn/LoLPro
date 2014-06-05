@@ -28,9 +28,9 @@ public class CampeonInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         String [] datos = null;
-       // Bundle args = getArguments();
-//        int id = args.getInt("id", -1);
-        int id=1;
+        Bundle args = getArguments();
+        int id = args.getInt("id", -1);
+
         View view = inflater.inflate(R.layout.fragment_campeon_info, container, false);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (id != -1){

@@ -113,6 +113,7 @@ public class Champion extends Fragment {
                     }
                 });
         if(actionBar.getTabCount() >= numPages) {
+            actionBar.getTabAt(0).select();
            /*LASTCHANGES 5 Junio for (int i = 0; i < numPages; i++){
                 if(actionBar.getTabAt(i).getText().equals("General")){
                     actionBar.getTabAt(i).select();
@@ -123,7 +124,6 @@ public class Champion extends Fragment {
             }*/
         }
         else{
-
             // Add the tabs, specifying the tab's text and TabListener
             for (int i = 0; i < numPages; i++) {
                 actionBar.addTab(

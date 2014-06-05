@@ -28,7 +28,7 @@ public class ChampionPageAdapter extends FragmentStatePagerAdapter {
                 frg = new CampeonInfo();
                 break;
             case 1:
-                frg = new ObjetoInfo();
+                frg = new Historia();
                 break;
             default:
                 break;
