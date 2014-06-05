@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class Principal extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         Campeones.OnHeadlineSelectedListener, Inicio.OnHeadlineSelectedListener,
-        Objetos.OnHeadlineSelectedListener{
+        Objetos.OnHeadlineSelectedListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -57,16 +57,16 @@ public class Principal extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
 
         Fragment fragment = null;
-        switch(position){
-            case -1:
+        switch (position) {
+            case Constants.DRAWER_UNDEFINED:
                 break;
-            case 0:
+            case Constants.DRAWER_INITIAL:
                 fragment = new Inicio();
                 break;
-            case 1:
+            case Constants.DRAWER_CHAMPION:
                 fragment = new Campeones();
                 break;
-            case 2:
+            case Constants.DRAWER_OBJECT:
                 fragment = new Objetos();
                 break;
             default:
@@ -85,11 +85,6 @@ public class Principal extends ActionBarActivity
             //Si el fragment es nulo mostramos un mensaje de error.
             Log.e("Error ", "Mostrar Fragment " + position);
         }
-        // update the main content by replacing fragments
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();*/
     }
 
     public void updateTitle(int number) {
@@ -138,10 +133,8 @@ public class Principal extends ActionBarActivity
 
     @Override
     public void onChampionSelected(int index) {
-        //updateTitle(1);
         Bundle args = new Bundle();
         args.putInt("id", index);
-//        args.putStringArray("data", new BBDDHelper(this).obtenerDatosCampeon(index));
         Fragment fragment = new Champion();
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();

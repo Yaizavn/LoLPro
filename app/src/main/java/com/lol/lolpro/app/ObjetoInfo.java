@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 public class ObjetoInfo extends Fragment {
 
     private BBDDHelper helper;
+
     public ObjetoInfo() {
         // Required empty public constructor
     }
@@ -26,18 +27,18 @@ public class ObjetoInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((Principal)getActivity()).updateTitle(2);
-        View view= inflater.inflate(R.layout.fragment_objeto_info, container, false);
+        ((Principal) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
+        View view = inflater.inflate(R.layout.fragment_objeto_info, container, false);
         helper = new BBDDHelper(view.getContext());
         Bundle args = getArguments();
-        int id = args.getInt("id", -1);
+        int id = args.getInt("id", Constants.INVALID_ID);
         String[] datos = helper.obtenerDatosObjetos(id);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
-        if (datos != null){
+        if (datos != null) {
             //BBDDHelper helper = new BBDDHelper(getActivity());
             //datos = helper.obtenerDatosObjetos(id);
             String tienda = "Si";
-            if (datos[4].contentEquals("0")){
+            if (datos[4].contentEquals("0")) {
                 tienda = "No";
             }
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
@@ -49,10 +50,11 @@ public class ObjetoInfo extends Fragment {
                     .load(datos[5]) //
                     .placeholder(R.drawable.abc_ab_bottom_solid_light_holo) //TODO imagen palceholder
                     .error(R.drawable.abc_ab_bottom_solid_dark_holo) //TODO imagen error
-                    .resize(px,px)
+                    .resize(px, px)
                     .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }
+        // TOCLOSE
         // Inflate the layout for this fragment
         return view;
     }
