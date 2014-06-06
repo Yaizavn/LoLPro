@@ -1,9 +1,10 @@
 package com.lol.lolpro.app;
 
-import android.support.v7.app.ActionBarActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.lol.lolpro.app.web.APIConnection;
 
@@ -15,7 +16,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     ProgressDialog progress;
     ActionBarActivity contexto;
     APIConnection api;
-    int accion = 3; //0 es no hacer nada, 1 es inicializar, 2 es actualizar
+    int accion = 0; //0 es no hacer nada, 1 es inicializar, 2 es actualizar
 
     /**
      * Constructor
@@ -23,7 +24,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
      * @param context Recibe el activity principal
      */
     public CargandoBBDD(ActionBarActivity context) {
-        this.contexto = context;
+        contexto = context;
         progress = new ProgressDialog(contexto);
     }
 
@@ -51,6 +52,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
      * Se encarga de mostrar una barra de progrso para indicar al usuario como va la carga de datos
      */
     public void mostrarDialog() {
+        progress.setCanceledOnTouchOutside(false);
         progress.setTitle(contexto.getResources().getString(R.string.actualizando));
         progress.setMessage(contexto.getResources().getString(R.string.descargando));
         progress.setMax(100);
@@ -73,32 +75,35 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
      * Se encarga del tratamiento necesario antes de comenzar la tarea asíncrona, en este caso de indicarle a la tarea asíncrona si debe crear la base de datos o solo actualizarla
      */
     public void onPreExecute() {
-        Boolean existeDb = false;
-        String[] bbdds = contexto.databaseList();
-        for (String bbdd : bbdds) {
-            if (bbdd.compareTo(contexto.getResources().getString(R.string.app_name)) == 0) {
-                existeDb = true;
+        boolean existeDb = Utils.existsDB(contexto);
+        boolean hasInternet = Utils.hasInternetConnection(contexto);
+        if(hasInternet) {
+            api = new APIConnection(contexto);
+            if (!existeDb) {
+                accion = 1;
+            } else {
+                accion = 2;
             }
+            mostrarDialog();
         }
-        api = new APIConnection(contexto);
-        if (!existeDb) {
-            accion = 1;
-        } else {
-            accion = 2;
+        else {
+            Toast.makeText(contexto, contexto.getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
-        mostrarDialog();
     }
 
     /**
-     * Se encarga del tratamiento neceasrio uan vez realizada la operación asíncrona
+     * Se encarga del tratamiento neceasrio una vez realizada la operación asíncrona
      *
      * @param unused null
      */
     public void onPostExecute(Void unused) {
-        GridView grid = (GridView) contexto.findViewById(R.id.gridView);
-        GridAdapter gA = (GridAdapter) grid.getAdapter();
-        gA.refresh();
-        progress.dismiss();
+        if(accion != 0) {
+            api.closeAPI();
+            GridView grid = (GridView) contexto.findViewById(R.id.gridView);
+            GridAdapter gA = (GridAdapter) grid.getAdapter();
+            gA.refresh();
+            progress.dismiss();
+        }
     }
 
     /**

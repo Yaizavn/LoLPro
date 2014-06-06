@@ -34,13 +34,13 @@ public class Historia extends Fragment {
 
         Bundle args = getArguments();
         //int id = args.getInt("id", -1);
-        String[] datos = args.getStringArray("data");
+        String[] championData = args.getStringArray("data");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_historia, container, false);
         // Defino la nueva fuente cargandola desde el fichero .ttf
-        Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Hand_Of_Sean_Demo.ttf");
+        Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), Constants.FONT_STORY);
 
-        if (datos != null) {
+        if (championData != null) {
             TextView historia = (TextView) view.findViewById(R.id.historia);
             TextView nombre = (TextView) view.findViewById(R.id.nombreCampeon);
 
@@ -48,8 +48,8 @@ public class Historia extends Fragment {
             historia.setTypeface(miPropiaTypeFace);
             nombre.setTypeface(miPropiaTypeFace);
 
-            nombre.setText(datos[0]);
-            historia.setText(datos[2]);
+            nombre.setText(championData[0]);
+            historia.setText(championData[2]);
         }
         return view;
     }

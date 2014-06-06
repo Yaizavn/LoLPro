@@ -40,4 +40,5 @@
     <string name="tienda">Está en la tienda:</string>
     <string name="coste_base">Coste base:</string>
     <string name="descripcion">Descripción:</string>
+    <string name="no_internet">No hay conexión a Internet. Es necesaria para descargar los datos del juego</string>
 </resources>

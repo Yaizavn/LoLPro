@@ -24,7 +24,6 @@ public class Champion extends Fragment {
     private ViewPager mViewPager;
 
     private int numPages;
-    private BBDDHelper helper;
 
     /**
      * Campeón vacio
@@ -50,9 +49,11 @@ public class Champion extends Fragment {
         ((Principal) getActivity()).updateTitle(1);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
-        helper = new BBDDHelper(view.getContext());
+        DBManager dbMan = DBManager.getInstance();
+        dbMan.openDatabase(false);
+
         Bundle args = getArguments();
-        args.putStringArray("data", helper.obtenerDatosCampeon(args.getInt("id", -1)));
+        args.putStringArray("data", dbMan.getDatabaseHelper().obtenerDatosCampeon(args.getInt("id", -1)));
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ChampionPageAdapter(getChildFragmentManager(), args);
@@ -102,6 +103,7 @@ public class Champion extends Fragment {
                 );
             }
         }
+        dbMan.closeDatabase(false);
         // Inflate the layout for this fragment
         return view;
     }

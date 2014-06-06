@@ -1,6 +1,8 @@
 package com.lol.lolpro.app;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
@@ -44,5 +46,28 @@ public class Utils {
      */
     public static String sanitizeItemDescription(String description) {
         return description.replaceAll("<br>", "\\\n").replaceAll("<.*?>", "");
+    }
+
+    public static boolean existsDB(Context context){
+        String[] bbdds = context.databaseList();
+        for (String bbdd : bbdds) {
+            if (bbdd.compareTo(context.getResources().getString(R.string.app_name)) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasInternetConnection (Context ctx){
+        boolean isConnected=false;
+        ConnectivityManager cm= (ConnectivityManager)ctx.getSystemService(ctx.CONNECTIVITY_SERVICE);
+        NetworkInfo [] redes = cm.getAllNetworkInfo();
+        int longitud=redes.length;
+        for (int i=0; i<longitud && !isConnected; i++){
+            if (redes[i].getType()==ConnectivityManager.TYPE_WIFI || redes[i].getType()==ConnectivityManager.TYPE_MOBILE){
+                isConnected = redes[i].getState() == NetworkInfo.State.CONNECTED;
+            }
+        }
+        return isConnected;
     }
 }

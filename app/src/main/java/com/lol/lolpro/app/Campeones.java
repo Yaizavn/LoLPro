@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 /**
  * Implementa la funcionalidad del fragment
@@ -68,19 +67,18 @@ public class Campeones extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         GridView grid = (GridView) view.findViewById(R.id.gridView);
 
-        BBDDHelper helper = new BBDDHelper(getActivity());
+        DBManager dbMan = DBManager.getInstance();
+        dbMan.openDatabase(false);
 
-        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutaCampeones(), 100));
+        grid.setAdapter(new GridAdapter(getActivity(), dbMan.getDatabaseHelper().obtenerRutaCampeones(), 100));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                int identificador = Integer.parseInt(v.getTag().toString());
-                Toast.makeText(getActivity(),
-                        "id: " + identificador, Toast.LENGTH_SHORT).show();
                 //Send the event to the host activity
-                mCallback.onChampionSelected(identificador);
+                mCallback.onChampionSelected(Integer.parseInt(v.getTag().toString()));
             }
         });
+        dbMan.closeDatabase(false);
     }
 
     public interface OnHeadlineSelectedListener {

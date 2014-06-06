@@ -11,6 +11,9 @@ import android.text.Html;
  */
 public class BBDDHelper extends SQLiteOpenHelper {
 
+    private SQLiteDatabase mDatabase;
+    private SQLiteDatabase mReadOnlyDatabase;
+
     /**
      * Constructor que inicializa la base de datos
      *
@@ -53,6 +56,27 @@ public class BBDDHelper extends SQLiteOpenHelper {
         // En caso de una nueva versión habría que actualizar las tablas
     }
 
+    public void openDatabase(boolean writeMode) {
+        // Opening new database
+        if(writeMode){
+            mDatabase = getWritableDatabase();
+        }
+        else{
+            mReadOnlyDatabase = getReadableDatabase();
+        }
+
+    }
+
+    public void closeDatabase(boolean writeMode) {
+        // Closing database
+        if(writeMode) {
+            mDatabase.close();
+        }
+        else{
+            mReadOnlyDatabase.close();
+        }
+    }
+
     /**
      * Se encarga de guardar los datos de un campeón en la tabla campeones
      *
@@ -77,12 +101,10 @@ public class BBDDHelper extends SQLiteOpenHelper {
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         //Redondeo de tres cifras
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + nombre + "', '" + nick + "','" +
+        mDatabase.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + nombre + "', '" + nick + "','" +
                 historia + "', '" + vida + "', '" + regeneracionVida + "', '" + danioAtaque + "', '" + armadura + "'," +
                 "'" + velAtaque + "', '" + resistenciaMagica + "', '" + velocidadMovimiento + "'," +
                 "'" + rutaPrincipal + "', 0)");
-        db.close();
     }
 
     /**
@@ -98,10 +120,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
      */
     public void guardarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
                                int puedesComprar, String rutaPrincipal) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + nombre + "', " + costeBase + ", " + coste + "," +
+        mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + nombre + "', " + costeBase + ", " + coste + "," +
                 "'" + descripcion + "', " + puedesComprar + ", '" + rutaPrincipal + "')");
-        db.close();
     }
 
     /**
@@ -127,13 +147,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
         double velAtaque = Double.parseDouble(velocidadAtaque);
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', historia='" + historia + "', " +
+        mDatabase.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', historia='" + historia + "', " +
                 "vida='" + vida + "', regeneracionVida='" + regeneracionVida + "', danioAtaque='" + danioAtaque + "'," +
                 "armadura='" + armadura + "', velocidadAtaque='" + velAtaque + "', resistenciaMagica='" + resistenciaMagica +
                 "', velocidadMovimiento='" + velocidadMovimiento + "'," +
                 "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id=" + id);
-        db.close();
     }
 
     /**
@@ -149,10 +167,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
      */
     public void modificarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
                                  int puedesComprar, String rutaPrincipal) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE objetos SET nombre='" + nombre + "', costeBase=" + costeBase + ", coste=" + coste + "," +
+        mDatabase.execSQL("UPDATE objetos SET nombre='" + nombre + "', costeBase=" + costeBase + ", coste=" + coste + "," +
                 "descripcion='" + descripcion + "', puedesComprar=" + puedesComprar + ", rutaPrincipal='" + rutaPrincipal + "' WHERE _id=" + id);
-        db.close();
     }
 
     /**
@@ -163,9 +179,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param vObjeto  última versión conocida para los objetos
      */
     public void guardarRutaVersiones(String ruta, String vCampeon, String vObjeto) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO rutaVersiones VALUES (null, '" + ruta + "','" + vCampeon + "', '" + vObjeto + "')");
-        db.close();
+        mDatabase.execSQL("INSERT INTO rutaVersiones VALUES (null, '" + ruta + "','" + vCampeon + "', '" + vObjeto + "')");
     }
 
     /**
@@ -175,12 +189,10 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param ids Contiene los ids de los campeones gratuitos esa semana
      */
     public void modificarGratuito(int[] ids) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE campeones SET esGratis=0 WHERE esGratis=1");
+        mDatabase.execSQL("UPDATE campeones SET esGratis=0 WHERE esGratis=1");
         for (int id : ids) {
-            db.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + id);
+            mDatabase.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + id);
         }
-        db.close();
     }
 
     /**
@@ -192,8 +204,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta de la imagen principal del campeón en la tercera columna
      */
     public String[][] obtenerRutaCampeones() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
                 "campeones ORDER BY nombre", null);
         String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
@@ -206,7 +217,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             pos++;
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -219,8 +229,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta de la imagen principal del objeto en la tercera columna
      */
     public String[][] obtenerRutaObjetos() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, nombre, rutaPrincipal FROM " +
                 "objetos ORDER BY nombre", null);
         String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
@@ -233,7 +242,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             pos++;
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -243,8 +251,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
      */
     public String obtenerRutaVersionCampeon() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ruta, versionCampeones FROM " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT ruta, versionCampeones FROM " +
                 "rutaVersiones", null);
         String result2 = "";
         if (cursor.moveToNext()) {
@@ -252,7 +259,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/champion/";
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -262,15 +268,13 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @return String con la última versión conocida
      */
     public String obtenerVersionCampeon() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT versionCampeones FROM " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT versionCampeones FROM " +
                 "rutaVersiones", null);
         String result2 = "";
         if (cursor.moveToNext()) {
             result2 += Html.fromHtml(cursor.getString(0)).toString();
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -281,8 +285,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
      */
     public String obtenerRutaVersionObjeto() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ruta, versionObjetos FROM " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT ruta, versionObjetos FROM " +
                 "rutaVersiones", null);
         String result2 = "";
         if (cursor.moveToNext()) {
@@ -290,7 +293,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2 += Html.fromHtml(cursor.getString(1)).toString() + "/img/item/";
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -300,15 +302,13 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @return String con la última versión conocida
      */
     public String obtenerVersionObjeto() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT versionObjetos FROM " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT versionObjetos FROM " +
                 "rutaVersiones", null);
         String result2 = "";
         if (cursor.moveToNext()) {
             result2 += Html.fromHtml(cursor.getString(0)).toString();
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -329,8 +329,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta de la imagen principal en la decima posición
      */
     public String[] obtenerDatosCampeon(int id) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT nombre, nick, historia, vida, regeneracionVida, danioAtaque, armadura, velocidadAtaque, resistenciaMagica, velocidadMovimiento, rutaPrincipal" +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, nick, historia, vida, regeneracionVida, danioAtaque, armadura, velocidadAtaque, resistenciaMagica, velocidadMovimiento, rutaPrincipal" +
                 " FROM campeones WHERE _id=" + id, null);
         String[] result2 = new String[cursor.getColumnCount()];
         int pos2 = 0;
@@ -348,7 +347,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2[pos2] = Html.fromHtml(cursor.getString(10)).toString();
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -365,8 +363,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta de la imagen principal del objeto en la sexta posición
      */
     public String[] obtenerDatosObjetos(int id) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT nombre, costeBase, coste, descripcion, puedesComprar, rutaPrincipal" +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, costeBase, coste, descripcion, puedesComprar, rutaPrincipal" +
                 " FROM objetos WHERE _id=" + id, null);
         String[] result2 = new String[cursor.getColumnCount()];
         int pos2 = 0;
@@ -379,7 +376,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2[pos2] = Html.fromHtml(cursor.getString(5)).toString();
         }
         cursor.close();
-        db.close();
         return result2;
     }
 
@@ -392,8 +388,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta principal de la imagen del campeón en la columna 3
      */
     public String[][] obtenerGratuitos() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT _id, nombre, rutaPrincipal" +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, nombre, rutaPrincipal" +
                 " FROM campeones WHERE esGratis=1 ORDER BY nombre", null);
         String[][] result3 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
@@ -406,7 +401,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             pos++;
         }
         cursor.close();
-        db.close();
         return result3;
     }
 }

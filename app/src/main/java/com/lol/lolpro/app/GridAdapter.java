@@ -17,18 +17,18 @@ public class GridAdapter extends BaseAdapter {
     private final Context context;
     private int finalDP;
 
-    private String[][] datos;
+    private String[][] data;
 
     /**
      * Constructor
      *
      * @param context   recibe el activity al que está asociado el fragment
-     * @param data      datos de los campeones o los objetos
+     * @param allData      datos de los campeones o los objetos
      * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapter(Context context, String[][] data, int desiredDP) {
+    public GridAdapter(Context context, String[][] allData, int desiredDP) {
         this.context = context;
-        datos = data;
+        data = allData;
         finalDP = desiredDP;
     }
 
@@ -44,6 +44,7 @@ public class GridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //SquaredImageView view = (SquaredImageView) convertView;
         ImageView view = (ImageView) convertView;
+        //Convert dp into px
         int px = (int) Utils.dipToPixels(context, finalDP);
 
         if (view == null) {
@@ -55,15 +56,13 @@ public class GridAdapter extends BaseAdapter {
 
         view.setTag(getId(position));
 
-        //Convert dp into px
-
         // Get the image URL for the current position.
         String url = getItem(position);
 
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
                 .load(url) //
-                .placeholder(R.drawable.cargando)
+                .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
                 .resize(px, px)
                 .centerCrop()// Keep proportion
@@ -79,7 +78,7 @@ public class GridAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return datos.length;
+        return data.length;
     }
 
     /**
@@ -90,7 +89,7 @@ public class GridAdapter extends BaseAdapter {
      */
     @Override
     public String getItem(int position) {
-        return datos[position][2];
+        return data[position][2];
     }
 
     /**
@@ -100,7 +99,7 @@ public class GridAdapter extends BaseAdapter {
      * @return Identificados único del campeón u objeto
      */
     public String getId(int position) {
-        return datos[position][0];
+        return data[position][0];
     }
 
     /**
@@ -117,8 +116,11 @@ public class GridAdapter extends BaseAdapter {
     /**
      * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
      */
-    public void refresh() {
-        datos = new BBDDHelper(context).obtenerGratuitos();
+    public void refresh(){
+        DBManager dbMan = DBManager.getInstance();
+        dbMan.openDatabase(false);
+        data = dbMan.getDatabaseHelper().obtenerGratuitos();
+        dbMan.closeDatabase(false);
         notifyDataSetChanged();
     }
 }

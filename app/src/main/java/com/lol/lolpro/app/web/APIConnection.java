@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.lol.lolpro.app.BBDDHelper;
+import com.lol.lolpro.app.DBManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,15 +46,19 @@ public class APIConnection {
 
     private static final String CERT_ALIAS = "LOLCert";
 
-    public BBDDHelper bdConnection;
     private KeyStore keyStore;
     private TrustManagerFactory tmf;
     private SSLContext sslCont;
     private Context context;
 
+    private DBManager dbMan;
+    public BBDDHelper bdConnection;
+
     public APIConnection(Context contexto) {
         context = contexto;
-        bdConnection = new BBDDHelper(contexto);
+        dbMan = DBManager.getInstance();
+        dbMan.openDatabase(true);
+        bdConnection = dbMan.getDatabaseHelper();
         try {
             keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null, null);
@@ -70,7 +75,7 @@ public class APIConnection {
     }
 
     //Añdir configuracion de idioma, lo que estamos buscando(campeones, ofertas...)
-    public URI createURI(int type) {
+    private URI createURI(int type) {
         // Ahora mismo solo devuelve la URI de obtener campeones
         StringBuffer url = new StringBuffer(BASE_URI);
         switch (type) {
@@ -98,7 +103,7 @@ public class APIConnection {
         return null;
     }
 
-    public boolean hasCert() {
+    private boolean hasCert() {
         try {
             return keyStore.isCertificateEntry(CERT_ALIAS);
         } catch (KeyStoreException e) {
@@ -107,7 +112,7 @@ public class APIConnection {
         return false;
     }
 
-    public boolean insertCert() {
+    private boolean insertCert() {
         try {
             CertificateFactory certFact = CertificateFactory.getInstance("X.509");
             InputStream caInput = (InputStream) context.getAssets().open(APIConnection.CERT_NAME);
@@ -137,23 +142,18 @@ public class APIConnection {
     }
 
     //Definir varios casos, campeones, ofertas...
-    public String connect2API(int type/*CONSTANTES.CAMPEONES, TIPOS.OFERTA*/) {
+    public String connect2API(int type) {
         String respuesta = null;
-        URI uriConsulta = createURI(type);
-        if (uriConsulta != null) {
-            if (!hasCert()) {
-                insertCert();
+            URI uriConsulta = createURI(type);
+            if (uriConsulta != null) {
+                if (!hasCert()) {
+                    insertCert();
+                }
+                ConnectionResult resultado = new ConnectionResult(sslCont);
+                respuesta = resultado.getHttpsResult(uriConsulta);
+                extractAndStoreData(respuesta, type);
             }
-            ConnectionResult resultado = new ConnectionResult(sslCont);
-            respuesta = resultado.getHttpsResult(uriConsulta);
-            extractAndStoreData(respuesta, type/*, CONSTANTES.CAMPEONES, TIPOS.OFERTA*/);
-        }
         return respuesta;
-    }
-
-    //Cogemos la ultima version y la direccion de las imagenes
-    public void getUpdatedImageURL() {
-
     }
 
     public void extractAndStoreData(String answer, int type) {
@@ -256,5 +256,9 @@ public class APIConnection {
             return false;
         }
         return true;
+    }
+
+    public void closeAPI(){
+        dbMan.closeDatabase(true);
     }
 }

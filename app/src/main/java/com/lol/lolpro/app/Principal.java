@@ -38,6 +38,7 @@ public class Principal extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DBManager.initializeInstance(this);
         setContentView(R.layout.activity_principal);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -54,6 +55,10 @@ public class Principal extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        if(!Utils.existsDB(this) && !Utils.hasInternetConnection(this)){
+            Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            finish();
+        }
         CargandoBBDD progressDialog = new CargandoBBDD(this);
         progressDialog.execute();
     }
@@ -151,10 +156,15 @@ public class Principal extends ActionBarActivity
         int id = item.getItemId();
 
         if (id == R.id.action_data_refresh || id == R.id.action_image_refresh) {
-            this.deleteDatabase(this.getResources().getString(R.string.app_name));
-            CargandoBBDD progressDialog = new CargandoBBDD(this);
-            progressDialog.execute();
-            return true;
+            if (!Utils.hasInternetConnection(this)){
+                Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                this.deleteDatabase(this.getResources().getString(R.string.app_name));
+                CargandoBBDD progressDialog = new CargandoBBDD(this);
+                progressDialog.execute();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

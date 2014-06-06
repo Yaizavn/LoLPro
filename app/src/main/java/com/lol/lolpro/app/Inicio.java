@@ -70,10 +70,17 @@ public class Inicio extends Fragment {
         ListView list = (ListView) view.findViewById(R.id.noticias);
         grid.setNumColumns(4);
 
-        BBDDHelper helper = new BBDDHelper(getActivity());
-        grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerGratuitos(), 75));
+        DBManager dbMan = DBManager.getInstance();
+        dbMan.openDatabase(false);
+        grid.setAdapter(new GridAdapter(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos(), 75));
         list.setAdapter(new ListAdapter(getActivity()));
-        ((ListAdapter) list.getAdapter()).refresh();
+        if(Utils.hasInternetConnection(getActivity())){
+            ((ListAdapter) list.getAdapter()).refresh();
+        }
+        else{
+            list.setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.textNoticias).setVisibility(View.INVISIBLE);
+        }
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -91,6 +98,7 @@ public class Inicio extends Fragment {
                 startActivity(i);
             }
         });
+        dbMan.closeDatabase(false);
     }
 
     public interface OnHeadlineSelectedListener {

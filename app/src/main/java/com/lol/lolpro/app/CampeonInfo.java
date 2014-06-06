@@ -40,9 +40,7 @@ public class CampeonInfo extends Fragment {
         String[] datos = args.getStringArray("data");
         View view = inflater.inflate(R.layout.fragment_campeon_info, container, false);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
-        if (datos != null) {
-            BBDDHelper helper = new BBDDHelper(getActivity());
-            datos = helper.obtenerDatosCampeon(id);
+        if (datos != null){
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.nick)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.vida)).setText(datos[3]);
@@ -54,7 +52,7 @@ public class CampeonInfo extends Fragment {
             ((TextView) view.findViewById(R.id.velMov)).setText(datos[9]);
             Picasso.with(getActivity()) //
                     .load(datos[10]) //
-                    .placeholder(R.drawable.cargando)
+                    .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
                     .resize(px, px)
                     .centerCrop() // Keep proportion

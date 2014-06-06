@@ -39,10 +39,11 @@ public class ObjetoInfo extends Fragment {
                              Bundle savedInstanceState) {
         ((Principal) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
         View view = inflater.inflate(R.layout.fragment_objeto_info, container, false);
-        helper = new BBDDHelper(view.getContext());
         Bundle args = getArguments();
         int id = args.getInt("id", Constants.INVALID_ID);
-        String[] datos = helper.obtenerDatosObjetos(id);
+        DBManager dbMan = DBManager.getInstance();
+        dbMan.openDatabase(false);
+        String[] datos = dbMan.getDatabaseHelper().obtenerDatosObjetos(id);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null) {
             String tienda = view.getResources().getString(R.string.si);
@@ -56,13 +57,13 @@ public class ObjetoInfo extends Fragment {
             ((TextView) view.findViewById(R.id.puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(datos[5]) //
-                    .placeholder(R.drawable.cargando)
+                    .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
                     .resize(px, px)
                     .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }
-        // TOCLOSE
+        dbMan.closeDatabase(false);
         // Inflate the layout for this fragment
         return view;
     }
