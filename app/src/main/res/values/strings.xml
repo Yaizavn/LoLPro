@@ -19,18 +19,25 @@
         <item>Historia</item>
     </string-array>
 
-    <string name="title_activity_objetos">Objetos</string>
-    <string name="title_activity_campeones">Campeones</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="title_activity_inicio">Inicio</string>
-    <string name="title_activity_principal">Principal</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="actualizando">Actualizando datos</string>
+    <string name="descargando">Descarga en proceso</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="nombre">Nombre</string>
+    <string name="nick">Nick</string>
+    <string name="vida">Vida:</string>
+    <string name="danio_ataque">Daño de ataque:</string>
+    <string name="vel_ataque">Velocidad de ataque:</string>
+    <string name="vel_movimiento">Velocidad de movimiento:</string>
+    <string name="res_magica">Resistencia mágica:</string>
+    <string name="reg_vida">Regeneración de vida:</string>
+    <string name="armadura">Armadura:</string>
+    <string name="campeones_gratuitos">CAMPEONES GRATUITOS</string>
+    <string name="noticias">NOTICIAS</string>
+    <string name="coste">Coste:</string>
+    <string name="tienda">Está en la tienda:</string>
+    <string name="coste_base">Coste base:</string>
+    <string name="descripcion">Descripción:</string>
 </resources>

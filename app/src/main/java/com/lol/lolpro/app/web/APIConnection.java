@@ -35,7 +35,6 @@ public class APIConnection {
     public static final int UPDATE_OBJECTS = 4;
     public static final int UPDATE_CHAMPIONS = 5;
 
-    //TODO trucar la ruta BASE_URI en funcion del idioma... de forma que optenemos los campeones en su idioma ;)
     private static final String CERT_NAME = "lolcert.pem";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore&";
@@ -45,16 +44,13 @@ public class APIConnection {
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";
 
     private static final String CERT_ALIAS = "LOLCert";
-    //TODO singleton para evitar validar muchos certificados
-    //public static final APIConnection API_CONNECTION = ;
-    //TODO sacar variables de certificado y eso
+
     public BBDDHelper bdConnection;
     private KeyStore keyStore;
     private TrustManagerFactory tmf;
     private SSLContext sslCont;
     private Context context;
 
-    //ToDo Inicializar todo con el singleton
     public APIConnection(Context contexto) {
         context = contexto;
         bdConnection = new BBDDHelper(contexto);

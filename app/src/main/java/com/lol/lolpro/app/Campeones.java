@@ -70,7 +70,6 @@ public class Campeones extends Fragment {
 
         BBDDHelper helper = new BBDDHelper(getActivity());
 
-        //ToDo Evitar enviar los dp deseados para el numero de imágenes
         grid.setAdapter(new GridAdapter(getActivity(), helper.obtenerRutaCampeones(), 100));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {

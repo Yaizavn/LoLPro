@@ -38,7 +38,7 @@ public class Historia extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_historia, container, false);
         // Defino la nueva fuente cargandola desde el fichero .ttf
-        Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Hand_Of_Sean_Demo.ttf");
+        Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Hand_Of_Sean_Demo.ttf");
 
         if (datos != null) {
             TextView historia = (TextView) view.findViewById(R.id.historia);

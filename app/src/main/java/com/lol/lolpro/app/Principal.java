@@ -30,8 +30,6 @@ public class Principal extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    //ToDo sacar pentakills en Stats
-
     /**
      * Se encarga de inicializar el activity para que contenga lo necesario para poder dibujar los fragments
      *
@@ -55,7 +53,7 @@ public class Principal extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        this.deleteDatabase(this.getResources().getString(R.string.app_name));
         CargandoBBDD progressDialog = new CargandoBBDD(this);
         progressDialog.execute();
     }
@@ -151,7 +149,6 @@ public class Principal extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        // ToDo save image files, delete them manually and use OKHttp for caching in older devices
 
         if (id == R.id.action_data_refresh || id == R.id.action_image_refresh) {
             this.deleteDatabase(this.getResources().getString(R.string.app_name));

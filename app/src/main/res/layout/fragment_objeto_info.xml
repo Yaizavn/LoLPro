@@ -12,17 +12,6 @@
         tools:context="com.lol.lolpro.app.ObjetoInfo">
 
         <TextView
-            android:id="@+id/descripcion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView2"
-            android:layout_alignStart="@+id/imageView2"
-            android:layout_below="@+id/historia"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
-
-        <TextView
             android:id="@+id/nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +19,7 @@
             android:layout_gravity="left|top"
             android:layout_marginLeft="25dp"
             android:layout_toRightOf="@+id/Imagen"
-            android:text="Nombre"
+            android:text="@+string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -75,7 +64,7 @@
             android:layout_alignTop="@+id/imageView"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imageView"
-            android:text="Coste:"
+            android:text="@+string/coste"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp"
             android:textStyle="bold" />
@@ -87,7 +76,7 @@
             android:layout_alignTop="@+id/imageView2"
             android:layout_marginLeft="7dp"
             android:layout_toRightOf="@+id/imageView2"
-            android:text="Está en la tienda:"
+            android:text="@+string/tienda"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp"
             android:textStyle="bold" />
@@ -99,7 +88,7 @@
             android:layout_alignLeft="@+id/TextoCoste"
             android:layout_alignStart="@+id/TextoCoste"
             android:layout_below="@+id/TextoCoste"
-            android:text="vida"
+            android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp" />
 
@@ -130,7 +119,7 @@
             android:layout_alignTop="@+id/imageView9"
             android:layout_marginLeft="7dp"
             android:layout_toRightOf="@+id/imageView9"
-            android:text="Coste base:"
+            android:text="@+string/coste_base"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp"
             android:textStyle="bold" />
@@ -157,17 +146,28 @@
             android:src="@drawable/separador" />
 
         <TextView
-            android:id="@+id/historia"
+            android:id="@+id/TextoDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView2"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="27dp"
-            android:text="Descripción:"
+            android:text="@+string/descripcion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/descripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView2"
+            android:layout_alignStart="@+id/imageView2"
+            android:layout_below="@+id/TextoDescripcion"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
     </RelativeLayout>
 </ScrollView>

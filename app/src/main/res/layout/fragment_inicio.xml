@@ -9,12 +9,12 @@
     tools:context="com.lol.lolpro.app.Inicio$PlaceholderFragment">
 
     <TextView
-        android:id="@+id/nombre"
+        android:id="@+id/campeonesGratuitos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="CAMPEONES GRATUITOS"
+        android:text="@+string/campeones_gratuitos"
         android:textAlignment="center"
         android:textSize="24dp" />
 
@@ -29,7 +29,7 @@
         android:gravity="center"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
-        android:layout_below="@+id/nombre"
+        android:layout_below="@+id/campeonesGratuitos"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </GridView>
@@ -38,8 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="NOTICIAS"
-        android:id="@+id/textView"
+        android:text="@+string/noticias"
+        android:id="@+id/textNoticias"
         android:layout_below="@+id/gridView"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true" />
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/noticias"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/textNoticias"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 

@@ -54,8 +54,8 @@ public class CampeonInfo extends Fragment {
             ((TextView) view.findViewById(R.id.velMov)).setText(datos[9]);
             Picasso.with(getActivity()) //
                     .load(datos[10]) //
-                    .placeholder(R.drawable.abc_ab_bottom_solid_light_holo) //TODO imagen palceholder
-                    .error(R.drawable.abc_ab_bottom_solid_dark_holo) //TODO imagen error
+                    .placeholder(R.drawable.cargando)
+                    .error(R.drawable.error)
                     .resize(px, px)
                     .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));

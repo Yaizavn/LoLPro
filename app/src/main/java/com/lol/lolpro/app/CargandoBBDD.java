@@ -38,15 +38,12 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
         if (accion == 1) {
             inicializarBBDD();
         } else if (accion == 2) {
-            //TODO deberiamos hacer esto en preexecute para que en caso de que no haya cambio de api ni de gratuitos no mostrara e progress dialog, pero no funciona porque no te deja hacer api.haCambiadoVersion o api.hacambiadoGratuitos si no es asincrono y preexecute no lo es
             if (api.haCambiadoVersion()) {
                 actualizarBBDD();
             } else if (api.hanCambiadoGratuitos()) {
                 actualizarGratuitos();
             }
         }
-        //Spider sp= new Spider ();
-        //noticias = sp.analizarURLs();
         return null;
     }
 
@@ -54,8 +51,8 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
      * Se encarga de mostrar una barra de progrso para indicar al usuario como va la carga de datos
      */
     public void mostrarDialog() {
-        progress.setTitle("Actualizando datos");
-        progress.setMessage("Descarga en progreso");
+        progress.setTitle(contexto.getResources().getString(R.string.actualizando));
+        progress.setMessage(contexto.getResources().getString(R.string.descargando));
         progress.setMax(100);
         progress.setProgress(0);
         progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

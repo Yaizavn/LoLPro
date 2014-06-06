@@ -44,16 +44,18 @@ public class GridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //SquaredImageView view = (SquaredImageView) convertView;
         ImageView view = (ImageView) convertView;
+        int px = (int) Utils.dipToPixels(context, finalDP);
 
         if (view == null) {
             view = new ImageView(context);
+            view.setMinimumWidth(px);
+            view.setMinimumHeight(px);
             //view.setScaleType(CENTER_CROP);
         }
 
         view.setTag(getId(position));
 
         //Convert dp into px
-        int px = (int) Utils.dipToPixels(context, finalDP);
 
         // Get the image URL for the current position.
         String url = getItem(position);
@@ -61,8 +63,8 @@ public class GridAdapter extends BaseAdapter {
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
                 .load(url) //
-                .placeholder(R.drawable.abc_ab_bottom_solid_light_holo) //TODO imagen palceholder
-                .error(R.drawable.abc_ab_bottom_solid_dark_holo) //TODO imagen error
+                .placeholder(R.drawable.cargando)
+                .error(R.drawable.error)
                 .resize(px, px)
                 .centerCrop()// Keep proportion
                 .into(view);

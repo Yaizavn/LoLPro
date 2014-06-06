@@ -45,9 +45,9 @@ public class ObjetoInfo extends Fragment {
         String[] datos = helper.obtenerDatosObjetos(id);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null) {
-            String tienda = "Si";
+            String tienda = view.getResources().getString(R.string.si);
             if (datos[4].contentEquals("0")) {
-                tienda = "No";
+                tienda = view.getResources().getString(R.string.no);
             }
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
@@ -56,8 +56,8 @@ public class ObjetoInfo extends Fragment {
             ((TextView) view.findViewById(R.id.puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(datos[5]) //
-                    .placeholder(R.drawable.abc_ab_bottom_solid_light_holo) //TODO imagen palceholder
-                    .error(R.drawable.abc_ab_bottom_solid_dark_holo) //TODO imagen error
+                    .placeholder(R.drawable.cargando)
+                    .error(R.drawable.error)
                     .resize(px, px)
                     .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));
