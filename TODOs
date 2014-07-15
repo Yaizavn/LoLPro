@@ -1,0 +1,21 @@
+    //ToDo sacar pentakills en Stats
+
+En principal en options items selected // ToDo save image files, delete them manually and use OKHttp for caching in older devices
+
+En cargando bbdd en doInBakcground en accion==2
+            //TODO deberiamos hacer esto en preexecute para que en caso de que no haya cambio de api ni de gratuitos no mostrara e progress dialog, pero no funciona porque no te deja hacer api.haCambiadoVersion o api.hacambiadoGratuitos si no es asincrono y preexecute no lo es
+
+
+En campeones onViewCreated para el set adapter         //ToDo Evitar enviar los dp deseados para el numero de imágenes
+
+En ApiConnection:
+-     //TODO trucar la ruta BASE_URI en funcion del idioma... de forma que optenemos los campeones en su idioma ;)
+
+-     //TODO singleton para evitar validar muchos certificados
+    //public static final APIConnection API_CONNECTION = ;
+    //ToDo Inicializar todo con el singleton
+
+//Si no hay internet quitar el apartado noticias
+
+/Controlar excepcion getWritableDatabase concurrente bbddd
+

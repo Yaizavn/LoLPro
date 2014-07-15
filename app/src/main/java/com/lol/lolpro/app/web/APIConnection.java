@@ -38,9 +38,10 @@ public class APIConnection {
 
     private static final String CERT_NAME = "lolcert.pem";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
+    private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
     private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore&";
     private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=gold,image&";
-    private static final String IMG_URI = "static-data/euw/v1.2/realm?";
+    private static final String METADATA_URI = "static-data/euw/v1.2/realm?";
     private static final String CHAMPION_FREE_URI = "euw/v1.2/champion?freeToPlay=true&";
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";
 
@@ -77,21 +78,21 @@ public class APIConnection {
     //Añdir configuracion de idioma, lo que estamos buscando(campeones, ofertas...)
     private URI createURI(int type) {
         // Ahora mismo solo devuelve la URI de obtener campeones
-        StringBuffer url = new StringBuffer(BASE_URI);
+        StringBuffer url = new StringBuffer();
         switch (type) {
             case CHAMPIONS:
             case UPDATE_CHAMPIONS:
-                url = url.append(CHAMPION_URI).append(API_KEY);
+                url = url.append(GLOBAL_URI).append(CHAMPION_URI).append(API_KEY);
                 break;
             case OBJECTS:
             case UPDATE_OBJECTS:
-                url = url.append(ITEM_URI).append(API_KEY);
+                url = url.append(GLOBAL_URI).append(ITEM_URI).append(API_KEY);
                 break;
             case IMAGES_AND_VERSIONS:
-                url = url.append(IMG_URI).append(API_KEY);
+                url = url.append(GLOBAL_URI).append(METADATA_URI).append(API_KEY);
                 break;
             case CHAMPION_FREE:
-                url = url.append(CHAMPION_FREE_URI).append(API_KEY);
+                url = url.append(BASE_URI).append(CHAMPION_FREE_URI).append(API_KEY);
                 break;
         }
         try {

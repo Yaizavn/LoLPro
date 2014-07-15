@@ -32,8 +32,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE campeones (" +
                 "_id INTEGER PRIMARY KEY" +
-                ", nombre TEXT, nick TEXT, historia TEXT, vida TEXT, regeneracionVida TEXT, " +
-                "danioAtaque TEXT, armadura TEXT, velocidadAtaque TEXT, resistenciaMagica TEXT," +
+                ", nombre TEXT, nick TEXT, historia TEXT, vida TEXT, vidaPorNivel TEXT, regeneracionVida TEXT, regeneracionVidaPorNivel TEXT, " +
+                "danioAtaque TEXT, danioAtaquePorNivel TEXT, armadura TEXT, armaduraPorNivel TEXT, velocidadAtaque TEXT, velocidadAtaquePorNivel TEXT, crit TEXT, critPerLevel TEXT, mana TEXT, manaPorNivel TEXT, regMana TEXT, regManaPorNivel TEXT, resistenciaMagica TEXT, resistenciaMagicaPorNivel TEXT" +
                 "velocidadMovimiento TEXT, rutaPrincipal TEXT, esGratis INTEGER)");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
