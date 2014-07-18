@@ -31,13 +31,17 @@ public class BBDDHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE campeones (" +
-                "_id INTEGER PRIMARY KEY" +
-                ", nombre TEXT, nick TEXT, historia TEXT, vida TEXT, vidaPorNivel TEXT, regeneracionVida TEXT, regeneracionVidaPorNivel TEXT, " +
-                "danioAtaque TEXT, danioAtaquePorNivel TEXT, armadura TEXT, armaduraPorNivel TEXT, velocidadAtaque TEXT, velocidadAtaquePorNivel TEXT, crit TEXT, critPerLevel TEXT, mana TEXT, manaPorNivel TEXT, regMana TEXT, regManaPorNivel TEXT, resistenciaMagica TEXT, resistenciaMagicaPorNivel TEXT" +
+                "_id INTEGER PRIMARY KEY, nombre TEXT, nick TEXT, historia TEXT, vida TEXT, " +
+                "vidaPorNivel TEXT, regeneracionVida TEXT, regeneracionVidaPorNivel TEXT, " +
+                "danioAtaque TEXT, danioAtaquePorNivel TEXT, armadura TEXT, armaduraPorNivel TEXT, " +
+                "velocidadAtaque TEXT, velocidadAtaquePorNivel TEXT, crit TEXT, critPorNivel TEXT, " +
+                "mana TEXT, manaPorNivel TEXT, regMana TEXT, regManaPorNivel TEXT, " +
+                "resistenciaMagica TEXT, resistenciaMagicaPorNivel TEXT, " +
                 "velocidadMovimiento TEXT, rutaPrincipal TEXT, esGratis INTEGER)");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
-                ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, puedesComprar INTEGER," +
+                ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, " +
+                "puedesComprar INTEGER," +
                 "rutaPrincipal TEXT)");
         db.execSQL("CREATE TABLE rutaVersiones (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
@@ -58,10 +62,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     public void openDatabase(boolean writeMode) {
         // Opening new database
-        if(writeMode){
+        if (writeMode) {
             mDatabase = getWritableDatabase();
-        }
-        else{
+        } else {
             mReadOnlyDatabase = getReadableDatabase();
         }
 
@@ -69,10 +72,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     public void closeDatabase(boolean writeMode) {
         // Closing database
-        if(writeMode) {
+        if (writeMode) {
             mDatabase.close();
-        }
-        else{
+        } else {
             mReadOnlyDatabase.close();
         }
     }
@@ -94,17 +96,27 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param rutaPrincipal       Ruta en la que se encuentra la imagen principal del campeón
      */
     public void guardarCampeones(int id, String nombre, String nick, String historia, String vida,
-                                 String regeneracionVida, String danioAtaque, String armadura,
-                                 String velocidadAtaque, String resistenciaMagica,
-                                 String velocidadMovimiento, String rutaPrincipal) {
+                                 String vidaPorNivel, String regeneracionVida,
+                                 String regeneracionVidaPorNivel, String danioAtaque,
+                                 String danioAtaquePorNivel, String armadura,
+                                 String armaduraPorNivel, String velocidadAtaque,
+                                 String velocidadAtaquePorNivel, String crit, String critPorNivel,
+                                 String mana, String manaPorNivel, String regMana,
+                                 String regManaPorNivel, String resistenciaMagica,
+                                 String resistenciaMagicaPorNivel, String velocidadMovimiento,
+                                 String rutaPrincipal) {
         double velAtaque = Double.parseDouble(velocidadAtaque);
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         //Redondeo de tres cifras
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
         mDatabase.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + nombre + "', '" + nick + "','" +
-                historia + "', '" + vida + "', '" + regeneracionVida + "', '" + danioAtaque + "', '" + armadura + "'," +
-                "'" + velAtaque + "', '" + resistenciaMagica + "', '" + velocidadMovimiento + "'," +
-                "'" + rutaPrincipal + "', 0)");
+                historia + "', '" + vida + "', '" + vidaPorNivel + "', '" + regeneracionVida + "', " +
+                " '" + regeneracionVidaPorNivel + "', '" + danioAtaque + "', '" + danioAtaquePorNivel + "', " +
+                " '" + armadura + "','" + armaduraPorNivel + "', '" + velAtaque + "', " +
+                " '" + velocidadAtaquePorNivel + "', '" + crit + "', '" + critPorNivel + "', " +
+                " '" + mana + "', '" + manaPorNivel + "', '" + regMana + "', '" + regManaPorNivel + "'," +
+                " '" + resistenciaMagica + "', '" + resistenciaMagicaPorNivel + "', " +
+                " '" + velocidadMovimiento + "', '" + rutaPrincipal + "', 0)");
     }
 
     /**
@@ -141,16 +153,31 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param rutaPrincipal       Ruta en la que se encuentra la imagen principal del campeón
      */
     public void modificarCampeones(int id, String nombre, String nick, String historia, String vida,
-                                   String regeneracionVida, String danioAtaque, String armadura,
-                                   String velocidadAtaque, String resistenciaMagica,
-                                   String velocidadMovimiento, String rutaPrincipal) {
+                                   String vidaPorNivel, String regeneracionVida,
+                                   String regeneracionVidaPorNivel, String danioAtaque,
+                                   String danioAtaquePorNivel, String armadura,
+                                   String armaduraPorNivel, String velocidadAtaque,
+                                   String velocidadAtaquePorNivel, String crit, String critPorNivel,
+                                   String mana, String manaPorNivel, String regMana,
+                                   String regManaPorNivel, String resistenciaMagica,
+                                   String resistenciaMagicaPorNivel, String velocidadMovimiento,
+                                   String rutaPrincipal) {
         double velAtaque = Double.parseDouble(velocidadAtaque);
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        mDatabase.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', historia='" + historia + "', " +
-                "vida='" + vida + "', regeneracionVida='" + regeneracionVida + "', danioAtaque='" + danioAtaque + "'," +
-                "armadura='" + armadura + "', velocidadAtaque='" + velAtaque + "', resistenciaMagica='" + resistenciaMagica +
-                "', velocidadMovimiento='" + velocidadMovimiento + "'," +
+        mDatabase.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', " +
+                "historia='" + historia + "', vida='" + vida + "', vidaPorNivel='" + vidaPorNivel + "', " +
+                "regeneracionVida='" + regeneracionVida + "', " +
+                "regeneracionVidaPorNivel='" + regeneracionVidaPorNivel + "', " +
+                "danioAtaque='" + danioAtaque + "', danioAtaquePorNivel='" + danioAtaquePorNivel + "', " +
+                "armadura='" + armadura + "', armaduraPorNivel='" + armaduraPorNivel + "', " +
+                "velocidadAtaque='" + velAtaque + "', " +
+                "velocidadAtaquePorNivel='" + velocidadAtaquePorNivel + "', crit='" + crit + "', " +
+                "critPorNivel='" + critPorNivel + "', mana='" + mana + "', " +
+                "manaPorNivel='" + manaPorNivel + "', regMana='" + regMana + "', " +
+                "regManaPorNivel='" + regManaPorNivel + "', resistenciaMagica='" + resistenciaMagica + "', " +
+                "resistenciaMagicaPorNivel='" + resistenciaMagicaPorNivel + "', " +
+                "velocidadMovimiento='" + velocidadMovimiento + "'," +
                 "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id=" + id);
     }
 
@@ -329,8 +356,12 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta de la imagen principal en la decima posición
      */
     public String[] obtenerDatosCampeon(int id) {
-        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, nick, historia, vida, regeneracionVida, danioAtaque, armadura, velocidadAtaque, resistenciaMagica, velocidadMovimiento, rutaPrincipal" +
-                " FROM campeones WHERE _id=" + id, null);
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, nick, historia, vida, vidaPorNivel, " +
+                "regeneracionVida, regeneracionVidaPorNivel, danioAtaque, danioAtaquePorNivel, " +
+                "armadura, armaduraPorNivel, velocidadAtaque, velocidadAtaquePorNivel, crit, " +
+                "critPorNivel, mana, manaPorNivel, regMana, regManaPorNivel, resistenciaMagica, " +
+                "resistenciaMagicaPorNivel, velocidadMovimiento, rutaPrincipal " +
+                "FROM campeones WHERE _id=" + id, null);
         String[] result2 = new String[cursor.getColumnCount()];
         int pos2 = 0;
         if (cursor.moveToNext()) {
@@ -344,7 +375,19 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2[pos2++] = Html.fromHtml(cursor.getString(7)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(8)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(9)).toString();
-            result2[pos2] = Html.fromHtml(cursor.getString(10)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(10)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(11)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(12)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(13)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(14)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(15)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(16)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(17)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(18)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(19)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(20)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(21)).toString();
+            result2[pos2] = Html.fromHtml(cursor.getString(22)).toString();
         }
         cursor.close();
         return result2;
