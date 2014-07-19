@@ -1,7 +1,15 @@
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
 <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:paddingBottom="32dp"
+    >
 
     <ImageView
         android:layout_width="100dp"
@@ -70,15 +78,26 @@
         android:layout_below="@+id/imageView2"
         android:layout_toLeftOf="@+id/TextoDanioAtaque" />
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView4"
-        android:src="@drawable/velmovimiento"
+        android:src="@drawable/mana"
         android:layout_marginTop="32dp"
         android:layout_below="@+id/imageView3"
         android:layout_alignLeft="@+id/imageView3"
         android:layout_alignStart="@+id/imageView3" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:src="@drawable/velmovimiento"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/imageView4"
+        android:layout_alignLeft="@+id/imageView4"
+        android:layout_alignStart="@+id/imageView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -120,11 +139,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/vel_movimiento"
-        android:id="@+id/texVelMov"
+        android:text="@+string/mana"
+        android:id="@+id/texMana"
         android:textSize="12dp"
         android:layout_alignTop="@+id/imageView4"
         android:layout_toRightOf="@+id/imageView4"
+        android:layout_marginLeft="7dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@+string/vel_movimiento"
+        android:id="@+id/texVelMov"
+        android:textSize="12dp"
+        android:layout_alignTop="@+id/imageView5"
+        android:layout_toRightOf="@+id/imageView5"
         android:layout_marginLeft="7dp"
         android:textStyle="bold" />
 
@@ -166,6 +197,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
+        android:id="@+id/mana"
+        android:textSize="12dp"
+        android:layout_below="@+id/texMana"
+        android:layout_alignLeft="@+id/texMana"
+        android:layout_alignStart="@+id/texMana" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
         android:id="@+id/velMov"
         android:textSize="12dp"
         android:layout_below="@+id/texVelMov"
@@ -198,6 +240,15 @@
         android:layout_toRightOf="@+id/texVelMov"
         android:layout_marginLeft="15dp"
         android:src="@drawable/resmagica" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView12"
+        android:layout_alignTop="@+id/texMana"
+        android:layout_toRightOf="@+id/texVelMov"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/regmana" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -239,6 +290,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@+string/reg_mana"
+        android:id="@+id/textRegMana"
+        android:layout_alignTop="@+id/imageView12"
+        android:layout_toRightOf="@+id/imageView12"
+        android:layout_marginLeft="7dp"
+        android:textSize="12dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/regVida"
         android:layout_below="@+id/textoRegVida"
@@ -268,10 +331,21 @@
         android:layout_alignStart="@+id/textResMagica"
         android:textSize="12dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/regMana"
+        android:layout_below="@+id/textRegMana"
+        android:layout_alignLeft="@+id/textRegMana"
+        android:layout_alignStart="@+id/textRegMana"
+        android:textSize="12dp" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView6"
+        android:id="@+id/imageView14"
         android:layout_below="@+id/Imagen"
         android:src="@drawable/separador"
         android:layout_alignLeft="@+id/Imagen"
@@ -280,3 +354,4 @@
  />
 
 </RelativeLayout>
+</ScrollView>

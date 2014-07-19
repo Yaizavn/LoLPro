@@ -33,6 +33,8 @@
     <string name="vel_movimiento">Velocidad de movimiento:</string>
     <string name="res_magica">Resistencia mágica:</string>
     <string name="reg_vida">Regeneración de vida:</string>
+    <string name="mana">Mana:</string>
+    <string name="reg_mana">Regeneración de mana:</string>
     <string name="armadura">Armadura:</string>
     <string name="campeones_gratuitos">CAMPEONES GRATUITOS</string>
     <string name="noticias">NOTICIAS</string>

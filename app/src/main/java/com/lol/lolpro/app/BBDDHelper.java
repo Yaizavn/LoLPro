@@ -35,7 +35,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "vidaPorNivel TEXT, regeneracionVida TEXT, regeneracionVidaPorNivel TEXT, " +
                 "danioAtaque TEXT, danioAtaquePorNivel TEXT, armadura TEXT, armaduraPorNivel TEXT, " +
                 "velocidadAtaque TEXT, velocidadAtaquePorNivel TEXT, crit TEXT, critPorNivel TEXT, " +
-                "mana TEXT, manaPorNivel TEXT, regMana TEXT, regManaPorNivel TEXT, " +
+                "tipoMP TEXT, mana TEXT, manaPorNivel TEXT, regMana TEXT, regManaPorNivel TEXT, " +
                 "resistenciaMagica TEXT, resistenciaMagicaPorNivel TEXT, " +
                 "velocidadMovimiento TEXT, rutaPrincipal TEXT, esGratis INTEGER)");
         db.execSQL("CREATE TABLE objetos (" +
@@ -101,7 +101,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                                  String danioAtaquePorNivel, String armadura,
                                  String armaduraPorNivel, String velocidadAtaque,
                                  String velocidadAtaquePorNivel, String crit, String critPorNivel,
-                                 String mana, String manaPorNivel, String regMana,
+                                 String tipoMP, String mana, String manaPorNivel, String regMana,
                                  String regManaPorNivel, String resistenciaMagica,
                                  String resistenciaMagicaPorNivel, String velocidadMovimiento,
                                  String rutaPrincipal) {
@@ -114,7 +114,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 " '" + regeneracionVidaPorNivel + "', '" + danioAtaque + "', '" + danioAtaquePorNivel + "', " +
                 " '" + armadura + "','" + armaduraPorNivel + "', '" + velAtaque + "', " +
                 " '" + velocidadAtaquePorNivel + "', '" + crit + "', '" + critPorNivel + "', " +
-                " '" + mana + "', '" + manaPorNivel + "', '" + regMana + "', '" + regManaPorNivel + "'," +
+                " '" + tipoMP + "', '" + mana + "', '" + manaPorNivel + "', '" + regMana + "', '" + regManaPorNivel + "'," +
                 " '" + resistenciaMagica + "', '" + resistenciaMagicaPorNivel + "', " +
                 " '" + velocidadMovimiento + "', '" + rutaPrincipal + "', 0)");
     }
@@ -158,7 +158,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                                    String danioAtaquePorNivel, String armadura,
                                    String armaduraPorNivel, String velocidadAtaque,
                                    String velocidadAtaquePorNivel, String crit, String critPorNivel,
-                                   String mana, String manaPorNivel, String regMana,
+                                   String tipoMP, String mana, String manaPorNivel, String regMana,
                                    String regManaPorNivel, String resistenciaMagica,
                                    String resistenciaMagicaPorNivel, String velocidadMovimiento,
                                    String rutaPrincipal) {
@@ -173,7 +173,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "armadura='" + armadura + "', armaduraPorNivel='" + armaduraPorNivel + "', " +
                 "velocidadAtaque='" + velAtaque + "', " +
                 "velocidadAtaquePorNivel='" + velocidadAtaquePorNivel + "', crit='" + crit + "', " +
-                "critPorNivel='" + critPorNivel + "', mana='" + mana + "', " +
+                "critPorNivel='" + critPorNivel + "', tipoMP='" + tipoMP + "', mana='" + mana + "', " +
                 "manaPorNivel='" + manaPorNivel + "', regMana='" + regMana + "', " +
                 "regManaPorNivel='" + regManaPorNivel + "', resistenciaMagica='" + resistenciaMagica + "', " +
                 "resistenciaMagicaPorNivel='" + resistenciaMagicaPorNivel + "', " +
@@ -359,7 +359,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, nick, historia, vida, vidaPorNivel, " +
                 "regeneracionVida, regeneracionVidaPorNivel, danioAtaque, danioAtaquePorNivel, " +
                 "armadura, armaduraPorNivel, velocidadAtaque, velocidadAtaquePorNivel, crit, " +
-                "critPorNivel, mana, manaPorNivel, regMana, regManaPorNivel, resistenciaMagica, " +
+                "critPorNivel, tipoMP, mana, manaPorNivel, regMana, regManaPorNivel, resistenciaMagica, " +
                 "resistenciaMagicaPorNivel, velocidadMovimiento, rutaPrincipal " +
                 "FROM campeones WHERE _id=" + id, null);
         String[] result2 = new String[cursor.getColumnCount()];
@@ -387,7 +387,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2[pos2++] = Html.fromHtml(cursor.getString(19)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(20)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(21)).toString();
-            result2[pos2] = Html.fromHtml(cursor.getString(22)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(22)).toString();
+            result2[pos2] = Html.fromHtml(cursor.getString(23)).toString();
         }
         cursor.close();
         return result2;
