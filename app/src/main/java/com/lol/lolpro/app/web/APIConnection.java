@@ -39,7 +39,7 @@ public class APIConnection {
     private static final String CERT_NAME = "lolcert.pem";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
-    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype&";
+    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells&";
     private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=gold,image&";
     private static final String METADATA_URI = "static-data/euw/v1.2/realm?";
     private static final String CHAMPION_FREE_URI = "euw/v1.2/champion?freeToPlay=true&";
@@ -168,17 +168,17 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
-                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(5)),
-                            TextUtils.htmlEncode(match.group(16)), TextUtils.htmlEncode(match.group(17)),
-                            TextUtils.htmlEncode(match.group(18)), TextUtils.htmlEncode(match.group(19)),
-                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
-                            TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(8)),
-                            TextUtils.htmlEncode(match.group(12)), TextUtils.htmlEncode(match.group(13)),
-                            TextUtils.htmlEncode(match.group(14)), TextUtils.htmlEncode(match.group(15)),
-                            TextUtils.htmlEncode(match.group(6)), TextUtils.htmlEncode(match.group(21)),
-                            TextUtils.htmlEncode(match.group(22)), TextUtils.htmlEncode(match.group(23)),
-                            TextUtils.htmlEncode(match.group(24)), TextUtils.htmlEncode(match.group(25)),
-                            TextUtils.htmlEncode(match.group(26)),TextUtils.htmlEncode(match.group(20)),
+                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(6)),
+                            TextUtils.htmlEncode(match.group(17)), TextUtils.htmlEncode(match.group(18)),
+                            TextUtils.htmlEncode(match.group(19)), TextUtils.htmlEncode(match.group(20)),
+                            TextUtils.htmlEncode(match.group(10)), TextUtils.htmlEncode(match.group(11)),
+                            TextUtils.htmlEncode(match.group(8)), TextUtils.htmlEncode(match.group(9)),
+                            TextUtils.htmlEncode(match.group(13)), TextUtils.htmlEncode(match.group(14)),
+                            TextUtils.htmlEncode(match.group(15)), TextUtils.htmlEncode(match.group(16)),
+                            TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(22)),
+                            TextUtils.htmlEncode(match.group(23)), TextUtils.htmlEncode(match.group(24)),
+                            TextUtils.htmlEncode(match.group(24)), TextUtils.htmlEncode(match.group(26)),
+                            TextUtils.htmlEncode(match.group(27)),TextUtils.htmlEncode(match.group(21)),
                             TextUtils.htmlEncode(rutaImagen + match.group(4)));
                 }
                 break;
@@ -220,17 +220,17 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     bdConnection.modificarCampeones(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
-                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(5)),
-                            TextUtils.htmlEncode(match.group(16)), TextUtils.htmlEncode(match.group(17)),
-                            TextUtils.htmlEncode(match.group(18)), TextUtils.htmlEncode(match.group(19)),
-                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
-                            TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(8)),
-                            TextUtils.htmlEncode(match.group(12)), TextUtils.htmlEncode(match.group(13)),
-                            TextUtils.htmlEncode(match.group(14)), TextUtils.htmlEncode(match.group(15)),
-                            TextUtils.htmlEncode(match.group(6)), TextUtils.htmlEncode(match.group(21)),
-                            TextUtils.htmlEncode(match.group(22)), TextUtils.htmlEncode(match.group(23)),
-                            TextUtils.htmlEncode(match.group(24)), TextUtils.htmlEncode(match.group(25)),
-                            TextUtils.htmlEncode(match.group(26)),TextUtils.htmlEncode(match.group(20)),
+                            TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(6)),
+                            TextUtils.htmlEncode(match.group(17)), TextUtils.htmlEncode(match.group(18)),
+                            TextUtils.htmlEncode(match.group(19)), TextUtils.htmlEncode(match.group(20)),
+                            TextUtils.htmlEncode(match.group(10)), TextUtils.htmlEncode(match.group(11)),
+                            TextUtils.htmlEncode(match.group(8)), TextUtils.htmlEncode(match.group(9)),
+                            TextUtils.htmlEncode(match.group(13)), TextUtils.htmlEncode(match.group(14)),
+                            TextUtils.htmlEncode(match.group(15)), TextUtils.htmlEncode(match.group(16)),
+                            TextUtils.htmlEncode(match.group(7)), TextUtils.htmlEncode(match.group(22)),
+                            TextUtils.htmlEncode(match.group(23)), TextUtils.htmlEncode(match.group(24)),
+                            TextUtils.htmlEncode(match.group(24)), TextUtils.htmlEncode(match.group(26)),
+                            TextUtils.htmlEncode(match.group(27)),TextUtils.htmlEncode(match.group(21)),
                             TextUtils.htmlEncode(rutaImagen + match.group(4)));
                 }
                 break;

@@ -1,357 +1,335 @@
-<ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-<RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:paddingBottom="32dp"
-    >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingBottom="32dp">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/Imagen"
-        android:layout_gravity="left|top"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp"
-        android:layout_marginLeft="11dp"/>
+        <ImageView
+            android:id="@+id/Imagen"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="39dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/nombre"
-        android:id="@+id/nombre"
-        android:layout_gravity="left|top"
-        android:layout_alignTop="@+id/Imagen"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        />
+        <TextView
+            android:id="@+id/nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/Imagen"
+            android:layout_toRightOf="@id/Imagen"
+            android:text="@+string/nombre"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/nick"
-        android:id="@+id/nick"
-        android:textSize="18dp"
-        android:layout_below="@+id/nombre"
-        android:layout_alignLeft="@+id/nombre"
-        android:layout_alignStart="@+id/nombre"
-        android:layout_marginTop="20dp"
-        />
+        <TextView
+            android:id="@+id/nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nombre"
+            android:layout_marginTop="22dp"
+            android:layout_toRightOf="@id/Imagen"
+            android:text="@+string/nick"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="18dp"
+            android:layout_marginLeft="15dp"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/vida"
-        android:layout_marginTop="70dp"
-        android:layout_below="@+id/Imagen"
-        android:layout_alignLeft="@+id/Imagen"
-        android:layout_alignStart="@+id/Imagen" />
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/Imagen"
+            android:layout_below="@id/Imagen"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/separador" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:src="@drawable/danioataque"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/Imagen"
+            android:layout_below="@id/Imagen"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/vida" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/velataque"
-        android:layout_below="@+id/imageView2"
-        android:layout_toLeftOf="@+id/TextoDanioAtaque" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/imageView"
+            android:layout_below="@id/imageView"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/danioataque" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/imageView2"
+            android:layout_below="@id/imageView2"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/velataque" />
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView4"
-        android:src="@drawable/mana"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_alignStart="@+id/imageView3" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/imageView3"
+            android:layout_below="@id/imageView3"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/mana" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView5"
-        android:src="@drawable/velmovimiento"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/imageView4"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4" />
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/imageView4"
+            android:layout_below="@id/imageView4"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/velmovimiento" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/vida"
-        android:id="@+id/TextoVida"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_marginLeft="10dp"
-        android:textSize="12dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texVida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/imageView"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/danio_ataque"
-        android:id="@+id/TextoDanioAtaque"
-        android:textSize="12dp"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView2"
-        android:layout_marginLeft="7dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texDanioAtaque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView2"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/imageView2"
+            android:text="@+string/danio_ataque"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/vel_ataque"
-        android:id="@+id/texVelAtaque"
-        android:textSize="12dp"
-        android:layout_alignTop="@+id/imageView3"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_marginLeft="7dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texVelAtaque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView3"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/imageView3"
+            android:text="@+string/vel_ataque"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/mana"
-        android:id="@+id/texMana"
-        android:textSize="12dp"
-        android:layout_alignTop="@+id/imageView4"
-        android:layout_toRightOf="@+id/imageView4"
-        android:layout_marginLeft="7dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texMana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView4"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/imageView4"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/vel_movimiento"
-        android:id="@+id/texVelMov"
-        android:textSize="12dp"
-        android:layout_alignTop="@+id/imageView5"
-        android:layout_toRightOf="@+id/imageView5"
-        android:layout_marginLeft="7dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texVelMov"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView5"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/imageView5"
+            android:text="@+string/vel_movimiento"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/vida"
-        android:textSize="12dp"
-        android:layout_below="@+id/TextoVida"
-        android:layout_alignLeft="@+id/TextoVida"
-        android:layout_alignStart="@+id/TextoVida" />
+        <TextView
+            android:id="@+id/vida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texVida"
+            android:layout_below="@id/texVida"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/danioAtaque"
-        android:textSize="12dp"
-        android:layout_below="@+id/TextoDanioAtaque"
-        android:layout_alignLeft="@+id/TextoDanioAtaque"
-        android:layout_alignStart="@+id/TextoDanioAtaque" />
+        <TextView
+            android:id="@+id/danioAtaque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texDanioAtaque"
+            android:layout_below="@id/texDanioAtaque"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/velAtaque"
-        android:textSize="12dp"
-        android:layout_below="@+id/texVelAtaque"
-        android:layout_alignLeft="@+id/texVelAtaque"
-        android:layout_alignStart="@+id/texVelAtaque" />
+        <TextView
+            android:id="@+id/velAtaque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texVelAtaque"
+            android:layout_below="@id/texVelAtaque"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/mana"
-        android:textSize="12dp"
-        android:layout_below="@+id/texMana"
-        android:layout_alignLeft="@+id/texMana"
-        android:layout_alignStart="@+id/texMana" />
+        <TextView
+            android:id="@+id/mana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texMana"
+            android:layout_below="@id/texMana"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/velMov"
-        android:textSize="12dp"
-        android:layout_below="@+id/texVelMov"
-        android:layout_alignLeft="@+id/texVelMov"
-        android:layout_alignStart="@+id/texVelMov" />
+        <TextView
+            android:id="@+id/velMov"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texVelMov"
+            android:layout_below="@id/texVelMov"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView9"
-        android:layout_alignTop="@+id/TextoVida"
-        android:layout_toRightOf="@+id/texVelMov"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/regvida" />
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/texVelMov"
+            android:src="@drawable/regvida" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView10"
-        android:layout_alignTop="@+id/TextoDanioAtaque"
-        android:layout_toRightOf="@+id/texVelMov"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/armadura" />
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/imageView9"
+            android:layout_below="@id/imageView9"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/armadura" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView11"
-        android:layout_alignTop="@+id/texVelAtaque"
-        android:layout_toRightOf="@+id/texVelMov"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/resmagica" />
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/imageView10"
+            android:layout_below="@id/imageView10"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/resmagica" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView12"
-        android:layout_alignTop="@+id/texMana"
-        android:layout_toRightOf="@+id/texVelMov"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/regmana" />
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/imageView11"
+            android:layout_below="@id/imageView11"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/regmana" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/reg_vida"
-        android:id="@+id/textoRegVida"
-        android:layout_alignTop="@+id/imageView9"
-        android:layout_toRightOf="@+id/imageView9"
-        android:layout_marginLeft="7dp"
-        android:textSize="12dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texRegVida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView9"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/imageView9"
+            android:text="@+string/reg_vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/armadura"
-        android:id="@+id/textArmadura"
-        android:layout_alignTop="@+id/imageView10"
-        android:layout_toRightOf="@+id/imageView10"
-        android:layout_marginLeft="7dp"
-        android:textSize="12dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texArmadura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView10"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/imageView10"
+            android:text="@+string/armadura"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/res_magica"
-        android:id="@+id/textResMagica"
-        android:layout_alignTop="@+id/imageView11"
-        android:layout_toRightOf="@+id/imageView11"
-        android:layout_marginLeft="7dp"
-        android:textSize="12dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texResMagica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView11"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/imageView11"
+            android:text="@+string/res_magica"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@+string/reg_mana"
-        android:id="@+id/textRegMana"
-        android:layout_alignTop="@+id/imageView12"
-        android:layout_toRightOf="@+id/imageView12"
-        android:layout_marginLeft="7dp"
-        android:textSize="12dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/texRegMana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView12"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/imageView12"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/regVida"
-        android:layout_below="@+id/textoRegVida"
-        android:layout_alignLeft="@+id/textoRegVida"
-        android:layout_alignStart="@+id/textoRegVida"
-        android:textSize="12dp" />
+        <TextView
+            android:id="@+id/regVida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texRegVida"
+            android:layout_below="@id/texRegVida"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/armadura"
-        android:layout_below="@+id/textArmadura"
-        android:layout_alignLeft="@+id/textArmadura"
-        android:layout_alignStart="@+id/textArmadura"
-        android:textSize="12dp" />
+        <TextView
+            android:id="@+id/armadura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texArmadura"
+            android:layout_below="@id/texArmadura"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/resMagica"
-        android:layout_below="@+id/textResMagica"
-        android:layout_alignLeft="@+id/textResMagica"
-        android:layout_alignStart="@+id/textResMagica"
-        android:textSize="12dp" />
+        <TextView
+            android:id="@+id/resMagica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texResMagica"
+            android:layout_below="@id/texResMagica"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/regMana"
-        android:layout_below="@+id/textRegMana"
-        android:layout_alignLeft="@+id/textRegMana"
-        android:layout_alignStart="@+id/textRegMana"
-        android:textSize="12dp" />
+        <TextView
+            android:id="@+id/regMana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/texRegMana"
+            android:layout_below="@id/texRegMana"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView14"
-        android:layout_below="@+id/Imagen"
-        android:src="@drawable/separador"
-        android:layout_alignLeft="@+id/Imagen"
-        android:layout_alignStart="@+id/Imagen"
-        android:layout_marginRight="11dp"
- />
-
-</RelativeLayout>
+    </RelativeLayout>
 </ScrollView>

@@ -33,7 +33,28 @@
     <string name="vel_movimiento">Velocidad de movimiento:</string>
     <string name="res_magica">Resistencia mágica:</string>
     <string name="reg_vida">Regeneración de vida:</string>
-    <string name="mana">Mana:</string>
+    <string-array name="mp">
+        <item>Maná:</item>
+        <item>Energía:</item>
+        <item>Sangre</item>
+        <item>Furia</item>
+        <item>Calor</item>
+        <item>Escudo</item>
+        <item>Ferocidad</item>
+        <item>Viento</item>
+        <item>Rabia</item>
+    </string-array>
+    <string-array name="regMP">
+        <item>Regeneración de maná:</item>
+        <item>Regeneración de energía:</item>
+        <item>Regeneración de sangre:</item>
+        <item>Regeneración de furia:</item>
+        <item>Regeneración de calor:</item>
+        <item>Regeneración de escudo:</item>
+        <item>Regeneración de ferocidad:</item>
+        <item>Regeneración de viento:</item>
+        <item>Regeneración de rabia:</item>
+    </string-array>
     <string name="reg_mana">Regeneración de mana:</string>
     <string name="armadura">Armadura:</string>
     <string name="campeones_gratuitos">CAMPEONES GRATUITOS</string>

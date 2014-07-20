@@ -51,10 +51,29 @@ public class CampeonInfo extends Fragment {
             //((TextView) view.findViewById(R.id.danioAtaquePorNivel)).setText(datos[8]);
             ((TextView) view.findViewById(R.id.armadura)).setText(datos[9] + "(+" + datos[10] + " por nivel)");
             //((TextView) view.findViewById(R.id.armaduraPorNivel)).setText(datos[10]);
-            ((TextView) view.findViewById(R.id.velAtaque)).setText(datos[11] + "(+" + datos[12] + " por nivel)");
+            ((TextView) view.findViewById(R.id.velAtaque)).setText(datos[11] + "(+" + datos[12] + "% por nivel)");
             //((TextView) view.findViewById(R.id.velAtaquePorNivel)).setText(datos[12]);
             //((TextView) view.findViewById(R.id.crit)).setText(datos[13] + "(+" + datos[14] + " por nivel)");
             //((TextView) view.findViewById(R.id.critPorNivel)).setText(datos[14]);
+            String mp=datos[15];
+            String [] mpName = new String [] {"Mana", "Energy", "BloodWell", "fury", "Heat", "Shield", "Ferocity", "Wind", "Rage"};
+            boolean encontrado=false;
+            for (int i=0; i<mpName.length && !encontrado; i++){
+                if (mp.compareTo(mpName[i])==0 || mp.contains(mpName[i])){
+                    ((TextView) view.findViewById(R.id.texMana)).setText(getActivity().getResources().getStringArray(R.array.mp)[i]);
+                    ((TextView) view.findViewById(R.id.texRegMana)).setText(getActivity().getResources().getStringArray(R.array.regMP)[i]);
+                    encontrado=true;
+                }
+            }
+            if (!encontrado){
+                view.findViewById(R.id.texMana).setVisibility(View.GONE);
+                view.findViewById(R.id.mana).setVisibility(View.GONE);
+                view.findViewById(R.id.imageView4).setVisibility(View.GONE);
+                view.findViewById(R.id.texRegMana).setVisibility(View.GONE);
+                view.findViewById(R.id.regMana).setVisibility(View.GONE);
+                view.findViewById(R.id.imageView12).setVisibility(View.GONE);
+            }
+
             //((TextView) view.findViewById(R.id.tipoMP)).setText(datos[15]);
             ((TextView) view.findViewById(R.id.mana)).setText(datos[16] + "(+" + datos[17] + " por nivel)");
             //((TextView) view.findViewById(R.id.manaPorNivel)).setText(datos[17]);
