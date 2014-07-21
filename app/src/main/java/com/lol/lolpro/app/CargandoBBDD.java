@@ -1,6 +1,7 @@
 package com.lol.lolpro.app;
 
 import android.app.ProgressDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.GridView;
@@ -70,6 +71,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
     protected void onProgressUpdate(Integer... integers) {
         progress.setProgress(integers[0]);
     }
+
 
     /**
      * Se encarga del tratamiento necesario antes de comenzar la tarea asíncrona, en este caso de indicarle a la tarea asíncrona si debe crear la base de datos o solo actualizarla

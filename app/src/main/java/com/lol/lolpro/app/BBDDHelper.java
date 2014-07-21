@@ -3,8 +3,10 @@ package com.lol.lolpro.app;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Html;
+import android.util.Log;
 
 /**
  * Clase que se encarga de la gestión de la base de datos
@@ -38,6 +40,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "tipoMP TEXT, mana TEXT, manaPorNivel TEXT, regMana TEXT, regManaPorNivel TEXT, " +
                 "resistenciaMagica TEXT, resistenciaMagicaPorNivel TEXT, " +
                 "velocidadMovimiento TEXT, rutaPrincipal TEXT, esGratis INTEGER)");
+        db.execSQL("CREATE TABLE aspectos (" +
+                "_id INTEGER PRIMARY KEY, idCampeon INTEGER, nombre TEXT, num INTEGER," +
+                " rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
                 ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, " +
@@ -58,6 +63,15 @@ public class BBDDHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // En caso de una nueva versión habría que actualizar las tablas
+    }
+
+    @Override
+    public void onOpen (SQLiteDatabase db){
+        super.onOpen(db);
+        if (!db.isReadOnly()){
+            //Enable foreign key contraints
+            db.execSQL("PRAGMA foreign_keys=ON");
+        }
     }
 
     public void openDatabase(boolean writeMode) {
@@ -117,6 +131,15 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 " '" + tipoMP + "', '" + mana + "', '" + manaPorNivel + "', '" + regMana + "', '" + regManaPorNivel + "'," +
                 " '" + resistenciaMagica + "', '" + resistenciaMagicaPorNivel + "', " +
                 " '" + velocidadMovimiento + "', '" + rutaPrincipal + "', 0)");
+    }
+
+    public void guardarAspectos(int id, int idCampeon, String nombre, int numero, String rutaPrincipal ) {
+       try{
+           mDatabase.execSQL("INSERT INTO aspectos VALUES (" + id + ", " + idCampeon + ", '" + nombre + "','" +
+                   numero + "', '" + rutaPrincipal + "')");
+       }catch (SQLiteException e){
+           Log.e("Error foreign key", "Foreign key does not exist");
+       }
     }
 
     /**
@@ -179,6 +202,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "resistenciaMagicaPorNivel='" + resistenciaMagicaPorNivel + "', " +
                 "velocidadMovimiento='" + velocidadMovimiento + "'," +
                 "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id=" + id);
+    }
+
+    public void modificarAspectosCampeon(int idAspecto, String nombre, int numero, String rutaPrincipal) {
+        mDatabase.execSQL("UPDATE aspectos SET nombre='" + nombre + "', num=" + numero + ", " +
+                "rutaPrincipal='" + rutaPrincipal + "' WHERE _id=" + idAspecto);
     }
 
     /**
@@ -289,6 +317,17 @@ public class BBDDHelper extends SQLiteOpenHelper {
         return result2;
     }
 
+    public String obtenerRutaAspectosCampeon() {
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT ruta FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            result2 += Html.fromHtml(cursor.getString(0)).toString() + "/img/champion/splash/";
+        }
+        cursor.close();
+        return result2;
+    }
+
     /**
      * Se encarga de obtener la última versión de los campeones
      *
@@ -392,6 +431,23 @@ public class BBDDHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return result2;
+    }
+
+    public String[][] obtenerAspectosCampeon(int idCampeon) {
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, nombre, num, rutaPrincipal " +
+               "FROM aspectos WHERE idCampeon=" + idCampeon, null);
+        String[][] result4 = new String[cursor.getCount()][cursor.getColumnCount()];
+        int pos = 0;
+        int pos2 = 0;
+        while (cursor.moveToNext()) {
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(0)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(2)).toString();
+            result4[pos][pos2] = Html.fromHtml(cursor.getString(3)).toString();
+            pos2 = 0;
+            pos++;
+        }
+        return result4;
     }
 
     /**

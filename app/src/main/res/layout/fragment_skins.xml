@@ -1,0 +1,192 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingBottom="32dp">
+
+        <ImageView
+            android:id="@+id/Imagen"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="39dp" />
+
+        <TextView
+            android:id="@+id/nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/Imagen"
+            android:layout_toRightOf="@id/Imagen"
+            android:text="@+string/nombre"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nombre"
+            android:layout_marginTop="22dp"
+            android:layout_toRightOf="@id/Imagen"
+            android:text="@+string/nick"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="18dp"
+            android:layout_marginLeft="15dp"/>
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/Imagen"
+            android:layout_below="@id/Imagen"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/separador" />
+
+        <ImageView
+            android:id="@+id/imageView200"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@id/Imagen"
+            android:layout_below="@id/Imagen"
+            android:layout_marginTop="70dp"
+            />
+
+        <ImageView
+            android:id="@+id/imageView201"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@id/imageView200"
+            android:layout_below="@id/imageView200"
+            android:layout_marginTop="32dp"
+           />
+
+        <ImageView
+            android:id="@+id/imageView202"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@id/imageView201"
+            android:layout_below="@id/imageView201"
+            android:layout_marginTop="32dp"
+            />
+
+        <TextView
+            android:id="@+id/texVida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView200"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/imageView200"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView200"
+            android:layout_marginLeft="100dp"
+            android:layout_toRightOf="@id/imageView200"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView200"
+            android:layout_marginLeft="200dp"
+            android:layout_toRightOf="@id/imageView200"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView201"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/imageView201"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView201"
+            android:layout_marginLeft="100dp"
+            android:layout_toRightOf="@id/imageView201"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView201"
+            android:layout_marginLeft="200dp"
+            android:layout_toRightOf="@id/imageView201"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView202"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/imageView202"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView202"
+            android:layout_marginLeft="100dp"
+            android:layout_toRightOf="@id/imageView202"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texVida9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView202"
+            android:layout_marginLeft="200dp"
+            android:layout_toRightOf="@id/imageView202"
+            android:text="@+string/vida"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+
+
+    </RelativeLayout>
+</ScrollView>

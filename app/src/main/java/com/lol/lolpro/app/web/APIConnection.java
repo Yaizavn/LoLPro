@@ -161,11 +161,15 @@ public class APIConnection {
         Pattern patt = null;
         Matcher match = null;
         String rutaImagen;
+        String rutaImagenAspecto;
         switch (type) {
             case CHAMPIONS:
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
+                rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
+                Pattern patt2 = Patrones.PATTERN_SKINS;
+                Matcher match2 = null;
                 while (match.find()) {
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
                             TextUtils.htmlEncode(match.group(3)), TextUtils.htmlEncode(match.group(6)),
@@ -180,6 +184,15 @@ public class APIConnection {
                             TextUtils.htmlEncode(match.group(24)), TextUtils.htmlEncode(match.group(26)),
                             TextUtils.htmlEncode(match.group(27)),TextUtils.htmlEncode(match.group(21)),
                             TextUtils.htmlEncode(rutaImagen + match.group(4)));
+                    match2 = patt2.matcher(match.group(5));
+                    while (match2.find()) {
+                        bdConnection.guardarAspectos(Integer.parseInt(match2.group(1)),
+                                Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match2.group(2)),
+                                Integer.parseInt(match2.group(3)),
+                                TextUtils.htmlEncode(rutaImagenAspecto + match.group(2) + "_" +
+                                        Integer.parseInt(match2.group(3)) + ".jpg")
+                        );
+                    }
                 }
                 break;
             case OBJECTS:

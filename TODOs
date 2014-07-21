@@ -19,6 +19,7 @@ En ApiConnection:
 
 /Controlar excepcion getWritableDatabase concurrente bbddd
 
+//hacer un extract and store data para las rutas
 
 Campeones:
 - Habilidades
