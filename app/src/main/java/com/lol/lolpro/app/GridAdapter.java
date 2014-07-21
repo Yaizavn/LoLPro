@@ -1,10 +1,13 @@
 package com.lol.lolpro.app;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -16,7 +19,7 @@ public class GridAdapter extends BaseAdapter {
 
     private final Context context;
     private int finalDP;
-
+    private int customCell;
     private String[][] data;
 
     /**
@@ -26,10 +29,11 @@ public class GridAdapter extends BaseAdapter {
      * @param allData      datos de los campeones o los objetos
      * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapter(Context context, String[][] allData, int desiredDP) {
+    public GridAdapter(Context context, String[][] allData, int desiredDP, int customCell) {
         this.context = context;
         data = allData;
         finalDP = desiredDP;
+        this.customCell= customCell;
     }
 
     /**
@@ -42,15 +46,35 @@ public class GridAdapter extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        /*
+        *   View row = convertView;
+  RecordHolder holder = null;
+
+  if (row == null) {
+   LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+   row = inflater.inflate(layoutResourceId, parent, false);
+
+   holder = new RecordHolder();
+   holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
+   holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
+   row.setTag(holder);
+  } else {
+   holder = (RecordHolder) row.getTag();
+  }
+        *
+        * */
         //SquaredImageView view = (SquaredImageView) convertView;
-        ImageView view = (ImageView) convertView;
+        View view = convertView;
         //Convert dp into px
         int px = (int) Utils.dipToPixels(context, finalDP);
 
         if (view == null) {
-            view = new ImageView(context);
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            view = inflater.inflate(customCell, parent, false);
+            /*view = new ImageView(context);
             view.setMinimumWidth(px);
-            view.setMinimumHeight(px);
+            view.setMinimumHeight(px);*/
             //view.setScaleType(CENTER_CROP);
         }
 
@@ -66,8 +90,8 @@ public class GridAdapter extends BaseAdapter {
                 .error(R.drawable.error)
                 .resize(px, px)
                 .centerCrop()// Keep proportion
-                .into(view);
-
+                .into((ImageView) view.findViewById(R.id.item_image));
+        ((TextView) view.findViewById(R.id.item_text)).setText(data[position][1]);
         return view;
     }
 
