@@ -33,7 +33,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE campeones (" +
-                "_id INTEGER PRIMARY KEY, nombre TEXT, nick TEXT, historia TEXT, vida TEXT, " +
+                "_id INTEGER PRIMARY KEY, key TEXT, nombre TEXT, nick TEXT, historia TEXT, vida TEXT, " +
                 "vidaPorNivel TEXT, regeneracionVida TEXT, regeneracionVidaPorNivel TEXT, " +
                 "danioAtaque TEXT, danioAtaquePorNivel TEXT, armadura TEXT, armaduraPorNivel TEXT, " +
                 "velocidadAtaque TEXT, velocidadAtaquePorNivel TEXT, crit TEXT, critPorNivel TEXT, " +
@@ -109,7 +109,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param velocidadMovimiento Número de unidades que se desplaza el acmpeón por segundo
      * @param rutaPrincipal       Ruta en la que se encuentra la imagen principal del campeón
      */
-    public void guardarCampeones(int id, String nombre, String nick, String historia, String vida,
+    public void guardarCampeones(int id, String key, String nombre, String nick, String historia, String vida,
                                  String vidaPorNivel, String regeneracionVida,
                                  String regeneracionVidaPorNivel, String danioAtaque,
                                  String danioAtaquePorNivel, String armadura,
@@ -123,7 +123,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         //Redondeo de tres cifras
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        mDatabase.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + nombre + "', '" + nick + "','" +
+        mDatabase.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + key + "', '" + nombre + "', '" + nick + "','" +
                 historia + "', '" + vida + "', '" + vidaPorNivel + "', '" + regeneracionVida + "', " +
                 " '" + regeneracionVidaPorNivel + "', '" + danioAtaque + "', '" + danioAtaquePorNivel + "', " +
                 " '" + armadura + "','" + armaduraPorNivel + "', '" + velAtaque + "', " +
@@ -175,7 +175,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param velocidadMovimiento Número de unidades que se desplaza el acmpeón por segundo
      * @param rutaPrincipal       Ruta en la que se encuentra la imagen principal del campeón
      */
-    public void modificarCampeones(int id, String nombre, String nick, String historia, String vida,
+    public void modificarCampeones(int id, String key, String nombre, String nick, String historia, String vida,
                                    String vidaPorNivel, String regeneracionVida,
                                    String regeneracionVidaPorNivel, String danioAtaque,
                                    String danioAtaquePorNivel, String armadura,
@@ -188,7 +188,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         double velAtaque = Double.parseDouble(velocidadAtaque);
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        mDatabase.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', " +
+        mDatabase.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', key='" + key + "', " +
                 "historia='" + historia + "', vida='" + vida + "', vidaPorNivel='" + vidaPorNivel + "', " +
                 "regeneracionVida='" + regeneracionVida + "', " +
                 "regeneracionVidaPorNivel='" + regeneracionVidaPorNivel + "', " +
@@ -395,7 +395,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta de la imagen principal en la decima posición
      */
     public String[] obtenerDatosCampeon(int id) {
-        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, nick, historia, vida, vidaPorNivel, " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT key, nombre, nick, historia, vida, vidaPorNivel, " +
                 "regeneracionVida, regeneracionVidaPorNivel, danioAtaque, danioAtaquePorNivel, " +
                 "armadura, armaduraPorNivel, velocidadAtaque, velocidadAtaquePorNivel, crit, " +
                 "critPorNivel, tipoMP, mana, manaPorNivel, regMana, regManaPorNivel, resistenciaMagica, " +
@@ -406,8 +406,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
         if (cursor.moveToNext()) {
             result2[pos2++] = Html.fromHtml(cursor.getString(0)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result2[pos2++] = Utils.sanitizeChampStory(Html.fromHtml(cursor.getString(2)).toString());
-            result2[pos2++] = Html.fromHtml(cursor.getString(3)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(2)).toString();
+            result2[pos2++] = Utils.sanitizeChampStory(Html.fromHtml(cursor.getString(3)).toString());
             result2[pos2++] = Html.fromHtml(cursor.getString(4)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(5)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(6)).toString();
@@ -427,7 +427,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result2[pos2++] = Html.fromHtml(cursor.getString(20)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(21)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(22)).toString();
-            result2[pos2] = Html.fromHtml(cursor.getString(23)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(23)).toString();
+            result2[pos2] = Html.fromHtml(cursor.getString(24)).toString();
         }
         cursor.close();
         return result2;

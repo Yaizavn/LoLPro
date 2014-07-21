@@ -48,8 +48,8 @@ public class Historia extends Fragment {
             historia.setTypeface(miPropiaTypeFace);
             nombre.setTypeface(miPropiaTypeFace);
 
-            nombre.setText(championData[0]);
-            historia.setText(championData[2]);
+            nombre.setText(championData[1]);
+            historia.setText(championData[3]);
         }
         return view;
     }

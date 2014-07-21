@@ -39,14 +39,11 @@ public class Skins extends Fragment {
                 ((TextView) view.findViewById(R.id.texVida)).setText(datos[0][0]);
                 ((TextView) view.findViewById(R.id.texVida2)).setText(datos[0][1]);
                 ((TextView) view.findViewById(R.id.texVida3)).setText(datos[0][2]);
-            datos[0][3]="http://wiki.inf.utfsm.cl/images/e/e8/Beastie.png";
             Picasso.with(getActivity()).setLoggingEnabled(true);
                 Picasso.with(getActivity()) //
                         .load(datos[0][3]) //
                         .placeholder(R.drawable.cargar)
-                        //.error(R.drawable.error)
-                        .resize(px, px)
-                        .centerCrop() // Keep proportion
+                        .error(R.drawable.error)
                         .into((ImageView) view.findViewById(R.id.imageView200));
 
             ((TextView) view.findViewById(R.id.texVida4)).setText(datos[1][0]);
@@ -56,8 +53,6 @@ public class Skins extends Fragment {
                     .load(datos[1][3]) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
-                    .resize(px, px)
-                    .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.imageView201));
 
             ((TextView) view.findViewById(R.id.texVida7)).setText(datos[2][0]);
@@ -67,8 +62,6 @@ public class Skins extends Fragment {
                     .load(datos[2][3]) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
-                    .resize(px, px)
-                    .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.imageView202));
 
 
