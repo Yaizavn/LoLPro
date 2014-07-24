@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Adaptador para mostrar los objetos y campeones en un gridview usando Picasso
  */
-public class GridAdapter extends BaseAdapter {
+public class GridAdapterNombre extends BaseAdapter {
 
     private final Context context;
     private int finalDP;
@@ -28,7 +28,7 @@ public class GridAdapter extends BaseAdapter {
      * @param allData      datos de los campeones o los objetos
      * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapter(Context context, String[][] allData, int desiredDP) {
+    public GridAdapterNombre(Context context, String[][] allData, int desiredDP) {
         this.context = context;
         data = allData;
         finalDP = desiredDP;
@@ -45,17 +45,16 @@ public class GridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        View view = convertView;
         //Convert dp into px
         int px = (int) Utils.dipToPixels(context, finalDP);
 
-        if (convertView == null) {
-            convertView = new ImageView(context);
-            convertView.setMinimumWidth(px);
-            convertView.setMinimumHeight(px);
-            //view.setScaleType(CENTER_CROP);
+        if (view == null) {
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            view = inflater.inflate(R.layout.cell, parent, false);
         }
 
-        convertView.setTag(getId(position));
+        view.setTag(getId(position));
 
         // Get the image URL for the current position.
         String url = getItem(position);
@@ -67,8 +66,9 @@ public class GridAdapter extends BaseAdapter {
                 .error(R.drawable.error)
                 .resize(px, px)
                 .centerCrop()// Keep proportion
-                .into((ImageView) convertView);
-        return convertView;
+                .into((ImageView) view.findViewById(R.id.item_image));
+        ((TextView) view.findViewById(R.id.item_text)).setText(data[position][1]);
+        return view;
     }
 
     /**

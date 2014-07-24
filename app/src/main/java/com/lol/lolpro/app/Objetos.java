@@ -69,7 +69,7 @@ public class Objetos extends Fragment {
         dbMan.openDatabase(false);
 
         GridView grid = (GridView) view.findViewById(R.id.gridView);
-        grid.setAdapter(new GridAdapter(getActivity(), dbMan.getDatabaseHelper().obtenerRutaObjetos(), 100, R.layout.cell));
+        grid.setAdapter(new GridAdapterNombre(getActivity(), dbMan.getDatabaseHelper().obtenerRutaObjetos(), 100));
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity

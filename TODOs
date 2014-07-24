@@ -21,6 +21,8 @@ En ApiConnection:
 
 //hacer un extract and store data para las rutas
 
+//Mirar si el método onVIewCreated de SKins puede meterse a onCreateView
+
 Campeones:
 - Habilidades
 - Aspectos

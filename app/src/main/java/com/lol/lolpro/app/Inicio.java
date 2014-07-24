@@ -72,7 +72,7 @@ public class Inicio extends Fragment {
 
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        grid.setAdapter(new GridAdapter(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos(), 75, R.layout.cell));
+        grid.setAdapter(new GridAdapter(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos(), 75));
         list.setAdapter(new ListAdapter(getActivity()));
         if(Utils.hasInternetConnection(getActivity())){
             ((ListAdapter) list.getAdapter()).refresh();

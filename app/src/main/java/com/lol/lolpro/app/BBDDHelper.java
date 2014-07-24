@@ -435,7 +435,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     }
 
     public String[][] obtenerAspectosCampeon(int idCampeon) {
-        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, nombre, num, rutaPrincipal " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, nombre, rutaPrincipal, num " +
                "FROM aspectos WHERE idCampeon=" + idCampeon, null);
         String[][] result4 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;

@@ -70,7 +70,7 @@ public class Campeones extends Fragment {
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
 
-        grid.setAdapter(new GridAdapter(getActivity(), dbMan.getDatabaseHelper().obtenerRutaCampeones(), 100, R.layout.cell));
+        grid.setAdapter(new GridAdapterNombre(getActivity(), dbMan.getDatabaseHelper().obtenerRutaCampeones(), 100));
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
