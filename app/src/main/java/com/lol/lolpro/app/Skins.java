@@ -2,8 +2,8 @@ package com.lol.lolpro.app;
 
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +27,11 @@ public class Skins extends Fragment {
         // Required empty public constructor
     }
 
-    //TODO Mirar si este método puede cambiarse a onCreateView
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_skins, container, false);
         GridView grid = (GridView) view.findViewById(R.id.gridView);
-
-
         Bundle args = getArguments();
         int id = args.getInt("id", -1);
         String[][] datos = (String[][]) args.getSerializable("skins");
@@ -42,13 +41,7 @@ public class Skins extends Fragment {
 
         grid.setAdapter(new GridAdapterNombre(getActivity(), datos, 340));
         dbMan.closeDatabase(false);
-    }
-
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        return container;
-    }*/
+        return view;
+    }
 }

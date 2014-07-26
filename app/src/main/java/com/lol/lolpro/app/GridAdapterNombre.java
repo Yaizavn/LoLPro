@@ -64,8 +64,6 @@ public class GridAdapterNombre extends BaseAdapter {
                 .load(url) //
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
-                .resize(px, px)
-                .centerCrop()// Keep proportion
                 .into((ImageView) view.findViewById(R.id.item_image));
         ((TextView) view.findViewById(R.id.item_text)).setText(data[position][1]);
         return view;
