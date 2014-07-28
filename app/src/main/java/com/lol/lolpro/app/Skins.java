@@ -35,11 +35,13 @@ public class Skins extends Fragment {
         Bundle args = getArguments();
         int id = args.getInt("id", -1);
         String[][] datos = (String[][]) args.getSerializable("skins");
+        datos[0][1] = args.getStringArray("data")[1];
+
 
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
 
-        grid.setAdapter(new GridAdapterNombre(getActivity(), datos, 340));
+        grid.setAdapter(new GridAdapterSkins(getActivity(), datos, 0));
         dbMan.closeDatabase(false);
         // Inflate the layout for this fragment
         return view;

@@ -230,8 +230,11 @@ public class APIConnection {
                 break;
             case UPDATE_CHAMPIONS:
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
+                rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
+                patt2 = Patrones.PATTERN_SKINS;
+                match2 = null;
                 while (match.find()) {
                     bdConnection.modificarCampeones(Integer.parseInt(match.group(1)),
                             TextUtils.htmlEncode(match.group(2)), TextUtils.htmlEncode(match.group(3)),
@@ -247,6 +250,15 @@ public class APIConnection {
                             TextUtils.htmlEncode(match.group(25)), TextUtils.htmlEncode(match.group(27)),
                             TextUtils.htmlEncode(match.group(28)), TextUtils.htmlEncode(match.group(22)),
                             TextUtils.htmlEncode(rutaImagen + match.group(5)));
+                    match2 = patt2.matcher(match.group(6));
+                    while (match2.find()) {
+                        bdConnection.modificarAspectosCampeon(Integer.parseInt(match2.group(1)),
+                                TextUtils.htmlEncode(match2.group(2)),
+                                Integer.parseInt(match2.group(3)),
+                                TextUtils.htmlEncode(rutaImagenAspecto + match.group(2) + "_" +
+                                        Integer.parseInt(match2.group(3)) + ".jpg")
+                        );
+                    }
                 }
                 break;
             case UPDATE_OBJECTS:
