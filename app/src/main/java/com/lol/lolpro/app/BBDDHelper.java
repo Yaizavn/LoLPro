@@ -43,6 +43,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE aspectos (" +
                 "_id INTEGER PRIMARY KEY, idCampeon INTEGER, nombre TEXT, num INTEGER," +
                 " rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
+        db.execSQL("CREATE TABLE habilidades (" +
+                " idCampeon INTEGER PRIMARY KEY, nombre TEXT PRIMARY KEY, descripcion TEXT, coste TEXT," +
+                " alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
                 ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, " +
@@ -142,6 +145,16 @@ public class BBDDHelper extends SQLiteOpenHelper {
        }
     }
 
+    public void guardarHabilidades(int idCampeon, String nombre, int descripcion, String coste,
+                                   String alcance, String rutaPrincipal, String enfriamiento, int esPasiva) {
+        try{
+            mDatabase.execSQL("INSERT INTO habilidades VALUES (" + idCampeon + ", '" + nombre + "','" +
+                    descripcion + "', '" + coste + "','" + alcance + "','" + rutaPrincipal + "', '" + enfriamiento + "',  " + esPasiva + ")");
+        }catch (SQLiteException e){
+            Log.e("Error foreign key", "Foreign key does not exist");
+        }
+    }
+
     /**
      * Se encarga de guardar los datos de un objeto en la tabla objetos
      *
@@ -208,6 +221,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
         mDatabase.execSQL("UPDATE aspectos SET nombre='" + nombre + "', num=" + numero + ", " +
                 "rutaPrincipal='" + rutaPrincipal + "' WHERE _id=" + idAspecto);
     }
+
+    public void modificarHabilidadesCampeon(int idCampeon, String nombre, int descripcion, String coste,
+                                            String alcance, String rutaPrincipal, String enfriamiento, int esPasiva) {;
+        mDatabase.execSQL("UPDATE habilidades SET descripcion='" + descripcion + "', " +
+                "coste='" + coste + "', alcance='" + alcance + "', enfriamiento='" + enfriamiento + "', rutaPrincipal='" + rutaPrincipal + "'," +
+                " esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + nombre + "'");
+    }
+
 
     /**
      * Se encarga de actualizar los datos de un objeto si ha sufrido cambios debido a un cambio de versión
@@ -323,6 +344,23 @@ public class BBDDHelper extends SQLiteOpenHelper {
         String result2 = "";
         if (cursor.moveToNext()) {
             result2 += Html.fromHtml(cursor.getString(0)).toString() + "/img/champion/splash/";
+        }
+        cursor.close();
+        return result2;
+    }
+
+    public String obtenerRutaHabilidadesCampeon(int esPasiva) {
+        Cursor cursor;
+        cursor = mReadOnlyDatabase.rawQuery("SELECT ruta FROM " +
+                "rutaVersiones", null);
+        String result2 = "";
+        if (cursor.moveToNext()) {
+            if (esPasiva==1) {
+                result2 += Html.fromHtml(cursor.getString(0)).toString() + "/img/passive/";
+            }
+           else {
+                result2 += Html.fromHtml(cursor.getString(0)).toString() + "/img/spell/";
+            }
         }
         cursor.close();
         return result2;
@@ -445,6 +483,27 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(2)).toString();
             result4[pos][pos2] = Html.fromHtml(cursor.getString(3)).toString();
+            pos2 = 0;
+            pos++;
+        }
+        return result4;
+    }
+
+    public String[][] obtenerHabilidadesCampeon(int idCampeon) {
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, descripcion, alcance, " +
+                "coste, enfriamiento, rutaPrincipal, esPasiva " +
+                "FROM habilidades WHERE idCampeon=" + idCampeon, null);
+        String[][] result4 = new String[cursor.getCount()][cursor.getColumnCount()];
+        int pos = 0;
+        int pos2 = 0;
+        while (cursor.moveToNext()) {
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(0)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(2)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(3)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(4)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(5)).toString();
+            result4[pos][pos2] = Html.fromHtml(cursor.getString(6)).toString();
             pos2 = 0;
             pos++;
         }
