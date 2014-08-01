@@ -27,3 +27,5 @@ Campeones:
 - Habilidades
 - Obj. recomendados
 - Rivales
+
+Las imagenes tienen una propiedad llamada group. Parece indicar la ruta de las imagenes (usarlo para todas las imagenes y evitar las cosas a capón)

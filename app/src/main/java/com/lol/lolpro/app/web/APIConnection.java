@@ -185,6 +185,7 @@ public class APIConnection {
                             TextUtils.htmlEncode(match.group(25)), TextUtils.htmlEncode(match.group(27)),
                             TextUtils.htmlEncode(match.group(28)), TextUtils.htmlEncode(match.group(22)),
                             TextUtils.htmlEncode(rutaImagen + match.group(5)));
+                    // Almacenamos las skins
                     match2 = patt2.matcher(match.group(6));
                     while (match2.find()) {
                         bdConnection.guardarAspectos(Integer.parseInt(match2.group(1)),
@@ -194,6 +195,8 @@ public class APIConnection {
                                         Integer.parseInt(match2.group(3)) + ".jpg")
                         );
                     }
+                    // Almacenamos las habilidades y la pasiva
+
                 }
                 break;
             case OBJECTS:
