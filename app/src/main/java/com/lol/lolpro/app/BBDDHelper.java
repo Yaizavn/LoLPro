@@ -44,8 +44,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "_id INTEGER PRIMARY KEY, idCampeon INTEGER, nombre TEXT, num INTEGER," +
                 " rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE habilidades (" +
-                " idCampeon INTEGER PRIMARY KEY, nombre TEXT PRIMARY KEY, descripcion TEXT, coste TEXT," +
-                " alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
+                " idCampeon INTEGER, nombre TEXT, descripcion TEXT, coste TEXT," +
+                " alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
                 ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, " +
@@ -145,7 +145,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
        }
     }
 
-    public void guardarHabilidades(int idCampeon, String nombre, int descripcion, String coste,
+    public void guardarHabilidades(int idCampeon, String nombre, String descripcion, String coste,
                                    String alcance, String rutaPrincipal, String enfriamiento, int esPasiva) {
         try{
             mDatabase.execSQL("INSERT INTO habilidades VALUES (" + idCampeon + ", '" + nombre + "','" +
@@ -351,15 +351,15 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     public String obtenerRutaHabilidadesCampeon(int esPasiva) {
         Cursor cursor;
-        cursor = mReadOnlyDatabase.rawQuery("SELECT ruta FROM " +
+        cursor = mReadOnlyDatabase.rawQuery("SELECT ruta, versionCampeones FROM " +
                 "rutaVersiones", null);
         String result2 = "";
         if (cursor.moveToNext()) {
             if (esPasiva==1) {
-                result2 += Html.fromHtml(cursor.getString(0)).toString() + "/img/passive/";
+                result2 += Html.fromHtml(cursor.getString(0)).toString() + "/" + Html.fromHtml(cursor.getString(1)).toString() + "/img/passive/";
             }
            else {
-                result2 += Html.fromHtml(cursor.getString(0)).toString() + "/img/spell/";
+                result2 += Html.fromHtml(cursor.getString(0)).toString() + "/" + Html.fromHtml(cursor.getString(1)).toString() + "/img/spell/";
             }
         }
         cursor.close();

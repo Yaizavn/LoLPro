@@ -11,7 +11,7 @@ public class Patrones {
     public final static Pattern PATTERN_CHAMPION = Pattern.compile(PCHAMPION, Pattern.DOTALL);
     private final static String PSKINS = "id\":([0-9]+).*?name\":\"(.+?)\".*?num\":([0-9]+)";
     public final static Pattern PATTERN_SKINS = Pattern.compile(PSKINS, Pattern.DOTALL);
-    private final static String PABILITIES = ".*?name\":\"(.+?)\".*?sanitizedTooltip\":\"(.+?)\".*?full\":\"(.+?)\".*?resource\":\"(.+?)\".*?costBurn\":\"(.+?)\".*?cooldownBurn\":\"(.+?)\".*?effectBurn\":\\[(.+?)\\].*?vars\":\\[(.+?)\\],.*?rangeBurn\":\"(.+?)\"";
+    private final static String PABILITIES = ".*?name\":\"(.+?)\".*?sanitizedTooltip\":\"(.+?)\".*?full\":\"(.+?)\".*?resource\":\"(.+?)\".*?costBurn\":\"(.+?)\".*?cooldownBurn\":\"(.+?)\".*?effectBurn\":\\[(.+?)\\].*?(?:vars\":\\[(.+?)\\],.*?)?rangeBurn\":\"(.+?)\"";
     public final static Pattern PATTERN_ABILITIES = Pattern.compile(PABILITIES, Pattern.DOTALL);
     private final static String PPASSIVE = ".*?name\":\"(.+?)\".*?sanitizedDescription\":\"(.+?)\".*?full\":\"(.+?)\"";
     public final static Pattern PATTERN_PASSIVE = Pattern.compile(PPASSIVE, Pattern.DOTALL);

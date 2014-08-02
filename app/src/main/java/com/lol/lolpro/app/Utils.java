@@ -6,6 +6,9 @@ import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Clase de utilidades
  */
@@ -36,6 +39,15 @@ public class Utils {
      */
     public static String sanitizeChampStory(String description) {
         return description.replaceAll("<br>", "\\\n");
+    }
+
+    public static String sanitizeSpells(String description, ArrayList<ArrayList<String>> vars) {
+        int i = vars.size();
+        for(int j = 0; j < i; j++){
+            description=description.replaceAll("\\{\\{ "+vars.get(j).get(0)+" \\}\\}", vars.get(j).get(1));
+        }
+        description=description.replaceAll("\\{\\{.+?\\}\\}", " ");
+        return description;
     }
 
     /**

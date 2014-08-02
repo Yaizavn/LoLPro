@@ -1,11 +1,13 @@
 package com.lol.lolpro.app.web;
 
 import android.content.Context;
+import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.lol.lolpro.app.BBDDHelper;
 import com.lol.lolpro.app.DBManager;
+import com.lol.lolpro.app.Utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +19,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -145,15 +149,15 @@ public class APIConnection {
     //Definir varios casos, campeones, ofertas...
     public String connect2API(int type) {
         String respuesta = null;
-            URI uriConsulta = createURI(type);
-            if (uriConsulta != null) {
-                if (!hasCert()) {
-                    insertCert();
-                }
-                ConnectionResult resultado = new ConnectionResult(sslCont);
-                respuesta = resultado.getHttpsResult(uriConsulta);
-                extractAndStoreData(respuesta, type);
+        URI uriConsulta = createURI(type);
+        if (uriConsulta != null) {
+            if (!hasCert()) {
+                insertCert();
             }
+            ConnectionResult resultado = new ConnectionResult(sslCont);
+            respuesta = resultado.getHttpsResult(uriConsulta);
+            extractAndStoreData(respuesta, type);
+        }
         return respuesta;
     }
 
@@ -162,14 +166,27 @@ public class APIConnection {
         Matcher match = null;
         String rutaImagen;
         String rutaImagenAspecto;
+        String rutaImagenHabilidades;
+        String rutaImagenHabilidadesPasivas;
+        int i;
+        ArrayList <ArrayList <String>>vars= new ArrayList <ArrayList <String>>();
+        String [] effects;
         switch (type) {
             case CHAMPIONS:
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
                 rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
+                rutaImagenHabilidades = bdConnection.obtenerRutaHabilidadesCampeon(0);
+                rutaImagenHabilidadesPasivas = bdConnection.obtenerRutaHabilidadesCampeon(1);
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
                 Pattern patt2 = Patrones.PATTERN_SKINS;
                 Matcher match2 = null;
+                Pattern patt3 = Patrones.PATTERN_ABILITIES;
+                Matcher match3 = null;
+                Pattern patt4 = Patrones.PATTERN_PASSIVE;
+                Matcher match4 = null;
+                Pattern patt5 = Patrones.PATTERN_VARS;
+                Matcher match5 = null;
                 while (match.find()) {
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),
                             TextUtils.htmlEncode(match.group(2)), TextUtils.htmlEncode(match.group(3)),
@@ -196,8 +213,63 @@ public class APIConnection {
                         );
                     }
                     // Almacenamos las habilidades y la pasiva
+                    match3 = patt3.matcher(match.group(29));
+                    effects=null;
+                    while (match3.find()) {
+                        i=0;
+                        effects=match3.group(7).split(",");
+                        ArrayList <String> datos= null;
+                        if (match3.group(8)!=null) {
+                            match5 = patt5.matcher(match3.group(8));
+                            //vars = new String[match5.groupCount() + effects.length][2];
+                            while (match5.find()) {
+                                datos= new ArrayList<String>();
+                                datos.add(TextUtils.htmlEncode(match5.group(1)));
+                                datos.add(TextUtils.htmlEncode(match5.group(2) + " " + match5.group(3)));
+                                vars.add(datos);
+                                //vars[i][0] = TextUtils.htmlEncode(match5.group(1));
+                                //vars[i++][1] = TextUtils.htmlEncode(match5.group(2) + " " + match5.group(3));
+                            }
+                        }
+                        datos= new ArrayList<String>();
+                        datos.add("cost");
+                        datos.add(TextUtils.htmlEncode(match3.group(5)));
+                        vars.add(datos);
+                        //vars[i][0]="cost";
+                        //vars[i++][1]= TextUtils.htmlEncode(match3.group(5));
+                        for (int j=1; j<effects.length; j++){
+                            datos= new ArrayList<String>();
+                            datos.add("e"+j);
+                            datos.add(effects[j]);
+                            vars.add(datos);
+                            //vars[i][0]="e"+j;
+                            //vars[i++][1]= effects[j];
+                        }
+                        bdConnection.guardarHabilidades(Integer.parseInt(match.group(1)),
+                                TextUtils.htmlEncode(match3.group(1)),
+                                Utils.sanitizeSpells(TextUtils.htmlEncode(match3.group(2)), vars),
+                                Utils.sanitizeSpells(TextUtils.htmlEncode(match3.group(4)), vars),
+                                TextUtils.htmlEncode(match3.group(9)),
+                                TextUtils.htmlEncode(rutaImagenHabilidades + match3.group(3)),
+                                TextUtils.htmlEncode(match3.group(6)),
+                                0
+                        );
+                    }
+                    match4 = patt4.matcher(match.group(30));
+                    while (match4.find()) {
+                        bdConnection.guardarHabilidades(Integer.parseInt(match.group(1)),
+                                TextUtils.htmlEncode(match4.group(1)),
+                                TextUtils.htmlEncode(match4.group(2)),
+                                "",
+                                "",
+                                TextUtils.htmlEncode(rutaImagenHabilidadesPasivas + match4.group(3)),
+                                "",
+                                1
+                        );
+                    }
 
                 }
+                bdConnection.obtenerHabilidadesCampeon(3);
                 break;
             case OBJECTS:
                 int purchasable = 0;
@@ -303,7 +375,7 @@ public class APIConnection {
         return true;
     }
 
-    public void closeAPI(){
+    public void closeAPI() {
         dbMan.closeDatabase(true);
     }
 }
