@@ -169,10 +169,11 @@ public class APIConnection {
         String rutaImagenHabilidades;
         String rutaImagenHabilidadesPasivas;
         int i;
-        ArrayList <ArrayList <String>>vars= new ArrayList <ArrayList <String>>();
-        String [] effects;
         switch (type) {
             case CHAMPIONS:
+                ArrayList <ArrayList <String>>vars= null;
+                ArrayList <String>datos = null;
+                String [] effects;
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
                 rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
                 rutaImagenHabilidades = bdConnection.obtenerRutaHabilidadesCampeon(0);
@@ -217,8 +218,8 @@ public class APIConnection {
                     effects=null;
                     while (match3.find()) {
                         i=0;
+                        vars = new ArrayList <ArrayList <String>>();
                         effects=match3.group(7).split(",");
-                        ArrayList <String> datos= null;
                         if (match3.group(8)!=null) {
                             match5 = patt5.matcher(match3.group(8));
                             //vars = new String[match5.groupCount() + effects.length][2];
