@@ -16,6 +16,7 @@
     <string-array name="titulosCampeones">
         <item>General</item>
         <item>Historia</item>
+        <item>Habilidades</item>
         <item>Aspectos</item>
     </string-array>
 
@@ -57,6 +58,8 @@
         <item>Regeneración de rabia:</item>
     </string-array>
 
+    <string name="alcance">Alcance:</string>
+    <string name="enfriamiento">Enfriamiento:</string>
     <string name="reg_mana">Regeneración de mana:</string>
     <string name="armadura">Armadura:</string>
     <string name="campeones_gratuitos">CAMPEONES GRATUITOS</string>

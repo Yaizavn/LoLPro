@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  * Adaptador para mostrar los tabs campeón e historia de champion
  */
 public class ChampionPageAdapter extends FragmentStatePagerAdapter {
-    private static final int numPages = 3;
+    private static final int numPages = 4;
     private Bundle argsCampeon;
 
     /**
@@ -41,6 +41,9 @@ public class ChampionPageAdapter extends FragmentStatePagerAdapter {
                 frg = new Historia();
                 break;
             case 2:
+                frg = new Spells();
+                break;
+            case 3:
                 frg = new Skins();
                 break;
             default:

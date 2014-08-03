@@ -54,6 +54,7 @@ public class Champion extends Fragment {
 
         Bundle args = getArguments();
         args.putStringArray("data", dbMan.getDatabaseHelper().obtenerDatosCampeon(args.getInt("id", -1)));
+        args.putSerializable("spells", dbMan.getDatabaseHelper().obtenerHabilidadesCampeon(args.getInt("id", -1)));
         args.putSerializable("skins", dbMan.getDatabaseHelper().obtenerAspectosCampeon(args.getInt("id", -1)));
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

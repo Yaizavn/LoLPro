@@ -270,7 +270,6 @@ public class APIConnection {
                     }
 
                 }
-                bdConnection.obtenerHabilidadesCampeon(3);
                 break;
             case OBJECTS:
                 int purchasable = 0;
