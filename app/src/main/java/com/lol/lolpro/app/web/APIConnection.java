@@ -251,7 +251,7 @@ public class APIConnection {
                                 Utils.sanitizeSpells(TextUtils.htmlEncode(match3.group(2)), vars),
                                 Utils.sanitizeSpells(TextUtils.htmlEncode(match3.group(4)), vars),
                                 TextUtils.htmlEncode(match3.group(9)),
-                                TextUtils.htmlEncode(rutaImagenHabilidades + match3.group(3)),
+                                   TextUtils.htmlEncode(rutaImagenHabilidades + match3.group(3)),
                                 TextUtils.htmlEncode(match3.group(6)),
                                 0
                         );
