@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -44,7 +45,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "_id INTEGER PRIMARY KEY, idCampeon INTEGER, nombre TEXT, num INTEGER," +
                 " rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE habilidades (" +
-                " idCampeon INTEGER, nombre TEXT, descripcion TEXT, coste TEXT," +
+                " idCampeon INTEGER, nombre TEXT, descripcion TEXT, tooltip TEXT, coste TEXT," +
                 " alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
@@ -126,30 +127,32 @@ public class BBDDHelper extends SQLiteOpenHelper {
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         //Redondeo de tres cifras
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        mDatabase.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + key + "', '" + nombre + "', '" + nick + "','" +
-                historia + "', '" + vida + "', '" + vidaPorNivel + "', '" + regeneracionVida + "', " +
-                " '" + regeneracionVidaPorNivel + "', '" + danioAtaque + "', '" + danioAtaquePorNivel + "', " +
-                " '" + armadura + "','" + armaduraPorNivel + "', '" + velAtaque + "', " +
-                " '" + velocidadAtaquePorNivel + "', '" + crit + "', '" + critPorNivel + "', " +
-                " '" + tipoMP + "', '" + mana + "', '" + manaPorNivel + "', '" + regMana + "', '" + regManaPorNivel + "'," +
-                " '" + resistenciaMagica + "', '" + resistenciaMagicaPorNivel + "', " +
-                " '" + velocidadMovimiento + "', '" + rutaPrincipal + "', 0)");
+        mDatabase.execSQL("INSERT INTO campeones VALUES (" + id + ", '" + TextUtils.htmlEncode(key) + "', '" + TextUtils.htmlEncode(nombre) + "', '" + TextUtils.htmlEncode(nick) + "','" +
+                TextUtils.htmlEncode(historia) + "', '" + TextUtils.htmlEncode(vida) + "', '" + TextUtils.htmlEncode(vidaPorNivel) + "', '" + TextUtils.htmlEncode(regeneracionVida) + "', " +
+                " '" + TextUtils.htmlEncode(regeneracionVidaPorNivel) + "', '" + TextUtils.htmlEncode(danioAtaque) + "', '" + TextUtils.htmlEncode(danioAtaquePorNivel) + "', " +
+                " '" + TextUtils.htmlEncode(armadura) + "','" + TextUtils.htmlEncode(armaduraPorNivel) + "', '" + velAtaque + "', " +
+                " '" + TextUtils.htmlEncode(velocidadAtaquePorNivel) + "', '" + TextUtils.htmlEncode(crit) + "', '" + TextUtils.htmlEncode(critPorNivel) + "', " +
+                " '" + TextUtils.htmlEncode(tipoMP) + "', '" + TextUtils.htmlEncode(mana) + "', '" + TextUtils.htmlEncode(manaPorNivel) + "', '" + TextUtils.htmlEncode(regMana) + "', '" + TextUtils.htmlEncode(regManaPorNivel) + "'," +
+                " '" + TextUtils.htmlEncode(resistenciaMagica) + "', '" + TextUtils.htmlEncode(resistenciaMagicaPorNivel) + "', " +
+                " '" + TextUtils.htmlEncode(velocidadMovimiento) + "', '" + TextUtils.htmlEncode(rutaPrincipal) + "', 0)");
     }
 
     public void guardarAspectos(int id, int idCampeon, String nombre, int numero, String rutaPrincipal ) {
        try{
-           mDatabase.execSQL("INSERT INTO aspectos VALUES (" + id + ", " + idCampeon + ", '" + nombre + "','" +
-                   numero + "', '" + rutaPrincipal + "')");
+           mDatabase.execSQL("INSERT INTO aspectos VALUES (" + id + ", " + idCampeon + ", '" + TextUtils.htmlEncode(nombre) + "','" +
+                   numero + "', '" + TextUtils.htmlEncode(rutaPrincipal) + "')");
        }catch (SQLiteException e){
            Log.e("Error foreign key", "Foreign key does not exist");
        }
     }
 
-    public void guardarHabilidades(int idCampeon, String nombre, String descripcion, String coste,
+    public void guardarHabilidades(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
                                    String alcance, String rutaPrincipal, String enfriamiento, int esPasiva) {
         try{
-            mDatabase.execSQL("INSERT INTO habilidades VALUES (" + idCampeon + ", '" + nombre + "','" +
-                    descripcion + "', '" + coste + "','" + alcance + "','" + rutaPrincipal + "', '" + enfriamiento + "',  " + esPasiva + ")");
+            mDatabase.execSQL("INSERT INTO habilidades VALUES (" + idCampeon + ", '" + TextUtils.htmlEncode(nombre) + "','" +
+                    TextUtils.htmlEncode(descripcion) + "', '" + TextUtils.htmlEncode(tooltip) + "', '" +
+                            TextUtils.htmlEncode(coste) + "','" + TextUtils.htmlEncode(alcance) + "','" +
+                                    TextUtils.htmlEncode(rutaPrincipal) + "', '" + TextUtils.htmlEncode(enfriamiento) + "',  " + esPasiva + ")");
         }catch (SQLiteException e){
             Log.e("Error foreign key", "Foreign key does not exist");
         }
@@ -168,8 +171,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
      */
     public void guardarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
                                int puedesComprar, String rutaPrincipal) {
-        mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + nombre + "', " + costeBase + ", " + coste + "," +
-                "'" + descripcion + "', " + puedesComprar + ", '" + rutaPrincipal + "')");
+        mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + TextUtils.htmlEncode(nombre) + "', " + costeBase + ", " + coste + "," +
+                "'" + TextUtils.htmlEncode(descripcion) + "', " + puedesComprar + ", '" + TextUtils.htmlEncode(rutaPrincipal) + "')");
     }
 
     /**
@@ -201,32 +204,33 @@ public class BBDDHelper extends SQLiteOpenHelper {
         double velAtaque = Double.parseDouble(velocidadAtaque);
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        mDatabase.execSQL("UPDATE campeones SET nombre='" + nombre + "', nick='" + nick + "', key='" + key + "', " +
-                "historia='" + historia + "', vida='" + vida + "', vidaPorNivel='" + vidaPorNivel + "', " +
-                "regeneracionVida='" + regeneracionVida + "', " +
-                "regeneracionVidaPorNivel='" + regeneracionVidaPorNivel + "', " +
-                "danioAtaque='" + danioAtaque + "', danioAtaquePorNivel='" + danioAtaquePorNivel + "', " +
-                "armadura='" + armadura + "', armaduraPorNivel='" + armaduraPorNivel + "', " +
+        mDatabase.execSQL("UPDATE campeones SET nombre='" + TextUtils.htmlEncode(nombre) + "', nick='" + TextUtils.htmlEncode(nick) + "', key='" + TextUtils.htmlEncode(key) + "', " +
+                "historia='" + TextUtils.htmlEncode(historia) + "', vida='" + TextUtils.htmlEncode(vida)+ "', vidaPorNivel='" + TextUtils.htmlEncode(vidaPorNivel) + "', " +
+                "regeneracionVida='" + TextUtils.htmlEncode(regeneracionVida) + "', " +
+                "regeneracionVidaPorNivel='" + TextUtils.htmlEncode(regeneracionVidaPorNivel) + "', " +
+                "danioAtaque='" + TextUtils.htmlEncode(danioAtaque) + "', danioAtaquePorNivel='" + TextUtils.htmlEncode(danioAtaquePorNivel) + "', " +
+                "armadura='" + TextUtils.htmlEncode(armadura) + "', armaduraPorNivel='" + TextUtils.htmlEncode(armaduraPorNivel) + "', " +
                 "velocidadAtaque='" + velAtaque + "', " +
-                "velocidadAtaquePorNivel='" + velocidadAtaquePorNivel + "', crit='" + crit + "', " +
-                "critPorNivel='" + critPorNivel + "', tipoMP='" + tipoMP + "', mana='" + mana + "', " +
-                "manaPorNivel='" + manaPorNivel + "', regMana='" + regMana + "', " +
-                "regManaPorNivel='" + regManaPorNivel + "', resistenciaMagica='" + resistenciaMagica + "', " +
-                "resistenciaMagicaPorNivel='" + resistenciaMagicaPorNivel + "', " +
-                "velocidadMovimiento='" + velocidadMovimiento + "'," +
-                "rutaPrincipal='" + rutaPrincipal + "', esGratis=0 WHERE _id=" + id);
+                "velocidadAtaquePorNivel='" + TextUtils.htmlEncode(velocidadAtaquePorNivel) + "', crit='" + TextUtils.htmlEncode(crit) + "', " +
+                "critPorNivel='" + TextUtils.htmlEncode(critPorNivel) + "', tipoMP='" + TextUtils.htmlEncode(tipoMP) + "', mana='" + TextUtils.htmlEncode(mana) + "', " +
+                "manaPorNivel='" + TextUtils.htmlEncode(manaPorNivel) + "', regMana='" + TextUtils.htmlEncode(regMana) + "', " +
+                "regManaPorNivel='" + TextUtils.htmlEncode(regManaPorNivel) + "', resistenciaMagica='" + TextUtils.htmlEncode(resistenciaMagica) + "', " +
+                "resistenciaMagicaPorNivel='" + TextUtils.htmlEncode(resistenciaMagicaPorNivel) + "', " +
+                "velocidadMovimiento='" + TextUtils.htmlEncode(velocidadMovimiento) + "'," +
+                "rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "', esGratis=0 WHERE _id=" + id);
     }
 
     public void modificarAspectosCampeon(int idAspecto, String nombre, int numero, String rutaPrincipal) {
-        mDatabase.execSQL("UPDATE aspectos SET nombre='" + nombre + "', num=" + numero + ", " +
-                "rutaPrincipal='" + rutaPrincipal + "' WHERE _id=" + idAspecto);
+        mDatabase.execSQL("UPDATE aspectos SET nombre='" + TextUtils.htmlEncode(nombre) + "', num=" + numero + ", " +
+                "rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "' WHERE _id=" + idAspecto);
     }
 
-    public void modificarHabilidadesCampeon(int idCampeon, String nombre, int descripcion, String coste,
+    public void modificarHabilidadesCampeon(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
                                             String alcance, String rutaPrincipal, String enfriamiento, int esPasiva) {;
-        mDatabase.execSQL("UPDATE habilidades SET descripcion='" + descripcion + "', " +
-                "coste='" + coste + "', alcance='" + alcance + "', enfriamiento='" + enfriamiento + "', rutaPrincipal='" + rutaPrincipal + "'," +
-                " esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + nombre + "'");
+        mDatabase.execSQL("UPDATE habilidades SET descripcion='" + TextUtils.htmlEncode(descripcion) + "', " +
+                "tooltip='" + TextUtils.htmlEncode(tooltip) + "'," +
+                "coste='" + TextUtils.htmlEncode(coste) + "', alcance='" + TextUtils.htmlEncode(alcance) + "', enfriamiento='" + TextUtils.htmlEncode(enfriamiento) + "', rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "'," +
+                " esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + TextUtils.htmlEncode(nombre) + "'");
     }
 
 
@@ -243,8 +247,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
      */
     public void modificarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
                                  int puedesComprar, String rutaPrincipal) {
-        mDatabase.execSQL("UPDATE objetos SET nombre='" + nombre + "', costeBase=" + costeBase + ", coste=" + coste + "," +
-                "descripcion='" + descripcion + "', puedesComprar=" + puedesComprar + ", rutaPrincipal='" + rutaPrincipal + "' WHERE _id=" + id);
+        mDatabase.execSQL("UPDATE objetos SET nombre='" + TextUtils.htmlEncode(nombre) + "', costeBase=" + costeBase + ", coste=" + coste + "," +
+                "descripcion='" + TextUtils.htmlEncode(descripcion) + "', puedesComprar=" + puedesComprar + ", rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "' WHERE _id=" + id);
     }
 
     /**
@@ -255,7 +259,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param vObjeto  última versión conocida para los objetos
      */
     public void guardarRutaVersiones(String ruta, String vCampeon, String vObjeto) {
-        mDatabase.execSQL("INSERT INTO rutaVersiones VALUES (null, '" + ruta + "','" + vCampeon + "', '" + vObjeto + "')");
+        mDatabase.execSQL("INSERT INTO rutaVersiones VALUES (null, '" + TextUtils.htmlEncode(ruta) + "','" + TextUtils.htmlEncode(vCampeon) + "', '" + TextUtils.htmlEncode(vObjeto) + "')");
     }
 
     /**
@@ -490,7 +494,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     }
 
     public String[][] obtenerHabilidadesCampeon(int idCampeon) {
-        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, descripcion, alcance, " +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, descripcion, tooltip, alcance, " +
                 "coste, enfriamiento, rutaPrincipal, esPasiva " +
                 "FROM habilidades WHERE idCampeon=" + idCampeon, null);
         String[][] result4 = new String[cursor.getCount()][cursor.getColumnCount()];
@@ -498,12 +502,13 @@ public class BBDDHelper extends SQLiteOpenHelper {
         int pos2 = 0;
         while (cursor.moveToNext()) {
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result4[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result4[pos][pos2++] = Html.fromHtml(cursor.getString(2)).toString();
+            result4[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(1)).toString());
+            result4[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(2)).toString());
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(3)).toString();
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(4)).toString();
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(5)).toString();
-            result4[pos][pos2] = Html.fromHtml(cursor.getString(6)).toString();
+            result4[pos][pos2++] = Html.fromHtml(cursor.getString(6)).toString();
+            result4[pos][pos2] = Html.fromHtml(cursor.getString(7)).toString();
             pos2 = 0;
             pos++;
         }

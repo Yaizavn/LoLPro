@@ -190,27 +190,27 @@ public class APIConnection {
                 Matcher match5 = null;
                 while (match.find()) {
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),
-                            TextUtils.htmlEncode(match.group(2)), TextUtils.htmlEncode(match.group(3)),
-                            TextUtils.htmlEncode(match.group(4)), TextUtils.htmlEncode(match.group(7)),
-                            TextUtils.htmlEncode(match.group(18)), TextUtils.htmlEncode(match.group(19)),
-                            TextUtils.htmlEncode(match.group(20)), TextUtils.htmlEncode(match.group(21)),
-                            TextUtils.htmlEncode(match.group(11)), TextUtils.htmlEncode(match.group(12)),
-                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
-                            TextUtils.htmlEncode(match.group(14)), TextUtils.htmlEncode(match.group(15)),
-                            TextUtils.htmlEncode(match.group(16)), TextUtils.htmlEncode(match.group(17)),
-                            TextUtils.htmlEncode(match.group(8)), TextUtils.htmlEncode(match.group(23)),
-                            TextUtils.htmlEncode(match.group(24)), TextUtils.htmlEncode(match.group(25)),
-                            TextUtils.htmlEncode(match.group(25)), TextUtils.htmlEncode(match.group(27)),
-                            TextUtils.htmlEncode(match.group(28)), TextUtils.htmlEncode(match.group(22)),
-                            TextUtils.htmlEncode(rutaImagen + match.group(5)));
+                           match.group(2), match.group(3),
+                            match.group(4), match.group(7),
+                            match.group(18),match.group(19),
+                            match.group(20), match.group(21),
+                           match.group(11), match.group(12),
+                            match.group(9), match.group(10),
+                            match.group(14), match.group(15),
+                            match.group(16), match.group(17),
+                            match.group(8), match.group(23),
+                            match.group(24), match.group(25),
+                            match.group(25), match.group(27),
+                            match.group(28), match.group(22),
+                            rutaImagen + match.group(5));
                     // Almacenamos las skins
                     match2 = patt2.matcher(match.group(6));
                     while (match2.find()) {
                         bdConnection.guardarAspectos(Integer.parseInt(match2.group(1)),
-                                Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match2.group(2)),
+                                Integer.parseInt(match.group(1)), match2.group(2),
                                 Integer.parseInt(match2.group(3)),
-                                TextUtils.htmlEncode(rutaImagenAspecto + match.group(2) + "_" +
-                                        Integer.parseInt(match2.group(3)) + ".jpg")
+                                rutaImagenAspecto + match.group(2) + "_" +
+                                        Integer.parseInt(match2.group(3)) + ".jpg"
                         );
                     }
                     // Almacenamos las habilidades y la pasiva
@@ -219,14 +219,14 @@ public class APIConnection {
                     while (match3.find()) {
                         i=0;
                         vars = new ArrayList <ArrayList <String>>();
-                        effects=match3.group(7).split(",");
-                        if (match3.group(8)!=null) {
-                            match5 = patt5.matcher(match3.group(8));
+                        effects=match3.group(8).split(",");
+                        if (match3.group(9)!=null) {
+                            match5 = patt5.matcher(match3.group(9));
                             //vars = new String[match5.groupCount() + effects.length][2];
                             while (match5.find()) {
                                 datos= new ArrayList<String>();
                                 datos.add(TextUtils.htmlEncode(match5.group(1)));
-                                datos.add(TextUtils.htmlEncode(match5.group(2) + " " + match5.group(3)));
+                                datos.add(match5.group(3) + " " + TextUtils.htmlEncode(match5.group(2)));
                                 vars.add(datos);
                                 //vars[i][0] = TextUtils.htmlEncode(match5.group(1));
                                 //vars[i++][1] = TextUtils.htmlEncode(match5.group(2) + " " + match5.group(3));
@@ -234,7 +234,7 @@ public class APIConnection {
                         }
                         datos= new ArrayList<String>();
                         datos.add("cost");
-                        datos.add(TextUtils.htmlEncode(match3.group(5)));
+                        datos.add(TextUtils.htmlEncode(match3.group(6)));
                         vars.add(datos);
                         //vars[i][0]="cost";
                         //vars[i++][1]= TextUtils.htmlEncode(match3.group(5));
@@ -247,23 +247,25 @@ public class APIConnection {
                             //vars[i++][1]= effects[j];
                         }
                         bdConnection.guardarHabilidades(Integer.parseInt(match.group(1)),
-                                TextUtils.htmlEncode(match3.group(1)),
-                                Utils.sanitizeSpells(TextUtils.htmlEncode(match3.group(2)), vars),
-                                Utils.sanitizeSpells(TextUtils.htmlEncode(match3.group(4)), vars),
-                                TextUtils.htmlEncode(match3.group(9)),
-                                   TextUtils.htmlEncode(rutaImagenHabilidades + match3.group(3)),
-                                TextUtils.htmlEncode(match3.group(6)),
+                                match3.group(1),
+                                match3.group(2),
+                                Utils.replaceVarsSpells(match3.group(3), vars),
+                                Utils.replaceVarsSpells(match3.group(5), vars),
+                                match3.group(10),
+                                rutaImagenHabilidades + match3.group(4),
+                                match3.group(7),
                                 0
                         );
                     }
                     match4 = patt4.matcher(match.group(30));
                     while (match4.find()) {
                         bdConnection.guardarHabilidades(Integer.parseInt(match.group(1)),
-                                TextUtils.htmlEncode(match4.group(1)),
-                                TextUtils.htmlEncode(match4.group(2)),
+                                match4.group(1),
+                                match4.group(2),
                                 "",
                                 "",
-                                TextUtils.htmlEncode(rutaImagenHabilidadesPasivas + match4.group(3)),
+                                "",
+                                rutaImagenHabilidadesPasivas + match4.group(3),
                                 "",
                                 1
                         );
@@ -278,17 +280,17 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     purchasable = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
-                    bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
+                    bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            TextUtils.htmlEncode(match.group(6)), purchasable,
-                            TextUtils.htmlEncode(rutaImagen + match.group(7)));
+                            match.group(6), purchasable,
+                           rutaImagen + match.group(7));
                 }
                 break;
             case IMAGES_AND_VERSIONS:
                 patt = Patrones.PATTERN_PATH_AND_VERSIONS;
                 match = patt.matcher(answer);
                 if (match.find()) {
-                    bdConnection.guardarRutaVersiones(match.group(3), match.group(2), TextUtils.htmlEncode(match.group(1)));
+                    bdConnection.guardarRutaVersiones(match.group(3), match.group(2), match.group(1));
                 } else {
                     Log.e("error", "Patron de versiones erroneo");
                 }
@@ -312,26 +314,26 @@ public class APIConnection {
                 match2 = null;
                 while (match.find()) {
                     bdConnection.modificarCampeones(Integer.parseInt(match.group(1)),
-                            TextUtils.htmlEncode(match.group(2)), TextUtils.htmlEncode(match.group(3)),
-                            TextUtils.htmlEncode(match.group(4)), TextUtils.htmlEncode(match.group(7)),
-                            TextUtils.htmlEncode(match.group(18)), TextUtils.htmlEncode(match.group(19)),
-                            TextUtils.htmlEncode(match.group(20)), TextUtils.htmlEncode(match.group(21)),
-                            TextUtils.htmlEncode(match.group(11)), TextUtils.htmlEncode(match.group(12)),
-                            TextUtils.htmlEncode(match.group(9)), TextUtils.htmlEncode(match.group(10)),
-                            TextUtils.htmlEncode(match.group(14)), TextUtils.htmlEncode(match.group(15)),
-                            TextUtils.htmlEncode(match.group(16)), TextUtils.htmlEncode(match.group(17)),
-                            TextUtils.htmlEncode(match.group(8)), TextUtils.htmlEncode(match.group(23)),
-                            TextUtils.htmlEncode(match.group(24)), TextUtils.htmlEncode(match.group(25)),
-                            TextUtils.htmlEncode(match.group(25)), TextUtils.htmlEncode(match.group(27)),
-                            TextUtils.htmlEncode(match.group(28)), TextUtils.htmlEncode(match.group(22)),
-                            TextUtils.htmlEncode(rutaImagen + match.group(5)));
+                            match.group(2), match.group(3),
+                            match.group(4), match.group(7),
+                            match.group(18), match.group(19),
+                            match.group(20), match.group(21),
+                            match.group(11), match.group(12),
+                            match.group(9), match.group(10),
+                            match.group(14), match.group(15),
+                            match.group(16), match.group(17),
+                            match.group(8), match.group(23),
+                            match.group(24), match.group(25),
+                            match.group(25), match.group(27),
+                            match.group(28), match.group(22),
+                            rutaImagen + match.group(5));
                     match2 = patt2.matcher(match.group(6));
                     while (match2.find()) {
                         bdConnection.modificarAspectosCampeon(Integer.parseInt(match2.group(1)),
-                                TextUtils.htmlEncode(match2.group(2)),
+                                match2.group(2),
                                 Integer.parseInt(match2.group(3)),
-                                TextUtils.htmlEncode(rutaImagenAspecto + match.group(2) + "_" +
-                                        Integer.parseInt(match2.group(3)) + ".jpg")
+                                rutaImagenAspecto + match.group(2) + "_" +
+                                        Integer.parseInt(match2.group(3)) + ".jpg"
                         );
                     }
                 }
@@ -343,10 +345,10 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     purchasable2 = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
-                    bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), TextUtils.htmlEncode(match.group(2)),
+                    bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            TextUtils.htmlEncode(match.group(6)), purchasable2,
-                            TextUtils.htmlEncode(rutaImagen + match.group(7)));
+                            match.group(6), purchasable2,
+                            rutaImagen + match.group(7));
                 }
                 break;
 

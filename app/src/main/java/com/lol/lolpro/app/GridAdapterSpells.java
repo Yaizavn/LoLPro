@@ -56,10 +56,10 @@ public class GridAdapterSpells extends BaseAdapter {
 
         if (data != null) {
             ((TextView) view.findViewById(R.id.nombre)).setText(data[position][0]);
-            ((TextView) view.findViewById(R.id.descripcion)).setText(data[position][1]);
-            ((TextView) view.findViewById(R.id.alcance)).setText(data[position][2]);
-            ((TextView) view.findViewById(R.id.coste)).setText(data[position][3]);
-            ((TextView) view.findViewById(R.id.enfriamiento)).setText(data[position][4]);
+            ((TextView) view.findViewById(R.id.descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
+            ((TextView) view.findViewById(R.id.alcance)).setText(data[position][3]);
+            ((TextView) view.findViewById(R.id.coste)).setText(data[position][4]);
+            ((TextView) view.findViewById(R.id.enfriamiento)).setText(data[position][5]);
 
             // Get the image URL for the current position.
             String url = getItem(position);
@@ -96,7 +96,7 @@ public class GridAdapterSpells extends BaseAdapter {
      */
     @Override
     public String getItem(int position) {
-        return data[position][5];
+        return data[position][6];
     }
 
     /**

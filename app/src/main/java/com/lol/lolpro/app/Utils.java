@@ -41,7 +41,7 @@ public class Utils {
         return description.replaceAll("<br>", "\\\n");
     }
 
-    public static String sanitizeSpells(String description, ArrayList<ArrayList<String>> vars) {
+    public static String replaceVarsSpells(String description, ArrayList<ArrayList<String>> vars) {
         int i = vars.size();
         for(int j = 0; j < i; j++){
             description=description.replaceAll("\\{\\{ "+vars.get(j).get(0)+" \\}\\}", vars.get(j).get(1));
@@ -56,7 +56,7 @@ public class Utils {
      * @param description String con etiquetas html
      * @return String sin etiquetas html
      */
-    public static String sanitizeItemDescription(String description) {
+    public static String sanitizeText(String description) {
         return description.replaceAll("<br>", "\\\n").replaceAll("<.*?>", "");
     }
 
