@@ -189,6 +189,7 @@ public class APIConnection {
                 Pattern patt5 = Patrones.PATTERN_VARS;
                 Matcher match5 = null;
                 while (match.find()) {
+                    i=1;
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),
                            match.group(2), match.group(3),
                             match.group(4), match.group(7),
@@ -217,34 +218,26 @@ public class APIConnection {
                     match3 = patt3.matcher(match.group(29));
                     effects=null;
                     while (match3.find()) {
-                        i=0;
                         vars = new ArrayList <ArrayList <String>>();
                         effects=match3.group(8).split(",");
                         if (match3.group(9)!=null) {
                             match5 = patt5.matcher(match3.group(9));
-                            //vars = new String[match5.groupCount() + effects.length][2];
                             while (match5.find()) {
                                 datos= new ArrayList<String>();
                                 datos.add(TextUtils.htmlEncode(match5.group(1)));
                                 datos.add(match5.group(3) + " " + TextUtils.htmlEncode(match5.group(2)));
                                 vars.add(datos);
-                                //vars[i][0] = TextUtils.htmlEncode(match5.group(1));
-                                //vars[i++][1] = TextUtils.htmlEncode(match5.group(2) + " " + match5.group(3));
                             }
                         }
                         datos= new ArrayList<String>();
                         datos.add("cost");
                         datos.add(TextUtils.htmlEncode(match3.group(6)));
                         vars.add(datos);
-                        //vars[i][0]="cost";
-                        //vars[i++][1]= TextUtils.htmlEncode(match3.group(5));
                         for (int j=1; j<effects.length; j++){
                             datos= new ArrayList<String>();
                             datos.add("e"+j);
                             datos.add(effects[j]);
                             vars.add(datos);
-                            //vars[i][0]="e"+j;
-                            //vars[i++][1]= effects[j];
                         }
                         bdConnection.guardarHabilidades(Integer.parseInt(match.group(1)),
                                 match3.group(1),
@@ -254,6 +247,7 @@ public class APIConnection {
                                 match3.group(10),
                                 rutaImagenHabilidades + match3.group(4),
                                 match3.group(7),
+                                i++,
                                 0
                         );
                     }
@@ -267,6 +261,7 @@ public class APIConnection {
                                 "",
                                 rutaImagenHabilidadesPasivas + match4.group(3),
                                 "",
+                                0,
                                 1
                         );
                     }

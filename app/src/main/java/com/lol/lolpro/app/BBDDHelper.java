@@ -46,7 +46,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 " rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE habilidades (" +
                 " idCampeon INTEGER, nombre TEXT, descripcion TEXT, tooltip TEXT, coste TEXT," +
-                " alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
+                " alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, posicion INTEGER, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
                 ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, " +
@@ -147,12 +147,12 @@ public class BBDDHelper extends SQLiteOpenHelper {
     }
 
     public void guardarHabilidades(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
-                                   String alcance, String rutaPrincipal, String enfriamiento, int esPasiva) {
+                                   String alcance, String rutaPrincipal, String enfriamiento, int esPasiva, int posicion) {
         try{
             mDatabase.execSQL("INSERT INTO habilidades VALUES (" + idCampeon + ", '" + TextUtils.htmlEncode(nombre) + "','" +
                     TextUtils.htmlEncode(descripcion) + "', '" + TextUtils.htmlEncode(tooltip) + "', '" +
                             TextUtils.htmlEncode(coste) + "','" + TextUtils.htmlEncode(alcance) + "','" +
-                                    TextUtils.htmlEncode(rutaPrincipal) + "', '" + TextUtils.htmlEncode(enfriamiento) + "',  " + esPasiva + ")");
+                                    TextUtils.htmlEncode(rutaPrincipal) + "', '" + TextUtils.htmlEncode(enfriamiento) + "', " + posicion + ", " + esPasiva + ")");
         }catch (SQLiteException e){
             Log.e("Error foreign key", "Foreign key does not exist");
         }
@@ -226,11 +226,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
     }
 
     public void modificarHabilidadesCampeon(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
-                                            String alcance, String rutaPrincipal, String enfriamiento, int esPasiva) {;
+                                            String alcance, String rutaPrincipal, String enfriamiento, int esPasiva, int posicion) {;
         mDatabase.execSQL("UPDATE habilidades SET descripcion='" + TextUtils.htmlEncode(descripcion) + "', " +
                 "tooltip='" + TextUtils.htmlEncode(tooltip) + "'," +
                 "coste='" + TextUtils.htmlEncode(coste) + "', alcance='" + TextUtils.htmlEncode(alcance) + "', enfriamiento='" + TextUtils.htmlEncode(enfriamiento) + "', rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "'," +
-                " esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + TextUtils.htmlEncode(nombre) + "'");
+                " posicion="+posicion+", esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + TextUtils.htmlEncode(nombre) + "'");
     }
 
 
@@ -495,8 +495,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     public String[][] obtenerHabilidadesCampeon(int idCampeon) {
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, descripcion, tooltip, alcance, " +
-                "coste, enfriamiento, rutaPrincipal, esPasiva " +
-                "FROM habilidades WHERE idCampeon=" + idCampeon, null);
+                "coste, enfriamiento, rutaPrincipal, esPasiva, posicion " +
+                "FROM habilidades WHERE idCampeon=" + idCampeon + " ORDER BY posicion DESC", null);
         String[][] result4 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;

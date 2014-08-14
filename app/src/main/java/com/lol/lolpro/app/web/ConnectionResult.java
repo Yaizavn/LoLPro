@@ -45,6 +45,6 @@ public class ConnectionResult {
             //TODO comprobar si disponemos de conexion a internet
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 }

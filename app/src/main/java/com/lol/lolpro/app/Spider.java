@@ -27,7 +27,7 @@ public class Spider {
         try {
             doc = Jsoup.connect(NEWSURL).get();
         } catch (Exception ex) {
-            return null;
+            return new String[][]{};
         }
         return newsLinks(doc);
     }
