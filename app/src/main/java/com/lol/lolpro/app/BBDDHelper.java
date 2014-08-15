@@ -147,7 +147,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     }
 
     public void guardarHabilidades(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
-                                   String alcance, String rutaPrincipal, String enfriamiento, int esPasiva, int posicion) {
+                                   String alcance, String rutaPrincipal, String enfriamiento, int posicion, int esPasiva) {
         try{
             mDatabase.execSQL("INSERT INTO habilidades VALUES (" + idCampeon + ", '" + TextUtils.htmlEncode(nombre) + "','" +
                     TextUtils.htmlEncode(descripcion) + "', '" + TextUtils.htmlEncode(tooltip) + "', '" +
@@ -495,8 +495,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     public String[][] obtenerHabilidadesCampeon(int idCampeon) {
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, descripcion, tooltip, alcance, " +
-                "coste, enfriamiento, rutaPrincipal, esPasiva, posicion " +
-                "FROM habilidades WHERE idCampeon=" + idCampeon + " ORDER BY posicion DESC", null);
+                "coste, enfriamiento, rutaPrincipal, esPasiva " +
+                "FROM habilidades WHERE idCampeon=" + idCampeon + " ORDER BY posicion", null);
         String[][] result4 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;
