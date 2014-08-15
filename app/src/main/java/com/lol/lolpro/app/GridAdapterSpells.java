@@ -57,9 +57,25 @@ public class GridAdapterSpells extends BaseAdapter {
         if (data != null) {
             ((TextView) view.findViewById(R.id.nombre)).setText(data[position][0]);
             ((TextView) view.findViewById(R.id.descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
-            ((TextView) view.findViewById(R.id.alcance)).setText(data[position][3]);
-            ((TextView) view.findViewById(R.id.coste)).setText(data[position][4]);
-            ((TextView) view.findViewById(R.id.enfriamiento)).setText(data[position][5]);
+            if (Integer.parseInt(data[position][7]) == 0){
+                view.findViewById(R.id.alcance).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.coste).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.enfriamiento).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.textAlcance).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.textCoste).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.textEnfriamiento).setVisibility(View.VISIBLE);
+                ((TextView) view.findViewById(R.id.alcance)).setText(data[position][3]);
+                ((TextView) view.findViewById(R.id.coste)).setText(data[position][4]);
+                ((TextView) view.findViewById(R.id.enfriamiento)).setText(data[position][5] + context.getResources().getString(R.string.segundos));
+            }
+            else {
+                view.findViewById(R.id.alcance).setVisibility(View.GONE);
+                view.findViewById(R.id.coste).setVisibility(View.GONE);
+                view.findViewById(R.id.enfriamiento).setVisibility(View.GONE);
+                view.findViewById(R.id.textAlcance).setVisibility(View.GONE);
+                view.findViewById(R.id.textCoste).setVisibility(View.GONE);
+                view.findViewById(R.id.textEnfriamiento).setVisibility(View.GONE);
+            }
 
             // Get the image URL for the current position.
             String url = getItem(position);

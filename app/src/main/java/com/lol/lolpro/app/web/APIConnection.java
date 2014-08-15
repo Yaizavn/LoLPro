@@ -219,13 +219,13 @@ public class APIConnection {
                     effects=null;
                     while (match3.find()) {
                         vars = new ArrayList <ArrayList <String>>();
-                        effects=match3.group(8).split(",");
+                        effects=Utils.clearQuotes(match3.group(8)).split(",");
                         if (match3.group(9)!=null) {
                             match5 = patt5.matcher(match3.group(9));
                             while (match5.find()) {
                                 datos= new ArrayList<String>();
                                 datos.add(TextUtils.htmlEncode(match5.group(1)));
-                                datos.add(match5.group(3) + " " + TextUtils.htmlEncode(match5.group(2)));
+                                datos.add(Utils.sanitizeAttackSource (match5.group(3), TextUtils.htmlEncode(match5.group(2)), context));
                                 vars.add(datos);
                             }
                         }

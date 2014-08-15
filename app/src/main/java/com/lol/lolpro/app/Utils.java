@@ -41,12 +41,27 @@ public class Utils {
         return description.replaceAll("<br>", "\\\n");
     }
 
+    public static String clearQuotes (String description) {
+        return description.replaceAll("\"", "");
+    }
+
     public static String replaceVarsSpells(String description, ArrayList<ArrayList<String>> vars) {
         int i = vars.size();
         for(int j = 0; j < i; j++){
             description=description.replaceAll("\\{\\{ "+vars.get(j).get(0)+" \\}\\}", vars.get(j).get(1));
         }
         description=description.replaceAll("\\{\\{.+?\\}\\}", " ");
+        return description;
+    }
+
+    public static String sanitizeAttackSource(String value, String description, Context contexto ) {
+        if (description.compareTo("bonusattackdamage")==0){
+            description= (Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
+        }
+        else if (description.compareTo("spelldamage")==0){
+            description= (Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
+        }
+
         return description;
     }
 
