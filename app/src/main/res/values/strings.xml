@@ -34,10 +34,17 @@
     <string name="vel_movimiento">Velocidad de movimiento:</string>
     <string name="res_magica">Resistencia mágica:</string>
     <string name="reg_vida">Regeneración de vida:</string>
-    <string name="segundos"> segundos</string>
+    <string name="segundos">segundos</string>
 
-    <string name="spell_damage"> poder de habilidad</string>
-    <string name="bonus_attack_damage"> daño de ataque</string>
+    <string name="bonus_spell_damage">de poder de habilidad</string>
+    <string name="bonus_attack_damage">de daño de ataque</string>
+    <string name="bonus_health">de vida adicional</string>
+    <string name="bonus_mana">de maná máximo</string>
+    <string name="bonus_armor">de armadura</string>
+    <string name="bonus_spell_block">de resistencia mágica</string>
+
+
+
 
 
     <string-array name="mp">

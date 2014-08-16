@@ -50,16 +50,33 @@ public class Utils {
         for(int j = 0; j < i; j++){
             description=description.replaceAll("\\{\\{ "+vars.get(j).get(0)+" \\}\\}", vars.get(j).get(1));
         }
+        description=description.replaceAll("\\(\\{\\{.+?\\}\\}\\)", " ");
+        description=description.replaceAll("\\(\\+\\{\\{.+?\\}\\}\\)", " ");
         description=description.replaceAll("\\{\\{.+?\\}\\}", " ");
         return description;
     }
 
     public static String sanitizeAttackSource(String value, String description, Context contexto ) {
-        if (description.compareTo("bonusattackdamage")==0){
-            description= (Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
+        if (description.compareTo("bonusattackdamage")==0 || description.compareTo("attackdamage")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
         }
         else if (description.compareTo("spelldamage")==0){
-            description= (Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_damage);
+        }
+        else if (description.compareTo("bonushealth")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_health);
+        }
+        else if (description.compareTo("mana")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_mana);
+        }
+        else if (description.compareTo("armor")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_armor);
+        }
+        else if (description.compareTo("spellblock")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_block);
+        }
+        else{
+            description= "TOD000000000000000000000000O" + (Float.parseFloat(value) * 100) + "% " + description;
         }
 
         return description;
