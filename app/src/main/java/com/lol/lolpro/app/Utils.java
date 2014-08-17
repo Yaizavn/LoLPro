@@ -51,7 +51,9 @@ public class Utils {
             description=description.replaceAll("\\{\\{ "+vars.get(j).get(0)+" \\}\\}", vars.get(j).get(1));
         }
         description=description.replaceAll("\\(\\{\\{.+?\\}\\}\\)", " ");
+        description=description.replaceAll("\\(\\+\\{\\{.+?\\}\\}%\\)", " ");
         description=description.replaceAll("\\(\\+\\{\\{.+?\\}\\}\\)", " ");
+        description=description.replaceAll("\\{\\{.+?\\}\\}%", " ");
         description=description.replaceAll("\\{\\{.+?\\}\\}", " ");
         return description;
     }

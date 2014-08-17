@@ -64,8 +64,14 @@ public class GridAdapterSpells extends BaseAdapter {
                 view.findViewById(R.id.textAlcance).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.textCoste).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.textEnfriamiento).setVisibility(View.VISIBLE);
-                ((TextView) view.findViewById(R.id.alcance)).setText(data[position][3]);
+                if(data[position][3].compareTo("self")==0){
+                    ((TextView) view.findViewById(R.id.alcance)).setText(context.getResources().getString(R.string.alcance_propio));
+                }
+                else {
+                    ((TextView) view.findViewById(R.id.alcance)).setText(data[position][3]);
+                }
                 ((TextView) view.findViewById(R.id.coste)).setText(data[position][4]);
+
                 ((TextView) view.findViewById(R.id.enfriamiento)).setText(data[position][5] +" "+ context.getResources().getString(R.string.segundos));
             }
             else {

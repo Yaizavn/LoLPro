@@ -35,6 +35,7 @@
     <string name="res_magica">Resistencia mágica:</string>
     <string name="reg_vida">Regeneración de vida:</string>
     <string name="segundos">segundos</string>
+    <string name="alcance_propio">Propio</string>
 
     <string name="bonus_spell_damage">de poder de habilidad</string>
     <string name="bonus_attack_damage">de daño de ataque</string>
