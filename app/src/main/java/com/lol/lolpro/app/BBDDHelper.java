@@ -504,7 +504,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(0)).toString();
             result4[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(1)).toString());
             result4[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(2)).toString());
-            result4[pos][pos2++] = Html.fromHtml(cursor.getString(3)).toString();
+            result4[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(3)).toString());
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(4)).toString();
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(5)).toString();
             result4[pos][pos2++] = Html.fromHtml(cursor.getString(6)).toString();

@@ -225,7 +225,7 @@ public class APIConnection {
                             while (match5.find()) {
                                 datos= new ArrayList<String>();
                                 datos.add(TextUtils.htmlEncode(match5.group(1)));
-                                datos.add(Utils.sanitizeAttackSource (match5.group(3), TextUtils.htmlEncode(match5.group(2)), context));
+                                datos.add(Utils.sanitizeAttackSource (match5.group(3).replaceAll(",", "/"), TextUtils.htmlEncode(match5.group(2)), context));
                                 vars.add(datos);
                             }
                         }

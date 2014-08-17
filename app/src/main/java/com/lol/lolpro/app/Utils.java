@@ -60,13 +60,28 @@ public class Utils {
 
     public static String sanitizeAttackSource(String value, String description, Context contexto ) {
         if (description.compareTo("bonusattackdamage")==0 || description.compareTo("attackdamage")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
+            String[] coeffsVariables=value.split("/");
+            description="";
+            if (coeffsVariables.length==1) {
+                description = String.valueOf(Math.rint(Float.parseFloat(value) * 100));
+            }
+            else{
+                int length=coeffsVariables.length-1;
+                for (int i=0; i<length;i++){
+                    description+=Math.rint(Float.parseFloat(coeffsVariables[i]) * 100) + "/";
+                }
+                description+=Math.rint(Float.parseFloat(coeffsVariables [length]) * 100);
+            }
+            description += "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
         }
         else if (description.compareTo("spelldamage")==0){
             description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_damage);
         }
-        else if (description.compareTo("bonushealth")==0){
+        else if (description.compareTo("health")==0){
             description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_health);
+        }
+        else if (description.compareTo("bonushealth")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_health);
         }
         else if (description.compareTo("mana")==0){
             description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_mana);
@@ -77,8 +92,14 @@ public class Utils {
         else if (description.compareTo("spellblock")==0){
             description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_block);
         }
+        else if (description.compareTo("bonusarmor")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_armor);
+        }
+        else if (description.compareTo("bonusspellblock")==0){
+            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_spell_block);
+        }
         else{
-            description= "TOD000000000000000000000000O" + (Float.parseFloat(value) * 100) + "% " + description;
+            description= "TOD000000000000000000000000O";
         }
 
         return description;
