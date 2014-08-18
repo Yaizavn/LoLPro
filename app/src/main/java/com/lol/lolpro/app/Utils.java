@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -59,49 +60,58 @@ public class Utils {
     }
 
     public static String sanitizeAttackSource(String value, String description, Context contexto ) {
+        DecimalFormat df = new DecimalFormat("###.##");
         if (description.compareTo("bonusattackdamage")==0 || description.compareTo("attackdamage")==0){
             String[] coeffsVariables=value.split("/");
             description="";
             if (coeffsVariables.length==1) {
-                description = String.valueOf(Math.rint(Float.parseFloat(value) * 100));
+                description = String.valueOf(df.format(Float.parseFloat(value) * 100));
             }
             else{
                 int length=coeffsVariables.length-1;
                 for (int i=0; i<length;i++){
-                    description+=Math.rint(Float.parseFloat(coeffsVariables[i]) * 100) + "/";
+                    description+=df.format(Float.parseFloat(coeffsVariables[i]) * 100) + "/";
                 }
-                description+=Math.rint(Float.parseFloat(coeffsVariables [length]) * 100);
+                description+=df.format(Float.parseFloat(coeffsVariables [length]) * 100);
             }
             description += "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
         }
         else if (description.compareTo("spelldamage")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_damage);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_damage);
         }
         else if (description.compareTo("health")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_health);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_health);
         }
         else if (description.compareTo("bonushealth")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_health);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_health);
         }
         else if (description.compareTo("mana")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_mana);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_mana);
         }
         else if (description.compareTo("armor")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_armor);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_armor);
         }
         else if (description.compareTo("spellblock")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_block);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_block);
         }
         else if (description.compareTo("bonusarmor")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_armor);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_armor);
         }
         else if (description.compareTo("bonusspellblock")==0){
-            description= Math.rint(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_spell_block);
+            description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_spell_block);
         }
-        else{
-            description= "TOD000000000000000000000000O";
+        else if (description.compareTo("@stacks")==0||description.compareTo("@text")==0||description.compareTo("@special.nautilusq")==0||
+                description.compareTo("@special.dariusr3")==0||description.compareTo("@special.BraumWArmor")==0
+                ||description.compareTo("@special.BraumWMR")==0||description.compareTo("@cooldownchampion")==0
+                ||description.compareTo("@dynamic.abilitypower")==0||description.compareTo("@dynamic.attackdamage")==0){
+            description= value;
         }
-
+        else if (description.compareTo("@special.viw")==0){
+            description="1% por " +value+  " Daño de Ataque adicional";
+        }
+        else if (description.compareTo("@special.jaxrarmor")==0 || description.compareTo("@special.jaxrmr")==0){
+            description= "";
+        }
         return description;
     }
 
