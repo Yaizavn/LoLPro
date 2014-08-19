@@ -43,15 +43,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "velocidadMovimiento TEXT, rutaPrincipal TEXT, esGratis INTEGER)");
         db.execSQL("CREATE TABLE aspectos (" +
                 "_id INTEGER PRIMARY KEY, idCampeon INTEGER, nombre TEXT, num INTEGER," +
-                " rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
+                "rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE habilidades (" +
-                " idCampeon INTEGER, nombre TEXT, descripcion TEXT, tooltip TEXT, coste TEXT," +
-                " alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, posicion INTEGER, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
+                "idCampeon INTEGER, nombre TEXT, descripcion TEXT, tooltip TEXT, coste TEXT," +
+                "alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, posicion INTEGER, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
-                ", nombre TEXT, costeBase INTEGER, coste INTEGER, descripcion TEXT, " +
-                "puedesComprar INTEGER," +
-                "rutaPrincipal TEXT)");
+                ", nombre TEXT, costeBase INTEGER, coste INTEGER, precioVenta INTEGER, puedesComprar INTEGER," +
+                " descripcion TEXT, resumen TEXT, profundidad INTEGER, from TEXT, into TEXT, rutaPrincipal TEXT)");
         db.execSQL("CREATE TABLE rutaVersiones (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
                 ", ruta TEXT, versionCampeones TEXT, versionObjetos TEXT)");
@@ -169,10 +168,12 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param puedesComprar Indica con 1 que el objeto se encuentra en la tienda y con 0 que no
      * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del objeto
      */
-    public void guardarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
-                               int puedesComprar, String rutaPrincipal) {
-        mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + TextUtils.htmlEncode(nombre) + "', " + costeBase + ", " + coste + "," +
-                "'" + TextUtils.htmlEncode(descripcion) + "', " + puedesComprar + ", '" + TextUtils.htmlEncode(rutaPrincipal) + "')");
+    public void guardarObjetos(int id, String nombre, int costeBase, int coste, int precioVenta, int puedesComprar,
+                               String descripcion, String resumen, int profundidad, String from, String into,
+                               String rutaPrincipal) {
+        mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + TextUtils.htmlEncode(nombre) + "', " + costeBase + ", " + coste + "," + precioVenta + "," +
+                + puedesComprar + ", '" + TextUtils.htmlEncode(descripcion) + "', '" + TextUtils.htmlEncode(resumen) + "', "+profundidad+", '" + TextUtils.htmlEncode(from) + "','" +
+                "'" + TextUtils.htmlEncode(into) + "', '" + TextUtils.htmlEncode(rutaPrincipal) + "')");
     }
 
     /**
@@ -245,10 +246,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param puedesComprar Indica con 1 que el objeto se encuentra en la tienda y con 0 que no
      * @param rutaPrincipal Ruta en la que se encuentra la imagen principal del objeto
      */
-    public void modificarObjetos(int id, String nombre, int costeBase, int coste, String descripcion,
-                                 int puedesComprar, String rutaPrincipal) {
+    public void modificarObjetos(int id, String nombre, int costeBase, int coste, int precioVenta, int puedesComprar,
+                                 String descripcion, String resumen, int profundidad, String from, String into,
+                                 String rutaPrincipal) {
         mDatabase.execSQL("UPDATE objetos SET nombre='" + TextUtils.htmlEncode(nombre) + "', costeBase=" + costeBase + ", coste=" + coste + "," +
-                "descripcion='" + TextUtils.htmlEncode(descripcion) + "', puedesComprar=" + puedesComprar + ", rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "' WHERE _id=" + id);
+                "precioVenta=" + precioVenta + ", puedesComprar=" + puedesComprar + ", descripcion='" +
+                TextUtils.htmlEncode(descripcion) + "', resumen='" + TextUtils.htmlEncode(resumen) +
+                "', profundidad=" + profundidad + ", from='" + TextUtils.htmlEncode(from) + "', into='" +
+                TextUtils.htmlEncode(into) + "',rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "' WHERE _id=" + id);
     }
 
     /**
@@ -528,17 +533,23 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * Ruta de la imagen principal del objeto en la sexta posición
      */
     public String[] obtenerDatosObjetos(int id) {
-        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, costeBase, coste, descripcion, puedesComprar, rutaPrincipal" +
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, costeBase, coste, precioVenta," +
+                "puedesComprar, descripcion, resumen, profundidad, from, into, rutaPrincipal" +
                 " FROM objetos WHERE _id=" + id, null);
         String[] result2 = new String[cursor.getColumnCount()];
         int pos2 = 0;
         if (cursor.moveToNext()) {
             result2[pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result2[pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result2[pos2++] = Html.fromHtml(cursor.getString(2)).toString();
-            result2[pos2++] = Html.fromHtml(cursor.getString(3)).toString();
-            result2[pos2++] = Html.fromHtml(cursor.getString(4)).toString();
-            result2[pos2] = Html.fromHtml(cursor.getString(5)).toString();
+            result2[pos2++] = cursor.getString(1).toString();
+            result2[pos2++] = cursor.getString(2).toString();
+            result2[pos2++] = cursor.getString(3).toString();
+            result2[pos2++] = cursor.getString(4).toString();
+            result2[pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(5)).toString());
+            result2[pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(6)).toString());
+            result2[pos2++] = cursor.getString(7).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(8)).toString();
+            result2[pos2++] = Html.fromHtml(cursor.getString(9)).toString();
+            result2[pos2] = Html.fromHtml(cursor.getString(10)).toString();
         }
         cursor.close();
         return result2;
