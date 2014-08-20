@@ -20,6 +20,11 @@
         <item>Aspectos</item>
     </string-array>
 
+    <string name="mapa_1">La Grieta del Invocador</string>
+    <string name="mapa_8">La Cicatriz de Cristal</string>
+    <string name="mapa_10">El Bosque Retorcido</string>
+    <string name="mapa_12">El Abismo de los Lamentos</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="actualizando">Actualizando datos</string>

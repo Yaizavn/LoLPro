@@ -269,16 +269,20 @@ public class APIConnection {
                 }
                 break;
             case OBJECTS:
-                int purchasable = 0;
+                int purchasable, hideFromAll;
                 rutaImagen = bdConnection.obtenerRutaVersionObjeto();
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    purchasable = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
+                    purchasable = Boolean.parseBoolean(match.group(6)) ? 1 : 0;
+                    hideFromAll = Boolean.parseBoolean(match.group(13)) ? 1 : 0;
                     bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            match.group(6), purchasable,
-                           rutaImagen + match.group(7));
+                            Integer.parseInt(match.group(5)), purchasable,
+                            match.group(7), match.group(8), Integer.parseInt(match.group(9)),
+                            Integer.parseInt(match.group(10)), match.group(11), match.group(12),
+                            hideFromAll, Integer.parseInt(match.group(14)),
+                            rutaImagen + match.group(17));
                 }
                 break;
             case IMAGES_AND_VERSIONS:
@@ -334,16 +338,20 @@ public class APIConnection {
                 }
                 break;
             case UPDATE_OBJECTS:
-                int purchasable2 = 0;
+                int purchasable2, hideFromAll2;
                 rutaImagen = bdConnection.obtenerRutaVersionObjeto();
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
                 while (match.find()) {
                     purchasable2 = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
-                    bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), match.group(2),
+                    hideFromAll2 = Boolean.parseBoolean(match.group(13)) ? 1 : 0;
+                    bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            match.group(6), purchasable2,
-                            rutaImagen + match.group(7));
+                            Integer.parseInt(match.group(5)), purchasable2,
+                            match.group(7), match.group(8), Integer.parseInt(match.group(9)),
+                            Integer.parseInt(match.group(10)), match.group(11), match.group(12),
+                            hideFromAll2, Integer.parseInt(match.group(14)),
+                            rutaImagen + match.group(17));
                 }
                 break;
 

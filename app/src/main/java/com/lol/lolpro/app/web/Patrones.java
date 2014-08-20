@@ -11,18 +11,22 @@ public class Patrones {
     public final static Pattern PATTERN_CHAMPION = Pattern.compile(PCHAMPION, Pattern.DOTALL);
     private final static String PSKINS = "id\":([0-9]+).*?name\":\"(.+?)\".*?num\":([0-9]+)";
     public final static Pattern PATTERN_SKINS = Pattern.compile(PSKINS, Pattern.DOTALL);
-    private final static String PABILITIES = ".*?name\":\"(.+?)\".*?description\":\"(.+?)\",.*?tooltip\":\"(.+?)\",.*?full\":\"(.+?)\".*?resource\":\"(.+?)\".*?costBurn\":\"(.+?)\".*?cooldownBurn\":\"(.+?)\".*?effectBurn\":\\[(.+?)\\].*?(?:vars\":\\[(.+?)\\],.*?)?rangeBurn\":\"(.+?)\"";
+    private final static String PABILITIES = "name\":\"(.+?)\".*?description\":\"(.+?)\",.*?tooltip\":\"(.+?)\",.*?full\":\"(.+?)\".*?resource\":\"(.+?)\".*?costBurn\":\"(.+?)\".*?cooldownBurn\":\"(.+?)\".*?effectBurn\":\\[(.+?)\\].*?(?:vars\":\\[(.+?)\\],.*?)?rangeBurn\":\"(.+?)\"";
     public final static Pattern PATTERN_ABILITIES = Pattern.compile(PABILITIES, Pattern.DOTALL);
-    private final static String PPASSIVE = ".*?name\":\"(.+?)\".*?description\":\"(.+?)\",.*?full\":\"(.+?)\"";
+    private final static String PPASSIVE = "name\":\"(.+?)\".*?description\":\"(.+?)\",.*?full\":\"(.+?)\"";
     public final static Pattern PATTERN_PASSIVE = Pattern.compile(PPASSIVE, Pattern.DOTALL);
 
-    private final static String PVARS = ".*?key\":\"(.+?)\".*?link\":\"(.+?)\".*?coeff\":\\[(.+?)\\]";
+    private final static String PVARS = "key\":\"(.+?)\".*?link\":\"(.+?)\".*?coeff\":\\[(.+?)\\]";
     public final static Pattern PATTERN_VARS = Pattern.compile(PVARS, Pattern.DOTALL);
 
     private final static String PPATHVERSIONS = "item\":\"(.*?)\".*?champion\":\"(.*?)\".*?cdn\":\"(.*?)\"";
     public final static Pattern PATTERN_PATH_AND_VERSIONS = Pattern.compile(PPATHVERSIONS, Pattern.DOTALL);
-    private final static String PITEMS = "\"[0-9]+\":\\{\"id\":([0-9]+).*?name\":\"(.+?)\".*?base\":([0-9]+).*?total\":([0-9]+).*?sell\":([0-9]+).*?purchasable\":(true|false).*?description\":\"(.+?)\".*?plaintext\":\"(.+?)\".*?depth\":([0-9]+).*?(?:from\":\\[(.+?)\\].*?)?(?:into\":\\[(.+?)\\].*?)?tags\":\\[(.+?)\\].*?full\":\"(.*?)\"";
+    private final static String PITEMS = "\"[0-9]+\":\\{\"id\":([0-9]+).*?name\":\"(.+?)\".*?base\":([0-9]+).*?total\":([0-9]+).*?sell\":([0-9]+).*?purchasable\":(true|false).*?description\":\"(.+?)\".*?plaintext\":\"(.+?)\".*?(?:stacks\":([0-9]+).*?)?(?:depth\":([0-9]+).*?)?(?:from\":\\[(.+?)\\].*?)?(?:into\":\\[(.+?)\\].*?)?(?:hideFromAll\":(true|false).*?)?(?:requiredChampion\":\"(.+?)\".*?)?(?:tags\":\\[(.+?)\\].*?)?(?:maps\":\\{(.+?)\\}.*?)?full\":\"(.+?)\"";
     public final static Pattern PATTERN_ITEMS = Pattern.compile(PITEMS, Pattern.DOTALL);
+
+    private final static String PTREEITEMS = "header\":\"(.+?)\".*?tags\":\\[(.+?)\\]";
+    private final static Pattern PATTERN_TREE_ITEMS = Pattern.compile(PTREEITEMS, Pattern.DOTALL);
+
     private final static String PCHAMPIONFREE = "\"id\":([0-9]+)";
     public final static Pattern PATTERN_CHAMPION_FREE = Pattern.compile(PCHAMPIONFREE, Pattern.DOTALL);
 }
