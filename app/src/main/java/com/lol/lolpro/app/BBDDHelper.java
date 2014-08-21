@@ -170,15 +170,34 @@ public class BBDDHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void guardarObjetos(int id, String name, int base, int total, int sell, int purchasable,
-                               String description, String plainText, int stacks, int depth, String fromOBJ,
-                               String intoOBJ, int hideFromAll, int requiredChampion, String full) {
+    public void guardarObjetos(int id, String name, int base, int total, int sell, String purchasable,
+                               String description, String plainText, String stacks, String depth, String fromOBJ,
+                               String intoOBJ, String hideFromAll, String requiredChampion, String full) {
+        int purch= Boolean.parseBoolean(purchasable) ? 1 : 0;
+        int stack = stacks == null ? 1 : Integer.parseInt(stacks);
+        int dept = depth == null  ? 1 : Integer.parseInt(depth);
+        String from = fromOBJ == null ? "" : fromOBJ;
+        String into = intoOBJ == null ? "" : fromOBJ;
+        int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
+        int idCham=-1;
+        //No podwemos meter null en un inty nno podemos meter -1 porque es foregin key de campeones
+        int reqChampion = requiredChampion == null ? null : ((idCham=obtenerIDCampeon (requiredChampion))==-1?null:idCham);
         mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + TextUtils.htmlEncode(name) + "', "
-                + base + ", " + total + ", " + sell + ", " + purchasable + ", '" + TextUtils.htmlEncode(description) + "', '"
-                + TextUtils.htmlEncode(plainText) + "', "+stacks+", "+depth+", '" + TextUtils.htmlEncode(fromOBJ) + "', '"
-                + TextUtils.htmlEncode(intoOBJ) + "', " + hideFromAll + ", " + requiredChampion + ", '" + TextUtils.htmlEncode(full) + "')");
+                + base + ", " + total + ", " + sell + ", " +  purch + ", '" + TextUtils.htmlEncode(description) + "', '"
+                + TextUtils.htmlEncode(plainText) + "', "+stack+", "+dept+", '" + TextUtils.htmlEncode(from) + "', '"
+                + TextUtils.htmlEncode(into) + "', " + hide + ", " + reqChampion + ", '" + TextUtils.htmlEncode(full) + "')");
     }
 
+    public int obtenerIDCampeon(String name) {
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id FROM " +
+                "campeones WHERE nombre LIKE '" + name + "'", null);
+        int result=-1;
+        if (cursor.moveToNext()) {
+            result=cursor.getInt(0);
+        }
+        cursor.close();
+        return result;
+    }
     /**
      * Se encarga de actualizar los datos de un campeón si ha sufrido cambios debido a un cambio de versión
      *
@@ -237,15 +256,22 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 " posicion="+posicion+", esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + TextUtils.htmlEncode(nombre) + "'");
     }
 
-    public void modificarObjetos(int id, String name, int base, int total, int sell, int purchasable,
-                                 String description, String plainText, int stacks, int depth, String fromOBJ,
-                                 String intoOBJ, int hideFromAll, int requiredChampion, String full) {
+    public void modificarObjetos(int id, String name, int base, int total, int sell, String purchasable,
+                                 String description, String plainText, String stacks, String depth, String fromOBJ,
+                                 String intoOBJ, String hideFromAll, String requiredChampion, String full) {
+        int purch= Boolean.parseBoolean(purchasable) ? 1 : 0;
+        int stack = stacks == null ? 1 : Integer.parseInt(stacks);
+        int dept = depth == null  ? 1 : Integer.parseInt(depth);
+        String from = fromOBJ == null ? "" : fromOBJ;
+        String into = intoOBJ == null ? "" : fromOBJ;
+        int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
+        int reqChampion = requiredChampion == null ? null : obtenerIDCampeon (requiredChampion);
         mDatabase.execSQL("UPDATE objetos SET name='" + TextUtils.htmlEncode(name) + "', base=" + base + ", " +
-                "total=" + total + ", sell=" + sell + ", purchasable=" + purchasable + "," +
+                "total=" + total + ", sell=" + sell + ", purchasable=" + purch + "," +
                 "description='" +TextUtils.htmlEncode(description) + "', plainText='" + TextUtils.htmlEncode(plainText) + "', " +
-                "stacks=" + stacks + ", depth=" + depth + ", fromOBJ='" + TextUtils.htmlEncode(fromOBJ) + "', " +
-                "intoOBJ='" + TextUtils.htmlEncode(intoOBJ) + "', hideFromAll=" + hideFromAll + ", " +
-                "requiredChampion=" + requiredChampion + ", full='" + TextUtils.htmlEncode(full) +
+                "stacks=" + stack + ", depth=" + dept + ", fromOBJ='" + TextUtils.htmlEncode(from) + "', " +
+                "intoOBJ='" + TextUtils.htmlEncode(into) + "', hideFromAll=" + hide + ", " +
+                "requiredChampion=" + reqChampion + ", full='" + TextUtils.htmlEncode(full) +
                 "' WHERE _id=" + id);
     }
 

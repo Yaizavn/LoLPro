@@ -191,11 +191,11 @@ public class APIConnection {
                 while (match.find()) {
                     i=1;
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),
-                           match.group(2), match.group(3),
+                            match.group(2), match.group(3),
                             match.group(4), match.group(7),
                             match.group(18),match.group(19),
                             match.group(20), match.group(21),
-                           match.group(11), match.group(12),
+                            match.group(11), match.group(12),
                             match.group(9), match.group(10),
                             match.group(14), match.group(15),
                             match.group(16), match.group(17),
@@ -269,19 +269,16 @@ public class APIConnection {
                 }
                 break;
             case OBJECTS:
-                int purchasable, hideFromAll;
                 rutaImagen = bdConnection.obtenerRutaVersionObjeto();
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    purchasable = Boolean.parseBoolean(match.group(6)) ? 1 : 0;
-                    hideFromAll = Boolean.parseBoolean(match.group(13)) ? 1 : 0;
                     bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            Integer.parseInt(match.group(5)), purchasable,
-                            match.group(7), match.group(8), Integer.parseInt(match.group(9)),
-                            Integer.parseInt(match.group(10)), match.group(11), match.group(12),
-                            hideFromAll, Integer.parseInt(match.group(14)),
+                            Integer.parseInt(match.group(5)), match.group(6),
+                            match.group(7), match.group(8), match.group(9),
+                            match.group(10), match.group(11), match.group(12),
+                            match.group(13), match.group(14),
                             rutaImagen + match.group(17));
                 }
                 break;
@@ -345,12 +342,12 @@ public class APIConnection {
                 while (match.find()) {
                     purchasable2 = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
                     hideFromAll2 = Boolean.parseBoolean(match.group(13)) ? 1 : 0;
-                    bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), match.group(2),
+                    bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            Integer.parseInt(match.group(5)), purchasable2,
-                            match.group(7), match.group(8), Integer.parseInt(match.group(9)),
-                            Integer.parseInt(match.group(10)), match.group(11), match.group(12),
-                            hideFromAll2, Integer.parseInt(match.group(14)),
+                            Integer.parseInt(match.group(5)), match.group(6),
+                            match.group(7), match.group(8), match.group(9),
+                            match.group(10), match.group(11), match.group(12),
+                            match.group(13), match.group(14),
                             rutaImagen + match.group(17));
                 }
                 break;

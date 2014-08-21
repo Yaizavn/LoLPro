@@ -28,4 +28,5 @@ Campeones:
 - Obj. recomendados
 - Rivales
 
+HTML encode no funciona con /n o símbolos raros si lo ponemos al guardarlo, algo de hacer el sanitizeDescription antes de guardarlo en la BBDD
 Las imagenes tienen una propiedad llamada group. Parece indicar la ruta de las imagenes (usarlo para todas las imagenes y evitar las cosas a capón)
