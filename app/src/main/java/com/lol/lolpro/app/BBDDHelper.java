@@ -342,7 +342,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      */
     public String[][] obtenerRutaObjetos() {
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, name, full FROM " +
-                "objetos ORDER BY name", null);
+                "objetos WHERE hideFromAll == 0 ORDER BY name", null);
         String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;
