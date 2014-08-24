@@ -44,7 +44,7 @@ public class APIConnection {
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
     private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells&";
-    private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=gold,image&";
+    private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=all&";
     private static final String METADATA_URI = "static-data/euw/v1.2/realm?";
     private static final String CHAMPION_FREE_URI = "euw/v1.2/champion?freeToPlay=true&";
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";

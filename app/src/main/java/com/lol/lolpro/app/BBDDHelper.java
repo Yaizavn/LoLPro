@@ -174,26 +174,25 @@ public class BBDDHelper extends SQLiteOpenHelper {
                                String description, String plainText, String stacks, String depth, String fromOBJ,
                                String intoOBJ, String hideFromAll, String requiredChampion, String full) {
         int purch= Boolean.parseBoolean(purchasable) ? 1 : 0;
+        String pText = plainText == null ? "" : plainText;
         int stack = stacks == null ? 1 : Integer.parseInt(stacks);
         int dept = depth == null  ? 1 : Integer.parseInt(depth);
         String from = fromOBJ == null ? "" : fromOBJ;
-        String into = intoOBJ == null ? "" : fromOBJ;
+        String into = intoOBJ == null ? "" : intoOBJ;
         int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
-        int idCham=-1;
-        //No podwemos meter null en un inty nno podemos meter -1 porque es foregin key de campeones
-        int reqChampion = requiredChampion == null ? null : ((idCham=obtenerIDCampeon (requiredChampion))==-1?null:idCham);
+        String reqChampion = requiredChampion == null ? "null" : obtenerIDCampeon (requiredChampion);
         mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + TextUtils.htmlEncode(name) + "', "
                 + base + ", " + total + ", " + sell + ", " +  purch + ", '" + TextUtils.htmlEncode(description) + "', '"
-                + TextUtils.htmlEncode(plainText) + "', "+stack+", "+dept+", '" + TextUtils.htmlEncode(from) + "', '"
+                + TextUtils.htmlEncode(pText) + "', "+stack+", "+dept+", '" + TextUtils.htmlEncode(from) + "', '"
                 + TextUtils.htmlEncode(into) + "', " + hide + ", " + reqChampion + ", '" + TextUtils.htmlEncode(full) + "')");
     }
 
-    public int obtenerIDCampeon(String name) {
+    public String obtenerIDCampeon(String name) {
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id FROM " +
                 "campeones WHERE nombre LIKE '" + name + "'", null);
-        int result=-1;
+        String result="null";
         if (cursor.moveToNext()) {
-            result=cursor.getInt(0);
+            result=String.valueOf(cursor.getInt(0));
         }
         cursor.close();
         return result;
@@ -260,15 +259,16 @@ public class BBDDHelper extends SQLiteOpenHelper {
                                  String description, String plainText, String stacks, String depth, String fromOBJ,
                                  String intoOBJ, String hideFromAll, String requiredChampion, String full) {
         int purch= Boolean.parseBoolean(purchasable) ? 1 : 0;
+        String pText = plainText == null ? "" : plainText;
         int stack = stacks == null ? 1 : Integer.parseInt(stacks);
         int dept = depth == null  ? 1 : Integer.parseInt(depth);
         String from = fromOBJ == null ? "" : fromOBJ;
-        String into = intoOBJ == null ? "" : fromOBJ;
+        String into = intoOBJ == null ? "" : intoOBJ;
         int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
-        int reqChampion = requiredChampion == null ? null : obtenerIDCampeon (requiredChampion);
+        String reqChampion = requiredChampion == null ? "null" : obtenerIDCampeon (requiredChampion);
         mDatabase.execSQL("UPDATE objetos SET name='" + TextUtils.htmlEncode(name) + "', base=" + base + ", " +
                 "total=" + total + ", sell=" + sell + ", purchasable=" + purch + "," +
-                "description='" +TextUtils.htmlEncode(description) + "', plainText='" + TextUtils.htmlEncode(plainText) + "', " +
+                "description='" +TextUtils.htmlEncode(description) + "', plainText='" + TextUtils.htmlEncode(pText) + "', " +
                 "stacks=" + stack + ", depth=" + dept + ", fromOBJ='" + TextUtils.htmlEncode(from) + "', " +
                 "intoOBJ='" + TextUtils.htmlEncode(into) + "', hideFromAll=" + hide + ", " +
                 "requiredChampion=" + reqChampion + ", full='" + TextUtils.htmlEncode(full) +
@@ -342,7 +342,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      */
     public String[][] obtenerRutaObjetos() {
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, name, full FROM " +
-                "objetos ORDER BY nombre", null);
+                "objetos ORDER BY name", null);
         String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;
@@ -568,18 +568,18 @@ public class BBDDHelper extends SQLiteOpenHelper {
         int pos2 = 0;
         if (cursor.moveToNext()) {
             result2[pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result2[pos2++] = cursor.getString(1).toString();
-            result2[pos2++] = cursor.getString(2).toString();
-            result2[pos2++] = cursor.getString(3).toString();
-            result2[pos2++] = cursor.getString(4).toString();
+            result2[pos2++] = cursor.getString(1);
+            result2[pos2++] = cursor.getString(2);
+            result2[pos2++] = cursor.getString(3);
+            result2[pos2++] = cursor.getString(4);
             result2[pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(5)).toString());
             result2[pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(6)).toString());
-            result2[pos2++] = cursor.getString(7).toString();
-            result2[pos2++] = cursor.getString(8).toString();
+            result2[pos2++] = cursor.getString(7);
+            result2[pos2++] = cursor.getString(8);
             result2[pos2++] = Html.fromHtml(cursor.getString(9)).toString();
             result2[pos2++] = Html.fromHtml(cursor.getString(10)).toString();
-            result2[pos2++] = cursor.getString(11).toString();
-            result2[pos2++] = cursor.getString(12).toString();
+            result2[pos2++] = cursor.getString(11);
+            result2[pos2++] = cursor.getString(12);
             result2[pos2] = Html.fromHtml(cursor.getString(13)).toString();
         }
         cursor.close();
