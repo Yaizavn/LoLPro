@@ -69,12 +69,24 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/TextoTienda"
+            android:id="@+id/TextoVenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView2"
             android:layout_marginLeft="7dp"
             android:layout_toRightOf="@+id/imageView2"
+            android:text="@+string/precio_venta"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/TextoTienda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView10"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/imageView10"
             android:text="@+string/tienda"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp"
@@ -87,6 +99,17 @@
             android:layout_alignLeft="@+id/TextoCoste"
             android:layout_alignStart="@+id/TextoCoste"
             android:layout_below="@+id/TextoCoste"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/precioVenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextoVenta"
+            android:layout_alignStart="@+id/TextoVenta"
+            android:layout_below="@+id/TextoVenta"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp" />
@@ -108,7 +131,17 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/TextoCoste"
             android:layout_marginLeft="40dp"
-            android:layout_toRightOf="@+id/TextoTienda"
+            android:layout_toRightOf="@+id/TextoVenta"
+            android:src="@drawable/regvida" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView9"
+            android:layout_alignStart="@+id/imageView9"
+            android:layout_below="@+id/imageView9"
+            android:layout_marginTop="32dp"
             android:src="@drawable/regvida" />
 
         <TextView
@@ -167,6 +200,38 @@
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/descripcion"
+            android:layout_alignStart="@+id/descripcion"
+            android:layout_below="@+id/descripcion"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/separador" />
+
+        <TextView
+            android:id="@+id/TextoCampeonesPermitidos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView11"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="27dp"
+            android:text="@+string/required_champion"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ImagenCampeon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/TextoCampeonesPermitidos"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="11dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 </ScrollView>

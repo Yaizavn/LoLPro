@@ -89,6 +89,8 @@
     <string name="coste">Coste:</string>
     <string name="tienda">Está en la tienda:</string>
     <string name="coste_base">Coste base:</string>
+    <string name="precio_venta">Precio venta:</string>
+    <string name="required_champion">Campeones admitidos:</string>
     <string name="descripcion">Descripción:</string>
     <string name="no_internet">No hay conexión a Internet. Es necesaria para descargar los datos del juego</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
