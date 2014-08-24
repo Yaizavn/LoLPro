@@ -47,13 +47,16 @@ public class ObjetoInfo extends Fragment {
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null) {
             String tienda = view.getResources().getString(R.string.si);
-            if (datos[5].contentEquals("0")) {
+            if (datos[4].contentEquals("0")) {
                 tienda = view.getResources().getString(R.string.no);
             }
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
             ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
-            ((TextView) view.findViewById(R.id.descripcion)).setText(datos[6]);
+            ((TextView) view.findViewById(R.id.precioVenta)).setText(datos[3]);
+            ((TextView) view.findViewById(R.id.descripcion)).setText(datos[6] + "\n\n" + datos[5]);
+           //RequiredChampion ((TextView) view.findViewById(R.id.reqChampion)).setText(datos[12]);
+
             ((TextView) view.findViewById(R.id.puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(datos[13]) //
