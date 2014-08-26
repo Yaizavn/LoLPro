@@ -28,7 +28,7 @@ public class CampeonAspectos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_skins, container, false);
+        View view=inflater.inflate(R.layout.fragment_campeon_aspectos, container, false);
         GridView grid = (GridView) view.findViewById(R.id.gridView);
         Bundle args = getArguments();
         int id = args.getInt("id", -1);

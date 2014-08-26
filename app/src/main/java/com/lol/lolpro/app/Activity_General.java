@@ -17,6 +17,7 @@ import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.campeones.CampeonContenedor;
 import com.lol.lolpro.app.campeones.CampeonesGlobal;
 import com.lol.lolpro.app.inicio.InicioGlobal;
+import com.lol.lolpro.app.objetos.ObjetoContenedor;
 import com.lol.lolpro.app.objetos.ObjetoGeneral;
 import com.lol.lolpro.app.objetos.ObjetosGlobal;
 import com.lol.lolpro.app.utillidades.Constants;
@@ -49,7 +50,7 @@ public class Activity_General extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DBManager.initializeInstance(this);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.activity_general);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new InicioGlobal())
@@ -206,7 +207,7 @@ public class Activity_General extends ActionBarActivity
     public void onObjectSelected(int index) {
         Bundle args = new Bundle();
         args.putInt("id", index);
-        Fragment fragment = new ObjetoGeneral();
+        Fragment fragment = new ObjetoContenedor();
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

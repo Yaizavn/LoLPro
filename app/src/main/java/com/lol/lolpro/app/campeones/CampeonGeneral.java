@@ -39,7 +39,7 @@ public class CampeonGeneral extends Fragment {
         Bundle args = getArguments();
         int id = args.getInt("id", -1);
         String[] datos = args.getStringArray("data");
-        View view = inflater.inflate(R.layout.fragment_campeon_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_campeon_general, container, false);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null){
             //Key=datos[0]

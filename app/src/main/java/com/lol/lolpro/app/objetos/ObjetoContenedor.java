@@ -1,5 +1,4 @@
-package com.lol.lolpro.app.campeones;
-
+package com.lol.lolpro.app.objetos;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,28 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lol.lolpro.app.Activity_General;
-import com.lol.lolpro.app.utillidades.Constants;
-import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.utillidades.Constants;
 
-
-/**
- * Implementa la funcionalidad del fragment
- */
-public class CampeonContenedor extends Fragment {
-
+public class ObjetoContenedor extends Fragment {
     private ActionBar actionBar;
     // When requested, this adapter returns a fragment,
     // representing a page.
-    private CampeonPageAdapter mPagerAdapter;
+    private ObjetoPageAdapter mPagerAdapter;
     private ViewPager mViewPager;
 
     private int numPages;
 
     /**
-     * Campeón vacio
+     * Objeto vacio
      */
-    public CampeonContenedor() {
+    public ObjetoContenedor() {
         // Required empty public constructor
     }
 
@@ -51,19 +45,21 @@ public class CampeonContenedor extends Fragment {
         if (container == null) {
             return null;
         }
-        ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_CHAMPION);
+        ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_campeon_contenedor, container, false);
+        View view = inflater.inflate(R.layout.fragment_objeto_contenedor, container, false);
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
 
         Bundle args = getArguments();
-        args.putStringArray("data", dbMan.getDatabaseHelper().obtenerDatosCampeon(args.getInt("id", Constants.INVALID_ID)));
-        args.putSerializable("spells", dbMan.getDatabaseHelper().obtenerHabilidadesCampeon(args.getInt("id", Constants.INVALID_ID)));
-        args.putSerializable("skins", dbMan.getDatabaseHelper().obtenerAspectosCampeon(args.getInt("id", Constants.INVALID_ID)));
+        String[] datos=dbMan.getDatabaseHelper().obtenerDatosObjetos(args.getInt("id", Constants.INVALID_ID));
+        args.putStringArray("data", datos);
+        if (datos[12]!=null) {
+            args.putSerializable("campeonReq", dbMan.getDatabaseHelper().obtenerRutaCampeones(Integer.parseInt(datos[12])));
+        }
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        mPagerAdapter = new CampeonPageAdapter(getChildFragmentManager(), args);
+        mPagerAdapter = new ObjetoPageAdapter(getChildFragmentManager(), args);
         numPages = mPagerAdapter.getCount();
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mViewPager.setAdapter(mPagerAdapter);
@@ -106,7 +102,7 @@ public class CampeonContenedor extends Fragment {
             for (int i = 0; i < numPages; i++) {
                 actionBar.addTab(
                         actionBar.newTab()
-                                .setText(getResources().getStringArray(R.array.titulosCampeones)[i])
+                                .setText(getResources().getStringArray(R.array.titulosObjetos)[i])
                                 .setTabListener(tabListener)
                 );
             }

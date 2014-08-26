@@ -39,7 +39,7 @@ public class CampeonHistoria extends Fragment {
         //int id = args.getInt("id", -1);
         String[] championData = args.getStringArray("data");
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_historia, container, false);
+        View view = inflater.inflate(R.layout.fragment_campeon_historia, container, false);
         // Defino la nueva fuente cargandola desde el fichero .ttf
         Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), Constants.FONT_STORY);
 

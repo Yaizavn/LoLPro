@@ -26,7 +26,6 @@ import com.squareup.picasso.Picasso;
  */
 public class ObjetoGeneral extends Fragment {
 
-    private BBDDHelper helper;
     OnHeadlineSelectedListener mCallback = null;
 
 
@@ -48,13 +47,9 @@ public class ObjetoGeneral extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
-        View view = inflater.inflate(R.layout.fragment_objeto_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_objeto_general, container, false);
         Bundle args = getArguments();
-        int id = args.getInt("id", Constants.INVALID_ID);
-        DBManager dbMan = DBManager.getInstance();
-        dbMan.openDatabase(false);
-        String[] datos = dbMan.getDatabaseHelper().obtenerDatosObjetos(id);
+        String[] datos = args.getStringArray("data");
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null) {
             String tienda = view.getResources().getString(R.string.si);
@@ -80,7 +75,6 @@ public class ObjetoGeneral extends Fragment {
                     .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }
-        dbMan.closeDatabase(false);
         // Inflate the layout for this fragment
         return view;
     }
@@ -107,14 +101,11 @@ public class ObjetoGeneral extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
        GridView grid = (GridView) view.findViewById(R.id.gridViewCampeonAdmitido);
         Bundle args = getArguments();
-        int id = args.getInt("id", Constants.INVALID_ID);
-        DBManager dbMan = DBManager.getInstance();
-        dbMan.openDatabase(false);
-        String[] datos = dbMan.getDatabaseHelper().obtenerDatosObjetos(id);
-        if (datos[12]!=null) {
+        String[][] datos = (String[][]) args.getSerializable("campeonReq");
+        if (datos!=null) {
             view.findViewById(R.id.TextoCampeonesPermitidos).setVisibility(View.VISIBLE);
             view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.VISIBLE);
-            grid.setAdapter(new GridAdapterNombre(getActivity(), dbMan.getDatabaseHelper().obtenerRutaCampeones(Integer.parseInt(datos[12])), 100));
+            grid.setAdapter(new GridAdapterNombre(getActivity(), datos, 100));
 
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -127,7 +118,6 @@ public class ObjetoGeneral extends Fragment {
             view.findViewById(R.id.TextoCampeonesPermitidos).setVisibility(View.GONE);
             view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.GONE);
         }
-        dbMan.closeDatabase(false);
     }
 
     public interface OnHeadlineSelectedListener {

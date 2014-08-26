@@ -20,6 +20,10 @@
         <item>Aspectos</item>
     </string-array>
 
+    <string-array name="titulosObjetos">
+        <item>General</item>
+        <item>Árbol</item>
+    </string-array>
     <string name="mapa_1">La Grieta del Invocador</string>
     <string name="mapa_8">La Cicatriz de Cristal</string>
     <string name="mapa_10">El Bosque Retorcido</string>

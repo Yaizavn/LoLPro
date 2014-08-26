@@ -35,7 +35,7 @@
             android:layout_below="@id/Imagen"
             android:layout_marginTop="10dp"
             android:layout_alignStart="@id/Imagen"
-
+            android:layout_alignLeft="@id/Imagen"
             android:layout_toRightOf="@id/Imagen"
             android:text="@+string/coste"
             android:textAppearance="?android:attr/textAppearanceLarge"

@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.utillidades.Utils;
 import com.squareup.picasso.Picasso;
@@ -54,7 +53,7 @@ public class GridAdapterNombre extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            view = inflater.inflate(R.layout.cell, parent, false);
+            view = inflater.inflate(R.layout.cell_image_name, parent, false);
         }
 
         view.setTag(getId(position));

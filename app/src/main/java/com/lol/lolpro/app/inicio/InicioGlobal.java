@@ -46,7 +46,7 @@ public class InicioGlobal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_INITIAL);
-        return inflater.inflate(R.layout.fragment_inicio, container, false);
+        return inflater.inflate(R.layout.fragment_inicio_global, container, false);
     }
 
     /**

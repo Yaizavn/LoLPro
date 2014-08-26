@@ -42,7 +42,7 @@ public class CampeonesGlobal extends Fragment {
         // Inflate the layout for this fragment
         ((Activity_General) getActivity()).updateTitle(1);
 
-        return inflater.inflate(R.layout.fragment_campeones, container, false);
+        return inflater.inflate(R.layout.fragment_campeones_global, container, false);
     }
 
     /**
