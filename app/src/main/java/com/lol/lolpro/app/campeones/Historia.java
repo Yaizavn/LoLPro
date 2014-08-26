@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.campeones;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.lol.lolpro.app.utillidades.Constants;
+import com.lol.lolpro.app.R;
 
 /**
  * Implementa la funcionalidad del fragment

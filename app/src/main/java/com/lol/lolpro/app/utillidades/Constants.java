@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.utillidades;
 
 /**
  * Created by sergio on 5/06/14.

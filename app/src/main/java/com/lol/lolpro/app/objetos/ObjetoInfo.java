@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.objetos;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lol.lolpro.app.Activity_General;
+import com.lol.lolpro.app.bbdd.BBDDHelper;
+import com.lol.lolpro.app.utillidades.Constants;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.grids.GridAdapterNombre;
+import com.lol.lolpro.app.R;
 import com.squareup.picasso.Picasso;
 
 
@@ -42,7 +48,7 @@ public class ObjetoInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((Principal) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
+        ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
         View view = inflater.inflate(R.layout.fragment_objeto_info, container, false);
         Bundle args = getArguments();
         int id = args.getInt("id", Constants.INVALID_ID);

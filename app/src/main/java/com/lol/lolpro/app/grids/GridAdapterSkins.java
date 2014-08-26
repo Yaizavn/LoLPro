@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.grids;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Utils;
 import com.squareup.picasso.Picasso;
 
 

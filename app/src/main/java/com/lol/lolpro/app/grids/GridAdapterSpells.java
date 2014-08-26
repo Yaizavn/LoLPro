@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.grids;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,13 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Utils;
 import com.squareup.picasso.Picasso;
 
 
 /**
  * Adaptador para mostrar los objetos y campeones en un gridview usando Picasso
  */
-public class GridAdapter extends BaseAdapter {
+public class GridAdapterSpells extends BaseAdapter {
 
     private final Context context;
     private int finalDP;
@@ -28,7 +31,7 @@ public class GridAdapter extends BaseAdapter {
      * @param allData      datos de los campeones o los objetos
      * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapter(Context context, String[][] allData, int desiredDP) {
+    public GridAdapterSpells(Context context, String[][] allData, int desiredDP) {
         this.context = context;
         data = allData;
         finalDP = desiredDP;
@@ -45,30 +48,59 @@ public class GridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        View view = convertView;
         //Convert dp into px
         int px = (int) Utils.dipToPixels(context, finalDP);
 
-        if (convertView == null) {
-            convertView = new ImageView(context);
-            convertView.setMinimumWidth(px);
-            convertView.setMinimumHeight(px);
-            //view.setScaleType(CENTER_CROP);
+        if (view == null) {
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            view = inflater.inflate(R.layout.cell_spells, parent, false);
         }
 
-        convertView.setTag(getId(position));
+        if (data != null) {
+            ((TextView) view.findViewById(R.id.nombre)).setText(data[position][0]);
+            ((TextView) view.findViewById(R.id.descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
+            if (Integer.parseInt(data[position][7]) == 0){
+                view.findViewById(R.id.alcance).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.coste).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.enfriamiento).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.textAlcance).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.textCoste).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.textEnfriamiento).setVisibility(View.VISIBLE);
+                if(data[position][3].compareTo("self")==0){
+                    ((TextView) view.findViewById(R.id.alcance)).setText(context.getResources().getString(R.string.alcance_propio));
+                }
+                else {
+                    ((TextView) view.findViewById(R.id.alcance)).setText(data[position][3]);
+                }
+                ((TextView) view.findViewById(R.id.coste)).setText(data[position][4]);
 
-        // Get the image URL for the current position.
-        String url = getItem(position);
+                ((TextView) view.findViewById(R.id.enfriamiento)).setText(data[position][5] +" "+ context.getResources().getString(R.string.segundos));
+            }
+            else {
+                view.findViewById(R.id.alcance).setVisibility(View.GONE);
+                view.findViewById(R.id.coste).setVisibility(View.GONE);
+                view.findViewById(R.id.enfriamiento).setVisibility(View.GONE);
+                view.findViewById(R.id.textAlcance).setVisibility(View.GONE);
+                view.findViewById(R.id.textCoste).setVisibility(View.GONE);
+                view.findViewById(R.id.textEnfriamiento).setVisibility(View.GONE);
+            }
 
-        // Trigger the download of the URL asynchronously into the image view.
-        Picasso.with(context) //
-                .load(url) //
-                .placeholder(R.drawable.cargar)
-                .error(R.drawable.error)
-                .resize(px, px)
-                .centerCrop()// Keep proportion
-                .into((ImageView) convertView);
-        return convertView;
+            // Get the image URL for the current position.
+            String url = getItem(position);
+
+            // Trigger the download of the URL asynchronously into the image view.
+            Picasso.with(context) //
+                    .load(url) //
+                    .placeholder(R.drawable.cargar)
+                    .error(R.drawable.error)
+                    .into((ImageView) view.findViewById(R.id.Imagen));
+        }
+
+        view.setTag(getId(position));
+
+
+        return view;
     }
 
     /**
@@ -89,7 +121,7 @@ public class GridAdapter extends BaseAdapter {
      */
     @Override
     public String getItem(int position) {
-        return data[position][2];
+        return data[position][6];
     }
 
     /**

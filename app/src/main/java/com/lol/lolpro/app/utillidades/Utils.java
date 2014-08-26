@@ -1,10 +1,12 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.utillidades;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import com.lol.lolpro.app.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

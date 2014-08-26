@@ -1,13 +1,12 @@
 package com.lol.lolpro.app.web;
 
 import android.content.Context;
-import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.lol.lolpro.app.BBDDHelper;
-import com.lol.lolpro.app.DBManager;
-import com.lol.lolpro.app.Utils;
+import com.lol.lolpro.app.bbdd.BBDDHelper;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.utillidades.Utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -297,7 +296,7 @@ public class APIConnection {
                             match.group(13), match.group(14),
                             rutaImagen + match.group(17));
                     if (match.group(15)!= null) {
-                        tags = match.group(15).replaceAll("\"","").split(",");
+                        tags = Utils.clearQuotes(match.group(15)).split(",");
                         for(String tag : tags){
                             bdConnection.guardarTagObjeto(Integer.parseInt(match.group(1)), tag, hyperTags.get(tag.toUpperCase()));
                         }

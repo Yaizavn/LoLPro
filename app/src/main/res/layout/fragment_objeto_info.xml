@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:isScrollContainer="false"
         android:scrollbarAlwaysDrawVerticalTrack="false"
-        tools:context="com.lol.lolpro.app.ObjetoInfo">
+        tools:context="com.lol.lolpro.app.objetos.ObjetoInfo">
 
         <TextView
             android:id="@+id/nombre"

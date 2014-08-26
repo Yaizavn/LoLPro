@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.inicio;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.lol.lolpro.app.utillidades.Constants;
+import com.lol.lolpro.app.web.Spider;
 
 /**
  * Adaptador para mostrar las noticias en Inicio

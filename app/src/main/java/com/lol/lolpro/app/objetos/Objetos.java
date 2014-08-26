@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.objetos;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,35 +9,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.lol.lolpro.app.Activity_General;
+import com.lol.lolpro.app.utillidades.Constants;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.grids.GridAdapterNombre;
+import com.lol.lolpro.app.R;
+
+
 /**
  * Implementa la funcionalidad del fragment
  */
-public class Campeones extends Fragment {
+public class Objetos extends Fragment {
 
     OnHeadlineSelectedListener mCallback = null;
 
     /**
-     * Constructor vacio
+     * Constructor vacío
      */
-    public Campeones() {
+    public Objetos() {
         // Required empty public constructor
-    }
-
-    /**
-     * Se encarga del tratamiento necesario para poder crear la vista
-     *
-     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
-     * @param container          Contenedos para otros elementos View
-     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
-     * @return Vista de los campeones
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ((Principal) getActivity()).updateTitle(1);
-
-        return inflater.inflate(R.layout.fragment_campeones, container, false);
     }
 
     /**
@@ -58,6 +48,22 @@ public class Campeones extends Fragment {
     }
 
     /**
+     * Se encarga del tratamiento necesario para poder crear la vista
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista de los objetos
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
+        return inflater.inflate(R.layout.fragment_objetos, container, false);
+    }
+
+    /**
      * Método al que se llama una vez se ha creado la vista en Oncreate()
      *
      * @param view               Vista en java hecha a partir del layout asociado
@@ -65,17 +71,15 @@ public class Campeones extends Fragment {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        GridView grid = (GridView) view.findViewById(R.id.gridView);
-
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
 
-        grid.setAdapter(new GridAdapterNombre(getActivity(), dbMan.getDatabaseHelper().obtenerRutaCampeones(), 100));
-
+        GridView grid = (GridView) view.findViewById(R.id.gridView);
+        grid.setAdapter(new GridAdapterNombre(getActivity(), dbMan.getDatabaseHelper().obtenerRutaObjetos(), 100));
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity
-                mCallback.onChampionSelected(Integer.parseInt(v.getTag().toString()));
+                mCallback.onObjectSelected(Integer.parseInt(v.getTag().toString()));
             }
         });
         dbMan.closeDatabase(false);
@@ -83,10 +87,10 @@ public class Campeones extends Fragment {
 
     public interface OnHeadlineSelectedListener {
         /**
-         * Método definido en principal que se encarga de el tratamiento al seleccionar a un campeón
+         * Método definido en principal que se encarga de el tratamiento al seleccionar un objeto
          *
-         * @param index Posición del campeón seleccionado
+         * @param index Posición del objeto seleccionado
          */
-        public void onChampionSelected(int index);
+        public void onObjectSelected(int index);
     }
 }

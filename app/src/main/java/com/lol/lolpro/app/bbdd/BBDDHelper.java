@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.bbdd;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Utils;
 
 /**
  * Clase que se encarga de la gestión de la base de datos

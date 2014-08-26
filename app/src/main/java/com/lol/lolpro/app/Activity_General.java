@@ -12,10 +12,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.lol.lolpro.app.bbdd.CargandoBBDD;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.campeones.Campeones;
+import com.lol.lolpro.app.campeones.Champion;
+import com.lol.lolpro.app.inicio.Inicio;
+import com.lol.lolpro.app.objetos.ObjetoInfo;
+import com.lol.lolpro.app.objetos.Objetos;
+import com.lol.lolpro.app.utillidades.Constants;
+import com.lol.lolpro.app.utillidades.Utils;
+
 /**
  * Activity principal en el que se colocarán todos los fragments
  */
-public class Principal extends ActionBarActivity
+public class Activity_General extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         Campeones.OnHeadlineSelectedListener, Inicio.OnHeadlineSelectedListener,
         Objetos.OnHeadlineSelectedListener, ObjetoInfo.OnHeadlineSelectedListener {

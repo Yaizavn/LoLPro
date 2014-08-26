@@ -1,21 +1,21 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.grids;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Utils;
 import com.squareup.picasso.Picasso;
 
 
 /**
  * Adaptador para mostrar los objetos y campeones en un gridview usando Picasso
  */
-public class GridAdapterNombre extends BaseAdapter {
+public class GridAdapterFreeChamps extends BaseAdapter {
 
     private final Context context;
     private int finalDP;
@@ -28,7 +28,7 @@ public class GridAdapterNombre extends BaseAdapter {
      * @param allData      datos de los campeones o los objetos
      * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapterNombre(Context context, String[][] allData, int desiredDP) {
+    public GridAdapterFreeChamps(Context context, String[][] allData, int desiredDP) {
         this.context = context;
         data = allData;
         finalDP = desiredDP;
@@ -45,16 +45,17 @@ public class GridAdapterNombre extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view = convertView;
         //Convert dp into px
         int px = (int) Utils.dipToPixels(context, finalDP);
 
-        if (view == null) {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            view = inflater.inflate(R.layout.cell, parent, false);
+        if (convertView == null) {
+            convertView = new ImageView(context);
+            convertView.setMinimumWidth(px);
+            convertView.setMinimumHeight(px);
+            //view.setScaleType(CENTER_CROP);
         }
 
-        view.setTag(getId(position));
+        convertView.setTag(getId(position));
 
         // Get the image URL for the current position.
         String url = getItem(position);
@@ -64,9 +65,10 @@ public class GridAdapterNombre extends BaseAdapter {
                 .load(url) //
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
-                .into((ImageView) view.findViewById(R.id.item_image));
-        ((TextView) view.findViewById(R.id.item_text)).setText(data[position][1]);
-        return view;
+                .resize(px, px)
+                .centerCrop()// Keep proportion
+                .into((ImageView) convertView);
+        return convertView;
     }
 
     /**

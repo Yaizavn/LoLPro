@@ -1,4 +1,6 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.web;
+
+import com.lol.lolpro.app.utillidades.Constants;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

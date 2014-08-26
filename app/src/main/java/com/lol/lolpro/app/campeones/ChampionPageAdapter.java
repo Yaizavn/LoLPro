@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.campeones;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.campeones;
 
 
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.lol.lolpro.app.Activity_General;
+import com.lol.lolpro.app.utillidades.Constants;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.R;
 
 
 /**
@@ -46,7 +51,7 @@ public class Champion extends Fragment {
         if (container == null) {
             return null;
         }
-        ((Principal) getActivity()).updateTitle(Constants.DRAWER_CHAMPION);
+        ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_CHAMPION);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
         DBManager dbMan = DBManager.getInstance();

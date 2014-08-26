@@ -1,4 +1,4 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.bbdd;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteCantOpenDatabaseException;

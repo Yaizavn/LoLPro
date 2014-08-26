@@ -1,12 +1,14 @@
-package com.lol.lolpro.app;
+package com.lol.lolpro.app.bbdd;
 
 import android.app.ProgressDialog;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.grids.GridAdapterFreeChamps;
+import com.lol.lolpro.app.utillidades.Utils;
 import com.lol.lolpro.app.web.APIConnection;
 
 /**
@@ -102,7 +104,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
         if(accion != 0) {
             api.closeAPI();
             GridView grid = (GridView) contexto.findViewById(R.id.gridView);
-            GridAdapter gA = (GridAdapter) grid.getAdapter();
+            GridAdapterFreeChamps gA = (GridAdapterFreeChamps) grid.getAdapter();
             gA.refresh();
             progress.dismiss();
         }
