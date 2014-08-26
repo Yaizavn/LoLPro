@@ -1,11 +1,14 @@
 package com.lol.lolpro.app;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,8 @@ import com.squareup.picasso.Picasso;
 public class ObjetoInfo extends Fragment {
 
     private BBDDHelper helper;
+    OnHeadlineSelectedListener mCallback = null;
+
 
     /**
      * Constructor vacío
@@ -54,9 +59,12 @@ public class ObjetoInfo extends Fragment {
             ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.precioVenta)).setText(datos[3]);
-            ((TextView) view.findViewById(R.id.descripcion)).setText(datos[6] + "\n\n" + datos[5]);
-           //RequiredChampion ((TextView) view.findViewById(R.id.reqChampion)).setText(datos[12]);
-
+            if (datos[6].compareTo("")!=0) {
+                ((TextView) view.findViewById(R.id.descripcion)).setText(datos[6] + "\n\n" + datos[5]);
+            }
+            else{
+                ((TextView) view.findViewById(R.id.descripcion)).setText(datos[5]);
+            }
             ((TextView) view.findViewById(R.id.puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(datos[13]) //
@@ -69,6 +77,60 @@ public class ObjetoInfo extends Fragment {
         dbMan.closeDatabase(false);
         // Inflate the layout for this fragment
         return view;
+    }
+
+
+    /**
+     * Método al que se llamará una vez el fragment ha sido asociado a un activity
+     *
+     * @param activity Activity al que está asociado un fragment
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        //This makes sure that the container activity has implemented the callback interface.
+        //If not, it throws an exception
+        try {
+            mCallback = (OnHeadlineSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+       GridView grid = (GridView) view.findViewById(R.id.gridViewCampeonAdmitido);
+        Bundle args = getArguments();
+        int id = args.getInt("id", Constants.INVALID_ID);
+        DBManager dbMan = DBManager.getInstance();
+        dbMan.openDatabase(false);
+        String[] datos = dbMan.getDatabaseHelper().obtenerDatosObjetos(id);
+        if (datos[12]!=null) {
+            view.findViewById(R.id.TextoCampeonesPermitidos).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.VISIBLE);
+            grid.setAdapter(new GridAdapterNombre(getActivity(), dbMan.getDatabaseHelper().obtenerRutaCampeones(Integer.parseInt(datos[12])), 100));
+
+            grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView parent, View v, int position, long id) {
+                    //Send the event to the host activity
+                    mCallback.onChampionSelected(Integer.parseInt(v.getTag().toString()));
+                }
+            });
+        }
+        else{
+            view.findViewById(R.id.TextoCampeonesPermitidos).setVisibility(View.GONE);
+            view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.GONE);
+        }
+        dbMan.closeDatabase(false);
+    }
+
+    public interface OnHeadlineSelectedListener {
+        /**
+         * Método definido en principal que se encarga de el tratamiento al seleccionar a un campeón
+         *
+         * @param index Posición del campeón seleccionado
+         */
+        public void onChampionSelected(int index);
     }
 
 }

@@ -46,7 +46,7 @@ public class Champion extends Fragment {
         if (container == null) {
             return null;
         }
-        ((Principal) getActivity()).updateTitle(1);
+        ((Principal) getActivity()).updateTitle(Constants.DRAWER_CHAMPION);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
         DBManager dbMan = DBManager.getInstance();

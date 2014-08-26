@@ -177,14 +177,25 @@
             android:layout_marginRight="11dp"
             android:src="@drawable/separador" />
 
+
+        <ImageView
+            android:id="@+id/separador2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Imagen"
+            android:layout_alignStart="@+id/Imagen"
+            android:layout_below="@+id/imageView2"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/separador" />
+
         <TextView
             android:id="@+id/TextoDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView2"
+            android:layout_below="@+id/separador2"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="11dp"
             android:text="@+string/descripcion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp"
@@ -218,20 +229,26 @@
             android:layout_below="@+id/imageView11"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="11dp"
             android:text="@+string/required_champion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12dp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ImagenCampeon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/TextoCampeonesPermitidos"
-            android:layout_marginLeft="11dp"
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/gridViewCampeonAdmitido"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="100dp"
+            android:rowHeight="100dp"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="10dp"
             android:layout_marginTop="11dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:gravity="center"
+            android:layout_below="@+id/TextoCampeonesPermitidos"
+            android:numColumns="1"
+            android:stretchMode="columnWidth">
+        </GridView>
 
     </RelativeLayout>
 </ScrollView>

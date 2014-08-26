@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class Principal extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         Campeones.OnHeadlineSelectedListener, Inicio.OnHeadlineSelectedListener,
-        Objetos.OnHeadlineSelectedListener {
+        Objetos.OnHeadlineSelectedListener, ObjetoInfo.OnHeadlineSelectedListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

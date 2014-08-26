@@ -335,6 +335,21 @@ public class BBDDHelper extends SQLiteOpenHelper {
         return result2;
     }
 
+    public String[][] obtenerRutaCampeones(int id) {
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT nombre, rutaPrincipal FROM " +
+                "campeones WHERE _id="+id, null);
+        String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()+1];
+        int pos = 0;
+        int pos2 = 0;
+        if (cursor.moveToNext()) {
+            result2[pos][pos2++] = Integer.toString(id);
+            result2[pos][pos2++] =  Html.fromHtml(cursor.getString(0)).toString();
+            result2[pos][pos2] = Html.fromHtml(cursor.getString(1)).toString();
+        }
+        cursor.close();
+        return result2;
+    }
+
     /**
      * Se encarga de obtener el identificador, el nombre y la ruta completa de la imagen principal de todos los objetos
      *
