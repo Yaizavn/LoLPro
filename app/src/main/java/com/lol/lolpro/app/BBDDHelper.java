@@ -57,11 +57,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 " hideFromAll INTEGER, requiredChampion INTEGER, full TEXT, FOREIGN KEY(requiredChampion) REFERENCES campeones(_id))");
         //tags TEXT, maps TEXT,
         db.execSQL("CREATE TABLE tagsCampeones (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
-                ", idCampeon INTEGER, nombreTag TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
+                "idCampeon INTEGER, nombreTag TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE tagsObjetos (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
-                ", idObjeto INTEGER, nombreTag TEXT, hyperTag TEXT, FOREIGN KEY(idObjeto) REFERENCES objetos(_id))");
+                "idObjeto INTEGER, nombreTag TEXT, hyperTag TEXT, FOREIGN KEY(idObjeto) REFERENCES objetos(_id), PRIMARY KEY (idObjeto, nombreTag))");
         db.execSQL("CREATE TABLE mapas (" +
                 "_id INTEGER PRIMARY KEY, nombre TEXT)");
         db.execSQL("CREATE TABLE rutaVersiones (" +
@@ -185,6 +183,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 + base + ", " + total + ", " + sell + ", " +  purch + ", '" + TextUtils.htmlEncode(description) + "', '"
                 + TextUtils.htmlEncode(pText) + "', "+stack+", "+dept+", '" + TextUtils.htmlEncode(from) + "', '"
                 + TextUtils.htmlEncode(into) + "', " + hide + ", " + reqChampion + ", '" + TextUtils.htmlEncode(full) + "')");
+    }
+
+    public void guardarTagObjeto(int idObjeto, String nombreTag, String hyperTag){
+        mDatabase.execSQL("INSERT INTO tagsObjetos VALUES (" + idObjeto + ", '" + TextUtils.htmlEncode(nombreTag) + "','"
+                + TextUtils.htmlEncode(hyperTag) + "')");
     }
 
     public String obtenerIDCampeon(String name) {

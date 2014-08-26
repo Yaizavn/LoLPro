@@ -21,6 +21,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -174,6 +175,7 @@ public class APIConnection {
                 ArrayList <ArrayList <String>>vars= null;
                 ArrayList <String>datos = null;
                 String [] effects;
+                String [] tags;
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
                 rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
                 rutaImagenHabilidades = bdConnection.obtenerRutaHabilidadesCampeon(0);
@@ -189,7 +191,7 @@ public class APIConnection {
                 Pattern patt5 = Patrones.PATTERN_VARS;
                 Matcher match5 = null;
                 while (match.find()) {
-                    i=1;
+                    i = 1;
                     bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),
                             match.group(2), match.group(3),
                             match.group(4), match.group(7),
@@ -219,8 +221,8 @@ public class APIConnection {
                     effects=null;
                     while (match3.find()) {
                         vars = new ArrayList <ArrayList <String>>();
-                        effects=Utils.clearQuotes(match3.group(8)).split(",");
-                        if (match3.group(9)!=null) {
+                        effects = Utils.clearQuotes(match3.group(8)).split(",");
+                        if (match3.group(9)!= null) {
                             match5 = patt5.matcher(match3.group(9));
                             while (match5.find()) {
                                 datos= new ArrayList<String>();
@@ -269,6 +271,20 @@ public class APIConnection {
                 }
                 break;
             case OBJECTS:
+                // Cogemos los hyperTags del tree
+                patt = Patrones.PATTERN_TREE_ITEMS;
+                match = patt.matcher(answer);
+                Map<String, String> hyperTags = new HashMap<String,String>();
+                String header;
+                while (match.find()) {
+                    header = match.group(1);
+                    tags = Utils.clearQuotes(match.group(2)).split(",");
+                    for (String tag : tags){
+                        hyperTags.put(tag, header);
+                    }
+                }
+
+                // Insertamos los objetos y los tags asociados
                 rutaImagen = bdConnection.obtenerRutaVersionObjeto();
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
@@ -280,6 +296,12 @@ public class APIConnection {
                             match.group(10), match.group(11), match.group(12),
                             match.group(13), match.group(14),
                             rutaImagen + match.group(17));
+                    if (match.group(15)!= null) {
+                        tags = match.group(15).replaceAll("\"","").split(",");
+                        for(String tag : tags){
+                            bdConnection.guardarTagObjeto(Integer.parseInt(match.group(1)), tag, hyperTags.get(tag.toUpperCase()));
+                        }
+                    }
                 }
                 break;
             case IMAGES_AND_VERSIONS:

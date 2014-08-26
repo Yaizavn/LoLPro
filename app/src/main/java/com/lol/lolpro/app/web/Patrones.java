@@ -25,7 +25,7 @@ public class Patrones {
     public final static Pattern PATTERN_ITEMS = Pattern.compile(PITEMS, Pattern.DOTALL);
 
     private final static String PTREEITEMS = "header\":\"(.+?)\".*?tags\":\\[(.+?)\\]";
-    private final static Pattern PATTERN_TREE_ITEMS = Pattern.compile(PTREEITEMS, Pattern.DOTALL);
+    public final static Pattern PATTERN_TREE_ITEMS = Pattern.compile(PTREEITEMS, Pattern.DOTALL);
 
     private final static String PCHAMPIONFREE = "\"id\":([0-9]+)";
     public final static Pattern PATTERN_CHAMPION_FREE = Pattern.compile(PCHAMPIONFREE, Pattern.DOTALL);
