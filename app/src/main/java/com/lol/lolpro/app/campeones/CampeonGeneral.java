@@ -16,12 +16,12 @@ import com.squareup.picasso.Picasso;
 /**
  * Implementa la funcionalidad del fragment
  */
-public class CampeonInfo extends Fragment {
+public class CampeonGeneral extends Fragment {
 
     /**
      * Constructor vacío
      */
-    public CampeonInfo() {
+    public CampeonGeneral() {
         // Required empty public constructor
     }
 

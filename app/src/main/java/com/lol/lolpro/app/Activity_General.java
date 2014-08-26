@@ -12,13 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.lol.lolpro.app.bbdd.CargandoBBDD;
+import com.lol.lolpro.app.bbdd.DescargarBBDD;
 import com.lol.lolpro.app.bbdd.DBManager;
-import com.lol.lolpro.app.campeones.Campeones;
-import com.lol.lolpro.app.campeones.Champion;
-import com.lol.lolpro.app.inicio.Inicio;
-import com.lol.lolpro.app.objetos.ObjetoInfo;
-import com.lol.lolpro.app.objetos.Objetos;
+import com.lol.lolpro.app.campeones.CampeonContenedor;
+import com.lol.lolpro.app.campeones.CampeonesGlobal;
+import com.lol.lolpro.app.inicio.InicioGlobal;
+import com.lol.lolpro.app.objetos.ObjetoGeneral;
+import com.lol.lolpro.app.objetos.ObjetosGlobal;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
@@ -27,8 +27,8 @@ import com.lol.lolpro.app.utillidades.Utils;
  */
 public class Activity_General extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        Campeones.OnHeadlineSelectedListener, Inicio.OnHeadlineSelectedListener,
-        Objetos.OnHeadlineSelectedListener, ObjetoInfo.OnHeadlineSelectedListener {
+        CampeonesGlobal.OnHeadlineSelectedListener, InicioGlobal.OnHeadlineSelectedListener,
+        ObjetosGlobal.OnHeadlineSelectedListener, ObjetoGeneral.OnHeadlineSelectedListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -52,7 +52,7 @@ public class Activity_General extends ActionBarActivity
         setContentView(R.layout.activity_principal);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new Inicio())
+                    .add(R.id.container, new InicioGlobal())
                     .commit();
         }
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -69,7 +69,7 @@ public class Activity_General extends ActionBarActivity
             Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             finish();
         }
-        CargandoBBDD progressDialog = new CargandoBBDD(this);
+        DescargarBBDD progressDialog = new DescargarBBDD(this);
         progressDialog.execute();
     }
 
@@ -86,17 +86,17 @@ public class Activity_General extends ActionBarActivity
             case Constants.DRAWER_UNDEFINED:
                 break;
             case Constants.DRAWER_INITIAL:
-                fragment = new Inicio();
+                fragment = new InicioGlobal();
                 break;
             case Constants.DRAWER_CHAMPION:
-                fragment = new Campeones();
+                fragment = new CampeonesGlobal();
                 break;
             case Constants.DRAWER_OBJECT:
-                fragment = new Objetos();
+                fragment = new ObjetosGlobal();
                 break;
             default:
                 Toast.makeText(this, "Opcion no disponible!", Toast.LENGTH_SHORT).show();
-                fragment = new Inicio();
+                fragment = new InicioGlobal();
                 break;
         }
         if (fragment != null) {
@@ -171,7 +171,7 @@ public class Activity_General extends ActionBarActivity
             }
             else {
                 this.deleteDatabase(this.getResources().getString(R.string.app_name));
-                CargandoBBDD progressDialog = new CargandoBBDD(this);
+                DescargarBBDD progressDialog = new DescargarBBDD(this);
                 progressDialog.execute();
                 return true;
             }
@@ -188,7 +188,7 @@ public class Activity_General extends ActionBarActivity
     public void onChampionSelected(int index) {
         Bundle args = new Bundle();
         args.putInt("id", index);
-        Fragment fragment = new Champion();
+        Fragment fragment = new CampeonContenedor();
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -206,7 +206,7 @@ public class Activity_General extends ActionBarActivity
     public void onObjectSelected(int index) {
         Bundle args = new Bundle();
         args.putInt("id", index);
-        Fragment fragment = new ObjetoInfo();
+        Fragment fragment = new ObjetoGeneral();
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

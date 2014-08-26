@@ -20,12 +20,12 @@ import com.lol.lolpro.app.R;
 /**
  * Implementa la funcionalidad del fragment
  */
-public class Champion extends Fragment {
+public class CampeonContenedor extends Fragment {
 
     private ActionBar actionBar;
     // When requested, this adapter returns a fragment,
     // representing a page.
-    private ChampionPageAdapter mPagerAdapter;
+    private CampeonPageAdapter mPagerAdapter;
     private ViewPager mViewPager;
 
     private int numPages;
@@ -33,7 +33,7 @@ public class Champion extends Fragment {
     /**
      * Campeón vacio
      */
-    public Champion() {
+    public CampeonContenedor() {
         // Required empty public constructor
     }
 
@@ -63,7 +63,7 @@ public class Champion extends Fragment {
         args.putSerializable("skins", dbMan.getDatabaseHelper().obtenerAspectosCampeon(args.getInt("id", -1)));
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        mPagerAdapter = new ChampionPageAdapter(getChildFragmentManager(), args);
+        mPagerAdapter = new CampeonPageAdapter(getChildFragmentManager(), args);
         numPages = mPagerAdapter.getCount();
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mViewPager.setAdapter(mPagerAdapter);

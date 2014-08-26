@@ -14,7 +14,7 @@ import com.lol.lolpro.app.web.APIConnection;
 /**
  * Clase que se encarga de la inicialización al cargar la aplicación de todos los datos necesarios
  */
-public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
+public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
 
     ProgressDialog progress;
     ActionBarActivity contexto;
@@ -26,7 +26,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
      *
      * @param context Recibe el activity principal
      */
-    public CargandoBBDD(ActionBarActivity context) {
+    public DescargarBBDD(ActionBarActivity context) {
         contexto = context;
         progress = new ProgressDialog(contexto);
     }
@@ -101,6 +101,7 @@ public class CargandoBBDD extends AsyncTask<Void, Integer, Void> {
      * @param unused null
      */
     public void onPostExecute(Void unused) {
+        //TODO no puede llamar siempre a Free CHAMPS
         if(accion != 0) {
             api.closeAPI();
             GridView grid = (GridView) contexto.findViewById(R.id.gridView);

@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Implementa la funcionalidad del fragment
  */
-public class ObjetoInfo extends Fragment {
+public class ObjetoGeneral extends Fragment {
 
     private BBDDHelper helper;
     OnHeadlineSelectedListener mCallback = null;
@@ -33,7 +33,7 @@ public class ObjetoInfo extends Fragment {
     /**
      * Constructor vacío
      */
-    public ObjetoInfo() {
+    public ObjetoGeneral() {
         // Required empty public constructor
     }
 

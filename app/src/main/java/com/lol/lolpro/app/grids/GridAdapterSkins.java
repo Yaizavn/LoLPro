@@ -118,10 +118,11 @@ public class GridAdapterSkins extends BaseAdapter {
      * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
      */
     public void refresh(){
+        /*TODO
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
         data = dbMan.getDatabaseHelper().obtenerGratuitos();
-        dbMan.closeDatabase(false);
+        dbMan.closeDatabase(false);*/
         notifyDataSetChanged();
     }
 }

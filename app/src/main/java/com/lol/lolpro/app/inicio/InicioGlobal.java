@@ -22,14 +22,14 @@ import com.lol.lolpro.app.utillidades.Utils;
 /**
  * Implementa la funcionalidad del fragment
  */
-public class Inicio extends Fragment {
+public class InicioGlobal extends Fragment {
 
     OnHeadlineSelectedListener mCallback = null;
 
     /**
      * Constructor vacío
      */
-    public Inicio() {
+    public InicioGlobal() {
         // Required empty public constructor
     }
 
@@ -80,9 +80,9 @@ public class Inicio extends Fragment {
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
         grid.setAdapter(new GridAdapterFreeChamps(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos(), 75));
-        list.setAdapter(new ListAdapter(getActivity()));
+        list.setAdapter(new ListAdapterNoticias(getActivity()));
         if(Utils.hasInternetConnection(getActivity())){
-            ((ListAdapter) list.getAdapter()).refresh();
+            ((ListAdapterNoticias) list.getAdapter()).refresh();
         }
         else{
             list.setVisibility(View.INVISIBLE);

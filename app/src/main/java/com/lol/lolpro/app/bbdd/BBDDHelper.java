@@ -116,7 +116,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param id                  Identificador único de cada campeón
      * @param nombre              Nombre del campeón
      * @param nick                Nick del campeón
-     * @param historia            Historia del campeón
+     * @param historia            CampeonHistoria del campeón
      * @param vida                Vida del campeón
      * @param regeneracionVida    Regeneración de vida por segundo del campeón
      * @param danioAtaque         Daño de ataque del campeón
@@ -209,7 +209,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param id                  Identificador único de cada campeón
      * @param nombre              Nombre del campeón
      * @param nick                Nick del campeón
-     * @param historia            Historia del campeón
+     * @param historia            CampeonHistoria del campeón
      * @param vida                Vida del campeón
      * @param regeneracionVida    Regeneración de vida por segundo del campeón
      * @param danioAtaque         Daño de ataque del campeón
@@ -480,7 +480,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @return Array con:
      * Nombre en la primera posición
      * Nick en la segunda posición
-     * Historia en la tercera posición
+     * CampeonHistoria en la tercera posición
      * Regeneración de vida en la cuarta posición
      * Daño de ataque en la quinta posición
      * Armadura en la sexta posición

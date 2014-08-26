@@ -14,12 +14,12 @@ import com.lol.lolpro.app.R;
 /**
  * Implementa la funcionalidad del fragment
  */
-public class Historia extends Fragment {
+public class CampeonHistoria extends Fragment {
 
     /**
      * Constructor vacío
      */
-    public Historia() {
+    public CampeonHistoria() {
         // Required empty public constructor
     }
 

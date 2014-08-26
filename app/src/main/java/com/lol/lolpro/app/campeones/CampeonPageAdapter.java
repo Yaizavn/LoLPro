@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 /**
  * Adaptador para mostrar los tabs campeón e historia de champion
  */
-public class ChampionPageAdapter extends FragmentStatePagerAdapter {
+public class CampeonPageAdapter extends FragmentStatePagerAdapter {
     private static final int numPages = 4;
     private Bundle argsCampeon;
 
@@ -18,7 +18,7 @@ public class ChampionPageAdapter extends FragmentStatePagerAdapter {
      * @param fm   Se encarga de la gestión de los fragments
      * @param args Bundle que contiene los elementos asociados a un fragment, en este caso los datos de los campeones
      */
-    public ChampionPageAdapter(FragmentManager fm, Bundle args) {
+    public CampeonPageAdapter(FragmentManager fm, Bundle args) {
         super(fm);
         argsCampeon = args;
         notifyDataSetChanged();
@@ -35,16 +35,16 @@ public class ChampionPageAdapter extends FragmentStatePagerAdapter {
         Fragment frg = null;
         switch (position) {
             case 0:
-                frg = new CampeonInfo();
+                frg = new CampeonGeneral();
                 break;
             case 1:
-                frg = new Historia();
+                frg = new CampeonHistoria();
                 break;
             case 2:
-                frg = new Spells();
+                frg = new CampeonHabilidades();
                 break;
             case 3:
-                frg = new Skins();
+                frg = new CampeonAspectos();
                 break;
             default:
                 break;

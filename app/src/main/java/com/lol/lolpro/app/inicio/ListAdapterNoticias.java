@@ -11,12 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.lol.lolpro.app.utillidades.Constants;
-import com.lol.lolpro.app.web.Spider;
+import com.lol.lolpro.app.web.SpiderNoticias;
 
 /**
- * Adaptador para mostrar las noticias en Inicio
+ * Adaptador para mostrar las noticias en InicioGlobal
  */
-public class ListAdapter extends BaseAdapter {
+public class ListAdapterNoticias extends BaseAdapter {
 
     private final Context context;
     private String[][] news;
@@ -26,7 +26,7 @@ public class ListAdapter extends BaseAdapter {
      *
      * @param context recibe el activity al que está asociado el fragment
      */
-    public ListAdapter(Context context) {
+    public ListAdapterNoticias(Context context) {
         this.context = context;
         news = new String[0][0];
     }
@@ -106,7 +106,7 @@ public class ListAdapter extends BaseAdapter {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                Spider sp = new Spider();
+                SpiderNoticias sp = new SpiderNoticias();
                 news = sp.analyzeURLs();
                 return null;
             }
