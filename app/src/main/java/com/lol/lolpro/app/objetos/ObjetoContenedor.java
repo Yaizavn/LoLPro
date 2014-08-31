@@ -57,6 +57,12 @@ public class ObjetoContenedor extends Fragment {
         if (datos[12]!=null) {
             args.putSerializable("campeonReq", dbMan.getDatabaseHelper().obtenerRutaCampeones(Integer.parseInt(datos[12])));
         }
+        if (!datos[9].isEmpty()){
+            args.putSerializable("dataFrom", dbMan.getDatabaseHelper().obtenerRutaObjetos(datos[9].split(",")));
+        }
+        if (!datos[10].isEmpty()){
+            args.putSerializable("dataInto", dbMan.getDatabaseHelper().obtenerRutaObjetos(datos[10].split(",")));
+        }
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ObjetoPageAdapter(getChildFragmentManager(), args);

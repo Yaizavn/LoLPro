@@ -378,6 +378,28 @@ public class BBDDHelper extends SQLiteOpenHelper {
         return result2;
     }
 
+    public String[][] obtenerRutaObjetos(String[] ids) {
+        String idsString="";
+        for (int j=0; j< ids.length; j++) {
+            idsString += ids[j] +"||";
+        }
+        idsString += ids[ids.length];
+        Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, name, full FROM " +
+                "objetos WHERE _id == " + idsString, null);
+        String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()];
+        int pos = 0;
+        int pos2 = 0;
+        while (cursor.moveToNext()) {
+            result2[pos][pos2++] = Integer.toString(cursor.getInt(0));
+            result2[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
+            result2[pos][pos2] = Html.fromHtml(cursor.getString(2)).toString();
+            pos2 = 0;
+            pos++;
+        }
+        cursor.close();
+        return result2;
+    }
+
     /**
      * Se encarga de obtener la última ruta y versión de los campeones
      *
