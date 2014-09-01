@@ -315,10 +315,9 @@ public class APIConnection {
             case CHAMPION_FREE:
                 patt = Patrones.PATTERN_CHAMPION_FREE;
                 match = patt.matcher(answer);
-                int[] ids = new int[10];
-                int pos = 0;
+                ArrayList<Integer> ids = new ArrayList<Integer>();
                 while (match.find()) {
-                    ids[pos++] = Integer.parseInt(match.group(1));
+                    ids.add(Integer.parseInt(match.group(1)));
                 }
                 bdConnection.modificarGratuito(ids);
                 break;

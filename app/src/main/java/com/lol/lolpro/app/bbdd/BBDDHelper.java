@@ -12,6 +12,9 @@ import android.util.Log;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.utillidades.Utils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Clase que se encarga de la gestión de la base de datos
  */
@@ -178,8 +181,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
         String pText = plainText == null ? "" : plainText;
         int stack = stacks == null ? 1 : Integer.parseInt(stacks);
         int dept = depth == null  ? 1 : Integer.parseInt(depth);
-        String from = fromOBJ == null ? "" : fromOBJ;
-        String into = intoOBJ == null ? "" : intoOBJ;
+        String from = fromOBJ == null ? "" : Utils.clearQuotes(fromOBJ);
+        String into = intoOBJ == null ? "" : Utils.clearQuotes(intoOBJ);
         int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
         String reqChampion = requiredChampion == null ? "null" : obtenerIDCampeon (requiredChampion);
         mDatabase.execSQL("INSERT INTO objetos VALUES (" + id + ", '" + TextUtils.htmlEncode(name) + "', "
@@ -268,8 +271,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
         String pText = plainText == null ? "" : plainText;
         int stack = stacks == null ? 1 : Integer.parseInt(stacks);
         int dept = depth == null  ? 1 : Integer.parseInt(depth);
-        String from = fromOBJ == null ? "" : fromOBJ;
-        String into = intoOBJ == null ? "" : intoOBJ;
+        String from = fromOBJ == null ? "" : Utils.clearQuotes(fromOBJ);
+        String into = intoOBJ == null ? "" : Utils.clearQuotes(intoOBJ);
         int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
         String reqChampion = requiredChampion == null ? "null" : obtenerIDCampeon (requiredChampion);
         mDatabase.execSQL("UPDATE objetos SET name='" + TextUtils.htmlEncode(name) + "', base=" + base + ", " +
@@ -298,10 +301,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
      *
      * @param ids Contiene los ids de los campeones gratuitos esa semana
      */
-    public void modificarGratuito(int[] ids) {
+    public void modificarGratuito(ArrayList<Integer> ids) {
         mDatabase.execSQL("UPDATE campeones SET esGratis=0 WHERE esGratis=1");
-        for (int id : ids) {
-            mDatabase.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + id);
+        Iterator<Integer> it = ids.iterator();
+        while (it.hasNext()){
+            mDatabase.execSQL("UPDATE campeones SET esGratis=1 WHERE _id=" + it.next());
         }
     }
 
@@ -380,12 +384,12 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     public String[][] obtenerRutaObjetos(String[] ids) {
         String idsString="";
-        for (int j=0; j< ids.length; j++) {
-            idsString += ids[j] +"||";
+        for (int j=0; j< ids.length-1; j++) {
+            idsString += "_id=" + ids[j] + " OR ";
         }
-        idsString += ids[ids.length];
+        idsString += "_id=" + ids[ids.length-1];
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id, name, full FROM " +
-                "objetos WHERE _id == " + idsString, null);
+                "objetos WHERE (" + idsString + ")", null);
         String[][] result2 = new String[cursor.getCount()][cursor.getColumnCount()];
         int pos = 0;
         int pos2 = 0;

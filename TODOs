@@ -30,3 +30,7 @@ Campeones:
 
 HTML encode no funciona con /n o símbolos raros si lo ponemos al guardarlo, algo de hacer el sanitizeDescription antes de guardarlo en la BBDD
 Las imagenes tienen una propiedad llamada group. Parece indicar la ruta de las imagenes (usarlo para todas las imagenes y evitar las cosas a capón)
+
+en el arbol de los objetos sustituirlo por gridview, puzzles por layouts, tablelayout...??
+Quitar interfaces iguales, sacarlas a parte para que quede bonito(clase java para ellas)
+hacer unica consulta para modificargratuitos como ObtenerRutaObjetos(String[])

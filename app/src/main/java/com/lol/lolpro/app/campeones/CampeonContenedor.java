@@ -122,7 +122,7 @@ public class CampeonContenedor extends Fragment {
      */
     public void onStop() {
         super.onStop();
-        getActivity().supportInvalidateOptionsMenu();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
     }
 
     /**

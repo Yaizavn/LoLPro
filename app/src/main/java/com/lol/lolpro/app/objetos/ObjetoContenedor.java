@@ -124,13 +124,14 @@ public class ObjetoContenedor extends Fragment {
      */
     public void onStop() {
         super.onStop();
-        getActivity().supportInvalidateOptionsMenu();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
     }
 
     /**
      * Se encaga del tratamiento cuando se va a iniciar el fragment
      * Muestra los tabs que están creados
      */
+    @Override
     public void onResume() {
         super.onResume();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

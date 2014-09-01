@@ -65,7 +65,7 @@ public class Activity_General extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-       this.deleteDatabase(this.getResources().getString(R.string.app_name));
+       //this.deleteDatabase(this.getResources().getString(R.string.app_name));
         if(!Utils.existsDB(this) && !Utils.hasInternetConnection(this)){
             Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             finish();
@@ -114,7 +114,7 @@ public class Activity_General extends ActionBarActivity
     }
 
     /**
-     * Se encarga de actualizar el título cuando pulsas otro ítem d e la barra de navegación
+     * Se encarga de actualizar el título cuando pulsas otro ítem de la barra de navegación
      *
      * @param number
      */
@@ -122,16 +122,6 @@ public class Activity_General extends ActionBarActivity
         mTitle = getResources().getStringArray(R.array.titulosMenuIzquierda)[number];
         mNavigationDrawerFragment.getList().setItemChecked(number, true);
         getActionBar().setTitle(mTitle);
-    }
-
-    /**
-     * Se envarga de restaurar la barra de acción
-     */
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
     }
 
     /**
@@ -147,7 +137,6 @@ public class Activity_General extends ActionBarActivity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.principal, menu);
-            restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
