@@ -36,9 +36,6 @@ public class Activity_General extends ActionBarActivity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
 
     /**
@@ -65,7 +62,7 @@ public class Activity_General extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-       //this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
         if(!Utils.existsDB(this) && !Utils.hasInternetConnection(this)){
             Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             finish();

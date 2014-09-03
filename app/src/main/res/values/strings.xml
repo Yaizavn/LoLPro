@@ -56,6 +56,11 @@
     <string name="bonus_spell_block">de resistencia mágica</string>
     <string name="bonus_bonus_spell_block">de resistencia mágica adicional</string>
 
+    <string name="no_from">Este objeto no proviene de ningún otro</string>
+    <string name="no_into">Este objeto no forma parte de ningún otro</string>
+    <string name="text_from">Está compuesto de:</string>
+    <string name="text_into">Es parte de:</string>
+
 
 
 

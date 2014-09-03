@@ -48,7 +48,7 @@ public class ObjetoArbol extends Fragment {
         String[][] datosInto = (String[][])args.getSerializable("dataInto");
         if (datosFrom != null) {
             grid = (GridView) view.findViewById(R.id.gridViewFrom);
-            view.findViewById(R.id.textFrom).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.textNoFrom).setVisibility(View.GONE);
             view.findViewById(R.id.gridViewFrom).setVisibility(View.VISIBLE);
 
             grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosFrom, 100));
@@ -60,12 +60,12 @@ public class ObjetoArbol extends Fragment {
             });
         }
         else{
-            view.findViewById(R.id.textFrom).setVisibility(View.GONE);
             view.findViewById(R.id.gridViewFrom).setVisibility(View.GONE);
+            view.findViewById(R.id.textNoFrom).setVisibility(View.VISIBLE);
         }
         if (datosInto != null) {
             grid = (GridView) view.findViewById(R.id.gridViewInto);
-            view.findViewById(R.id.textInto).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.textNoInto).setVisibility(View.GONE);
             view.findViewById(R.id.gridViewInto).setVisibility(View.VISIBLE);
 
             grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosInto, 100));
@@ -77,8 +77,8 @@ public class ObjetoArbol extends Fragment {
             });
         }
         else{
-            view.findViewById(R.id.textInto).setVisibility(View.GONE);
             view.findViewById(R.id.gridViewInto).setVisibility(View.GONE);
+            view.findViewById(R.id.textNoInto).setVisibility(View.VISIBLE);
         }
     }
 

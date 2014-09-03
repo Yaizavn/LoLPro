@@ -34,3 +34,5 @@ Las imagenes tienen una propiedad llamada group. Parece indicar la ruta de las i
 en el arbol de los objetos sustituirlo por gridview, puzzles por layouts, tablelayout...??
 Quitar interfaces iguales, sacarlas a parte para que quede bonito(clase java para ellas)
 hacer unica consulta para modificargratuitos como ObtenerRutaObjetos(String[])
+
+Mirar que pasa si hay conexion a Internet pero no a a la api y nos quedamos sin bbdd
