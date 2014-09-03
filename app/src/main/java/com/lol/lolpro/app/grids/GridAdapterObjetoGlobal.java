@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Adaptador para mostrar los objetos y campeones en un gridview usando Picasso
  */
-public class GridAdapterNombre extends BaseAdapter {
+public class GridAdapterObjetoGlobal extends BaseAdapter {
 
     private final Context context;
     private int finalDP;
@@ -30,7 +30,7 @@ public class GridAdapterNombre extends BaseAdapter {
      * @param allData      datos de los campeones o los objetos
      * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapterNombre(Context context, String[][] allData, int desiredDP) {
+    public GridAdapterObjetoGlobal(Context context, String[][] allData, int desiredDP) {
         this.context = context;
         data = allData;
         finalDP = desiredDP;
@@ -53,7 +53,7 @@ public class GridAdapterNombre extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            view = inflater.inflate(R.layout.cell_image_name, parent, false);
+            view = inflater.inflate(R.layout.cell_image_name_object, parent, false);
         }
 
         view.setTag(getId(position));

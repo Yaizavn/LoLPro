@@ -10,9 +10,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.lol.lolpro.app.Activity_General;
+import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.bbdd.DBManager;
-import com.lol.lolpro.app.grids.GridAdapterNombre;
 import com.lol.lolpro.app.R;
 
 
@@ -75,7 +75,7 @@ public class ObjetosGlobal extends Fragment {
         dbMan.openDatabase(false);
 
         GridView grid = (GridView) view.findViewById(R.id.gridView);
-        grid.setAdapter(new GridAdapterNombre(getActivity(), dbMan.getDatabaseHelper().obtenerRutaObjetos(), 100));
+        grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), dbMan.getDatabaseHelper().obtenerRutaObjetos(), 100));
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity

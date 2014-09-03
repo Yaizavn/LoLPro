@@ -10,15 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.lol.lolpro.app.R;
-import com.lol.lolpro.app.bbdd.DBManager;
-import com.lol.lolpro.app.grids.GridAdapterNombre;
-import com.squareup.picasso.Picasso;
+import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 
 
 public class ObjetoArbol extends Fragment {
@@ -57,7 +51,7 @@ public class ObjetoArbol extends Fragment {
             view.findViewById(R.id.textFrom).setVisibility(View.VISIBLE);
             view.findViewById(R.id.gridViewFrom).setVisibility(View.VISIBLE);
 
-            grid.setAdapter(new GridAdapterNombre(getActivity(), datosFrom, 100));
+            grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosFrom, 100));
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
                     //Send the event to the host activity
@@ -74,7 +68,7 @@ public class ObjetoArbol extends Fragment {
             view.findViewById(R.id.textInto).setVisibility(View.VISIBLE);
             view.findViewById(R.id.gridViewInto).setVisibility(View.VISIBLE);
 
-            grid.setAdapter(new GridAdapterNombre(getActivity(), datosInto, 100));
+            grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosInto, 100));
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
                     //Send the event to the host activity
