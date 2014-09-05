@@ -20,7 +20,9 @@ import com.lol.lolpro.app.inicio.InicioGlobal;
 import com.lol.lolpro.app.objetos.ObjetoContenedor;
 import com.lol.lolpro.app.objetos.ObjetoGeneral;
 import com.lol.lolpro.app.objetos.ObjetosGlobal;
+import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
+import com.lol.lolpro.app.utillidades.Object_callback;
 import com.lol.lolpro.app.utillidades.Utils;
 
 /**
@@ -28,8 +30,7 @@ import com.lol.lolpro.app.utillidades.Utils;
  */
 public class Activity_General extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        CampeonesGlobal.OnHeadlineSelectedListener, InicioGlobal.OnHeadlineSelectedListener,
-        ObjetosGlobal.OnHeadlineSelectedListener, ObjetoGeneral.OnHeadlineSelectedListener {
+        Champion_callback, Object_callback{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -167,7 +168,7 @@ public class Activity_General extends ActionBarActivity
     }
 
     /**
-     * Se encarga del manejo al seleccionar un campeón en campeones o en inicio
+     * Se encarga del manejo al seleccionar un campeón en un fragment
      *
      * @param index Posición del campeón seleccionado
      */
@@ -185,7 +186,7 @@ public class Activity_General extends ActionBarActivity
     }
 
     /**
-     * Se encarga del manejo al seleccionar un objeto en objetos
+     * Se encarga del manejo al seleccionar un objeto en un fragment
      *
      * @param index Posición del campeón seleccionado
      */

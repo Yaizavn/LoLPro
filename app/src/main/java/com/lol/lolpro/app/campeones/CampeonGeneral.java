@@ -37,12 +37,10 @@ public class CampeonGeneral extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle args = getArguments();
-        int id = args.getInt("id", -1);
         String[] datos = args.getStringArray("data");
         View view = inflater.inflate(R.layout.fragment_campeon_general, container, false);
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null){
-            //Key=datos[0]
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.nick)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.vida)).setText(datos[4]+ "(+" + datos[5] + " por nivel)");
@@ -61,10 +59,10 @@ public class CampeonGeneral extends Fragment {
             String [] mpName = new String [] {"Mana", "Energy", "BloodWell", "fury", "Heat", "Shield", "Ferocity", "Wind", "Rage"};
             boolean encontrado=false;
             for (int i=0; i<mpName.length && !encontrado; i++){
-                if (mp.compareTo(mpName[i])==0 || mp.contains(mpName[i])){
+                if (mp.compareTo(mpName[i]) == 0 || mp.contains(mpName[i])){
                     ((TextView) view.findViewById(R.id.texMana)).setText(getActivity().getResources().getStringArray(R.array.mp)[i]);
                     ((TextView) view.findViewById(R.id.texRegMana)).setText(getActivity().getResources().getStringArray(R.array.regMP)[i]);
-                    encontrado=true;
+                    encontrado = true;
                 }
             }
             if (!encontrado){
@@ -88,8 +86,6 @@ public class CampeonGeneral extends Fragment {
                     .load(datos[24]) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
-                    .resize(px, px)
-                    .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }
         // Inflate the layout for this fragment

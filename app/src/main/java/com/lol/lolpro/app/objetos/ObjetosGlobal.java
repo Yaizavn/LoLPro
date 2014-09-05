@@ -14,6 +14,7 @@ import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Object_callback;
 
 
 /**
@@ -21,7 +22,7 @@ import com.lol.lolpro.app.R;
  */
 public class ObjetosGlobal extends Fragment {
 
-    OnHeadlineSelectedListener mCallback = null;
+    Object_callback mCallback = null;
 
     /**
      * Constructor vacío
@@ -41,9 +42,9 @@ public class ObjetosGlobal extends Fragment {
         //This makes sure that the container activity has implemented the callback interface.
         //If not, it throws an exception
         try {
-            mCallback = (OnHeadlineSelectedListener) activity;
+            mCallback = (Object_callback) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(activity.toString() + "must implement Object_callback");
         }
     }
 
@@ -83,14 +84,5 @@ public class ObjetosGlobal extends Fragment {
             }
         });
         dbMan.closeDatabase(false);
-    }
-
-    public interface OnHeadlineSelectedListener {
-        /**
-         * Método definido en principal que se encarga de el tratamiento al seleccionar un objeto
-         *
-         * @param index Posición del objeto seleccionado
-         */
-        public void onObjectSelected(int index);
     }
 }

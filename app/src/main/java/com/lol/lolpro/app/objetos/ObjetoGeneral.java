@@ -12,8 +12,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lol.lolpro.app.campeones.CampeonesGlobal;
 import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.squareup.picasso.Picasso;
 
 
@@ -22,7 +24,7 @@ import com.squareup.picasso.Picasso;
  */
 public class ObjetoGeneral extends Fragment {
 
-    OnHeadlineSelectedListener mCallback = null;
+    Champion_callback mCallback = null;
 
 
     /**
@@ -56,7 +58,7 @@ public class ObjetoGeneral extends Fragment {
             ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.precioVenta)).setText(datos[3]);
-            if (datos[6].compareTo("")!=0) {
+            if (datos[6].isEmpty()) {
                 ((TextView) view.findViewById(R.id.descripcion)).setText(datos[6] + "\n\n" + datos[5]);
             }
             else{
@@ -67,8 +69,6 @@ public class ObjetoGeneral extends Fragment {
                     .load(datos[13]) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
-                    .resize(px, px)
-                    .centerCrop() // Keep proportion
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }
         // Inflate the layout for this fragment
@@ -87,9 +87,9 @@ public class ObjetoGeneral extends Fragment {
         //This makes sure that the container activity has implemented the callback interface.
         //If not, it throws an exception
         try {
-            mCallback = (OnHeadlineSelectedListener) activity;
+            mCallback = (Champion_callback) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(activity.toString() + "must implement Champion_callback");
         }
     }
 
@@ -115,14 +115,4 @@ public class ObjetoGeneral extends Fragment {
             view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.GONE);
         }
     }
-
-    public interface OnHeadlineSelectedListener {
-        /**
-         * Método definido en principal que se encarga de el tratamiento al seleccionar a un campeón
-         *
-         * @param index Posición del campeón seleccionado
-         */
-        public void onChampionSelected(int index);
-    }
-
 }

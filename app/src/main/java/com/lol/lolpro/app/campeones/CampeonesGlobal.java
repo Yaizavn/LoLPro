@@ -14,13 +14,14 @@ import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
 import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Champion_callback;
 
 /**
  * Implementa la funcionalidad del fragment
  */
 public class CampeonesGlobal extends Fragment {
 
-    OnHeadlineSelectedListener mCallback = null;
+    Champion_callback mCallback = null;
 
     /**
      * Constructor vacio
@@ -57,7 +58,7 @@ public class CampeonesGlobal extends Fragment {
         //This makes sure that the container activity has implemented the callback interface.
         //If not, it throws an exception
         try {
-            mCallback = (OnHeadlineSelectedListener) activity;
+            mCallback = (Champion_callback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
         }
@@ -85,14 +86,5 @@ public class CampeonesGlobal extends Fragment {
             }
         });
         dbMan.closeDatabase(false);
-    }
-
-    public interface OnHeadlineSelectedListener {
-        /**
-         * Método definido en principal que se encarga de el tratamiento al seleccionar a un campeón
-         *
-         * @param index Posición del campeón seleccionado
-         */
-        public void onChampionSelected(int index);
     }
 }

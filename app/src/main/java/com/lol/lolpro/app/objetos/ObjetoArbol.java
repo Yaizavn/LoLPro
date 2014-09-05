@@ -13,11 +13,12 @@ import android.widget.GridView;
 
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
+import com.lol.lolpro.app.utillidades.Object_callback;
 
 
 public class ObjetoArbol extends Fragment {
 
-    ObjetosGlobal.OnHeadlineSelectedListener mCallback = null;
+    Object_callback mCallback = null;
 
     public ObjetoArbol() {
         // Required empty public constructor
@@ -34,9 +35,9 @@ public class ObjetoArbol extends Fragment {
         //This makes sure that the container activity has implemented the callback interface.
         //If not, it throws an exception
         try {
-            mCallback = (ObjetosGlobal.OnHeadlineSelectedListener) activity;
+            mCallback = (Object_callback) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(activity.toString() + "must implement Object_callback");
         }
     }
 

@@ -15,7 +15,10 @@ import android.widget.ListView;
 import com.lol.lolpro.app.Activity_General;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.campeones.CampeonGeneral;
+import com.lol.lolpro.app.campeones.CampeonesGlobal;
 import com.lol.lolpro.app.grids.GridAdapterFreeChamps;
+import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
@@ -24,7 +27,7 @@ import com.lol.lolpro.app.utillidades.Utils;
  */
 public class InicioGlobal extends Fragment {
 
-    OnHeadlineSelectedListener mCallback = null;
+    Champion_callback mCallback = null;
 
     /**
      * Constructor vacío
@@ -60,9 +63,9 @@ public class InicioGlobal extends Fragment {
         //This makes sure that the container activity has implemented the callback interface.
         //If not, it throws an exception
         try {
-            mCallback = (OnHeadlineSelectedListener) activity;
+            mCallback = (Champion_callback) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(activity.toString() + "must implement Champion_callback");
         }
     }
 
@@ -106,14 +109,5 @@ public class InicioGlobal extends Fragment {
             }
         });
         dbMan.closeDatabase(false);
-    }
-
-    public interface OnHeadlineSelectedListener {
-        /**
-         * Método definido en principal que se encarga de el tratamiento al seleccionar a un campeón
-         *
-         * @param index Posición del campeón seleccionado
-         */
-        public void onChampionSelected(int index);
     }
 }
