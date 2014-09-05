@@ -49,10 +49,22 @@ public class Activity_General extends ActionBarActivity
         super.onCreate(savedInstanceState);
         DBManager.initializeInstance(this);
         setContentView(R.layout.activity_general);
+        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new InicioGlobal())
                     .commit();
+
+            // Descargamos la bbdd o cerramos la app
+            if(!Utils.existsDB(this) && !Utils.hasInternetConnection(this)){
+                Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            // Actualizamos la bbdd
+            else if(Utils.existsDB(this) && Utils.hasInternetConnection(this)){
+                DescargarBBDD progressDialog = new DescargarBBDD(this);
+                progressDialog.execute();
+            }
         }
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -62,14 +74,6 @@ public class Activity_General extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
-        if(!Utils.existsDB(this) && !Utils.hasInternetConnection(this)){
-            Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        DescargarBBDD progressDialog = new DescargarBBDD(this);
-        progressDialog.execute();
     }
 
     /**
