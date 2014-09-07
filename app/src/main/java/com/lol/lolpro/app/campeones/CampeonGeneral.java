@@ -59,7 +59,7 @@ public class CampeonGeneral extends Fragment {
             String [] mpName = new String [] {"Mana", "Energy", "BloodWell", "fury", "Heat", "Shield", "Ferocity", "Wind", "Rage"};
             boolean encontrado=false;
             for (int i=0; i<mpName.length && !encontrado; i++){
-                if (mp.compareTo(mpName[i]) == 0 || mp.contains(mpName[i])){
+                if (mp.equals(mpName[i]) || mp.contains(mpName[i])){
                     ((TextView) view.findViewById(R.id.texMana)).setText(getActivity().getResources().getStringArray(R.array.mp)[i]);
                     ((TextView) view.findViewById(R.id.texRegMana)).setText(getActivity().getResources().getStringArray(R.array.regMP)[i]);
                     encontrado = true;

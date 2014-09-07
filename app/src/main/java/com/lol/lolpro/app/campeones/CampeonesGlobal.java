@@ -12,7 +12,6 @@ import android.widget.GridView;
 import com.lol.lolpro.app.Activity_General;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
-import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 
@@ -72,7 +71,7 @@ public class CampeonesGlobal extends Fragment {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        GridView grid = (GridView) view.findViewById(R.id.gridView);
+        GridView grid = (GridView) view.findViewById(R.id.gridFreeChamps);
 
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);

@@ -375,7 +375,7 @@ public class APIConnection {
         }
     }
 
-    public boolean haCambiadoVersion() {
+    public boolean hayNuevaVersion() {
         String versionAntiguaCampeon = bdConnection.obtenerVersionCampeon();
         String versionAntiguaObjetos = bdConnection.obtenerVersionObjeto();
 
@@ -388,13 +388,9 @@ public class APIConnection {
 
     public boolean hanCambiadoGratuitos() {
         String[][] campeonesAntiguosGratuitos = bdConnection.obtenerGratuitos();
-
         connect2API(APIConnection.CHAMPION_FREE);
         String[][] campeonesNuevosGratuitos = bdConnection.obtenerGratuitos();
-        if (Arrays.equals(campeonesAntiguosGratuitos, campeonesNuevosGratuitos)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(campeonesAntiguosGratuitos, campeonesNuevosGratuitos);
     }
 
     public void closeAPI() {

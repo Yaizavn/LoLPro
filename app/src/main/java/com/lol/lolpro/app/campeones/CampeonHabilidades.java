@@ -31,7 +31,7 @@ public class CampeonHabilidades extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_campeon_habilidades, container, false);
 
-        GridView grid = (GridView) view.findViewById(R.id.gridView);
+        GridView grid = (GridView) view.findViewById(R.id.gridFreeChamps);
         Bundle args = getArguments();
         int id = args.getInt("id", -1);
         String[][] datos = (String[][]) args.getSerializable("spells");

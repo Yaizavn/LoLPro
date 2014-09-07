@@ -60,10 +60,8 @@ public class Activity_General extends ActionBarActivity
                 Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 finish();
             }
-            // Actualizamos la bbdd
-            else if(Utils.existsDB(this) && Utils.hasInternetConnection(this)){
-                DescargarBBDD progressDialog = new DescargarBBDD(this);
-                progressDialog.execute();
+            else if(Utils.hasInternetConnection(this)){
+                new DescargarBBDD(this).execute();
             }
         }
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -98,31 +96,24 @@ public class Activity_General extends ActionBarActivity
                 fragment = new ObjetosGlobal();
                 break;
             default:
-                Toast.makeText(this, "Opcion no disponible!", Toast.LENGTH_SHORT).show();
-                fragment = new InicioGlobal();
+                Toast.makeText(this, getString(R.string.option_not_available), Toast.LENGTH_SHORT).show();
+                Log.e(getString(R.string.error), getString(R.string.fragment_not_found, position));
                 break;
         }
         if (fragment != null) {
-            supportInvalidateOptionsMenu();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.container, fragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        } else {
-            //Si el fragment es nulo mostramos un mensaje de error.
-            Log.e("Error ", "Mostrar Fragment " + position);
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                    .addToBackStack(null).commit();
         }
     }
 
     /**
      * Se encarga de actualizar el título cuando pulsas otro ítem de la barra de navegación
      *
-     * @param number
+     * @param position
      */
-    public void updateTitle(int number) {
-        mTitle = getResources().getStringArray(R.array.titulosMenuIzquierda)[number];
-        mNavigationDrawerFragment.getList().setItemChecked(number, true);
+    public void updateTitle(int position) {
+        mTitle = getResources().getStringArray(R.array.titulosMenuIzquierda)[position];
+        mNavigationDrawerFragment.getList().setItemChecked(position, true);
         getActionBar().setTitle(mTitle);
     }
 
@@ -131,45 +122,22 @@ public class Activity_General extends ActionBarActivity
      *
      * @param menu menu que contendrá el menú de opciones
      * @return true si el menú ha podido ser creado, false en caso contrario
-     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.principal, menu);
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    /**
-     * Acción al pulsar sobre un item de la barra settings
-     *
-     * @param item item seleccionado
-     * @return true si la acción ha podido ser realizada, false en caso contrario
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_data_refresh || id == R.id.action_image_refresh) {
-            if (!Utils.hasInternetConnection(this)){
-                Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
-            }
-            else {
-                this.deleteDatabase(this.getResources().getString(R.string.app_name));
-                DescargarBBDD progressDialog = new DescargarBBDD(this);
-                progressDialog.execute();
+            if(mNavigationDrawerFragment.getList().getSelectedItemPosition() == Constants.DRAWER_INITIAL) {
+                //Show menu based on the actual view
+                getMenuInflater().inflate(R.menu.principal, menu);
                 return true;
             }
         }
-        return super.onOptionsItemSelected(item);
-    }
+        return super.onCreateOptionsMenu(menu);
+    }*/
 
     /**
      * Se encarga del manejo al seleccionar un campeón en un fragment
@@ -182,11 +150,8 @@ public class Activity_General extends ActionBarActivity
         args.putInt("id", index);
         Fragment fragment = new CampeonContenedor();
         fragment.setArguments(args);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                .addToBackStack(null).commit();
     }
 
     /**
@@ -200,10 +165,7 @@ public class Activity_General extends ActionBarActivity
         args.putInt("id", index);
         Fragment fragment = new ObjetoContenedor();
         fragment.setArguments(args);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                .addToBackStack(null).commit();
     }
 }

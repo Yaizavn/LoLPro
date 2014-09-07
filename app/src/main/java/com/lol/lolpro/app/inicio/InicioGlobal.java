@@ -5,18 +5,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.lol.lolpro.app.Activity_General;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
-import com.lol.lolpro.app.campeones.CampeonGeneral;
-import com.lol.lolpro.app.campeones.CampeonesGlobal;
+import com.lol.lolpro.app.bbdd.DescargarBBDD;
 import com.lol.lolpro.app.grids.GridAdapterFreeChamps;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
@@ -53,6 +57,47 @@ public class InicioGlobal extends Fragment {
     }
 
     /**
+     * Se encarga de crear el menú de opciones
+     *
+     * @param menu menu que contendrá el menú de opciones
+     * @return true si el menú ha podido ser creado, false en caso contrario
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Only show items in the action bar relevant to this screen
+        // if the drawer is not showing. Otherwise, let the drawer
+        // decide what to show in the action bar.
+        inflater.inflate(R.menu.inicio, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    /**
+     * Acción al pulsar sobre un item de la barra settings
+     *
+     * @param item item seleccionado
+     * @return true si la acción ha podido ser realizada, false en caso contrario
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_data_refresh || id == R.id.action_image_refresh) {
+            if (!Utils.hasInternetConnection(getActivity())){
+                Toast.makeText(getActivity(), getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                getActivity().deleteDatabase(this.getResources().getString(R.string.app_name));
+                new DescargarBBDD((ActionBarActivity)getActivity()).execute();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
      * Método al que se llamará una vez el fragment ha sido asociado a un activity
      *
      * @param activity Activity al que está asociado un fragment
@@ -67,6 +112,7 @@ public class InicioGlobal extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + "must implement Champion_callback");
         }
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -76,7 +122,7 @@ public class InicioGlobal extends Fragment {
      * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
      */
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        GridView grid = (GridView) view.findViewById(R.id.gridView);
+        GridView grid = (GridView) view.findViewById(R.id.gridFreeChamps);
         ListView list = (ListView) view.findViewById(R.id.noticias);
         grid.setNumColumns(4);
 

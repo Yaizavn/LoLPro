@@ -4,22 +4,22 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.grids.GridAdapterFreeChamps;
+import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 import com.lol.lolpro.app.web.APIConnection;
 
 /**
- * Clase que se encarga de la inicialización al cargar la aplicación de todos los datos necesarios
+ * Clase que se encarga de la descarga de los datos
  */
 public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
 
     ProgressDialog progress;
     ActionBarActivity contexto;
     APIConnection api;
-    int accion = 0; //0 es no hacer nada, 1 es inicializar, 2 es actualizar
+    int accion = Constants.DB_DONOTHING;
 
     /**
      * Constructor
@@ -32,29 +32,31 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     }
 
     /**
-     * Tarea que se ejecuta de forma asíncrona y se encarga de coger los datos necesarios del api para tener los datos de la aplicación actualizados
+     * Tarea que se ejecuta de forma asíncrona y se encarga de descargar los datos del api
      *
      * @param voids null
      * @return null
      */
     @Override
     protected Void doInBackground(Void... voids) {
-        if (accion == 1) {
+        if (accion == Constants.DB_DOWNLOAD) {
             inicializarBBDD();
-        } else if (accion == 2) {
-            if (api.haCambiadoVersion()) {
+        } else if (accion == Constants.DB_UPDATE) {
+            if (api.hayNuevaVersion()) {
                 actualizarBBDD();
-            } else if (api.hanCambiadoGratuitos()) {
-                actualizarGratuitos();
             }
+            if (api.hanCambiadoGratuitos()) {
+                refreshUI();
+            }
+            this.publishProgress(100);
         }
         return null;
     }
 
     /**
-     * Se encarga de mostrar una barra de progrso para indicar al usuario como va la carga de datos
+     * Se encarga de mostrar una barra de progreso para indicar al usuario como va la descarga de datos
      */
-    public void mostrarDialog() {
+    public void inicializarDialog() {
         progress.setCanceledOnTouchOutside(false);
         progress.setTitle(contexto.getResources().getString(R.string.actualizando));
         progress.setMessage(contexto.getResources().getString(R.string.descargando));
@@ -79,20 +81,13 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      * Se encarga del tratamiento necesario antes de comenzar la tarea asíncrona, en este caso de indicarle a la tarea asíncrona si debe crear la base de datos o solo actualizarla
      */
     public void onPreExecute() {
-        boolean existeDb = Utils.existsDB(contexto);
-        boolean hasInternet = Utils.hasInternetConnection(contexto);
-        if(hasInternet) {
-            api = new APIConnection(contexto);
-            if (!existeDb) {
-                accion = 1;
-            } else {
-                accion = 2;
-            }
-            mostrarDialog();
+        api = new APIConnection(contexto);
+        if (!Utils.existsDB(contexto)) {
+            accion = Constants.DB_DOWNLOAD;
+        } else {
+            accion = Constants.DB_UPDATE;
         }
-        else {
-            Toast.makeText(contexto, contexto.getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
-        }
+        inicializarDialog();
     }
 
     /**
@@ -101,13 +96,18 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      * @param unused null
      */
     public void onPostExecute(Void unused) {
-        //TODO no puede llamar siempre a Free CHAMPS
-        if(accion != 0) {
+        if(accion != Constants.DB_DONOTHING) {
             api.closeAPI();
-            GridView grid = (GridView) contexto.findViewById(R.id.gridView);
+            progress.dismiss();
+        }
+    }
+
+    private void refreshUI(){
+        //TODO no puede llamar siempre a FREE CHAMPS
+        GridView grid = (GridView) contexto.findViewById(R.id.gridFreeChamps);
+        if(grid != null){
             GridAdapterFreeChamps gA = (GridAdapterFreeChamps) grid.getAdapter();
             gA.refresh();
-            progress.dismiss();
         }
     }
 
@@ -133,14 +133,6 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
         this.publishProgress(33);
         api.connect2API(APIConnection.UPDATE_OBJECTS);
         this.publishProgress(66);
-        api.connect2API(APIConnection.CHAMPION_FREE);
-        this.publishProgress(100);
-    }
-
-    /**
-     * Se encarga de indicar las tareas neceasrias si solo hay que actualizar los campeones gratuitos semanales
-     */
-    public void actualizarGratuitos() {
         api.connect2API(APIConnection.CHAMPION_FREE);
         this.publishProgress(100);
     }

@@ -16,6 +16,10 @@ public class Constants {
     public static final int NEWS_URL = 0;
     public static final int NEWS_TITLE = 1;
 
+    public static final int DB_DONOTHING = 0;
+    public static final int DB_DOWNLOAD = 1;
+    public static final int DB_UPDATE = 2;
+
     private Constants() {
     }
 }

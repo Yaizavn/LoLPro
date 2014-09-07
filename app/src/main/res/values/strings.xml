@@ -7,6 +7,8 @@
     <string name="action_image_refresh">Recargar imágenes</string>
     <string name="action_data_refresh">Recargar datos</string>
     <string name="action_settings">Settings</string>
+    <string name="error">Error</string>
+
 
     <string-array name="titulosMenuIzquierda">
         <item>Inicio</item>
@@ -102,6 +104,7 @@
     <string name="required_champion">Campeones admitidos:</string>
     <string name="descripcion">Descripción:</string>
     <string name="no_internet">No hay conexión a Internet. Es necesaria para descargar los datos del juego.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_not_found">No se ha encontrado el fragment %d</string>
+    <string name="option_not_available">¡Opción no disponible!</string>
 
 </resources>

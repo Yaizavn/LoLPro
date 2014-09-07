@@ -63,7 +63,7 @@ public class Utils {
 
     public static String sanitizeAttackSource(String value, String description, Context contexto ) {
         DecimalFormat df = new DecimalFormat("###.##");
-        if (description.compareTo("bonusattackdamage")==0 || description.compareTo("attackdamage")==0){
+        if (description.equals("bonusattackdamage") || description.equals("attackdamage")){
             String[] coeffsVariables=value.split("/");
             description="";
             if (coeffsVariables.length==1) {
@@ -78,40 +78,40 @@ public class Utils {
             }
             description += "% " + contexto.getResources().getString(R.string.bonus_attack_damage);
         }
-        else if (description.compareTo("spelldamage")==0){
+        else if (description.equals("spelldamage")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_damage);
         }
-        else if (description.compareTo("health")==0){
+        else if (description.equals("health")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_health);
         }
-        else if (description.compareTo("bonushealth")==0){
+        else if (description.equals("bonushealth")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_health);
         }
-        else if (description.compareTo("mana")==0){
+        else if (description.equals("mana")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_mana);
         }
-        else if (description.compareTo("armor")==0){
+        else if (description.equals("armor")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_armor);
         }
-        else if (description.compareTo("spellblock")==0){
+        else if (description.equals("spellblock")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_spell_block);
         }
-        else if (description.compareTo("bonusarmor")==0){
+        else if (description.equals("bonusarmor")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_armor);
         }
-        else if (description.compareTo("bonusspellblock")==0){
+        else if (description.equals("bonusspellblock")){
             description= df.format(Float.parseFloat(value) * 100) + "% " + contexto.getResources().getString(R.string.bonus_bonus_spell_block);
         }
-        else if (description.compareTo("@stacks")==0||description.compareTo("@text")==0||description.compareTo("@special.nautilusq")==0||
-                description.compareTo("@special.dariusr3")==0||description.compareTo("@special.BraumWArmor")==0
-                ||description.compareTo("@special.BraumWMR")==0||description.compareTo("@cooldownchampion")==0
-                ||description.compareTo("@dynamic.abilitypower")==0||description.compareTo("@dynamic.attackdamage")==0){
+        else if (description.equals("@stacks")||description.equals("@text")||description.equals("@special.nautilusq")||
+                description.equals("@special.dariusr3")||description.equals("@special.BraumWArmor")
+                ||description.equals("@special.BraumWMR")||description.equals("@cooldownchampion")
+                ||description.equals("@dynamic.abilitypower")||description.equals("@dynamic.attackdamage")){
             description= value;
         }
-        else if (description.compareTo("@special.viw")==0){
+        else if (description.equals("@special.viw")){
             description="1% por " +value+  " Daño de Ataque adicional";
         }
-        else if (description.compareTo("@special.jaxrarmor")==0 || description.compareTo("@special.jaxrmr")==0){
+        else if (description.equals("@special.jaxrarmor") || description.equals("@special.jaxrmr")){
             description= "";
         }
         return description;
@@ -130,7 +130,7 @@ public class Utils {
     public static boolean existsDB(Context context){
         String[] bbdds = context.databaseList();
         for (String bbdd : bbdds) {
-            if (bbdd.compareTo(context.getResources().getString(R.string.app_name)) == 0) {
+            if (bbdd.equals(context.getResources().getString(R.string.app_name))) {
                 return true;
             }
         }
@@ -143,7 +143,7 @@ public class Utils {
         NetworkInfo [] redes = cm.getAllNetworkInfo();
         int longitud=redes.length;
         for (int i=0; i<longitud && !isConnected; i++){
-            if (redes[i].getType()==ConnectivityManager.TYPE_WIFI || redes[i].getType()==ConnectivityManager.TYPE_MOBILE){
+            if (redes[i].getType() == ConnectivityManager.TYPE_WIFI || redes[i].getType() == ConnectivityManager.TYPE_MOBILE){
                 isConnected = redes[i].getState() == NetworkInfo.State.CONNECTED;
             }
         }
