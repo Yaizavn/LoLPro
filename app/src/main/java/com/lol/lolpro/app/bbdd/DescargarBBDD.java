@@ -45,9 +45,6 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
             if (api.hayNuevaVersion()) {
                 actualizarBBDD();
             }
-            if (api.hanCambiadoGratuitos()) {
-                refreshUI();
-            }
             this.publishProgress(100);
         }
         return null;
@@ -81,12 +78,12 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      * Se encarga del tratamiento necesario antes de comenzar la tarea asíncrona, en este caso de indicarle a la tarea asíncrona si debe crear la base de datos o solo actualizarla
      */
     public void onPreExecute() {
-        api = new APIConnection(contexto);
         if (!Utils.existsDB(contexto)) {
             accion = Constants.DB_DOWNLOAD;
         } else {
             accion = Constants.DB_UPDATE;
         }
+        api = new APIConnection(contexto);
         inicializarDialog();
     }
 
@@ -96,16 +93,18 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      * @param unused null
      */
     public void onPostExecute(Void unused) {
-        if(accion != Constants.DB_DONOTHING) {
+        if (accion != Constants.DB_DONOTHING) {
             api.closeAPI();
             progress.dismiss();
+            if (accion == Constants.DB_DOWNLOAD || (accion == Constants.DB_UPDATE && api.hanCambiadoGratuitos())) {
+                refreshUI();
+            }
         }
     }
 
-    private void refreshUI(){
-        //TODO no puede llamar siempre a FREE CHAMPS
+    private void refreshUI() {
         GridView grid = (GridView) contexto.findViewById(R.id.gridFreeChamps);
-        if(grid != null){
+        if (grid != null) {
             GridAdapterFreeChamps gA = (GridAdapterFreeChamps) grid.getAdapter();
             gA.refresh();
         }
