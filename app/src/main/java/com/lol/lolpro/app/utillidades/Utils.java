@@ -22,7 +22,7 @@ public class Utils {
     private Utils() {
     }
 
-    /**
+     /**
      * Se encarga de convertir dp a píxeles
      *
      * @param context  Activity principal

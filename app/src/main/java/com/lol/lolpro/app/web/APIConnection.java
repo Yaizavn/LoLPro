@@ -217,7 +217,6 @@ public class APIConnection {
                     }
                     // Almacenamos las habilidades y la pasiva
                     match3 = patt3.matcher(match.group(29));
-                    effects=null;
                     while (match3.find()) {
                         vars = new ArrayList <ArrayList <String>>();
                         effects = Utils.clearQuotes(match3.group(8)).split(",");
@@ -327,7 +326,6 @@ public class APIConnection {
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
                 patt2 = Patrones.PATTERN_SKINS;
-                match2 = null;
                 while (match.find()) {
                     bdConnection.modificarCampeones(Integer.parseInt(match.group(1)),
                             match.group(2), match.group(3),
@@ -355,13 +353,10 @@ public class APIConnection {
                 }
                 break;
             case UPDATE_OBJECTS:
-                int purchasable2, hideFromAll2;
                 rutaImagen = bdConnection.obtenerRutaVersionObjeto();
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    purchasable2 = Boolean.parseBoolean(match.group(5)) ? 1 : 0;
-                    hideFromAll2 = Boolean.parseBoolean(match.group(13)) ? 1 : 0;
                     bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
                             Integer.parseInt(match.group(5)), match.group(6),
@@ -380,13 +375,13 @@ public class APIConnection {
         String versionAntiguaObjetos = bdConnection.obtenerVersionObjeto();
 
         connect2API(APIConnection.IMAGES_AND_VERSIONS);
-        if (versionAntiguaCampeon.compareTo(bdConnection.obtenerVersionCampeon()) != 0 || versionAntiguaObjetos.compareTo(bdConnection.obtenerVersionObjeto()) != 0) {
+        if (!versionAntiguaCampeon.equals(bdConnection.obtenerVersionCampeon()) || !versionAntiguaObjetos.equals(bdConnection.obtenerVersionObjeto())) {
             return true;
         }
         return false;
     }
 
-    public boolean hanCambiadoGratuitos() {
+    public boolean hayNuevosGratuitos() {
         String[][] campeonesAntiguosGratuitos = bdConnection.obtenerGratuitos();
         connect2API(APIConnection.CHAMPION_FREE);
         String[][] campeonesNuevosGratuitos = bdConnection.obtenerGratuitos();

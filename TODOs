@@ -36,3 +36,6 @@ Quitar interfaces iguales, sacarlas a parte para que quede bonito(clase java par
 hacer unica consulta para modificargratuitos como ObtenerRutaObjetos(String[])
 
 Mirar que pasa si hay conexion a Internet pero no a a la api y nos quedamos sin bbdd
+
+Update problematico. Si meten un campeon nuevo se hace UPDATE---> debería ser insert en ese caso en particular
+    Si bajas de version hay que borrar los campeones que no estuvieran

@@ -292,6 +292,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param vObjeto  última versión conocida para los objetos
      */
     public void guardarRutaVersiones(String ruta, String vCampeon, String vObjeto) {
+        mDatabase.execSQL("DELETE FROM rutaVersiones");
         mDatabase.execSQL("INSERT INTO rutaVersiones VALUES (null, '" + TextUtils.htmlEncode(ruta) + "','" + TextUtils.htmlEncode(vCampeon) + "', '" + TextUtils.htmlEncode(vObjeto) + "')");
     }
 

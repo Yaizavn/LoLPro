@@ -49,7 +49,7 @@ public class Activity_General extends ActionBarActivity
         super.onCreate(savedInstanceState);
         DBManager.initializeInstance(this);
         setContentView(R.layout.activity_general);
-        this.deleteDatabase(this.getResources().getString(R.string.app_name));
+        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new InicioGlobal())

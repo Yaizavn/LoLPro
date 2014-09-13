@@ -20,6 +20,7 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     ActionBarActivity contexto;
     APIConnection api;
     int accion = Constants.DB_DONOTHING;
+    boolean hayNuevosGratuitos = false, hayNuevaVersion = false;
 
     /**
      * Constructor
@@ -29,6 +30,19 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     public DescargarBBDD(ActionBarActivity context) {
         contexto = context;
         progress = new ProgressDialog(contexto);
+    }
+
+    /**
+     * Se encarga del tratamiento necesario antes de comenzar la tarea asíncrona, en este caso de indicarle a la tarea asíncrona si debe crear la base de datos o solo actualizarla
+     */
+    public void onPreExecute() {
+        if (!Utils.existsDB(contexto)) {
+            accion = Constants.DB_DOWNLOAD;
+        } else {
+            accion = Constants.DB_UPDATE;
+        }
+        api = new APIConnection(contexto);
+        inicializarDialog();
     }
 
     /**
@@ -42,12 +56,39 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
         if (accion == Constants.DB_DOWNLOAD) {
             inicializarBBDD();
         } else if (accion == Constants.DB_UPDATE) {
-            if (api.hayNuevaVersion()) {
+            hayNuevaVersion = api.hayNuevaVersion();
+            if (hayNuevaVersion) {
                 actualizarBBDD();
             }
-            this.publishProgress(100);
         }
+        hayNuevosGratuitos = api.hayNuevosGratuitos();
+        this.publishProgress(100);
         return null;
+    }
+
+    /**
+     * Se encarga de actualizar la barra de progreso
+     *
+     * @param integers integers[0] contiene el tanto por ciento al que se debe actualziar la barra de progreso
+     */
+    @Override
+    protected void onProgressUpdate(Integer... integers) {
+        progress.setProgress(integers[0]);
+    }
+
+    /**
+     * Se encarga del tratamiento neceasrio una vez realizada la operación asíncrona
+     *
+     * @param unused null
+     */
+    public void onPostExecute(Void unused) {
+        if (accion != Constants.DB_DONOTHING) {
+            api.closeAPI();
+            progress.dismiss();
+            if (accion == Constants.DB_DOWNLOAD || hayNuevosGratuitos || hayNuevaVersion) {
+                refreshUI();
+            }
+        }
     }
 
     /**
@@ -64,53 +105,6 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     }
 
     /**
-     * Se encarga de actualizar la barra de progreso
-     *
-     * @param integers integers[0] contiene el tanto por ciento al que se debe actualziar la barra de progreso
-     */
-    @Override
-    protected void onProgressUpdate(Integer... integers) {
-        progress.setProgress(integers[0]);
-    }
-
-
-    /**
-     * Se encarga del tratamiento necesario antes de comenzar la tarea asíncrona, en este caso de indicarle a la tarea asíncrona si debe crear la base de datos o solo actualizarla
-     */
-    public void onPreExecute() {
-        if (!Utils.existsDB(contexto)) {
-            accion = Constants.DB_DOWNLOAD;
-        } else {
-            accion = Constants.DB_UPDATE;
-        }
-        api = new APIConnection(contexto);
-        inicializarDialog();
-    }
-
-    /**
-     * Se encarga del tratamiento neceasrio una vez realizada la operación asíncrona
-     *
-     * @param unused null
-     */
-    public void onPostExecute(Void unused) {
-        if (accion != Constants.DB_DONOTHING) {
-            api.closeAPI();
-            progress.dismiss();
-            if (accion == Constants.DB_DOWNLOAD || (accion == Constants.DB_UPDATE && api.hanCambiadoGratuitos())) {
-                refreshUI();
-            }
-        }
-    }
-
-    private void refreshUI() {
-        GridView grid = (GridView) contexto.findViewById(R.id.gridFreeChamps);
-        if (grid != null) {
-            GridAdapterFreeChamps gA = (GridAdapterFreeChamps) grid.getAdapter();
-            gA.refresh();
-        }
-    }
-
-    /**
      * Se encarga de indicar que tareas serían necesarias en caso de que la base de datos no esté creada
      */
     public void inicializarBBDD() {
@@ -120,8 +114,6 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
         this.publishProgress(50);
         api.connect2API(APIConnection.OBJECTS);
         this.publishProgress(75);
-        api.connect2API(APIConnection.CHAMPION_FREE);
-        this.publishProgress(100);
     }
 
     /**
@@ -132,7 +124,13 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
         this.publishProgress(33);
         api.connect2API(APIConnection.UPDATE_OBJECTS);
         this.publishProgress(66);
-        api.connect2API(APIConnection.CHAMPION_FREE);
-        this.publishProgress(100);
+    }
+
+    private void refreshUI() {
+        GridView grid = (GridView) contexto.findViewById(R.id.gridFreeChamps);
+        if (grid != null) {
+            GridAdapterFreeChamps gA = (GridAdapterFreeChamps) grid.getAdapter();
+            gA.refresh();
+        }
     }
 }
