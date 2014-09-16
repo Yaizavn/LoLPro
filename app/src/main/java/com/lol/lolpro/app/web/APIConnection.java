@@ -43,11 +43,12 @@ public class APIConnection {
     private static final String CERT_NAME = "lolcert.pem";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
-    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells&";
-    private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=all&";
+    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells";
+    private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=all";
     private static final String METADATA_URI = "static-data/euw/v1.2/realm?";
     private static final String CHAMPION_FREE_URI = "euw/v1.2/champion?freeToPlay=true&";
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";
+    private static final String VERSION = "&version=4.16.1&";
 
     private static final String CERT_ALIAS = "LOLCert";
 
@@ -86,11 +87,11 @@ public class APIConnection {
         switch (type) {
             case CHAMPIONS:
             case UPDATE_CHAMPIONS:
-                url = url.append(GLOBAL_URI).append(CHAMPION_URI).append(API_KEY);
+                url = url.append(GLOBAL_URI).append(CHAMPION_URI).append(VERSION).append(API_KEY);
                 break;
             case OBJECTS:
             case UPDATE_OBJECTS:
-                url = url.append(GLOBAL_URI).append(ITEM_URI).append(API_KEY);
+                url = url.append(GLOBAL_URI).append(ITEM_URI).append(VERSION).append(API_KEY);
                 break;
             case IMAGES_AND_VERSIONS:
                 url = url.append(GLOBAL_URI).append(METADATA_URI).append(API_KEY);
@@ -206,6 +207,9 @@ public class APIConnection {
                             match.group(28), match.group(22),
                             rutaImagen + match.group(5));
                     // Almacenamos las skins
+                    if(Integer.parseInt(match.group(1))==268){
+                        Utils.existsDB(context);
+                    }
                     match2 = patt2.matcher(match.group(6));
                     while (match2.find()) {
                         bdConnection.guardarAspectos(Integer.parseInt(match2.group(1)),
@@ -344,6 +348,7 @@ public class APIConnection {
                     match2 = patt2.matcher(match.group(6));
                     while (match2.find()) {
                         bdConnection.modificarAspectosCampeon(Integer.parseInt(match2.group(1)),
+                                Integer.parseInt(match.group(1)),
                                 match2.group(2),
                                 Integer.parseInt(match2.group(3)),
                                 rutaImagenAspecto + match.group(2) + "_" +
@@ -351,6 +356,8 @@ public class APIConnection {
                         );
                     }
                 }
+
+                Hacere modificarHabilidades....
                 break;
             case UPDATE_OBJECTS:
                 rutaImagen = bdConnection.obtenerRutaVersionObjeto();

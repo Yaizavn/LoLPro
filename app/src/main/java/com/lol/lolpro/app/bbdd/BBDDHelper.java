@@ -1,5 +1,6 @@
 package com.lol.lolpro.app.bbdd;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -83,6 +84,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // En caso de una nueva versión habría que actualizar las tablas
+        // Mirar ejemplo: https://code.google.com/p/openintents/source/browse/trunk/notepad/NotePad/src/org/openintents/notepad/NotePadProvider.java?r=3878
     }
 
     @Override
@@ -167,8 +169,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
         try{
             mDatabase.execSQL("INSERT INTO habilidades VALUES (" + idCampeon + ", '" + TextUtils.htmlEncode(nombre) + "','" +
                     TextUtils.htmlEncode(descripcion) + "', '" + TextUtils.htmlEncode(tooltip) + "', '" +
-                            TextUtils.htmlEncode(coste) + "','" + TextUtils.htmlEncode(alcance) + "','" +
-                                    TextUtils.htmlEncode(rutaPrincipal) + "', '" + TextUtils.htmlEncode(enfriamiento) + "', " + posicion + ", " + esPasiva + ")");
+                    TextUtils.htmlEncode(coste) + "','" + TextUtils.htmlEncode(alcance) + "','" +
+                    TextUtils.htmlEncode(rutaPrincipal) + "', '" + TextUtils.htmlEncode(enfriamiento) + "', " +
+                    posicion + ", " + esPasiva + ")");
         }catch (SQLiteException e){
             Log.e("Error foreign key", "Foreign key does not exist");
         }
@@ -199,9 +202,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
     public String obtenerIDCampeon(String name) {
         Cursor cursor = mReadOnlyDatabase.rawQuery("SELECT _id FROM " +
                 "campeones WHERE nombre LIKE '" + name + "'", null);
-        String result="null";
+        String result = "null";
         if (cursor.moveToNext()) {
-            result=String.valueOf(cursor.getInt(0));
+            result = String.valueOf(cursor.getInt(0));
         }
         cursor.close();
         return result;
@@ -235,33 +238,80 @@ public class BBDDHelper extends SQLiteOpenHelper {
         double velAtaque = Double.parseDouble(velocidadAtaque);
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
-        mDatabase.execSQL("UPDATE campeones SET nombre='" + TextUtils.htmlEncode(nombre) + "', nick='" + TextUtils.htmlEncode(nick) + "', key='" + TextUtils.htmlEncode(key) + "', " +
-                "historia='" + TextUtils.htmlEncode(historia) + "', vida='" + TextUtils.htmlEncode(vida)+ "', vidaPorNivel='" + TextUtils.htmlEncode(vidaPorNivel) + "', " +
-                "regeneracionVida='" + TextUtils.htmlEncode(regeneracionVida) + "', " +
-                "regeneracionVidaPorNivel='" + TextUtils.htmlEncode(regeneracionVidaPorNivel) + "', " +
-                "danioAtaque='" + TextUtils.htmlEncode(danioAtaque) + "', danioAtaquePorNivel='" + TextUtils.htmlEncode(danioAtaquePorNivel) + "', " +
-                "armadura='" + TextUtils.htmlEncode(armadura) + "', armaduraPorNivel='" + TextUtils.htmlEncode(armaduraPorNivel) + "', " +
-                "velocidadAtaque='" + velAtaque + "', " +
-                "velocidadAtaquePorNivel='" + TextUtils.htmlEncode(velocidadAtaquePorNivel) + "', crit='" + TextUtils.htmlEncode(crit) + "', " +
-                "critPorNivel='" + TextUtils.htmlEncode(critPorNivel) + "', tipoMP='" + TextUtils.htmlEncode(tipoMP) + "', mana='" + TextUtils.htmlEncode(mana) + "', " +
-                "manaPorNivel='" + TextUtils.htmlEncode(manaPorNivel) + "', regMana='" + TextUtils.htmlEncode(regMana) + "', " +
-                "regManaPorNivel='" + TextUtils.htmlEncode(regManaPorNivel) + "', resistenciaMagica='" + TextUtils.htmlEncode(resistenciaMagica) + "', " +
-                "resistenciaMagicaPorNivel='" + TextUtils.htmlEncode(resistenciaMagicaPorNivel) + "', " +
-                "velocidadMovimiento='" + TextUtils.htmlEncode(velocidadMovimiento) + "'," +
-                "rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "', esGratis=0 WHERE _id=" + id);
+
+        ContentValues cont = new ContentValues();
+        cont.put("_id", id);
+        cont.put("key", TextUtils.htmlEncode(key));
+        cont.put("nombre", TextUtils.htmlEncode(nombre));
+        cont.put("nick", TextUtils.htmlEncode(nick));
+        cont.put("historia", TextUtils.htmlEncode(historia));
+        cont.put("vida", TextUtils.htmlEncode(vida));
+        cont.put("vidaPorNivel", TextUtils.htmlEncode(vidaPorNivel));
+        cont.put("regeneracionVida", TextUtils.htmlEncode(regeneracionVida));
+        cont.put("regeneracionVidaPorNivel", TextUtils.htmlEncode(regeneracionVidaPorNivel));
+        cont.put("danioAtaque", TextUtils.htmlEncode(danioAtaque));
+        cont.put("danioAtaquePorNivel", TextUtils.htmlEncode(danioAtaquePorNivel));
+        cont.put("armadura", TextUtils.htmlEncode(armadura));
+        cont.put("armaduraPorNivel", TextUtils.htmlEncode(armaduraPorNivel));
+        cont.put("velocidadAtaque", velAtaque);
+        cont.put("velocidadAtaquePorNivel", TextUtils.htmlEncode(velocidadAtaquePorNivel));
+        cont.put("crit", TextUtils.htmlEncode(crit));
+        cont.put("critPorNivel", TextUtils.htmlEncode(critPorNivel));
+        cont.put("tipoMP", TextUtils.htmlEncode(tipoMP));
+        cont.put("mana", TextUtils.htmlEncode(mana));
+        cont.put("manaPorNivel", TextUtils.htmlEncode(manaPorNivel));
+        cont.put("regMana", TextUtils.htmlEncode(regMana));
+        cont.put("regManaPorNivel", TextUtils.htmlEncode(regManaPorNivel));
+        cont.put("resistenciaMagica", TextUtils.htmlEncode(resistenciaMagica));
+        cont.put("resistenciaMagicaPorNivel", TextUtils.htmlEncode(resistenciaMagicaPorNivel));
+        cont.put("velocidadMovimiento", TextUtils.htmlEncode(velocidadMovimiento));
+        cont.put("rutaPrincipal", TextUtils.htmlEncode(rutaPrincipal));
+        cont.put("esGratis", 0);
+        mDatabase.insertWithOnConflict("campeones", null, cont, SQLiteDatabase.CONFLICT_REPLACE);
+
+/*
+        mDatabase.execSQL("INSERT OR REPLACE INTO campeones VALUES (" + id + ", '" + TextUtils.htmlEncode(key) + "', '" + TextUtils.htmlEncode(nombre) + "_aaaa', '" + TextUtils.htmlEncode(nick) + "','" +
+                TextUtils.htmlEncode(historia) + "', '" + TextUtils.htmlEncode(vida) + "', '" + TextUtils.htmlEncode(vidaPorNivel) + "', '" + TextUtils.htmlEncode(regeneracionVida) + "', " +
+                " '" + TextUtils.htmlEncode(regeneracionVidaPorNivel) + "', '" + TextUtils.htmlEncode(danioAtaque) + "', '" + TextUtils.htmlEncode(danioAtaquePorNivel) + "', " +
+                " '" + TextUtils.htmlEncode(armadura) + "','" + TextUtils.htmlEncode(armaduraPorNivel) + "', '" + velAtaque + "', " +
+                " '" + TextUtils.htmlEncode(velocidadAtaquePorNivel) + "', '" + TextUtils.htmlEncode(crit) + "', '" + TextUtils.htmlEncode(critPorNivel) + "', " +
+                " '" + TextUtils.htmlEncode(tipoMP) + "', '" + TextUtils.htmlEncode(mana) + "', '" + TextUtils.htmlEncode(manaPorNivel) + "', '" + TextUtils.htmlEncode(regMana) + "', '" + TextUtils.htmlEncode(regManaPorNivel) + "'," +
+                " '" + TextUtils.htmlEncode(resistenciaMagica) + "', '" + TextUtils.htmlEncode(resistenciaMagicaPorNivel) + "', " +
+                " '" + TextUtils.htmlEncode(velocidadMovimiento) + "', '" + TextUtils.htmlEncode(rutaPrincipal) + "', 0)");
+                */
     }
 
-    public void modificarAspectosCampeon(int idAspecto, String nombre, int numero, String rutaPrincipal) {
-        mDatabase.execSQL("UPDATE aspectos SET nombre='" + TextUtils.htmlEncode(nombre) + "', num=" + numero + ", " +
-                "rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "' WHERE _id=" + idAspecto);
+    public void modificarAspectosCampeon(int idAspecto, int idCampeon, String nombre, int numero, String rutaPrincipal) {
+
+        ContentValues cont = new ContentValues();
+        cont.put("_id", idAspecto);
+        cont.put("idCampeon", idCampeon);
+        cont.put("nombre", TextUtils.htmlEncode(nombre));
+        cont.put("num", numero);
+        cont.put("rutaPrincipal", TextUtils.htmlEncode(rutaPrincipal));
+        mDatabase.insertWithOnConflict("aspectos", null, cont, SQLiteDatabase.CONFLICT_REPLACE);
+        /*mDatabase.execSQL("UPDATE aspectos SET nombre='" + TextUtils.htmlEncode(nombre) + "', num=" + numero + ", " +
+                "rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "' WHERE _id=" + idAspecto);*/
     }
 
     public void modificarHabilidadesCampeon(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
-                                            String alcance, String rutaPrincipal, String enfriamiento, int esPasiva, int posicion) {;
-        mDatabase.execSQL("UPDATE habilidades SET descripcion='" + TextUtils.htmlEncode(descripcion) + "', " +
+                                            String alcance, String rutaPrincipal, String enfriamiento, int esPasiva, int posicion) {
+        ContentValues cont = new ContentValues();
+        cont.put("idCampeon", idCampeon);
+        cont.put("nombre", TextUtils.htmlEncode(nombre));
+        cont.put("descripcion", TextUtils.htmlEncode(descripcion));
+        cont.put("tooltip", TextUtils.htmlEncode(tooltip));
+        cont.put("coste", TextUtils.htmlEncode(coste));
+        cont.put("alcance", TextUtils.htmlEncode(alcance));
+        cont.put("rutaPrincipal", TextUtils.htmlEncode(rutaPrincipal));
+        cont.put("enfriamiento", TextUtils.htmlEncode(enfriamiento));
+        cont.put("esPasiva", esPasiva);
+        cont.put("posicion", posicion);
+        mDatabase.insertWithOnConflict("habilidades", null, cont, SQLiteDatabase.CONFLICT_REPLACE);
+        /*mDatabase.execSQL("UPDATE habilidades SET descripcion='" + TextUtils.htmlEncode(descripcion) + "', " +
                 "tooltip='" + TextUtils.htmlEncode(tooltip) + "'," +
                 "coste='" + TextUtils.htmlEncode(coste) + "', alcance='" + TextUtils.htmlEncode(alcance) + "', enfriamiento='" + TextUtils.htmlEncode(enfriamiento) + "', rutaPrincipal='" + TextUtils.htmlEncode(rutaPrincipal) + "'," +
-                " posicion="+posicion+", esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + TextUtils.htmlEncode(nombre) + "'");
+                " posicion="+posicion+", esPasiva=" + esPasiva + " WHERE idCampeon=" + idCampeon + " && nombre='" + TextUtils.htmlEncode(nombre) + "'");*/
     }
 
     public void modificarObjetos(int id, String name, int base, int total, int sell, String purchasable,
@@ -274,14 +324,36 @@ public class BBDDHelper extends SQLiteOpenHelper {
         String from = fromOBJ == null ? "" : Utils.clearQuotes(fromOBJ);
         String into = intoOBJ == null ? "" : Utils.clearQuotes(intoOBJ);
         int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
-        String reqChampion = requiredChampion == null ? "null" : obtenerIDCampeon (requiredChampion);
-        mDatabase.execSQL("UPDATE objetos SET name='" + TextUtils.htmlEncode(name) + "', base=" + base + ", " +
+        ContentValues cont = new ContentValues();
+        cont.put("_id", id);
+        cont.put("name", TextUtils.htmlEncode(name));
+        cont.put("base", base);
+        cont.put("total", total);
+        cont.put("sell", sell);
+        cont.put("purchasable", purch);
+        cont.put("description", TextUtils.htmlEncode(description));
+        cont.put("plainText", TextUtils.htmlEncode(pText));
+        cont.put("stacks", stack);
+        cont.put("depth", dept);
+        cont.put("fromOBJ", TextUtils.htmlEncode(from));
+        cont.put("intoOBJ", TextUtils.htmlEncode(into));
+        cont.put("hideFromAll", hide);
+        if (requiredChampion==null) {
+            cont.putNull("requiredChampion");
+        }
+        else{
+            cont.put("requiredChampion", obtenerIDCampeon (requiredChampion));
+        }
+        cont.put("full", TextUtils.htmlEncode(full));
+        mDatabase.insertWithOnConflict("objetos", null, cont, SQLiteDatabase.CONFLICT_REPLACE);
+
+        /*mDatabase.execSQL("UPDATE objetos SET name='" + TextUtils.htmlEncode(name) + "', base=" + base + ", " +
                 "total=" + total + ", sell=" + sell + ", purchasable=" + purch + "," +
                 "description='" +TextUtils.htmlEncode(description) + "', plainText='" + TextUtils.htmlEncode(pText) + "', " +
                 "stacks=" + stack + ", depth=" + dept + ", fromOBJ='" + TextUtils.htmlEncode(from) + "', " +
                 "intoOBJ='" + TextUtils.htmlEncode(into) + "', hideFromAll=" + hide + ", " +
                 "requiredChampion=" + reqChampion + ", full='" + TextUtils.htmlEncode(full) +
-                "' WHERE _id=" + id);
+                "' WHERE _id=" + id);*/
     }
 
     /**

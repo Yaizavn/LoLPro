@@ -39,3 +39,5 @@ Mirar que pasa si hay conexion a Internet pero no a a la api y nos quedamos sin 
 
 Update problematico. Si meten un campeon nuevo se hace UPDATE---> debería ser insert en ese caso en particular
     Si bajas de version hay que borrar los campeones que no estuvieran
+
+Para los tags de campeones, al no tener un tree de tags, usar distinct sobre la tabla tagsCampeones
