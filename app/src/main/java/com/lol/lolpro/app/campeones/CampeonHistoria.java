@@ -34,23 +34,17 @@ public class CampeonHistoria extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         Bundle args = getArguments();
-        //int id = args.getInt("id", -1);
         String[] championData = args.getStringArray("data");
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_campeon_historia, container, false);
-        // Defino la nueva fuente cargandola desde el fichero .ttf
-        Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), Constants.FONT_STORY);
-
         if (championData != null) {
             TextView historia = (TextView) view.findViewById(R.id.historia);
             TextView nombre = (TextView) view.findViewById(R.id.nombreCampeon);
-
+            // Defino la nueva fuente cargandola desde el fichero .ttf
+            Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), Constants.FONT_STORY);
             // Aplico el nuevo tipo de letra
             historia.setTypeface(miPropiaTypeFace);
             nombre.setTypeface(miPropiaTypeFace);
-
             nombre.setText(championData[1]);
             historia.setText(championData[3]);
         }

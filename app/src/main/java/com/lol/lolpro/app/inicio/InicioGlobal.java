@@ -122,7 +122,7 @@ public class InicioGlobal extends Fragment {
      * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
      */
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        GridView grid = (GridView) view.findViewById(R.id.gridFreeChamps);
+        GridView grid = (GridView) view.findViewById(R.id.gridInicio);
         ListView list = (ListView) view.findViewById(R.id.noticias);
         grid.setNumColumns(4);
 

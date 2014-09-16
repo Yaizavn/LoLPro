@@ -39,24 +39,16 @@ public class CampeonGeneral extends Fragment {
         Bundle args = getArguments();
         String[] datos = args.getStringArray("data");
         View view = inflater.inflate(R.layout.fragment_campeon_general, container, false);
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null){
             ((TextView) view.findViewById(R.id.nombre)).setText(datos[1]);
             ((TextView) view.findViewById(R.id.nick)).setText(datos[2]);
             ((TextView) view.findViewById(R.id.vida)).setText(datos[4]+ "(+" + datos[5] + " por nivel)");
-            //((TextView) view.findViewById(R.id.vidaPorNivel)).setText(datos[5]);
             ((TextView) view.findViewById(R.id.regVida)).setText(datos[6] + "(+" + datos[7] + " por nivel)");
-            //((TextView) view.findViewById(R.id.regVidaPorNivel)).setText(datos[7]);
             ((TextView) view.findViewById(R.id.danioAtaque)).setText(datos[8] + "(+" + datos[9] + " por nivel)");
-            //((TextView) view.findViewById(R.id.danioAtaquePorNivel)).setText(datos[9]);
             ((TextView) view.findViewById(R.id.armadura)).setText(datos[10] + "(+" + datos[11] + " por nivel)");
-            //((TextView) view.findViewById(R.id.armaduraPorNivel)).setText(datos[11]);
             ((TextView) view.findViewById(R.id.velAtaque)).setText(datos[12] + "(+" + datos[13] + "% por nivel)");
-            //((TextView) view.findViewById(R.id.velAtaquePorNivel)).setText(datos[13]);
-            //((TextView) view.findViewById(R.id.crit)).setText(datos[14] + "(+" + datos[15] + " por nivel)");
-            //((TextView) view.findViewById(R.id.critPorNivel)).setText(datos[15]);
             String mp=datos[16];
-            String [] mpName = new String [] {"Mana", "Energy", "BloodWell", "fury", "Heat", "Shield", "Ferocity", "Wind", "Rage"};
+            String [] mpName = getResources().getStringArray((R.array.tipoFuerza));
             boolean encontrado=false;
             for (int i=0; i<mpName.length && !encontrado; i++){
                 if (mp.equals(mpName[i]) || mp.contains(mpName[i])){
@@ -73,14 +65,9 @@ public class CampeonGeneral extends Fragment {
                 view.findViewById(R.id.regMana).setVisibility(View.GONE);
                 view.findViewById(R.id.imageView12).setVisibility(View.GONE);
             }
-
-            //((TextView) view.findViewById(R.id.tipoMP)).setText(datos[16]);
             ((TextView) view.findViewById(R.id.mana)).setText(datos[17] + "(+" + datos[18] + " por nivel)");
-            //((TextView) view.findViewById(R.id.manaPorNivel)).setText(datos[18]);
             ((TextView) view.findViewById(R.id.regMana)).setText(datos[19]+ "(+" + datos[20] + " por nivel)");
-            //((TextView) view.findViewById(R.id.regManaPorNivel)).setText(datos[20]);
             ((TextView) view.findViewById(R.id.resMagica)).setText(datos[21] + "(+" + datos[22] + " por nivel)");
-            //((TextView) view.findViewById(R.id.resMagicaPorNivel)).setText(datos[22]);
             ((TextView) view.findViewById(R.id.velMov)).setText(datos[23]);
             Picasso.with(getActivity()) //
                     .load(datos[24]) //
@@ -88,7 +75,6 @@ public class CampeonGeneral extends Fragment {
                     .error(R.drawable.error)
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }
-        // Inflate the layout for this fragment
         return view;
     }
 }

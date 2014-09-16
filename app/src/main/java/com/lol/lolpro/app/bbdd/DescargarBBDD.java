@@ -127,7 +127,7 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     }
 
     private void refreshUI() {
-        GridView grid = (GridView) contexto.findViewById(R.id.gridFreeChamps);
+        GridView grid = (GridView) contexto.findViewById(R.id.gridHabilidades);
         if (grid != null) {
             GridAdapterFreeChamps gA = (GridAdapterFreeChamps) grid.getAdapter();
             gA.refresh();

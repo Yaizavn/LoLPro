@@ -29,19 +29,14 @@ public class CampeonAspectos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_campeon_aspectos, container, false);
-        GridView grid = (GridView) view.findViewById(R.id.gridFreeChamps);
+        GridView grid = (GridView) view.findViewById(R.id.gridAspectos);
         Bundle args = getArguments();
-        int id = args.getInt("id", -1);
-        String[][] datos = (String[][]) args.getSerializable("skins");
-        datos[0][1] = args.getStringArray("data")[1];
-
-
+        String[][] skins = (String[][]) args.getSerializable("skins");
+        skins[0][1] = args.getStringArray("data")[1];
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-
-        grid.setAdapter(new GridAdapterSkins(getActivity(), datos, 0));
+        grid.setAdapter(new GridAdapterSkins(getActivity(), skins, 0));
         dbMan.closeDatabase(false);
-        // Inflate the layout for this fragment
         return view;
     }
 }

@@ -15,6 +15,7 @@
         <item>Campeones</item>
         <item>Objetos</item>
     </string-array>
+
     <string-array name="titulosCampeones">
         <item>General</item>
         <item>Historia</item>
@@ -26,6 +27,19 @@
         <item>General</item>
         <item>Árbol</item>
     </string-array>
+
+    <string-array name="tipoFuerza">
+        <item>Mana</item>
+        <item>Energy</item>
+        <item>BloodWell</item>
+        <item>fury</item>
+        <item>Heat</item>
+        <item>Shield</item>
+        <item>Ferocity</item>
+        <item>Wind</item>
+        <item>Rage</item>
+    </string-array>
+
     <string name="mapa_1">La Grieta del Invocador</string>
     <string name="mapa_8">La Cicatriz de Cristal</string>
     <string name="mapa_10">El Bosque Retorcido</string>

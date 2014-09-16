@@ -5,10 +5,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.lol.lolpro.app.utillidades.Constants;
+
 /**
  * Adaptador para mostrar los tabs campeón e historia de champion
  */
 public class CampeonPageAdapter extends FragmentStatePagerAdapter {
+    //TODO Hacer que no sea un número a capon
     private static final int numPages = 4;
     private Bundle argsCampeon;
 
@@ -34,16 +37,16 @@ public class CampeonPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment frg = null;
         switch (position) {
-            case 0:
+            case Constants.PG_GENERAL_CHAMPION:
                 frg = new CampeonGeneral();
                 break;
-            case 1:
+            case Constants.PG_HISTORY_CHAMPION:
                 frg = new CampeonHistoria();
                 break;
-            case 2:
+            case Constants.PG_SPELLS_CHAMPION:
                 frg = new CampeonHabilidades();
                 break;
-            case 3:
+            case Constants.PG_SKINS_CHAMPION:
                 frg = new CampeonAspectos();
                 break;
             default:

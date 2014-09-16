@@ -172,10 +172,11 @@ public class APIConnection {
         int i;
         switch (type) {
             case CHAMPIONS:
-                ArrayList <ArrayList <String>>vars= null;
-                ArrayList <String>datos = null;
-                String [] effects;
-                String [] tags;
+            case UPDATE_CHAMPIONS:
+                ArrayList<ArrayList<String>> vars = null;
+                ArrayList<String> datos = null;
+                String[] effects;
+                String[] tags;
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
                 rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
                 rutaImagenHabilidades = bdConnection.obtenerRutaHabilidadesCampeon(0);
@@ -192,10 +193,10 @@ public class APIConnection {
                 Matcher match5 = null;
                 while (match.find()) {
                     i = 1;
-                    bdConnection.guardarCampeones(Integer.parseInt(match.group(1)),
+                    bdConnection.insertarCampeon(Integer.parseInt(match.group(1)),
                             match.group(2), match.group(3),
                             match.group(4), match.group(7),
-                            match.group(18),match.group(19),
+                            match.group(18), match.group(19),
                             match.group(20), match.group(21),
                             match.group(11), match.group(12),
                             match.group(9), match.group(10),
@@ -205,45 +206,45 @@ public class APIConnection {
                             match.group(24), match.group(25),
                             match.group(25), match.group(27),
                             match.group(28), match.group(22),
-                            rutaImagen + match.group(5));
+                            rutaImagen + match.group(5), type == UPDATE_CHAMPIONS);
                     // Almacenamos las skins
-                    if(Integer.parseInt(match.group(1))==268){
+                    if (Integer.parseInt(match.group(1)) == 268) {
                         Utils.existsDB(context);
                     }
                     match2 = patt2.matcher(match.group(6));
                     while (match2.find()) {
-                        bdConnection.guardarAspectos(Integer.parseInt(match2.group(1)),
+                        bdConnection.insertarAspectoCampeon(Integer.parseInt(match2.group(1)),
                                 Integer.parseInt(match.group(1)), match2.group(2),
                                 Integer.parseInt(match2.group(3)),
                                 rutaImagenAspecto + match.group(2) + "_" +
-                                        Integer.parseInt(match2.group(3)) + ".jpg"
+                                        Integer.parseInt(match2.group(3)) + ".jpg", type == UPDATE_CHAMPIONS
                         );
                     }
                     // Almacenamos las habilidades y la pasiva
                     match3 = patt3.matcher(match.group(29));
                     while (match3.find()) {
-                        vars = new ArrayList <ArrayList <String>>();
+                        vars = new ArrayList<ArrayList<String>>();
                         effects = Utils.clearQuotes(match3.group(8)).split(",");
-                        if (match3.group(9)!= null) {
+                        if (match3.group(9) != null) {
                             match5 = patt5.matcher(match3.group(9));
                             while (match5.find()) {
-                                datos= new ArrayList<String>();
+                                datos = new ArrayList<String>();
                                 datos.add(TextUtils.htmlEncode(match5.group(1)));
-                                datos.add(Utils.sanitizeAttackSource (match5.group(3).replaceAll(",", "/"), TextUtils.htmlEncode(match5.group(2)), context));
+                                datos.add(Utils.sanitizeAttackSource(match5.group(3).replaceAll(",", "/"), TextUtils.htmlEncode(match5.group(2)), context));
                                 vars.add(datos);
                             }
                         }
-                        datos= new ArrayList<String>();
+                        datos = new ArrayList<String>();
                         datos.add("cost");
                         datos.add(TextUtils.htmlEncode(match3.group(6)));
                         vars.add(datos);
-                        for (int j=1; j<effects.length; j++){
-                            datos= new ArrayList<String>();
-                            datos.add("e"+j);
+                        for (int j = 1; j < effects.length; j++) {
+                            datos = new ArrayList<String>();
+                            datos.add("e" + j);
                             datos.add(effects[j]);
                             vars.add(datos);
                         }
-                        bdConnection.guardarHabilidades(Integer.parseInt(match.group(1)),
+                        bdConnection.insertarHabilidadCampeon(Integer.parseInt(match.group(1)),
                                 match3.group(1),
                                 match3.group(2),
                                 Utils.replaceVarsSpells(match3.group(3), vars),
@@ -252,12 +253,12 @@ public class APIConnection {
                                 rutaImagenHabilidades + match3.group(4),
                                 match3.group(7),
                                 i++,
-                                0
+                                0, type == UPDATE_CHAMPIONS
                         );
                     }
                     match4 = patt4.matcher(match.group(30));
                     while (match4.find()) {
-                        bdConnection.guardarHabilidades(Integer.parseInt(match.group(1)),
+                        bdConnection.insertarHabilidadCampeon(Integer.parseInt(match.group(1)),
                                 match4.group(1),
                                 match4.group(2),
                                 "",
@@ -266,22 +267,23 @@ public class APIConnection {
                                 rutaImagenHabilidadesPasivas + match4.group(3),
                                 "",
                                 0,
-                                1
+                                1, type == UPDATE_CHAMPIONS
                         );
                     }
 
                 }
                 break;
             case OBJECTS:
+            case UPDATE_OBJECTS:
                 // Cogemos los hyperTags del tree
                 patt = Patrones.PATTERN_TREE_ITEMS;
                 match = patt.matcher(answer);
-                Map<String, String> hyperTags = new HashMap<String,String>();
+                Map<String, String> hyperTags = new HashMap<String, String>();
                 String header;
                 while (match.find()) {
                     header = match.group(1);
                     tags = Utils.clearQuotes(match.group(2)).split(",");
-                    for (String tag : tags){
+                    for (String tag : tags) {
                         hyperTags.put(tag, header);
                     }
                 }
@@ -291,17 +293,20 @@ public class APIConnection {
                 patt = Patrones.PATTERN_ITEMS;
                 match = patt.matcher(answer);
                 while (match.find()) {
-                    bdConnection.guardarObjetos(Integer.parseInt(match.group(1)), match.group(2),
+                    bdConnection.insertarObjeto(Integer.parseInt(match.group(1)), match.group(2),
                             Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
                             Integer.parseInt(match.group(5)), match.group(6),
                             match.group(7), match.group(8), match.group(9),
                             match.group(10), match.group(11), match.group(12),
                             match.group(13), match.group(14),
-                            rutaImagen + match.group(17));
-                    if (match.group(15)!= null) {
+                            rutaImagen + match.group(17), type == UPDATE_OBJECTS);
+                    if (type == UPDATE_OBJECTS) {
+                        bdConnection.borrarTagsObjeto(Integer.parseInt(match.group(1)));
+                    }
+                    if (match.group(15) != null) {
                         tags = Utils.clearQuotes(match.group(15)).split(",");
-                        for(String tag : tags){
-                            bdConnection.guardarTagObjeto(Integer.parseInt(match.group(1)), tag, hyperTags.get(tag.toUpperCase()));
+                        for (String tag : tags) {
+                            bdConnection.insertarTagObjeto(Integer.parseInt(match.group(1)), tag, hyperTags.get(tag.toUpperCase()));
                         }
                     }
                 }
@@ -322,58 +327,8 @@ public class APIConnection {
                 while (match.find()) {
                     ids.add(Integer.parseInt(match.group(1)));
                 }
-                bdConnection.modificarGratuito(ids);
+                bdConnection.updateFreeChamps(ids);
                 break;
-            case UPDATE_CHAMPIONS:
-                rutaImagen = bdConnection.obtenerRutaVersionCampeon();
-                rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
-                patt = Patrones.PATTERN_CHAMPION;
-                match = patt.matcher(answer);
-                patt2 = Patrones.PATTERN_SKINS;
-                while (match.find()) {
-                    bdConnection.modificarCampeones(Integer.parseInt(match.group(1)),
-                            match.group(2), match.group(3),
-                            match.group(4), match.group(7),
-                            match.group(18), match.group(19),
-                            match.group(20), match.group(21),
-                            match.group(11), match.group(12),
-                            match.group(9), match.group(10),
-                            match.group(14), match.group(15),
-                            match.group(16), match.group(17),
-                            match.group(8), match.group(23),
-                            match.group(24), match.group(25),
-                            match.group(25), match.group(27),
-                            match.group(28), match.group(22),
-                            rutaImagen + match.group(5));
-                    match2 = patt2.matcher(match.group(6));
-                    while (match2.find()) {
-                        bdConnection.modificarAspectosCampeon(Integer.parseInt(match2.group(1)),
-                                Integer.parseInt(match.group(1)),
-                                match2.group(2),
-                                Integer.parseInt(match2.group(3)),
-                                rutaImagenAspecto + match.group(2) + "_" +
-                                        Integer.parseInt(match2.group(3)) + ".jpg"
-                        );
-                    }
-                }
-
-                Hacere modificarHabilidades....
-                break;
-            case UPDATE_OBJECTS:
-                rutaImagen = bdConnection.obtenerRutaVersionObjeto();
-                patt = Patrones.PATTERN_ITEMS;
-                match = patt.matcher(answer);
-                while (match.find()) {
-                    bdConnection.modificarObjetos(Integer.parseInt(match.group(1)), match.group(2),
-                            Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            Integer.parseInt(match.group(5)), match.group(6),
-                            match.group(7), match.group(8), match.group(9),
-                            match.group(10), match.group(11), match.group(12),
-                            match.group(13), match.group(14),
-                            rutaImagen + match.group(17));
-                }
-                break;
-
         }
     }
 
@@ -385,7 +340,7 @@ public class APIConnection {
         if (!versionAntiguaCampeon.equals(bdConnection.obtenerVersionCampeon()) || !versionAntiguaObjetos.equals(bdConnection.obtenerVersionObjeto())) {
             return true;
         }
-        return false;
+        return true;
     }
 
     public boolean hayNuevosGratuitos() {

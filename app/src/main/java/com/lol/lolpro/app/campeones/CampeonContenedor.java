@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lol.lolpro.app.Activity_General;
-import com.lol.lolpro.app.utillidades.Constants;
-import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.utillidades.Constants;
 
 
 /**
@@ -96,23 +96,15 @@ public class CampeonContenedor extends Fragment {
                 }
         );
         actionBar.removeAllTabs();
-        if (actionBar.getTabCount() >= numPages) {
-            for (int i = 0; i < numPages; i++) {
-                actionBar.getTabAt(i).setTabListener(tabListener);
-            }
-            actionBar.getTabAt(0).select();
-        } else {
-            // Add the tabs, specifying the tab's text and TabListener
-            for (int i = 0; i < numPages; i++) {
-                actionBar.addTab(
-                        actionBar.newTab()
-                                .setText(getResources().getStringArray(R.array.titulosCampeones)[i])
-                                .setTabListener(tabListener)
-                );
-            }
+        // Add the tabs, specifying the tab's text and TabListener
+        for (int i = 0; i < numPages; i++) {
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(getResources().getStringArray(R.array.titulosCampeones)[i])
+                            .setTabListener(tabListener)
+            );
         }
         dbMan.closeDatabase(false);
-        // Inflate the layout for this fragment
         return view;
     }
 

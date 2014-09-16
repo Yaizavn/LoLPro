@@ -14,6 +14,7 @@ import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.utillidades.Champion_callback;
+import com.lol.lolpro.app.utillidades.Constants;
 
 /**
  * Implementa la funcionalidad del fragment
@@ -40,9 +41,7 @@ public class CampeonesGlobal extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ((Activity_General) getActivity()).updateTitle(1);
-
+        ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_CHAMPION);
         return inflater.inflate(R.layout.fragment_campeones_global, container, false);
     }
 
@@ -71,13 +70,10 @@ public class CampeonesGlobal extends Fragment {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        GridView grid = (GridView) view.findViewById(R.id.gridFreeChamps);
-
+        GridView grid = (GridView) view.findViewById(R.id.gridCampeonesGlobal);
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-
-        grid.setAdapter(new GridAdapterCampeonGlobal(getActivity(), dbMan.getDatabaseHelper().obtenerRutaCampeones(), 100));
-
+        grid.setAdapter(new GridAdapterCampeonGlobal(getActivity(), dbMan.getDatabaseHelper().obtenerNombreRutaCampeones()));
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity

@@ -20,6 +20,11 @@ public class Constants {
     public static final int DB_DOWNLOAD = 1;
     public static final int DB_UPDATE = 2;
 
+    public static final int PG_GENERAL_CHAMPION = 0;
+    public static final int PG_HISTORY_CHAMPION = 1;
+    public static final int PG_SPELLS_CHAMPION = 2;
+    public static final int PG_SKINS_CHAMPION = 3;
+
     private Constants() {
     }
 }

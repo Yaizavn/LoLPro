@@ -55,13 +55,13 @@ public class ObjetoContenedor extends Fragment {
         String[] datos=dbMan.getDatabaseHelper().obtenerDatosObjetos(args.getInt("id", Constants.INVALID_ID));
         args.putStringArray("data", datos);
         if (datos[12]!=null) {
-            args.putSerializable("campeonReq", dbMan.getDatabaseHelper().obtenerRutaCampeones(Integer.parseInt(datos[12])));
+            args.putSerializable("campeonReq", dbMan.getDatabaseHelper().obtenerNombreRutaCampeon(Integer.parseInt(datos[12])));
         }
         if (!datos[9].isEmpty()){
-            args.putSerializable("dataFrom", dbMan.getDatabaseHelper().obtenerRutaObjetos(datos[9].split(",")));
+            args.putSerializable("dataFrom", dbMan.getDatabaseHelper().obtenerNombreRutaObjetos(datos[9].split(",")));
         }
         if (!datos[10].isEmpty()){
-            args.putSerializable("dataInto", dbMan.getDatabaseHelper().obtenerRutaObjetos(datos[10].split(",")));
+            args.putSerializable("dataInto", dbMan.getDatabaseHelper().obtenerNombreRutaObjetos(datos[10].split(",")));
         }
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

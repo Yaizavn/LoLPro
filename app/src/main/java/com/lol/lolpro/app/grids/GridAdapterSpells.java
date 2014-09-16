@@ -21,7 +21,6 @@ import com.squareup.picasso.Picasso;
 public class GridAdapterSpells extends BaseAdapter {
 
     private final Context context;
-    private int finalDP;
     private String[][] data;
 
     /**
@@ -29,12 +28,10 @@ public class GridAdapterSpells extends BaseAdapter {
      *
      * @param context   recibe el activity al que está asociado el fragment
      * @param allData      datos de los campeones o los objetos
-     * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapterSpells(Context context, String[][] allData, int desiredDP) {
+    public GridAdapterSpells(Context context, String[][] allData) {
         this.context = context;
         data = allData;
-        finalDP = desiredDP;
     }
 
     /**
@@ -49,9 +46,6 @@ public class GridAdapterSpells extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view = convertView;
-        //Convert dp into px
-        int px = (int) Utils.dipToPixels(context, finalDP);
-
         if (view == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             view = inflater.inflate(R.layout.cell_spells, parent, false);

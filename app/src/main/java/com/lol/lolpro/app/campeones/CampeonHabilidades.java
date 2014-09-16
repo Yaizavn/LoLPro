@@ -13,37 +13,27 @@ import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterSpells;
 import com.lol.lolpro.app.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  *
  */
 public class CampeonHabilidades extends Fragment {
 
-
     public CampeonHabilidades() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_campeon_habilidades, container, false);
-
-        GridView grid = (GridView) view.findViewById(R.id.gridFreeChamps);
+        GridView grid = (GridView) view.findViewById(R.id.gridHabilidades);
         Bundle args = getArguments();
-        int id = args.getInt("id", -1);
-        String[][] datos = (String[][]) args.getSerializable("spells");
-
+        String[][] spells = (String[][]) args.getSerializable("spells");
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-
-        grid.setAdapter(new GridAdapterSpells(getActivity(), datos, 0));
+        grid.setAdapter(new GridAdapterSpells(getActivity(), spells));
         dbMan.closeDatabase(false);
-        // Inflate the layout for this fragment
         return view;
     }
-
-
 }

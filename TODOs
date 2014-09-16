@@ -41,3 +41,17 @@ Update problematico. Si meten un campeon nuevo se hace UPDATE---> debería ser i
     Si bajas de version hay que borrar los campeones que no estuvieran
 
 Para los tags de campeones, al no tener un tree de tags, usar distinct sobre la tabla tagsCampeones
+
+SUbir y bajar de version automáticamente!! Tabla de versiones??
+
+Hay cosas nuevas en el api, el estado de los servidores y los idiomas para el locale (en lol status)
+
+//ViewHolder
+
+¿¿CANSADO DE REPETIR EL CURSOR?
+Cursor a= mDatabase.rawQuery("Select * FROM aspectos WHERE idCampeon=121", null);
+String b="";
+while (a.moveToNext()){
+    b=b + "    "+ a.getString(2);
+}
+b=b;
