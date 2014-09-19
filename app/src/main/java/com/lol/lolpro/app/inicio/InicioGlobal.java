@@ -83,7 +83,6 @@ public class InicioGlobal extends Fragment {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (id == R.id.action_data_refresh || id == R.id.action_image_refresh) {
             if (!Utils.hasInternetConnection(getActivity())){
                 Toast.makeText(getActivity(), getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
@@ -124,11 +123,9 @@ public class InicioGlobal extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         GridView grid = (GridView) view.findViewById(R.id.gridInicio);
         ListView list = (ListView) view.findViewById(R.id.noticias);
-        grid.setNumColumns(4);
-
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        grid.setAdapter(new GridAdapterFreeChamps(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos(), 75));
+        grid.setAdapter(new GridAdapterFreeChamps(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos()));
         list.setAdapter(new ListAdapterNoticias(getActivity()));
         if(Utils.hasInternetConnection(getActivity())){
             ((ListAdapterNoticias) list.getAdapter()).refresh();
@@ -137,7 +134,6 @@ public class InicioGlobal extends Fragment {
             list.setVisibility(View.INVISIBLE);
             view.findViewById(R.id.textNoticias).setVisibility(View.INVISIBLE);
         }
-
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity

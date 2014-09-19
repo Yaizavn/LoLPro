@@ -12,6 +12,7 @@ import android.widget.GridView;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterSpells;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Constants;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +33,7 @@ public class CampeonHabilidades extends Fragment {
         String[][] spells = (String[][]) args.getSerializable("spells");
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        grid.setAdapter(new GridAdapterSpells(getActivity(), spells));
+        grid.setAdapter(new GridAdapterSpells(getActivity(), spells, args.getInt("id", Constants.INVALID_ID)));
         dbMan.closeDatabase(false);
         return view;
     }

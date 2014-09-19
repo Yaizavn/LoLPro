@@ -1,6 +1,8 @@
 package com.lol.lolpro.app.grids;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,7 +20,6 @@ import com.squareup.picasso.Picasso;
 public class GridAdapterFreeChamps extends BaseAdapter {
 
     private final Context context;
-    private int finalDP;
     private String[][] data;
 
     /**
@@ -26,12 +27,10 @@ public class GridAdapterFreeChamps extends BaseAdapter {
      *
      * @param context   recibe el activity al que está asociado el fragment
      * @param allData      datos de los campeones o los objetos
-     * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapterFreeChamps(Context context, String[][] allData, int desiredDP) {
+    public GridAdapterFreeChamps(Context context, String[][] allData) {
         this.context = context;
         data = allData;
-        finalDP = desiredDP;
     }
 
     /**
@@ -44,30 +43,19 @@ public class GridAdapterFreeChamps extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        //Convert dp into px
-        int px = (int) Utils.dipToPixels(context, finalDP);
-
         if (convertView == null) {
-            convertView = new ImageView(context);
-            convertView.setMinimumWidth(px);
-            convertView.setMinimumHeight(px);
-            //view.setScaleType(CENTER_CROP);
+            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            convertView = inflater.inflate(R.layout.cell_image, parent, false);
         }
-
         convertView.setTag(getId(position));
-
         // Get the image URL for the current position.
         String url = getItem(position);
-
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
                 .load(url) //
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
-                .resize(px, px)
-                .centerCrop()// Keep proportion
-                .into((ImageView) convertView);
+                .into((ImageView) convertView.findViewById(R.id.item_image));
         return convertView;
     }
 

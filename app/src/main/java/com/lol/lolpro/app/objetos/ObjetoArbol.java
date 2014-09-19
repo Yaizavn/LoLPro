@@ -52,7 +52,7 @@ public class ObjetoArbol extends Fragment {
             view.findViewById(R.id.textNoFrom).setVisibility(View.GONE);
             view.findViewById(R.id.gridViewFrom).setVisibility(View.VISIBLE);
 
-            grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosFrom, 100));
+            grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosFrom));
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
                     //Send the event to the host activity
@@ -69,7 +69,7 @@ public class ObjetoArbol extends Fragment {
             view.findViewById(R.id.textNoInto).setVisibility(View.GONE);
             view.findViewById(R.id.gridViewInto).setVisibility(View.VISIBLE);
 
-            grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosInto, 100));
+            grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosInto));
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
                     //Send the event to the host activity
@@ -94,8 +94,7 @@ public class ObjetoArbol extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_objeto_arbol, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_objeto_arbol, container, false);
     }
 
     /**

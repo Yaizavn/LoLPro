@@ -25,6 +25,9 @@ public class Constants {
     public static final int PG_SPELLS_CHAMPION = 2;
     public static final int PG_SKINS_CHAMPION = 3;
 
+    public static final int PASSIVE_NO = 0;
+    public static final int PASSIVE_YES = 1;
+
     private Constants() {
     }
 }

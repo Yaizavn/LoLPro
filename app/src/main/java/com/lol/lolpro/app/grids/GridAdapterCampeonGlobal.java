@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.utillidades.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -43,26 +44,21 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        View view = convertView;
-        if (view == null) {
+        if (convertView == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            view = inflater.inflate(R.layout.cell_image_name_champion, parent, false);
+            convertView = inflater.inflate(R.layout.cell_image_name_champion, parent, false);
         }
-
-        view.setTag(getId(position));
-
+        convertView.setTag(getId(position));
         // Get the image URL for the current position.
         String url = getItem(position);
-
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
                 .load(url) //
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
-                .into((ImageView) view.findViewById(R.id.item_image));
-        ((TextView) view.findViewById(R.id.item_text)).setText(data[position][1]);
-        return view;
+                .into((ImageView) convertView.findViewById(R.id.item_image));
+        ((TextView) convertView.findViewById(R.id.item_text)).setText(data[position][1]);
+        return convertView;
     }
 
     /**
@@ -111,11 +107,10 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
      * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
      */
     public void refresh(){
-        /*TODO
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        data = dbMan.getDatabaseHelper().obtenerGratuitos();
-        dbMan.closeDatabase(false);*/
+        data = dbMan.getDatabaseHelper().obtenerNombreRutaCampeones();
+        dbMan.closeDatabase(false);
         notifyDataSetChanged();
     }
 }

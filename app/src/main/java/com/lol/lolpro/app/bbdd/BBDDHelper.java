@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
 import java.util.ArrayList;
@@ -442,7 +443,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         Cursor cursor = mReadOnlyDatabase.query("rutaVersiones", columns, null, null, null, null, null);
         String result = "";
         if (cursor.moveToNext()) {
-            if (esPasiva==1) {
+            if (esPasiva== Constants.PASSIVE_YES) {
                 result += Html.fromHtml(cursor.getString(0)).toString() + "/" + Html.fromHtml(cursor.getString(1)).toString() + "/img/passive/";
             }
            else {

@@ -21,20 +21,19 @@ import com.squareup.picasso.Picasso;
 public class GridAdapterSkins extends BaseAdapter {
 
     private final Context context;
-    private int finalDP;
     private String[][] data;
+    private int idCampeon;
 
     /**
      * Constructor
      *
      * @param context   recibe el activity al que está asociado el fragment
      * @param allData      datos de los campeones o los objetos
-     * @param desiredDP Dp que tendrán las imágenes
      */
-    public GridAdapterSkins(Context context, String[][] allData, int desiredDP) {
+    public GridAdapterSkins(Context context, String[][] allData, int id) {
         this.context = context;
         data = allData;
-        finalDP = desiredDP;
+        idCampeon = id;
     }
 
     /**
@@ -47,29 +46,21 @@ public class GridAdapterSkins extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        View view = convertView;
-        //Convert dp into px
-        int px = (int) Utils.dipToPixels(context, finalDP);
-
-        if (view == null) {
+        if (convertView == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            view = inflater.inflate(R.layout.cell_skins, parent, false);
+            convertView = inflater.inflate(R.layout.cell_skins, parent, false);
         }
-
-        view.setTag(getId(position));
-
+        convertView.setTag(getId(position));
         // Get the image URL for the current position.
         String url = getItem(position);
-
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
                 .load(url) //
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
-                .into((ImageView) view.findViewById(R.id.item_image));
-        ((TextView) view.findViewById(R.id.item_text)).setText(data[position][1]);
-        return view;
+                .into((ImageView) convertView.findViewById(R.id.item_image));
+        ((TextView) convertView.findViewById(R.id.item_text)).setText(data[position][1]);
+        return convertView;
     }
 
     /**
@@ -118,11 +109,10 @@ public class GridAdapterSkins extends BaseAdapter {
      * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
      */
     public void refresh(){
-        /*TODO
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        data = dbMan.getDatabaseHelper().obtenerGratuitos();
-        dbMan.closeDatabase(false);*/
+        data = dbMan.getDatabaseHelper().obtenerAspectosCampeon(idCampeon);
+        dbMan.closeDatabase(false);
         notifyDataSetChanged();
     }
 }

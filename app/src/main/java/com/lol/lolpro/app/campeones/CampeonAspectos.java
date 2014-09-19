@@ -12,6 +12,7 @@ import android.widget.GridView;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterSkins;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.utillidades.Constants;
 
 
 /**
@@ -35,7 +36,7 @@ public class CampeonAspectos extends Fragment {
         skins[0][1] = args.getStringArray("data")[1];
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        grid.setAdapter(new GridAdapterSkins(getActivity(), skins, 0));
+        grid.setAdapter(new GridAdapterSkins(getActivity(), skins, args.getInt("id", Constants.INVALID_ID)));
         dbMan.closeDatabase(false);
         return view;
     }

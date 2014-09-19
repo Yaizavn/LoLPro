@@ -76,7 +76,7 @@ public class ObjetosGlobal extends Fragment {
         dbMan.openDatabase(false);
 
         GridView grid = (GridView) view.findViewById(R.id.gridObjetosGlobal);
-        grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), dbMan.getDatabaseHelper().obtenerNombreRutaObjetos(), 100));
+        grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), dbMan.getDatabaseHelper().obtenerNombreRutaObjetos()));
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity

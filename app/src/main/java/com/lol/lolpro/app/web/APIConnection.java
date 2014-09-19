@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.lol.lolpro.app.bbdd.BBDDHelper;
 import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
 import java.io.IOException;
@@ -43,12 +44,12 @@ public class APIConnection {
     private static final String CERT_NAME = "lolcert.pem";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
-    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells";
-    private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=all";
+    private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells&";
+    private static final String ITEM_URI = "static-data/euw/v1.2/item?locale=es_ES&itemListData=all&";
     private static final String METADATA_URI = "static-data/euw/v1.2/realm?";
     private static final String CHAMPION_FREE_URI = "euw/v1.2/champion?freeToPlay=true&";
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";
-    private static final String VERSION = "&version=4.16.1&";
+    private static final String VERSION_HEADER = "&version=";
 
     private static final String CERT_ALIAS = "LOLCert";
 
@@ -87,11 +88,11 @@ public class APIConnection {
         switch (type) {
             case CHAMPIONS:
             case UPDATE_CHAMPIONS:
-                url = url.append(GLOBAL_URI).append(CHAMPION_URI).append(VERSION).append(API_KEY);
+                url = url.append(GLOBAL_URI).append(CHAMPION_URI).append(API_KEY);
                 break;
             case OBJECTS:
             case UPDATE_OBJECTS:
-                url = url.append(GLOBAL_URI).append(ITEM_URI).append(VERSION).append(API_KEY);
+                url = url.append(GLOBAL_URI).append(ITEM_URI).append(API_KEY);
                 break;
             case IMAGES_AND_VERSIONS:
                 url = url.append(GLOBAL_URI).append(METADATA_URI).append(API_KEY);
@@ -104,9 +105,16 @@ public class APIConnection {
             URI uri = new URI(url.toString());
             return uri;
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
+    }
+
+    private URI createURI(int type, String version){
+        try {
+            return new URI(new StringBuffer(createURI(type).toString()).append(VERSION_HEADER).append(version).toString());
+        } catch (URISyntaxException e) {
+            return null;
+        }
     }
 
     private boolean hasCert() {
@@ -121,47 +129,38 @@ public class APIConnection {
     private boolean insertCert() {
         try {
             CertificateFactory certFact = CertificateFactory.getInstance("X.509");
-            InputStream caInput = (InputStream) context.getAssets().open(APIConnection.CERT_NAME);
+            InputStream caInput = context.getAssets().open(APIConnection.CERT_NAME);
             Certificate cert;
             try {
                 cert = certFact.generateCertificate(caInput);
             } finally {
                 caInput.close();
             }
-
             // Create a KeyStore containing our trusted CAs
             keyStore.setCertificateEntry(CERT_ALIAS, cert);
-
             // Create a TrustManager that trusts the CAs in our KeyStore
             tmf.init(keyStore);
-
             // Create an SSLContext that uses our TrustManager
             sslCont = SSLContext.getInstance("TLS");
             sslCont.init(null, tmf.getTrustManagers(), null);
-
             return true;
         } catch (Exception e) {
             Log.e("error", "Error al validar el certificado del servidor");
-            e.printStackTrace();
             return false;
         }
     }
 
     //Definir varios casos, campeones, ofertas...
-    public String connect2API(int type) {
-        String respuesta = null;
+    public void connect2API(int type) {
         URI uriConsulta = createURI(type);
         if (uriConsulta != null) {
             if (!hasCert()) {
                 insertCert();
             }
-            ConnectionResult resultado = new ConnectionResult(sslCont);
-            respuesta = resultado.getHttpsResult(uriConsulta);
+            String respuesta = new ConnectionResult(sslCont).getHttpsResult(uriConsulta);
             extractAndStoreData(respuesta, type);
         }
-        return respuesta;
     }
-
     public void extractAndStoreData(String answer, int type) {
         Pattern patt = null;
         Matcher match = null;
@@ -179,8 +178,8 @@ public class APIConnection {
                 String[] tags;
                 rutaImagen = bdConnection.obtenerRutaVersionCampeon();
                 rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
-                rutaImagenHabilidades = bdConnection.obtenerRutaHabilidadesCampeon(0);
-                rutaImagenHabilidadesPasivas = bdConnection.obtenerRutaHabilidadesCampeon(1);
+                rutaImagenHabilidades = bdConnection.obtenerRutaHabilidadesCampeon(Constants.PASSIVE_NO);
+                rutaImagenHabilidadesPasivas = bdConnection.obtenerRutaHabilidadesCampeon(Constants.PASSIVE_YES);
                 patt = Patrones.PATTERN_CHAMPION;
                 match = patt.matcher(answer);
                 Pattern patt2 = Patrones.PATTERN_SKINS;
@@ -208,17 +207,13 @@ public class APIConnection {
                             match.group(28), match.group(22),
                             rutaImagen + match.group(5), type == UPDATE_CHAMPIONS);
                     // Almacenamos las skins
-                    if (Integer.parseInt(match.group(1)) == 268) {
-                        Utils.existsDB(context);
-                    }
                     match2 = patt2.matcher(match.group(6));
                     while (match2.find()) {
                         bdConnection.insertarAspectoCampeon(Integer.parseInt(match2.group(1)),
                                 Integer.parseInt(match.group(1)), match2.group(2),
                                 Integer.parseInt(match2.group(3)),
                                 rutaImagenAspecto + match.group(2) + "_" +
-                                        Integer.parseInt(match2.group(3)) + ".jpg", type == UPDATE_CHAMPIONS
-                        );
+                                Integer.parseInt(match2.group(3)) + ".jpg", type == UPDATE_CHAMPIONS);
                     }
                     // Almacenamos las habilidades y la pasiva
                     match3 = patt3.matcher(match.group(29));
@@ -335,12 +330,11 @@ public class APIConnection {
     public boolean hayNuevaVersion() {
         String versionAntiguaCampeon = bdConnection.obtenerVersionCampeon();
         String versionAntiguaObjetos = bdConnection.obtenerVersionObjeto();
-
         connect2API(APIConnection.IMAGES_AND_VERSIONS);
         if (!versionAntiguaCampeon.equals(bdConnection.obtenerVersionCampeon()) || !versionAntiguaObjetos.equals(bdConnection.obtenerVersionObjeto())) {
             return true;
         }
-        return true;
+        return false;
     }
 
     public boolean hayNuevosGratuitos() {

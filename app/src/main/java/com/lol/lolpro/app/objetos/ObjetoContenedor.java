@@ -52,17 +52,18 @@ public class ObjetoContenedor extends Fragment {
         dbMan.openDatabase(false);
 
         Bundle args = getArguments();
-        String[] datos=dbMan.getDatabaseHelper().obtenerDatosObjetos(args.getInt("id", Constants.INVALID_ID));
+        String[] datos = dbMan.getDatabaseHelper().obtenerDatosObjetos(args.getInt("id", Constants.INVALID_ID));
         args.putStringArray("data", datos);
-        if (datos[12]!=null) {
+        if (datos[12] != null) {
             args.putSerializable("campeonReq", dbMan.getDatabaseHelper().obtenerNombreRutaCampeon(Integer.parseInt(datos[12])));
         }
-        if (!datos[9].isEmpty()){
+        if (!datos[9].isEmpty()) {
             args.putSerializable("dataFrom", dbMan.getDatabaseHelper().obtenerNombreRutaObjetos(datos[9].split(",")));
         }
-        if (!datos[10].isEmpty()){
+        if (!datos[10].isEmpty()) {
             args.putSerializable("dataInto", dbMan.getDatabaseHelper().obtenerNombreRutaObjetos(datos[10].split(",")));
         }
+        dbMan.closeDatabase(false);
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ObjetoPageAdapter(getChildFragmentManager(), args);
@@ -98,23 +99,14 @@ public class ObjetoContenedor extends Fragment {
                 }
         );
         actionBar.removeAllTabs();
-        if (actionBar.getTabCount() >= numPages) {
-            for (int i = 0; i < numPages; i++) {
-                actionBar.getTabAt(i).setTabListener(tabListener);
-            }
-            actionBar.getTabAt(0).select();
-        } else {
-            // Add the tabs, specifying the tab's text and TabListener
-            for (int i = 0; i < numPages; i++) {
-                actionBar.addTab(
-                        actionBar.newTab()
-                                .setText(getResources().getStringArray(R.array.titulosObjetos)[i])
-                                .setTabListener(tabListener)
-                );
-            }
+        // Add the tabs, specifying the tab's text and TabListener
+        for (int i = 0; i < numPages; i++) {
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(getResources().getStringArray(R.array.titulosObjetos)[i])
+                            .setTabListener(tabListener)
+            );
         }
-        dbMan.closeDatabase(false);
-        // Inflate the layout for this fragment
         return view;
     }
 

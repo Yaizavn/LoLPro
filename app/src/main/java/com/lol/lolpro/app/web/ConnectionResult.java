@@ -41,9 +41,7 @@ public class ConnectionResult {
             urlConnection.disconnect();
             return sb.toString();
         } catch (Exception e) {
-            Log.e("error", "Error al conectarse a la API");
-            //TODO comprobar si disponemos de conexion a internet
-            e.printStackTrace();
+            Log.e("error", "Error al conectarse al API");
         }
         return "";
     }

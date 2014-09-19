@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lol.lolpro.app.campeones.CampeonesGlobal;
+import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
 import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.utillidades.Champion_callback;
@@ -25,7 +26,6 @@ import com.squareup.picasso.Picasso;
 public class ObjetoGeneral extends Fragment {
 
     Champion_callback mCallback = null;
-
 
     /**
      * Constructor vacío
@@ -48,7 +48,6 @@ public class ObjetoGeneral extends Fragment {
         View view = inflater.inflate(R.layout.fragment_objeto_general, container, false);
         Bundle args = getArguments();
         String[] datos = args.getStringArray("data");
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources().getDisplayMetrics());
         if (datos != null) {
             String tienda = view.getResources().getString(R.string.si);
             if (datos[4].contentEquals("0")) {
@@ -71,7 +70,6 @@ public class ObjetoGeneral extends Fragment {
                     .error(R.drawable.error)
                     .into((ImageView) view.findViewById(R.id.Imagen));
         }
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -101,7 +99,7 @@ public class ObjetoGeneral extends Fragment {
         if (datos!=null) {
             view.findViewById(R.id.TextoCampeonesPermitidos).setVisibility(View.VISIBLE);
             view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.VISIBLE);
-            grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datos, 100));
+            grid.setAdapter(new GridAdapterCampeonGlobal(getActivity(), datos));
 
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {

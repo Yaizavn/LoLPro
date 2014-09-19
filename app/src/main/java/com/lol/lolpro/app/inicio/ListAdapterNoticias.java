@@ -28,7 +28,6 @@ public class ListAdapterNoticias extends BaseAdapter {
      */
     public ListAdapterNoticias(Context context) {
         this.context = context;
-        news = new String[0][0];
     }
 
     /**
@@ -62,7 +61,7 @@ public class ListAdapterNoticias extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return news.length;
+        return news!=null? news.length : 0;
     }
 
     /**

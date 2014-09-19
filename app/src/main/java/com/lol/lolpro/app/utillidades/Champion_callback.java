@@ -10,5 +10,4 @@ public interface Champion_callback {
      * @param index Posición del campeón seleccionado
      */
     public void onChampionSelected(int index);
-
 }

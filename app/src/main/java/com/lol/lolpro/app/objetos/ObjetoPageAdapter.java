@@ -26,7 +26,6 @@ public class ObjetoPageAdapter extends FragmentStatePagerAdapter {
     public ObjetoPageAdapter(FragmentManager fm, Bundle args) {
         super(fm);
         argsObjeto = args;
-        notifyDataSetChanged();
     }
 
     /**

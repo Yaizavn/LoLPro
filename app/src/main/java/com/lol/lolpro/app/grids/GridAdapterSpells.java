@@ -9,9 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
-import com.lol.lolpro.app.utillidades.Utils;
+import com.lol.lolpro.app.bbdd.DBManager;
 import com.squareup.picasso.Picasso;
 
 
@@ -22,16 +21,18 @@ public class GridAdapterSpells extends BaseAdapter {
 
     private final Context context;
     private String[][] data;
+    private int idCampeon;
 
     /**
      * Constructor
      *
-     * @param context   recibe el activity al que está asociado el fragment
-     * @param allData      datos de los campeones o los objetos
+     * @param context recibe el activity al que está asociado el fragment
+     * @param allData datos de los campeones o los objetos
      */
-    public GridAdapterSpells(Context context, String[][] allData) {
+    public GridAdapterSpells(Context context, String[][] allData, int id) {
         this.context = context;
         data = allData;
+        idCampeon = id;
     }
 
     /**
@@ -44,57 +45,46 @@ public class GridAdapterSpells extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        View view = convertView;
-        if (view == null) {
+        if (convertView == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            view = inflater.inflate(R.layout.cell_spells, parent, false);
+            convertView = inflater.inflate(R.layout.cell_spells, parent, false);
         }
-
         if (data != null) {
-            ((TextView) view.findViewById(R.id.nombre)).setText(data[position][0]);
-            ((TextView) view.findViewById(R.id.descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
-            if (Integer.parseInt(data[position][7]) == 0){
-                view.findViewById(R.id.alcance).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.coste).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.enfriamiento).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.textAlcance).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.textCoste).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.textEnfriamiento).setVisibility(View.VISIBLE);
-                if(data[position][3].equals("self")){
-                    ((TextView) view.findViewById(R.id.alcance)).setText(context.getResources().getString(R.string.alcance_propio));
+            ((TextView) convertView.findViewById(R.id.nombre)).setText(data[position][0]);
+            ((TextView) convertView.findViewById(R.id.descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
+            if (Integer.parseInt(data[position][7]) == 0) {
+                convertView.findViewById(R.id.alcance).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.coste).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.enfriamiento).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.textAlcance).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.textCoste).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.textEnfriamiento).setVisibility(View.VISIBLE);
+                if (data[position][3].equals("self")) {
+                    ((TextView) convertView.findViewById(R.id.alcance)).setText(context.getResources().getString(R.string.alcance_propio));
+                } else {
+                    ((TextView) convertView.findViewById(R.id.alcance)).setText(data[position][3]);
                 }
-                else {
-                    ((TextView) view.findViewById(R.id.alcance)).setText(data[position][3]);
-                }
-                ((TextView) view.findViewById(R.id.coste)).setText(data[position][4]);
-
-                ((TextView) view.findViewById(R.id.enfriamiento)).setText(data[position][5] +" "+ context.getResources().getString(R.string.segundos));
+                ((TextView) convertView.findViewById(R.id.coste)).setText(data[position][4]);
+                ((TextView) convertView.findViewById(R.id.enfriamiento)).setText(data[position][5] + " " + context.getResources().getString(R.string.segundos));
+            } else {
+                convertView.findViewById(R.id.alcance).setVisibility(View.GONE);
+                convertView.findViewById(R.id.coste).setVisibility(View.GONE);
+                convertView.findViewById(R.id.enfriamiento).setVisibility(View.GONE);
+                convertView.findViewById(R.id.textAlcance).setVisibility(View.GONE);
+                convertView.findViewById(R.id.textCoste).setVisibility(View.GONE);
+                convertView.findViewById(R.id.textEnfriamiento).setVisibility(View.GONE);
             }
-            else {
-                view.findViewById(R.id.alcance).setVisibility(View.GONE);
-                view.findViewById(R.id.coste).setVisibility(View.GONE);
-                view.findViewById(R.id.enfriamiento).setVisibility(View.GONE);
-                view.findViewById(R.id.textAlcance).setVisibility(View.GONE);
-                view.findViewById(R.id.textCoste).setVisibility(View.GONE);
-                view.findViewById(R.id.textEnfriamiento).setVisibility(View.GONE);
-            }
-
             // Get the image URL for the current position.
             String url = getItem(position);
-
             // Trigger the download of the URL asynchronously into the image view.
             Picasso.with(context) //
                     .load(url) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
-                    .into((ImageView) view.findViewById(R.id.Imagen));
+                    .into((ImageView) convertView.findViewById(R.id.Imagen));
         }
-
-        view.setTag(getId(position));
-
-
-        return view;
+        convertView.setTag(getId(position));
+        return convertView;
     }
 
     /**
@@ -142,12 +132,11 @@ public class GridAdapterSpells extends BaseAdapter {
     /**
      * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
      */
-    public void refresh(){
-        /*TODO
+    public void refresh() {
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        data = dbMan.getDatabaseHelper().obtenerGratuitos();
-        dbMan.closeDatabase(false);*/
+        data = dbMan.getDatabaseHelper().obtenerHabilidadesCampeon(idCampeon);
+        dbMan.closeDatabase(false);
         notifyDataSetChanged();
     }
 }
