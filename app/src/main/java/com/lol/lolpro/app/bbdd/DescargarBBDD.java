@@ -1,8 +1,11 @@
 package com.lol.lolpro.app.bbdd;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.GridView;
 
 import com.lol.lolpro.app.R;
@@ -16,10 +19,12 @@ import com.lol.lolpro.app.web.APIConnection;
  */
 public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
 
-    ProgressDialog progress;
-    ActionBarActivity contexto;
+    //ProgressDialog progress;
+    Activity activ;
+    Context appContext;
     APIConnection api;
     int accion = Constants.DB_DONOTHING;
+    dFragment dFragment;
     boolean hayNuevosGratuitos = false, hayNuevaVersion = false;
 
     /**
@@ -27,22 +32,23 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      *
      * @param context Recibe el activity principal
      */
-    public DescargarBBDD(ActionBarActivity context) {
-        contexto = context;
-        progress = new ProgressDialog(contexto);
+    public DescargarBBDD(Activity context) {
+        activ = context;
+        appContext = context.getApplicationContext();
+       // progress = new ProgressDialog(contexto);
     }
 
     /**
      * Se encarga del tratamiento necesario antes de comenzar la tarea asíncrona, en este caso de indicarle a la tarea asíncrona si debe crear la base de datos o solo actualizarla
      */
     public void onPreExecute() {
-        if (!Utils.existsDB(contexto)) {
+        if (!Utils.existsDB(appContext)) {
             accion = Constants.DB_DOWNLOAD;
         } else {
             accion = Constants.DB_UPDATE;
         }
-        api = new APIConnection(contexto);
-        inicializarDialog();
+        api = new APIConnection(appContext);
+        //inicializarDialog();
     }
 
     /**
@@ -73,7 +79,7 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      */
     @Override
     protected void onProgressUpdate(Integer... integers) {
-        progress.setProgress(integers[0]);
+        dFragment.updateProgress(integers[0]);
     }
 
     /**
@@ -84,24 +90,12 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     public void onPostExecute(Void unused) {
         if (accion != Constants.DB_DONOTHING) {
             api.closeAPI();
-            progress.dismiss();
+            //progress.dismiss();
             if (accion == Constants.DB_DOWNLOAD || hayNuevosGratuitos || hayNuevaVersion) {
                 refreshUI();
             }
         }
-    }
-
-    /**
-     * Se encarga de mostrar una barra de progreso para indicar al usuario como va la descarga de datos
-     */
-    public void inicializarDialog() {
-        progress.setCanceledOnTouchOutside(false);
-        progress.setTitle(contexto.getResources().getString(R.string.actualizando));
-        progress.setMessage(contexto.getResources().getString(R.string.descargando));
-        progress.setMax(100);
-        progress.setProgress(0);
-        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progress.show();
+        dFragment.taskFinished();
     }
 
     /**
@@ -127,10 +121,13 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     }
 
     private void refreshUI() {
-        GridView grid = (GridView) contexto.findViewById(R.id.gridInicio);
+        GridView grid = (GridView) activ.findViewById(R.id.gridInicio);
         if (grid != null) {
             GridAdapterFreeChamps gA = (GridAdapterFreeChamps) grid.getAdapter();
             gA.refresh();
         }
+    }
+    public void setFragment(dFragment df){
+        dFragment = df;
     }
 }

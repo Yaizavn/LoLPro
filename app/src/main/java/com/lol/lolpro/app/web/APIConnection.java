@@ -9,8 +9,11 @@ import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.KeyStore;
@@ -341,7 +344,7 @@ public class APIConnection {
         String[][] campeonesAntiguosGratuitos = bdConnection.obtenerGratuitos();
         connect2API(APIConnection.CHAMPION_FREE);
         String[][] campeonesNuevosGratuitos = bdConnection.obtenerGratuitos();
-        return Arrays.equals(campeonesAntiguosGratuitos, campeonesNuevosGratuitos);
+        return !Arrays.equals(campeonesAntiguosGratuitos, campeonesNuevosGratuitos);
     }
 
     public void closeAPI() {

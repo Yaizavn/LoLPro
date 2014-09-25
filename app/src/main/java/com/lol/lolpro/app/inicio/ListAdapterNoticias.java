@@ -26,8 +26,19 @@ public class ListAdapterNoticias extends BaseAdapter {
      *
      * @param context recibe el activity al que está asociado el fragment
      */
-    public ListAdapterNoticias(Context context) {
+    public ListAdapterNoticias(Context context, String[][] allData) {
         this.context = context;
+        if(allData != null){
+            news = allData;
+            notifyDataSetChanged();
+        }
+        else{
+            refresh();
+        }
+    }
+
+    public String[][] getNews(){
+        return news;
     }
 
     /**
@@ -101,6 +112,7 @@ public class ListAdapterNoticias extends BaseAdapter {
      * Se encarga de informar al adaptador de un cambio para que este pueda refrescar la interfaz
      */
     public void refresh() {
+        //TODO CHANGE asynctask --> 3.0+ just have one thread to all asynctask
         new AsyncTask<Void, Void, Void>() {
 
             @Override

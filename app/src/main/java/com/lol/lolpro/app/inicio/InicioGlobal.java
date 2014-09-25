@@ -21,6 +21,7 @@ import com.lol.lolpro.app.Activity_General;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.bbdd.DescargarBBDD;
+import com.lol.lolpro.app.bbdd.dFragment;
 import com.lol.lolpro.app.grids.GridAdapterFreeChamps;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
@@ -56,6 +57,17 @@ public class InicioGlobal extends Fragment {
         return inflater.inflate(R.layout.fragment_inicio_global, container, false);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        //TODO constants
+        if (getView() != null){
+            savedInstanceState.putSerializable("free_champs", ((GridAdapterFreeChamps) ((GridView) getView().findViewById(R.id.gridInicio)).getAdapter()).getData());
+            savedInstanceState.putSerializable("news", ((ListAdapterNoticias) ((ListView) getView().findViewById(R.id.noticias)).getAdapter()).getNews());
+        }
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     /**
      * Se encarga de crear el menú de opciones
      *
@@ -89,7 +101,15 @@ public class InicioGlobal extends Fragment {
             }
             else {
                 getActivity().deleteDatabase(this.getResources().getString(R.string.app_name));
-                new DescargarBBDD((ActionBarActivity)getActivity()).execute();
+                dFragment dFrag = new dFragment(new DescargarBBDD(getActivity()));
+                // And create a task for it to monitor. In this implementation the taskFragment
+                // executes the task, but you could change it so that it is started here.
+                // And tell it to call onActivityResult() on this fragment.
+
+                // Show the fragment.
+                // I'm not sure which of the following two lines is best to use but this one works well.
+                dFrag.show(((ActionBarActivity)getActivity()).getSupportFragmentManager(), "aa");
+                //new DescargarBBDD((ActionBarActivity)getActivity()).execute();
                 return true;
             }
         }
@@ -123,16 +143,26 @@ public class InicioGlobal extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         GridView grid = (GridView) view.findViewById(R.id.gridInicio);
         ListView list = (ListView) view.findViewById(R.id.noticias);
-        DBManager dbMan = DBManager.getInstance();
-        dbMan.openDatabase(false);
-        grid.setAdapter(new GridAdapterFreeChamps(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos()));
-        list.setAdapter(new ListAdapterNoticias(getActivity()));
-        if(Utils.hasInternetConnection(getActivity())){
-            ((ListAdapterNoticias) list.getAdapter()).refresh();
+        if(savedInstanceState != null){
+            grid.setAdapter(new GridAdapterFreeChamps(getActivity(), (String[][]) savedInstanceState.getSerializable("free_champs")));
+            list.setAdapter(new ListAdapterNoticias(getActivity(), (String[][]) savedInstanceState.getSerializable("news")));
         }
-        else{
-            list.setVisibility(View.INVISIBLE);
-            view.findViewById(R.id.textNoticias).setVisibility(View.INVISIBLE);
+        else {
+            if (Utils.existsDB(getActivity())) {
+                DBManager dbMan = DBManager.getInstance();
+                dbMan.openDatabase(false);
+                grid.setAdapter(new GridAdapterFreeChamps(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos()));
+                dbMan.closeDatabase(false);
+            } else {
+                grid.setAdapter(new GridAdapterFreeChamps(getActivity(), null));
+            }
+            if(Utils.hasInternetConnection(getActivity())){
+                list.setAdapter(new ListAdapterNoticias(getActivity(), null));
+            }
+            else{
+                list.setVisibility(View.INVISIBLE);
+                view.findViewById(R.id.textNoticias).setVisibility(View.INVISIBLE);
+            }
         }
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -150,6 +180,5 @@ public class InicioGlobal extends Fragment {
                 startActivity(i);
             }
         });
-        dbMan.closeDatabase(false);
     }
 }

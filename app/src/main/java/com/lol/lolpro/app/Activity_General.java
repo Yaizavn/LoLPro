@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.lol.lolpro.app.bbdd.DescargarBBDD;
 import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.bbdd.dFragment;
 import com.lol.lolpro.app.campeones.CampeonContenedor;
 import com.lol.lolpro.app.campeones.CampeonesGlobal;
 import com.lol.lolpro.app.inicio.InicioGlobal;
@@ -46,10 +47,12 @@ public class Activity_General extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TODO initializeInstance y guardarla para no eliminarla al rotar
+        //TODO guardar campeonesgratuitos para eliminar setWriteAheadLoggingEnabled(true) -> optimizar memoria y eliminar concurrencia de threads
         DBManager.initializeInstance(this);
         setContentView(R.layout.activity_general);
-        //this.deleteDatabase(this.getResources().getString(R.string.app_name));
         if (savedInstanceState == null) {
+            //this.deleteDatabase(this.getResources().getString(R.string.app_name));
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new InicioGlobal())
                     .commit();
@@ -60,7 +63,14 @@ public class Activity_General extends ActionBarActivity
                 finish();
             }
             else if(Utils.hasInternetConnection(this)){
-                new DescargarBBDD(this).execute();
+                dFragment dFrag = new dFragment(new DescargarBBDD(this));
+                // And create a task for it to monitor. In this implementation the taskFragment
+                // executes the task, but you could change it so that it is started here.
+                // And tell it to call onActivityResult() on this fragment.
+
+                // Show the fragment.
+                // I'm not sure which of the following two lines is best to use but this one works well.
+                dFrag.show(getSupportFragmentManager(), "aa");
             }
         }
         mNavigationDrawerFragment = (NavigationDrawerFragment)

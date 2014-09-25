@@ -33,6 +33,10 @@ public class GridAdapterFreeChamps extends BaseAdapter {
         data = allData;
     }
 
+    public String[][] getData(){
+        return data;
+    }
+
     /**
      * Crea un view con la imagen del campeón u objeto que se encuentra en una posición determinada para añadirlo al grid
      *
@@ -66,7 +70,10 @@ public class GridAdapterFreeChamps extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return data.length;
+        if(data!=null){
+            return data.length;
+        }
+        else return 0;
     }
 
     /**
