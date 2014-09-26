@@ -101,7 +101,8 @@ public class InicioGlobal extends Fragment {
             }
             else {
                 getActivity().deleteDatabase(this.getResources().getString(R.string.app_name));
-                dFragment dFrag = new dFragment(new DescargarBBDD(getActivity()));
+                dFragment dFrag = new dFragment();
+                dFrag.setTask(new DescargarBBDD(getActivity()));
                 // And create a task for it to monitor. In this implementation the taskFragment
                 // executes the task, but you could change it so that it is started here.
                 // And tell it to call onActivityResult() on this fragment.

@@ -57,7 +57,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "rutaPrincipal TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE habilidades (" +
                 "idCampeon INTEGER, nombre TEXT, descripcion TEXT, tooltip TEXT, coste TEXT," +
-                "alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, posicion INTEGER, esPasiva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
+                "alcance TEXT, rutaPrincipal TEXT, enfriamiento TEXT, posicion INTEGER, esPasiva INTEGER, esNueva INTEGER, FOREIGN KEY(idCampeon) REFERENCES campeones(_id), PRIMARY KEY (idCampeon, nombre))");
         db.execSQL("CREATE TABLE objetos (" +
                 "_id INTEGER PRIMARY KEY" +
                 ", name TEXT, base INTEGER, total INTEGER, sell INTEGER, purchasable INTEGER," +
@@ -191,7 +191,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
             cont.put("_id", idAspecto);
             mDatabase.insert("aspectos", null, cont);
         }
-
     }
 
     public void insertarHabilidadCampeon(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
@@ -205,12 +204,20 @@ public class BBDDHelper extends SQLiteOpenHelper {
         cont.put("enfriamiento", TextUtils.htmlEncode(enfriamiento));
         cont.put("esPasiva", esPasiva);
         cont.put("posicion", posicion);
+        cont.put ("esNueva", 1);
         String[] whereArgs = new String[]{Integer.toString(idCampeon), TextUtils.htmlEncode(nombre)};
         if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
             cont.put("idCampeon", idCampeon);
             cont.put("nombre", TextUtils.htmlEncode(nombre));
             mDatabase.insert("habilidades", null, cont);
         }
+    }
+
+    public void borrarHabilidadesDesfasadas() {
+        mDatabase.delete("habilidades", "esNueva=0", null);
+        ContentValues cont = new ContentValues();
+        cont.put ("esNueva", 0);
+        mDatabase.update("habilidades", cont, "esNueva=1",null);
     }
 
     public void insertarObjeto(int id, String name, int base, int total, int sell, String purchasable,

@@ -26,7 +26,7 @@
             android:layout_toRightOf="@id/Imagen"
             android:text="@+string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:layout_marginLeft="15dp"
             android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
             android:layout_toRightOf="@id/Imagen"
             android:text="@+string/nick"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"/>
 
         <ImageView
@@ -106,7 +106,7 @@
             android:layout_toRightOf="@id/imageView"
             android:text="@+string/vida"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -118,7 +118,7 @@
             android:layout_toRightOf="@id/imageView2"
             android:text="@+string/danio_ataque"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -130,7 +130,7 @@
             android:layout_toRightOf="@id/imageView3"
             android:text="@+string/vel_ataque"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -142,7 +142,7 @@
             android:layout_toRightOf="@id/imageView4"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -154,7 +154,7 @@
             android:layout_toRightOf="@+id/imageView5"
             android:text="@+string/vel_movimiento"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -165,7 +165,7 @@
             android:layout_below="@id/texVida"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/danioAtaque"
@@ -175,7 +175,7 @@
             android:layout_below="@id/texDanioAtaque"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/velAtaque"
@@ -185,7 +185,7 @@
             android:layout_below="@id/texVelAtaque"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/mana"
@@ -195,7 +195,7 @@
             android:layout_below="@id/texMana"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/velMov"
@@ -205,7 +205,7 @@
             android:layout_below="@id/texVelMov"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/imageView9"
@@ -252,7 +252,7 @@
             android:layout_toRightOf="@id/imageView9"
             android:text="@+string/reg_vida"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -264,7 +264,7 @@
             android:layout_toRightOf="@id/imageView10"
             android:text="@+string/armadura"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -276,7 +276,7 @@
             android:layout_toRightOf="@id/imageView11"
             android:text="@+string/res_magica"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -288,7 +288,7 @@
             android:layout_toRightOf="@id/imageView12"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -299,7 +299,7 @@
             android:layout_below="@id/texRegVida"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/armadura"
@@ -309,7 +309,7 @@
             android:layout_below="@id/texArmadura"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/resMagica"
@@ -319,7 +319,7 @@
             android:layout_below="@id/texResMagica"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/regMana"
@@ -329,7 +329,7 @@
             android:layout_below="@id/texRegMana"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 </ScrollView>

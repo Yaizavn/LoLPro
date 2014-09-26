@@ -24,7 +24,7 @@
             android:layout_toRightOf="@id/Imagen"
             android:text="@+string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:layout_marginLeft="15dp"
             android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
             android:layout_toRightOf="@id/Imagen"
             android:text="@+string/coste"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:textStyle="bold"/>
 
@@ -52,7 +52,7 @@
             android:layout_toRightOf="@id/textCoste"
             android:text="large_Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"/>
 
         <TextView
@@ -64,7 +64,7 @@
             android:layout_alignLeft="@id/textCoste"
             android:text="@+string/alcance"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -76,7 +76,7 @@
             android:layout_toRightOf="@id/textAlcance"
             android:text="large_Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"/>
 
         <TextView
@@ -88,7 +88,7 @@
             android:layout_alignLeft="@id/textAlcance"
             android:text="@+string/enfriamiento"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -100,7 +100,7 @@
             android:layout_toRightOf="@id/textEnfriamiento"
             android:text="large_Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"/>
 
         <TextView
@@ -112,7 +112,7 @@
             android:text="@string/descripcion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginTop="25dp"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:textStyle="bold"/>
 
@@ -124,7 +124,7 @@
             android:text="large_Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginTop="10dp"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:layout_alignLeft="@id/textEnfriamiento"/>
 
         <ImageView

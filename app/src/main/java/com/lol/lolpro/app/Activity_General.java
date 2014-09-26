@@ -63,7 +63,8 @@ public class Activity_General extends ActionBarActivity
                 finish();
             }
             else if(Utils.hasInternetConnection(this)){
-                dFragment dFrag = new dFragment(new DescargarBBDD(this));
+                dFragment dFrag = new dFragment();
+                dFrag.setTask(new DescargarBBDD(this));
                 // And create a task for it to monitor. In this implementation the taskFragment
                 // executes the task, but you could change it so that it is started here.
                 // And tell it to call onActivityResult() on this fragment.
@@ -90,7 +91,6 @@ public class Activity_General extends ActionBarActivity
      */
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-
         Fragment fragment = null;
         switch (position) {
             case Constants.DRAWER_UNDEFINED:

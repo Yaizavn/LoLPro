@@ -18,11 +18,6 @@ public class dFragment extends DialogFragment {
     DescargarBBDD mTask;
     ProgressBar mProgressBar;
 
-    public dFragment(DescargarBBDD db){
-        super();
-        setTask(db);
-    }
-
     public void setTask(DescargarBBDD task)
     {
         mTask = task;

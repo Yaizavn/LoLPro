@@ -37,9 +37,6 @@ hacer unica consulta para modificargratuitos como ObtenerRutaObjetos(String[])
 
 Mirar que pasa si hay conexion a Internet pero no a a la api y nos quedamos sin bbdd
 
-Update problematico. Si meten un campeon nuevo se hace UPDATE---> debería ser insert en ese caso en particular
-    Si bajas de version hay que borrar los campeones que no estuvieran
-
 Para los tags de campeones, al no tener un tree de tags, usar distinct sobre la tabla tagsCampeones
 
 SUbir y bajar de version automáticamente!! Tabla de versiones??
@@ -55,3 +52,8 @@ while (a.moveToNext()){
     b=b + "    "+ a.getString(2);
 }
 b=b;
+
+COSAS QUE HAY QUE HACER
+-   .fetch en picasso al bajarse descargarBBDD (no actualizar) y que se baje todas las imagenes
+-   En versiones anteriores a la 3 mirar okhtttp
+-   Hacer layouts

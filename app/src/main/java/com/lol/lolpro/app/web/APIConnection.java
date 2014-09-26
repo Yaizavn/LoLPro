@@ -268,8 +268,8 @@ public class APIConnection {
                                 1, type == UPDATE_CHAMPIONS
                         );
                     }
-
                 }
+                bdConnection.borrarHabilidadesDesfasadas();
                 break;
             case OBJECTS:
             case UPDATE_OBJECTS:
