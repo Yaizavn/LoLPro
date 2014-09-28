@@ -144,11 +144,11 @@ public class APIConnection {
                     caInput.reset();
                     caInput= context.getAssets().open(APIConnection.CERT_NAME_DIGICERT_ROOT);
                     cert=certFact.generateCertificate(caInput);
-                    keyStore.setCertificateEntry(CERT_ALIAS_RIOT, cert);
+                    keyStore.setCertificateEntry(CERT_ALIAS_DIGICERT_ROOT, cert);
                     caInput.reset();
                     caInput = context.getAssets().open(APIConnection.CERT_NAME_DIGICERT_CA3);
                     cert= certFact.generateCertificate(caInput);
-                    keyStore.setCertificateEntry(CERT_ALIAS_RIOT, cert);
+                    keyStore.setCertificateEntry(CERT_ALIAS_DIGICERT_CA3, cert);
                 }
             } finally {
                 caInput.close();
