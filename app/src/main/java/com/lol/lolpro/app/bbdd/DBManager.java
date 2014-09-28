@@ -2,6 +2,7 @@ package com.lol.lolpro.app.bbdd;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteCantOpenDatabaseException;
+import android.database.sqlite.SQLiteException;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -32,7 +33,7 @@ public class DBManager {
         return instance;
     }
 
-    public synchronized void openDatabase(boolean writeMode) throws SQLiteCantOpenDatabaseException {
+    public synchronized void openDatabase(boolean writeMode) throws SQLiteException {
         if (writeMode) {
             if (mOpenCounter.compareAndSet(0, 1)) {
                 // Opening new database
@@ -44,7 +45,7 @@ public class DBManager {
             }
             else
             {
-                throw new SQLiteCantOpenDatabaseException();
+                throw new SQLiteException();
             }
         }
         else{

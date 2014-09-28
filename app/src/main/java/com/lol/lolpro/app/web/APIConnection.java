@@ -1,6 +1,7 @@
 package com.lol.lolpro.app.web;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -9,11 +10,8 @@ import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.KeyStore;
@@ -44,7 +42,9 @@ public class APIConnection {
     public static final int UPDATE_OBJECTS = 4;
     public static final int UPDATE_CHAMPIONS = 5;
 
-    private static final String CERT_NAME = "lolcert.pem";
+    private static final String CERT_NAME_RIOT = "riotgames";
+    private static final String CERT_NAME_DIGICERT_ROOT = "DigiCertHighAssuranceEVRootCA";
+    private static final String CERT_NAME_DIGICERT_CA3 = "DigiCertHighAssuranceCA-3";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
     private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells&";
@@ -54,7 +54,10 @@ public class APIConnection {
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";
     private static final String VERSION_HEADER = "&version=";
 
-    private static final String CERT_ALIAS = "LOLCert";
+    private static final String CERT_ALIAS_RIOT = "RiotGame";
+    private static final String CERT_ALIAS_DIGICERT_ROOT = "DigiCertRoot";
+    private static final String CERT_ALIAS_DIGICERT_CA3 = "DigiCertCA3";
+
 
     private KeyStore keyStore;
     private TrustManagerFactory tmf;
@@ -122,7 +125,7 @@ public class APIConnection {
 
     private boolean hasCert() {
         try {
-            return keyStore.isCertificateEntry(CERT_ALIAS);
+            return keyStore.isCertificateEntry(CERT_ALIAS_RIOT);
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
@@ -132,15 +135,25 @@ public class APIConnection {
     private boolean insertCert() {
         try {
             CertificateFactory certFact = CertificateFactory.getInstance("X.509");
-            InputStream caInput = context.getAssets().open(APIConnection.CERT_NAME);
+            InputStream caInput = context.getAssets().open(APIConnection.CERT_NAME_RIOT);
             Certificate cert;
             try {
                 cert = certFact.generateCertificate(caInput);
+                keyStore.setCertificateEntry(CERT_ALIAS_RIOT, cert);
+                if (Build.VERSION.SDK_INT<Build.VERSION_CODES.ICE_CREAM_SANDWICH){
+                    caInput.reset();
+                    caInput= context.getAssets().open(APIConnection.CERT_NAME_DIGICERT_ROOT);
+                    cert=certFact.generateCertificate(caInput);
+                    keyStore.setCertificateEntry(CERT_ALIAS_RIOT, cert);
+                    caInput.reset();
+                    caInput = context.getAssets().open(APIConnection.CERT_NAME_DIGICERT_CA3);
+                    cert= certFact.generateCertificate(caInput);
+                    keyStore.setCertificateEntry(CERT_ALIAS_RIOT, cert);
+                }
             } finally {
                 caInput.close();
             }
             // Create a KeyStore containing our trusted CAs
-            keyStore.setCertificateEntry(CERT_ALIAS, cert);
             // Create a TrustManager that trusts the CAs in our KeyStore
             tmf.init(keyStore);
             // Create an SSLContext that uses our TrustManager

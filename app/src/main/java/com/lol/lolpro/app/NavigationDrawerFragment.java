@@ -3,6 +3,7 @@ package com.lol.lolpro.app;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -117,9 +118,13 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+        int androidLayout= android.R.layout.simple_list_item_activated_1;
+        if ( Build.VERSION.SDK_INT<Build.VERSION_CODES.HONEYCOMB){
+            androidLayout=android.R.layout.simple_list_item_1;
+        }
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
+                androidLayout,
                 android.R.id.text1,
                 getResources().getStringArray(R.array.titulosMenuIzquierda)));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
