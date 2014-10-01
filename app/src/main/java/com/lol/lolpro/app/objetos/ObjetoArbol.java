@@ -41,8 +41,18 @@ public class ObjetoArbol extends Fragment {
         }
     }
 
+    /**
+     * Se encarga del tratamiento necesario para poder crear la vista de información general de un objeto en particular
+     *
+     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
+     * @param container          Contenedos para otros elementos View
+     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
+     * @return Vista de los objetos
+     */
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_objeto_arbol, container, false);
         GridView grid;
         Bundle args = getArguments();
         String[][] datosFrom = (String[][])args.getSerializable("dataFrom");
@@ -81,20 +91,7 @@ public class ObjetoArbol extends Fragment {
             view.findViewById(R.id.gridViewInto).setVisibility(View.GONE);
             view.findViewById(R.id.textNoInto).setVisibility(View.VISIBLE);
         }
-    }
-
-    /**
-     * Se encarga del tratamiento necesario para poder crear la vista de información general de un objeto en particular
-     *
-     * @param inflater           Sirve para traer un layout hecho en xml como una vista en java
-     * @param container          Contenedos para otros elementos View
-     * @param savedInstanceState Bundle donde se almacenaran los parámetros del fragment
-     * @return Vista de los objetos
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_objeto_arbol, container, false);
+        return view;
     }
 
     /**
