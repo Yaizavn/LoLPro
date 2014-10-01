@@ -2,20 +2,11 @@
 
 En principal en options items selected // ToDo save image files, delete them manually and use OKHttp for caching in older devices
 
-En cargando bbdd en doInBakcground en accion==2
-            //TODO deberiamos hacer esto en preexecute para que en caso de que no haya cambio de api ni de gratuitos no mostrara e progress dialog, pero no funciona porque no te deja hacer api.haCambiadoVersion o api.hacambiadoGratuitos si no es asincrono y preexecute no lo es
-
-
-En campeones onViewCreated para el set adapter         //ToDo Evitar enviar los dp deseados para el numero de imágenes
-
 En ApiConnection:
 -     //TODO trucar la ruta BASE_URI en funcion del idioma... de forma que optenemos los campeones en su idioma ;)
 
--     //TODO singleton para evitar validar muchos certificados
     //public static final APIConnection API_CONNECTION = ;
     //ToDo Inicializar todo con el singleton
-
-//Si no hay internet quitar el apartado noticias
 
 /Controlar excepcion getWritableDatabase concurrente bbddd
 
@@ -35,8 +26,6 @@ en el arbol de los objetos sustituirlo por gridview, puzzles por layouts, tablel
 Quitar interfaces iguales, sacarlas a parte para que quede bonito(clase java para ellas)
 hacer unica consulta para modificargratuitos como ObtenerRutaObjetos(String[])
 
-Mirar que pasa si hay conexion a Internet pero no a a la api y nos quedamos sin bbdd
-
 Para los tags de campeones, al no tener un tree de tags, usar distinct sobre la tabla tagsCampeones
 
 SUbir y bajar de version automáticamente!! Tabla de versiones??
@@ -55,5 +44,4 @@ b=b;
 
 COSAS QUE HAY QUE HACER
 -   .fetch en picasso al bajarse descargarBBDD (no actualizar) y que se baje todas las imagenes
--   En versiones anteriores a la 3 mirar okhtttp
 -   Hacer layouts

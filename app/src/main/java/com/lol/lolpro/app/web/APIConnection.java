@@ -125,7 +125,12 @@ public class APIConnection {
 
     private boolean hasCert() {
         try {
-            return keyStore.isCertificateEntry(CERT_ALIAS_RIOT);
+            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                return keyStore.isCertificateEntry(CERT_ALIAS_RIOT);
+            }
+            else{
+                return (keyStore.isCertificateEntry(CERT_ALIAS_RIOT)&&keyStore.isCertificateEntry(CERT_ALIAS_DIGICERT_CA3)&&keyStore.isCertificateEntry(CERT_ALIAS_DIGICERT_ROOT));
+            }
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
