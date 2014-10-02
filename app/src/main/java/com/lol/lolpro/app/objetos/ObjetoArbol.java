@@ -58,9 +58,9 @@ public class ObjetoArbol extends Fragment {
         String[][] datosFrom = (String[][])args.getSerializable("dataFrom");
         String[][] datosInto = (String[][])args.getSerializable("dataInto");
         if (datosFrom != null) {
-            grid = (GridView) view.findViewById(R.id.gridViewFrom);
-            view.findViewById(R.id.textNoFrom).setVisibility(View.GONE);
-            view.findViewById(R.id.gridViewFrom).setVisibility(View.VISIBLE);
+            grid = (GridView) view.findViewById(R.id.arbol_gridViewFrom);
+            view.findViewById(R.id.arbol_textNoFrom).setVisibility(View.GONE);
+            view.findViewById(R.id.arbol_gridViewFrom).setVisibility(View.VISIBLE);
 
             grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosFrom));
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,13 +71,13 @@ public class ObjetoArbol extends Fragment {
             });
         }
         else{
-            view.findViewById(R.id.gridViewFrom).setVisibility(View.GONE);
-            view.findViewById(R.id.textNoFrom).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.arbol_gridViewFrom).setVisibility(View.GONE);
+            view.findViewById(R.id.arbol_textNoFrom).setVisibility(View.VISIBLE);
         }
         if (datosInto != null) {
-            grid = (GridView) view.findViewById(R.id.gridViewInto);
-            view.findViewById(R.id.textNoInto).setVisibility(View.GONE);
-            view.findViewById(R.id.gridViewInto).setVisibility(View.VISIBLE);
+            grid = (GridView) view.findViewById(R.id.arbol_gridViewInto);
+            view.findViewById(R.id.arbol_textNoInto).setVisibility(View.GONE);
+            view.findViewById(R.id.arbol_gridViewInto).setVisibility(View.VISIBLE);
 
             grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), datosInto));
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -88,8 +88,8 @@ public class ObjetoArbol extends Fragment {
             });
         }
         else{
-            view.findViewById(R.id.gridViewInto).setVisibility(View.GONE);
-            view.findViewById(R.id.textNoInto).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.arbol_gridViewInto).setVisibility(View.GONE);
+            view.findViewById(R.id.arbol_textNoInto).setVisibility(View.VISIBLE);
         }
         return view;
     }

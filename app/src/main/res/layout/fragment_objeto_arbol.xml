@@ -1,75 +1,68 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <TextView
+        android:id="@+id/arbol_textInto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+string/text_into"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textInto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+string/text_into"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+    <GridView
+        android:id="@+id/arbol_gridViewInto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/arbol_textInto"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:rowHeight="100dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
 
-        <GridView
-            android:id="@+id/gridViewInto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textInto"
-            android:columnWidth="100dp"
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
-            android:numColumns="auto_fit"
-            android:rowHeight="100dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
+    <TextView
+        android:id="@+id/arbol_textNoInto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/arbol_gridViewInto"
+        android:text="@+string/no_into"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/textNoInto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/gridViewInto"
-            android:text="@+string/no_into"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+    <TextView
+        android:id="@+id/arbol_textFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/arbol_textNoInto"
+        android:layout_marginTop="20dp"
+        android:text="@+string/text_from"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
+    <GridView
+        android:id="@+id/arbol_gridViewFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/arbol_textFrom"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:rowHeight="100dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
 
-        <TextView
-            android:id="@+id/textFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textNoInto"
-            android:layout_marginTop="20dp"
-            android:text="@+string/text_from"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
-
-        <GridView
-            android:id="@+id/gridViewFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textFrom"
-            android:columnWidth="100dp"
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
-            android:numColumns="auto_fit"
-            android:rowHeight="100dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
-
-        <TextView
-            android:id="@+id/textNoFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textFrom"
-            android:text="@+string/no_from"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+    <TextView
+        android:id="@+id/arbol_textNoFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/arbol_textFrom"
+        android:text="@+string/no_from"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
-    </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

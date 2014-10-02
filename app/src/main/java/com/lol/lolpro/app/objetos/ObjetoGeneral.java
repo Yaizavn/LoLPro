@@ -53,22 +53,22 @@ public class ObjetoGeneral extends Fragment {
             if (datos[4].contentEquals("0")) {
                 tienda = view.getResources().getString(R.string.no);
             }
-            ((TextView) view.findViewById(R.id.nombre)).setText(datos[0]);
-            ((TextView) view.findViewById(R.id.costeBase)).setText(datos[1]);
-            ((TextView) view.findViewById(R.id.coste)).setText(datos[2]);
-            ((TextView) view.findViewById(R.id.precioVenta)).setText(datos[3]);
+            ((TextView) view.findViewById(R.id.objeto_nombre)).setText(datos[0]);
+            ((TextView) view.findViewById(R.id.objeto_costeBase)).setText(datos[1]);
+            ((TextView) view.findViewById(R.id.objeto_coste)).setText(datos[2]);
+            ((TextView) view.findViewById(R.id.objeto_precioVenta)).setText(datos[3]);
             if (datos[6].isEmpty()) {
-                ((TextView) view.findViewById(R.id.descripcion)).setText(datos[6] + "\n\n" + datos[5]);
+                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(datos[6] + "\n\n" + datos[5]);
             }
             else{
-                ((TextView) view.findViewById(R.id.descripcion)).setText(datos[5]);
+                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(datos[5]);
             }
-            ((TextView) view.findViewById(R.id.puedesComprar)).setText(tienda);
+            ((TextView) view.findViewById(R.id.objeto_puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(datos[13]) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
-                    .into((ImageView) view.findViewById(R.id.Imagen));
+                    .into((ImageView) view.findViewById(R.id.objeto_Imagen));
         }
         return view;
     }
@@ -93,12 +93,12 @@ public class ObjetoGeneral extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-       GridView grid = (GridView) view.findViewById(R.id.gridViewCampeonAdmitido);
+       GridView grid = (GridView) view.findViewById(R.id.objeto_gridViewCampeonAdmitido);
         Bundle args = getArguments();
         String[][] datos = (String[][]) args.getSerializable("campeonReq");
         if (datos!=null) {
-            view.findViewById(R.id.TextoCampeonesPermitidos).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.objeto_TextoCampeonesPermitidos).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.objeto_gridViewCampeonAdmitido).setVisibility(View.VISIBLE);
             grid.setAdapter(new GridAdapterCampeonGlobal(getActivity(), datos));
 
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,8 +109,8 @@ public class ObjetoGeneral extends Fragment {
             });
         }
         else{
-            view.findViewById(R.id.TextoCampeonesPermitidos).setVisibility(View.GONE);
-            view.findViewById(R.id.gridViewCampeonAdmitido).setVisibility(View.GONE);
+            view.findViewById(R.id.objeto_TextoCampeonesPermitidos).setVisibility(View.GONE);
+            view.findViewById(R.id.objeto_gridViewCampeonAdmitido).setVisibility(View.GONE);
         }
     }
 }

@@ -50,29 +50,37 @@ public class GridAdapterSpells extends BaseAdapter {
             convertView = inflater.inflate(R.layout.cell_spells, parent, false);
         }
         if (data != null) {
-            ((TextView) convertView.findViewById(R.id.nombre)).setText(data[position][0]);
-            ((TextView) convertView.findViewById(R.id.descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
+            ((TextView) convertView.findViewById(R.id.spells_nombre)).setText(data[position][0]);
+            ((TextView) convertView.findViewById(R.id.spells_descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
             if (Integer.parseInt(data[position][7]) == 0) {
-                convertView.findViewById(R.id.alcance).setVisibility(View.VISIBLE);
-                convertView.findViewById(R.id.coste).setVisibility(View.VISIBLE);
-                convertView.findViewById(R.id.enfriamiento).setVisibility(View.VISIBLE);
-                convertView.findViewById(R.id.textAlcance).setVisibility(View.VISIBLE);
-                convertView.findViewById(R.id.textCoste).setVisibility(View.VISIBLE);
-                convertView.findViewById(R.id.textEnfriamiento).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_separador).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_imageCoste).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_imageAlcance).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_imageEnfriamiento).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_alcance).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_coste).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_enfriamiento).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_textAlcance).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_textCoste).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.spells_textEnfriamiento).setVisibility(View.VISIBLE);
                 if (data[position][3].equals("self")) {
-                    ((TextView) convertView.findViewById(R.id.alcance)).setText(context.getResources().getString(R.string.alcance_propio));
+                    ((TextView) convertView.findViewById(R.id.spells_alcance)).setText(context.getResources().getString(R.string.alcance_propio));
                 } else {
-                    ((TextView) convertView.findViewById(R.id.alcance)).setText(data[position][3]);
+                    ((TextView) convertView.findViewById(R.id.spells_alcance)).setText(data[position][3]);
                 }
-                ((TextView) convertView.findViewById(R.id.coste)).setText(data[position][4]);
-                ((TextView) convertView.findViewById(R.id.enfriamiento)).setText(data[position][5] + " " + context.getResources().getString(R.string.segundos));
+                ((TextView) convertView.findViewById(R.id.spells_coste)).setText(data[position][4]);
+                ((TextView) convertView.findViewById(R.id.spells_enfriamiento)).setText(data[position][5] + " " + context.getResources().getString(R.string.segundos));
             } else {
-                convertView.findViewById(R.id.alcance).setVisibility(View.GONE);
-                convertView.findViewById(R.id.coste).setVisibility(View.GONE);
-                convertView.findViewById(R.id.enfriamiento).setVisibility(View.GONE);
-                convertView.findViewById(R.id.textAlcance).setVisibility(View.GONE);
-                convertView.findViewById(R.id.textCoste).setVisibility(View.GONE);
-                convertView.findViewById(R.id.textEnfriamiento).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_separador).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_imageCoste).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_imageAlcance).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_imageEnfriamiento).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_alcance).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_coste).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_enfriamiento).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_textAlcance).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_textCoste).setVisibility(View.GONE);
+                convertView.findViewById(R.id.spells_textEnfriamiento).setVisibility(View.GONE);
             }
             // Get the image URL for the current position.
             String url = getItem(position);
@@ -81,7 +89,7 @@ public class GridAdapterSpells extends BaseAdapter {
                     .load(url) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
-                    .into((ImageView) convertView.findViewById(R.id.Imagen));
+                    .into((ImageView) convertView.findViewById(R.id.spells_Imagen));
         }
         convertView.setTag(getId(position));
         return convertView;

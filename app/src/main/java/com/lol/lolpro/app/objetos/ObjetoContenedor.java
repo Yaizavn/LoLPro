@@ -68,7 +68,7 @@ public class ObjetoContenedor extends Fragment {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ObjetoPageAdapter(getChildFragmentManager(), args);
         numPages = mPagerAdapter.getCount();
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) view.findViewById(R.id.objeto_viewPager);
         mViewPager.setAdapter(mPagerAdapter);
 
 

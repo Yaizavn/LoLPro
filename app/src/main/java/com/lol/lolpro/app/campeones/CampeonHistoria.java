@@ -38,8 +38,8 @@ public class CampeonHistoria extends Fragment {
         String[] championData = args.getStringArray("data");
         View view = inflater.inflate(R.layout.fragment_campeon_historia, container, false);
         if (championData != null) {
-            TextView historia = (TextView) view.findViewById(R.id.historia);
-            TextView nombre = (TextView) view.findViewById(R.id.nombreCampeon);
+            TextView historia = (TextView) view.findViewById(R.id.historia_historia);
+            TextView nombre = (TextView) view.findViewById(R.id.historia_nombreCampeon);
             // Defino la nueva fuente cargandola desde el fichero .ttf
             Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), Constants.FONT_STORY);
             // Aplico el nuevo tipo de letra
