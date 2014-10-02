@@ -7,134 +7,173 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <ImageView
-            android:id="@+id/Imagen"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="left|top"
-            android:layout_marginLeft="11dp"/>
-
         <TextView
-            android:id="@+id/nombre"
+            android:id="@+id/spells_nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/Imagen"
-            android:layout_toRightOf="@id/Imagen"
+            android:layout_alignTop="@+id/spells_Imagen"
+            android:layout_toRightOf="@+id/spells_Imagen"
+            android:layout_marginLeft="25dp"
             android:text="@+string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="25sp"
-            android:layout_marginLeft="15dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/spells_Imagen"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="39dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/spells_imageCoste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spells_Imagen"
+            android:layout_alignStart="@+id/spells_Imagen"
+            android:layout_below="@+id/spells_Imagen"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/vida" />
+
+        <ImageView
+            android:id="@+id/spells_imageAlcance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spells_imageCoste"
+            android:layout_alignStart="@+id/spells_imageCoste"
+            android:layout_below="@+id/spells_imageCoste"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/danioataque" />
+
+        <ImageView
+            android:id="@+id/spells_imageEnfriamiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spells_imageAlcance"
+            android:layout_alignStart="@+id/spells_imageAlcance"
+            android:layout_below="@+id/spells_imageAlcance"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/regvida" />
+
+        <TextView
+            android:id="@+id/spells_textCoste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/spells_imageCoste"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/spells_imageCoste"
+            android:text="@+string/coste"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textCoste"
+            android:id="@+id/spells_textAlcance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Imagen"
-            android:layout_marginTop="10dp"
-            android:layout_alignStart="@id/Imagen"
-            android:layout_alignLeft="@id/Imagen"
-            android:layout_toRightOf="@id/Imagen"
-            android:text="@+string/coste"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/coste"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nombre"
-            android:layout_alignTop="@id/textCoste"
-            android:layout_toRightOf="@id/textCoste"
-            android:text="large_Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"/>
-
-        <TextView
-            android:id="@+id/textAlcance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textCoste"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@id/textCoste"
+            android:layout_alignTop="@+id/spells_imageAlcance"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/spells_imageAlcance"
             android:text="@+string/alcance"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
 
         <TextView
-            android:id="@+id/alcance"
+            android:id="@+id/spells_textEnfriamiento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/coste"
-            android:layout_alignTop="@id/textAlcance"
-            android:layout_toRightOf="@id/textAlcance"
-            android:text="large_Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"/>
-
-        <TextView
-            android:id="@+id/textEnfriamiento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textAlcance"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@id/textAlcance"
+            android:layout_alignTop="@+id/spells_imageEnfriamiento"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/spells_imageEnfriamiento"
             android:text="@+string/enfriamiento"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/enfriamiento"
+            android:id="@+id/spells_coste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/alcance"
-            android:layout_alignTop="@id/textEnfriamiento"
-            android:layout_toRightOf="@id/textEnfriamiento"
-            android:text="large_Text"
+            android:layout_alignLeft="@+id/spells_textCoste"
+            android:layout_alignStart="@+id/spells_textCoste"
+            android:layout_below="@+id/spells_textCoste"
+            android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"/>
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textDescripcion"
+            android:id="@+id/spells_alcance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textEnfriamiento"
-            android:layout_centerHorizontal="true"
-            android:text="@string/descripcion"
+            android:layout_alignLeft="@+id/spells_textAlcance"
+            android:layout_alignStart="@+id/spells_textAlcance"
+            android:layout_below="@+id/spells_textAlcance"
+            android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="25dp"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"
-            android:textStyle="bold"/>
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/descripcion"
+            android:id="@+id/spells_enfriamiento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textDescripcion"
-            android:text="large_Text"
+            android:layout_alignLeft="@+id/spells_textEnfriamiento"
+            android:layout_alignStart="@+id/spells_textEnfriamiento"
+            android:layout_below="@+id/spells_textEnfriamiento"
+            android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"
-            android:layout_alignLeft="@id/textEnfriamiento"/>
+            android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/separador"
+            android:id="@+id/spells_separador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/Imagen"
-            android:layout_below="@id/descripcion"
+            android:layout_alignLeft="@+id/spells_Imagen"
+            android:layout_alignStart="@+id/spells_Imagen"
+            android:layout_below="@+id/spells_Imagen"
             android:layout_marginRight="11dp"
             android:src="@drawable/separador" />
 
+
+        <ImageView
+            android:id="@+id/spells_separador2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spells_Imagen"
+            android:layout_alignStart="@+id/spells_Imagen"
+            android:layout_below="@+id/spells_imageEnfriamiento"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/separador" />
+
+        <TextView
+            android:id="@+id/spells_textDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spells_separador2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="11dp"
+            android:text="@+string/descripcion"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/spells_descripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spells_imageAlcance"
+            android:layout_alignStart="@+id/spells_imageAlcance"
+            android:layout_below="@+id/spells_textDescripcion"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp" />
     </RelativeLayout>
 </ScrollView>

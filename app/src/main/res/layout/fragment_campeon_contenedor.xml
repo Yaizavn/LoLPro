@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lol.lolpro.app.campeones.CampeonContenedor">
+
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/viewPager"
+        android:id="@+id/campeon_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -1,6 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView"
+    android:id="@+id/objeto_scrollView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -12,20 +12,20 @@
         tools:context="com.lol.lolpro.app.objetos.ObjetoGeneral">
 
         <TextView
-            android:id="@+id/nombre"
+            android:id="@+id/objeto_nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/Imagen"
+            android:layout_alignTop="@+id/objeto_Imagen"
             android:layout_gravity="left|top"
             android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/Imagen"
+            android:layout_toRightOf="@+id/objeto_Imagen"
             android:text="@+string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/Imagen"
+            android:id="@+id/objeto_Imagen"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"
@@ -37,162 +37,162 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/objeto_imageCoste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Imagen"
-            android:layout_alignStart="@+id/Imagen"
-            android:layout_below="@+id/Imagen"
+            android:layout_alignLeft="@+id/objeto_Imagen"
+            android:layout_alignStart="@+id/objeto_Imagen"
+            android:layout_below="@+id/objeto_Imagen"
             android:layout_marginTop="70dp"
             android:src="@drawable/vida" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/objeto_imagePrecioVenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_below="@+id/imageView"
+            android:layout_alignLeft="@+id/objeto_imageCoste"
+            android:layout_alignStart="@+id/objeto_imageCoste"
+            android:layout_below="@+id/objeto_imageCoste"
             android:layout_marginTop="32dp"
             android:src="@drawable/danioataque" />
 
         <TextView
-            android:id="@+id/TextoCoste"
+            android:id="@+id/objeto_TextoCoste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageView"
+            android:layout_alignTop="@+id/objeto_imageCoste"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/imageView"
+            android:layout_toRightOf="@+id/objeto_imageCoste"
             android:text="@+string/coste"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/TextoVenta"
+            android:id="@+id/objeto_TextoVenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageView2"
+            android:layout_alignTop="@+id/objeto_imagePrecioVenta"
             android:layout_marginLeft="7dp"
-            android:layout_toRightOf="@+id/imageView2"
+            android:layout_toRightOf="@+id/objeto_imagePrecioVenta"
             android:text="@+string/precio_venta"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/TextoTienda"
+            android:id="@+id/objeto_TextoTienda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageView10"
+            android:layout_alignTop="@+id/objeto_imageEstaTienda"
             android:layout_marginLeft="7dp"
-            android:layout_toRightOf="@+id/imageView10"
+            android:layout_toRightOf="@+id/objeto_imageEstaTienda"
             android:text="@+string/tienda"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/coste"
+            android:id="@+id/objeto_coste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextoCoste"
-            android:layout_alignStart="@+id/TextoCoste"
-            android:layout_below="@+id/TextoCoste"
+            android:layout_alignLeft="@+id/objeto_TextoCoste"
+            android:layout_alignStart="@+id/objeto_TextoCoste"
+            android:layout_below="@+id/objeto_TextoCoste"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/precioVenta"
+            android:id="@+id/objeto_precioVenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextoVenta"
-            android:layout_alignStart="@+id/TextoVenta"
-            android:layout_below="@+id/TextoVenta"
+            android:layout_alignLeft="@+id/objeto_TextoVenta"
+            android:layout_alignStart="@+id/objeto_TextoVenta"
+            android:layout_below="@+id/objeto_TextoVenta"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/puedesComprar"
+            android:id="@+id/objeto_puedesComprar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextoTienda"
-            android:layout_alignStart="@+id/TextoTienda"
-            android:layout_below="@+id/TextoTienda"
+            android:layout_alignLeft="@+id/objeto_TextoTienda"
+            android:layout_alignStart="@+id/objeto_TextoTienda"
+            android:layout_below="@+id/objeto_TextoTienda"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/objeto_imageCosteBase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/TextoCoste"
+            android:layout_alignTop="@+id/objeto_TextoCoste"
             android:layout_marginLeft="40dp"
-            android:layout_toRightOf="@+id/TextoVenta"
+            android:layout_toRightOf="@+id/objeto_TextoVenta"
             android:src="@drawable/regvida" />
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/objeto_imageEstaTienda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView9"
-            android:layout_alignStart="@+id/imageView9"
-            android:layout_below="@+id/imageView9"
+            android:layout_alignLeft="@+id/objeto_imageCosteBase"
+            android:layout_alignStart="@+id/objeto_imageCosteBase"
+            android:layout_below="@+id/objeto_imageCosteBase"
             android:layout_marginTop="32dp"
             android:src="@drawable/regvida" />
 
         <TextView
-            android:id="@+id/textoCosteBase"
+            android:id="@+id/objeto_textoCosteBase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageView9"
+            android:layout_alignTop="@+id/objeto_imageCosteBase"
             android:layout_marginLeft="7dp"
-            android:layout_toRightOf="@+id/imageView9"
+            android:layout_toRightOf="@+id/objeto_imageCosteBase"
             android:text="@+string/coste_base"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/costeBase"
+            android:id="@+id/objeto_costeBase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textoCosteBase"
-            android:layout_alignStart="@+id/textoCosteBase"
-            android:layout_below="@+id/textoCosteBase"
+            android:layout_alignLeft="@+id/objeto_textoCosteBase"
+            android:layout_alignStart="@+id/objeto_textoCosteBase"
+            android:layout_below="@+id/objeto_textoCosteBase"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/objeto_separador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Imagen"
-            android:layout_alignStart="@+id/Imagen"
-            android:layout_below="@+id/Imagen"
+            android:layout_alignLeft="@+id/objeto_Imagen"
+            android:layout_alignStart="@+id/objeto_Imagen"
+            android:layout_below="@+id/objeto_Imagen"
             android:layout_marginRight="11dp"
             android:src="@drawable/separador" />
 
 
         <ImageView
-            android:id="@+id/separador2"
+            android:id="@+id/objeto_separador2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Imagen"
-            android:layout_alignStart="@+id/Imagen"
-            android:layout_below="@+id/imageView2"
+            android:layout_alignLeft="@+id/objeto_Imagen"
+            android:layout_alignStart="@+id/objeto_Imagen"
+            android:layout_below="@+id/objeto_imagePrecioVenta"
             android:layout_marginRight="11dp"
             android:src="@drawable/separador" />
 
         <TextView
-            android:id="@+id/TextoDescripcion"
+            android:id="@+id/objeto_TextoDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/separador2"
+            android:layout_below="@+id/objeto_separador2"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="11dp"
@@ -202,31 +202,31 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/descripcion"
+            android:id="@+id/objeto_descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView2"
-            android:layout_alignStart="@+id/imageView2"
-            android:layout_below="@+id/TextoDescripcion"
+            android:layout_alignLeft="@+id/objeto_imagePrecioVenta"
+            android:layout_alignStart="@+id/objeto_imagePrecioVenta"
+            android:layout_below="@+id/objeto_TextoDescripcion"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/objeto_separador3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/descripcion"
-            android:layout_alignStart="@+id/descripcion"
-            android:layout_below="@+id/descripcion"
+            android:layout_alignLeft="@+id/objeto_descripcion"
+            android:layout_alignStart="@+id/objeto_descripcion"
+            android:layout_below="@+id/objeto_descripcion"
             android:layout_marginRight="11dp"
             android:src="@drawable/separador" />
 
         <TextView
-            android:id="@+id/TextoCampeonesPermitidos"
+            android:id="@+id/objeto_TextoCampeonesPermitidos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView11"
+            android:layout_below="@+id/objeto_separador3"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="11dp"
@@ -236,7 +236,7 @@
             android:textStyle="bold" />
 
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/gridViewCampeonAdmitido"
+            android:id="@+id/objeto_gridViewCampeonAdmitido"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnWidth="100dp"
@@ -245,7 +245,7 @@
             android:verticalSpacing="10dp"
             android:layout_marginTop="11dp"
             android:gravity="center"
-            android:layout_below="@+id/TextoCampeonesPermitidos"
+            android:layout_below="@+id/objeto_TextoCampeonesPermitidos"
             android:numColumns="1"
             android:stretchMode="columnWidth">
         </GridView>

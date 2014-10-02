@@ -58,8 +58,8 @@ public class GridAdapterSkins extends BaseAdapter {
                 .load(url) //
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
-                .into((ImageView) convertView.findViewById(R.id.item_image));
-        ((TextView) convertView.findViewById(R.id.item_text)).setText(data[position][1]);
+                .into((ImageView) convertView.findViewById(R.id.skins_image));
+        ((TextView) convertView.findViewById(R.id.skins_text)).setText(data[position][1]);
         return convertView;
     }
 

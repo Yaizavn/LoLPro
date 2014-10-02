@@ -65,7 +65,7 @@ public class CampeonContenedor extends Fragment {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new CampeonPageAdapter(getChildFragmentManager(), args);
         numPages = mPagerAdapter.getCount();
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) view.findViewById(R.id.campeon_viewPager);
         mViewPager.setAdapter(mPagerAdapter);
 
 

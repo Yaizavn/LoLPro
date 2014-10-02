@@ -62,7 +62,7 @@ public class InicioGlobal extends Fragment {
         //TODO constants
         if (getView() != null){
             savedInstanceState.putSerializable("free_champs", ((GridAdapterFreeChamps) ((GridView) getView().findViewById(R.id.gridInicio)).getAdapter()).getData());
-            savedInstanceState.putSerializable("news", ((ListAdapterNoticias) ((ListView) getView().findViewById(R.id.noticias)).getAdapter()).getNews());
+            savedInstanceState.putSerializable("news", ((ListAdapterNoticias) ((ListView) getView().findViewById(R.id.inicio_listNoticias)).getAdapter()).getNews());
         }
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -143,7 +143,7 @@ public class InicioGlobal extends Fragment {
      */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         GridView grid = (GridView) view.findViewById(R.id.gridInicio);
-        ListView list = (ListView) view.findViewById(R.id.noticias);
+        ListView list = (ListView) view.findViewById(R.id.inicio_listNoticias);
         if(savedInstanceState != null){
             grid.setAdapter(new GridAdapterFreeChamps(getActivity(), (String[][]) savedInstanceState.getSerializable("free_champs")));
             list.setAdapter(new ListAdapterNoticias(getActivity(), (String[][]) savedInstanceState.getSerializable("news")));
@@ -162,7 +162,7 @@ public class InicioGlobal extends Fragment {
             }
             else{
                 list.setVisibility(View.INVISIBLE);
-                view.findViewById(R.id.textNoticias).setVisibility(View.INVISIBLE);
+                view.findViewById(R.id.inicio_textNoticias).setVisibility(View.INVISIBLE);
             }
         }
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
