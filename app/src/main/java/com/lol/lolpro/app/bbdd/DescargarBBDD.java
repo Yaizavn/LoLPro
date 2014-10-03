@@ -68,7 +68,7 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
             }
         }
         hayNuevosGratuitos = api.hayNuevosGratuitos();
-        this.publishProgress(100);
+        this.publishProgress(100, APIConnection.CHAMPION_FREE);
         return null;
     }
 
@@ -79,7 +79,32 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      */
     @Override
     protected void onProgressUpdate(Integer... integers) {
-        dFragment.updateProgress(integers[0]);
+        int textID;
+        switch (integers[1]){
+            case APIConnection.IMAGES_AND_VERSIONS:
+                textID = R.string.descargando_num_version;
+                break;
+            case APIConnection.CHAMPIONS:
+                textID = R.string.descargando_campeones;
+                break;
+            case APIConnection.UPDATE_CHAMPIONS:
+                textID = R.string.descargando_act_campeones;
+                break;
+            case APIConnection.OBJECTS:
+                textID = R.string.descargando_objetos;
+                break;
+            case APIConnection.UPDATE_OBJECTS:
+                textID = R.string.descargando_act_objetos;
+                break;
+            case APIConnection.CHAMPION_FREE:
+                textID = R.string.descargando_campeones_gratuitos;
+                break;
+            default:
+                // Generic download message
+                textID = R.string.descargando_titulo;
+                break;
+        }
+        dFragment.updateProgress(integers[0], appContext.getString(textID));
     }
 
     /**
@@ -90,7 +115,6 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
     public void onPostExecute(Void unused) {
         if (accion != Constants.DB_DONOTHING) {
             api.closeAPI();
-            //progress.dismiss();
             if (accion == Constants.DB_DOWNLOAD || hayNuevosGratuitos || hayNuevaVersion) {
                 refreshUI();
             }
@@ -102,22 +126,24 @@ public class DescargarBBDD extends AsyncTask<Void, Integer, Void> {
      * Se encarga de indicar que tareas serían necesarias en caso de que la base de datos no esté creada
      */
     public void inicializarBBDD() {
+        this.publishProgress(0, APIConnection.IMAGES_AND_VERSIONS);
         api.connect2API(APIConnection.IMAGES_AND_VERSIONS);
-        this.publishProgress(25);
+        this.publishProgress(25, APIConnection.CHAMPIONS);
         api.connect2API(APIConnection.CHAMPIONS);
-        this.publishProgress(50);
+        this.publishProgress(50, APIConnection.OBJECTS);
         api.connect2API(APIConnection.OBJECTS);
-        this.publishProgress(75);
+        this.publishProgress(75, APIConnection.CHAMPION_FREE);
     }
 
     /**
      * Se encarga de indicar que tareas serían necesarias en caso de que la base de datos esté creada y sea neceasrio actualizarla ya que ha habido un cambio de versión
      */
     public void actualizarBBDD() {
+        this.publishProgress(0, APIConnection.UPDATE_CHAMPIONS);
         api.connect2API(APIConnection.UPDATE_CHAMPIONS);
-        this.publishProgress(33);
+        this.publishProgress(33, APIConnection.UPDATE_OBJECTS);
         api.connect2API(APIConnection.UPDATE_OBJECTS);
-        this.publishProgress(66);
+        this.publishProgress(66, APIConnection.CHAMPION_FREE);
     }
 
     private void refreshUI() {

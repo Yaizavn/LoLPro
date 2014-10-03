@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.lol.lolpro.app.R;
 
@@ -17,6 +18,7 @@ import com.lol.lolpro.app.R;
 public class dFragment extends DialogFragment {
     DescargarBBDD mTask;
     ProgressBar mProgressBar;
+    TextView mText;
 
     public void setTask(DescargarBBDD task)
     {
@@ -46,6 +48,7 @@ public class dFragment extends DialogFragment {
     {
         View view = inflater.inflate(R.layout.dfragment, container);
         mProgressBar = (ProgressBar)view.findViewById(R.id.progressBar);
+        mText = (TextView)view.findViewById(R.id.message);
         mProgressBar.setMax(100);
 
         getDialog().setTitle(getString(R.string.descargando_titulo));
@@ -92,9 +95,10 @@ public class dFragment extends DialogFragment {
     }
 
     // This is called by the AsyncTask.
-    public void updateProgress(int percent)
+    public void updateProgress(int percent, String message)
     {
         mProgressBar.setProgress(percent);
+        mText.setText(message);
     }
 
     // This is also called by the AsyncTask.
