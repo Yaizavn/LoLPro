@@ -28,7 +28,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="left|top"
             android:layout_marginLeft="11dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="15dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/spells_Imagen"
             android:layout_alignStart="@+id/spells_Imagen"
-            android:layout_below="@+id/spells_Imagen"
-            android:layout_marginTop="70dp"
+            android:layout_below="@+id/spells_separador"
+            android:layout_marginTop="15dp"
             android:src="@drawable/vida" />
 
         <ImageView
@@ -141,22 +141,11 @@
             android:layout_marginRight="11dp"
             android:src="@drawable/separador" />
 
-
-        <ImageView
-            android:id="@+id/spells_separador2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/spells_Imagen"
-            android:layout_alignStart="@+id/spells_Imagen"
-            android:layout_below="@+id/spells_imageEnfriamiento"
-            android:layout_marginRight="11dp"
-            android:src="@drawable/separador" />
-
         <TextView
             android:id="@+id/spells_textDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spells_separador2"
+            android:layout_below="@+id/spells_imageEnfriamiento"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="11dp"
@@ -175,5 +164,16 @@
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/spells_separador2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spells_Imagen"
+            android:layout_alignStart="@+id/spells_Imagen"
+            android:layout_below="@+id/spells_descripcion"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/barra20separador" />
     </RelativeLayout>
 </ScrollView>

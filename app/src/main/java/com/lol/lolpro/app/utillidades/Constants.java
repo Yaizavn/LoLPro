@@ -5,7 +5,8 @@ package com.lol.lolpro.app.utillidades;
  */
 public class Constants {
     public static final String FONT_STORY = "fonts/Hand_Of_Sean_Demo.ttf";
-
+    public static final String FONT_GROBOLD ="fonts/GROBOLD.ttf";
+    public static final String FONT_TURTLES ="fonts/Turtles.otf";
     public static final int DRAWER_UNDEFINED = -1;
     public static final int DRAWER_INITIAL = 0;
     public static final int DRAWER_CHAMPION = 1;

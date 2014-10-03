@@ -2,6 +2,7 @@ package com.lol.lolpro.app.grids;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
-import com.lol.lolpro.app.utillidades.Utils;
+import com.lol.lolpro.app.utillidades.Constants;
 import com.squareup.picasso.Picasso;
 
 
@@ -51,7 +52,13 @@ public class GridAdapterSkins extends BaseAdapter {
             convertView = inflater.inflate(R.layout.cell_skins, parent, false);
         }
         convertView.setTag(getId(position));
-        // Get the image URL for the current position.
+        TextView nombre = (TextView) convertView.findViewById(R.id.skins_text);
+        // Defino la nueva fuente cargandola desde el fichero .ttf
+        Typeface miPropiaTypeFace = Typeface.createFromAsset(context.getAssets(), Constants.FONT_TURTLES);
+
+        // Aplico el nuevo tipo de letra
+        nombre.setTypeface(miPropiaTypeFace);
+                // Get the image URL for the current position.
         String url = getItem(position);
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
