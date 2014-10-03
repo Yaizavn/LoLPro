@@ -48,6 +48,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="actualizando">Actualizando datos</string>
+    <string name="descargando_titulo">Descargando datos</string>
     <string name="descargando">Descarga en proceso</string>
     <string name="si">Si</string>
     <string name="no">No</string>

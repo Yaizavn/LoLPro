@@ -48,7 +48,7 @@ public class dFragment extends DialogFragment {
         mProgressBar = (ProgressBar)view.findViewById(R.id.progressBar);
         mProgressBar.setMax(100);
 
-        getDialog().setTitle("Progress Dialog");
+        getDialog().setTitle(getString(R.string.descargando_titulo));
 
         // If you're doing a long task, you probably don't want people to cancel
         // it just by tapping the screen!
