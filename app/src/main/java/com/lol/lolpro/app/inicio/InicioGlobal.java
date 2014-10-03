@@ -2,6 +2,7 @@ package com.lol.lolpro.app.inicio;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lol.lolpro.app.Activity_General;
@@ -54,7 +56,15 @@ public class InicioGlobal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_INITIAL);
-        return inflater.inflate(R.layout.fragment_inicio_global, container, false);
+           View view=inflater.inflate(R.layout.fragment_inicio_global, container, false);
+            TextView campGrat = (TextView) view.findViewById(R.id.inicio_textCampeonesGratuitos);
+            TextView not = (TextView) view.findViewById(R.id.inicio_textNoticias);
+            // Defino la nueva fuente cargandola desde el fichero .ttf
+            Typeface miPropiaTypeFace = Typeface.createFromAsset(getActivity().getAssets(), Constants.FONT_GROBOLD);
+        // Aplico el nuevo tipo de letra
+        campGrat.setTypeface(miPropiaTypeFace);
+        not.setTypeface(miPropiaTypeFace);
+        return view;
     }
 
     @Override
