@@ -5,6 +5,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.lol.lolpro.app.EasyX509TrustManager;
 import com.lol.lolpro.app.bbdd.BBDDHelper;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.utillidades.Constants;
@@ -28,7 +29,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * Created by yaiza on 31/05/14.
@@ -65,6 +68,7 @@ public class APIConnection {
 
 
     private KeyStore keyStore;
+    private X509TrustManager tm;
     private TrustManagerFactory tmf;
     private SSLContext sslCont;
     private Context context;
@@ -178,12 +182,18 @@ public class APIConnection {
             } finally {
                 caInput.close();
             }
-            // Create a KeyStore containing our trusted CAs
-            // Create a TrustManager that trusts the CAs in our KeyStore
-            tmf.init(keyStore);
             // Create an SSLContext that uses our TrustManager
             sslCont = SSLContext.getInstance("TLS");
-            sslCont.init(null, tmf.getTrustManagers(), null);
+            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                tm = new EasyX509TrustManager(null);
+                sslCont.init(null, new TrustManager[]{tm}, null);
+            }
+            else{
+                // Create a KeyStore containing our trusted CAs
+                // Create a TrustManager that trusts the CAs in our KeyStore
+                tmf.init(keyStore);
+                sslCont.init(null, tmf.getTrustManagers(), null);
+            }
             return true;
         } catch (Exception e) {
             Log.e("error", "Error al validar el certificado del servidor");
