@@ -46,10 +46,7 @@ public class APIConnection {
     public static final int UPDATE_CHAMPIONS = 5;
 
     private static final String CERT_NAME_RIOT = "_.api.pvp.net";
-    private static final String CERT_NAME_DIGICERT_ROOT = "DigiCertHighAssuranceEVRootCA";
     private static final String CERT_NAME_DIGICERT_CA3 = "DigiCertHighAssuranceCA-3";
-    private static final String CERT_NAME_CYBERTRUST_ROOT = "BaltimoreCyberTrustRoot";
-    private static final String CERT_NAME_CYBERTRUST_GLOBALROOT = "GTECyberTrustGlobalRoot";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
     private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells&";
@@ -59,12 +56,8 @@ public class APIConnection {
     private static final String API_KEY = "api_key=56b9dedb-45bf-42f1-ab0e-4af9c8e058a2";
     private static final String VERSION_HEADER = "&version=";
 
-    private static final String CERT_ALIAS_RIOT = "1";
-    // Must be "ca" to work properly on older android versions 2.3.x
-    private static final String CERT_ALIAS_DIGICERT_ROOT = "3";
-    private static final String CERT_ALIAS_DIGICERT_CA3 = "2";
-    private static final String CERT_ALIAS_CyberTrustRoot = "4";
-    private static final String CERT_ALIAS_CyberTrustGlobalRoot = "5";
+    private static final String CERT_ALIAS_RIOT = "RIOT";
+    private static final String CERT_ALIAS_DIGICERT_CA3 = "DIGICERT_CA3";
 
 
     private KeyStore keyStore;
@@ -138,7 +131,7 @@ public class APIConnection {
                 return keyStore.isCertificateEntry(CERT_ALIAS_RIOT);
             }
             else{
-                return (keyStore.isCertificateEntry(CERT_ALIAS_RIOT)&&keyStore.isCertificateEntry(CERT_ALIAS_DIGICERT_CA3)&&keyStore.isCertificateEntry(CERT_ALIAS_DIGICERT_ROOT));
+                return (keyStore.isCertificateEntry(CERT_ALIAS_RIOT)&&keyStore.isCertificateEntry(CERT_ALIAS_DIGICERT_CA3));
             }
         } catch (KeyStoreException e) {
             e.printStackTrace();
@@ -162,22 +155,6 @@ public class APIConnection {
                     caInput = context.getAssets().open(APIConnection.CERT_NAME_DIGICERT_CA3);
                     cert= certFact.generateCertificate(caInput);
                     keyStore.setCertificateEntry(CERT_ALIAS_DIGICERT_CA3, cert);
-                    caInput.reset();
-                    caInput= context.getAssets().open(APIConnection.CERT_NAME_DIGICERT_ROOT);
-                    cert=certFact.generateCertificate(caInput);
-                    keyStore.setCertificateEntry(CERT_ALIAS_DIGICERT_ROOT, cert);
-
-
-
-                    caInput.reset();
-                    caInput= context.getAssets().open(APIConnection.CERT_NAME_CYBERTRUST_ROOT);
-                    cert=certFact.generateCertificate(caInput);
-                    keyStore.setCertificateEntry(CERT_ALIAS_CyberTrustRoot, cert);
-
-                    caInput.reset();
-                    caInput= context.getAssets().open(APIConnection.CERT_NAME_CYBERTRUST_GLOBALROOT);
-                    cert=certFact.generateCertificate(caInput);
-                    keyStore.setCertificateEntry(CERT_ALIAS_CyberTrustGlobalRoot, cert);
                 }
             } finally {
                 caInput.close();
@@ -185,14 +162,14 @@ public class APIConnection {
             // Create an SSLContext that uses our TrustManager
             sslCont = SSLContext.getInstance("TLS");
             if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                tm = new EasyX509TrustManager(null);
-                sslCont.init(null, new TrustManager[]{tm}, null);
-            }
-            else{
                 // Create a KeyStore containing our trusted CAs
                 // Create a TrustManager that trusts the CAs in our KeyStore
                 tmf.init(keyStore);
                 sslCont.init(null, tmf.getTrustManagers(), null);
+            }
+            else{
+                tm = new EasyX509TrustManager(keyStore);
+                sslCont.init(null, new TrustManager[]{tm}, null);
             }
             return true;
         } catch (Exception e) {
