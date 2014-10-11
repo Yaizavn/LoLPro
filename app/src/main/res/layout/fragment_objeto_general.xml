@@ -178,16 +178,6 @@
             android:src="@drawable/separador" />
 
 
-        <!--<ImageView
-            android:id="@+id/objeto_separador2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_Imagen"
-            android:layout_alignStart="@+id/objeto_Imagen"
-            android:layout_below="@+id/objeto_imagePrecioVenta"
-            android:layout_marginRight="11dp"
-            android:src="@drawable/separador" />-->
-
         <TextView
             android:id="@+id/objeto_TextoDescripcion"
             android:layout_width="wrap_content"
@@ -212,15 +202,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
 
-        <!--<ImageView
-            android:id="@+id/objeto_separador3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_descripcion"
-            android:layout_alignStart="@+id/objeto_descripcion"
-            android:layout_below="@+id/objeto_descripcion"
-            android:layout_marginRight="11dp"
-            android:src="@drawable/separador" />-->
 
         <TextView
             android:id="@+id/objeto_TextoCampeonesPermitidos"

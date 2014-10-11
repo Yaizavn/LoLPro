@@ -1,68 +1,81 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/arbol_textInto"
+    <RelativeLayout
+        android:id="@+id/a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/arbol_textInto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/text_into"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <GridView
+            android:id="@+id/arbol_gridViewInto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/arbol_textInto"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:rowHeight="100dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+
+        <TextView
+            android:id="@+id/arbol_textNoInto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/arbol_gridViewInto"
+            android:text="@+string/no_into"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+string/text_into"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        android:layout_below="@+id/a">
 
-    <GridView
-        android:id="@+id/arbol_gridViewInto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/arbol_textInto"
-        android:columnWidth="100dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:rowHeight="100dp"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
+        <TextView
+            android:id="@+id/arbol_textFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@+string/text_from"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/arbol_textNoInto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/arbol_gridViewInto"
-        android:text="@+string/no_into"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <GridView
+            android:id="@+id/arbol_gridViewFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/arbol_textFrom"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:rowHeight="100dp"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
 
-    <TextView
-        android:id="@+id/arbol_textFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/arbol_textNoInto"
-        android:layout_marginTop="20dp"
-        android:text="@+string/text_from"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
-
-    <GridView
-        android:id="@+id/arbol_gridViewFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/arbol_textFrom"
-        android:columnWidth="100dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:rowHeight="100dp"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
-
-    <TextView
-        android:id="@+id/arbol_textNoFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/arbol_textFrom"
-        android:text="@+string/no_from"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/arbol_textNoFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/arbol_textFrom"
+            android:text="@+string/no_from"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
