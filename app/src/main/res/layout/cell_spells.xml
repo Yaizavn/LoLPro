@@ -43,23 +43,23 @@
 
         <ImageView
             android:id="@+id/spells_imageAlcance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignLeft="@+id/spells_imageCoste"
             android:layout_alignStart="@+id/spells_imageCoste"
             android:layout_below="@+id/spells_imageCoste"
             android:layout_marginTop="32dp"
-            android:src="@drawable/danioataque" />
+            android:src="@drawable/alcance2" />
 
         <ImageView
             android:id="@+id/spells_imageEnfriamiento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignLeft="@+id/spells_imageAlcance"
             android:layout_alignStart="@+id/spells_imageAlcance"
             android:layout_below="@+id/spells_imageAlcance"
             android:layout_marginTop="32dp"
-            android:src="@drawable/regvida" />
+            android:src="@drawable/enfriamiento2" />
 
         <TextView
             android:id="@+id/spells_textCoste"

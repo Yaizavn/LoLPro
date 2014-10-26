@@ -615,8 +615,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @param id identificador único del objeto a buscar
      * @return Array con:
      * Nombre en la primera posición
-     * Coste base en la segunda posición
-     * Coste en la tercera posición
+     * coste base en la segunda posición
+     * coste en la tercera posición
      * Descripción de vida en la cuarta posición
      * Entero que indica con uno que el objeto puede comprarse en la tienda y con 0 que no puede comprarse, en la quinta posición
      * Ruta de la imagen principal del objeto en la sexta posición

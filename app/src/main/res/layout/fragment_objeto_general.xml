@@ -38,23 +38,23 @@
 
         <ImageView
             android:id="@+id/objeto_imageCoste"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignLeft="@+id/objeto_Imagen"
             android:layout_alignStart="@+id/objeto_Imagen"
             android:layout_below="@+id/objeto_Imagen"
             android:layout_marginTop="70dp"
-            android:src="@drawable/vida" />
+            android:src="@drawable/coste" />
 
         <ImageView
             android:id="@+id/objeto_imagePrecioVenta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignLeft="@+id/objeto_imageCoste"
             android:layout_alignStart="@+id/objeto_imageCoste"
             android:layout_below="@+id/objeto_imageCoste"
             android:layout_marginTop="32dp"
-            android:src="@drawable/danioataque" />
+            android:src="@drawable/venta" />
 
         <TextView
             android:id="@+id/objeto_TextoCoste"
@@ -127,22 +127,22 @@
 
         <ImageView
             android:id="@+id/objeto_imageCosteBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignTop="@+id/objeto_TextoCoste"
             android:layout_marginLeft="40dp"
             android:layout_toRightOf="@+id/objeto_TextoVenta"
-            android:src="@drawable/regvida" />
+            android:src="@drawable/costebase2" />
 
         <ImageView
             android:id="@+id/objeto_imageEstaTienda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignLeft="@+id/objeto_imageCosteBase"
             android:layout_alignStart="@+id/objeto_imageCosteBase"
             android:layout_below="@+id/objeto_imageCosteBase"
             android:layout_marginTop="32dp"
-            android:src="@drawable/regvida" />
+            android:src="@drawable/ventaverde" />
 
         <TextView
             android:id="@+id/objeto_textoCosteBase"
