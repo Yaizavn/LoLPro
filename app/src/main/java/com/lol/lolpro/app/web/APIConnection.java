@@ -252,14 +252,14 @@ public class APIConnection {
                             match5 = patt5.matcher(match3.group(9));
                             while (match5.find()) {
                                 datos = new ArrayList<String>();
-                                datos.add(TextUtils.htmlEncode(match5.group(1)));
-                                datos.add(Utils.sanitizeAttackSource(match5.group(3).replaceAll(",", "/"), TextUtils.htmlEncode(match5.group(2)), context));
+                                datos.add(Utils.htmlEncode(match5.group(1)));
+                                datos.add(Utils.sanitizeAttackSource(match5.group(3).replaceAll(",", "/"), Utils.htmlEncode(match5.group(2)), context));
                                 vars.add(datos);
                             }
                         }
                         datos = new ArrayList<String>();
                         datos.add("cost");
-                        datos.add(TextUtils.htmlEncode(match3.group(6)));
+                        datos.add(Utils.htmlEncode(match3.group(6)));
                         vars.add(datos);
                         for (int j = 1; j < effects.length; j++) {
                             datos = new ArrayList<String>();

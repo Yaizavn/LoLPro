@@ -147,31 +147,31 @@ public class BBDDHelper extends SQLiteOpenHelper {
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
 
         ContentValues cont = new ContentValues();
-        cont.put("key", TextUtils.htmlEncode(key));
-        cont.put("nombre", TextUtils.htmlEncode(nombre));
-        cont.put("nick", TextUtils.htmlEncode(nick));
-        cont.put("historia", TextUtils.htmlEncode(historia));
-        cont.put("vida", TextUtils.htmlEncode(vida));
-        cont.put("vidaPorNivel", TextUtils.htmlEncode(vidaPorNivel));
-        cont.put("regeneracionVida", TextUtils.htmlEncode(regeneracionVida));
-        cont.put("regeneracionVidaPorNivel", TextUtils.htmlEncode(regeneracionVidaPorNivel));
-        cont.put("danioAtaque", TextUtils.htmlEncode(danioAtaque));
-        cont.put("danioAtaquePorNivel", TextUtils.htmlEncode(danioAtaquePorNivel));
-        cont.put("armadura", TextUtils.htmlEncode(armadura));
-        cont.put("armaduraPorNivel", TextUtils.htmlEncode(armaduraPorNivel));
+        cont.put("key", Utils.htmlEncode(key));
+        cont.put("nombre", Utils.htmlEncode(nombre));
+        cont.put("nick", Utils.htmlEncode(nick));
+        cont.put("historia", Utils.htmlEncode(historia));
+        cont.put("vida", Utils.htmlEncode(vida));
+        cont.put("vidaPorNivel", Utils.htmlEncode(vidaPorNivel));
+        cont.put("regeneracionVida", Utils.htmlEncode(regeneracionVida));
+        cont.put("regeneracionVidaPorNivel", Utils.htmlEncode(regeneracionVidaPorNivel));
+        cont.put("danioAtaque", Utils.htmlEncode(danioAtaque));
+        cont.put("danioAtaquePorNivel", Utils.htmlEncode(danioAtaquePorNivel));
+        cont.put("armadura", Utils.htmlEncode(armadura));
+        cont.put("armaduraPorNivel", Utils.htmlEncode(armaduraPorNivel));
         cont.put("velocidadAtaque", velAtaque);
-        cont.put("velocidadAtaquePorNivel", TextUtils.htmlEncode(velocidadAtaquePorNivel));
-        cont.put("crit", TextUtils.htmlEncode(crit));
-        cont.put("critPorNivel", TextUtils.htmlEncode(critPorNivel));
-        cont.put("tipoMP", TextUtils.htmlEncode(tipoMP));
-        cont.put("mana", TextUtils.htmlEncode(mana));
-        cont.put("manaPorNivel", TextUtils.htmlEncode(manaPorNivel));
-        cont.put("regMana", TextUtils.htmlEncode(regMana));
-        cont.put("regManaPorNivel", TextUtils.htmlEncode(regManaPorNivel));
-        cont.put("resistenciaMagica", TextUtils.htmlEncode(resistenciaMagica));
-        cont.put("resistenciaMagicaPorNivel", TextUtils.htmlEncode(resistenciaMagicaPorNivel));
-        cont.put("velocidadMovimiento", TextUtils.htmlEncode(velocidadMovimiento));
-        cont.put("rutaPrincipal", TextUtils.htmlEncode(rutaPrincipal));
+        cont.put("velocidadAtaquePorNivel", Utils.htmlEncode(velocidadAtaquePorNivel));
+        cont.put("crit", Utils.htmlEncode(crit));
+        cont.put("critPorNivel", Utils.htmlEncode(critPorNivel));
+        cont.put("tipoMP", Utils.htmlEncode(tipoMP));
+        cont.put("mana", Utils.htmlEncode(mana));
+        cont.put("manaPorNivel", Utils.htmlEncode(manaPorNivel));
+        cont.put("regMana", Utils.htmlEncode(regMana));
+        cont.put("regManaPorNivel", Utils.htmlEncode(regManaPorNivel));
+        cont.put("resistenciaMagica", Utils.htmlEncode(resistenciaMagica));
+        cont.put("resistenciaMagicaPorNivel", Utils.htmlEncode(resistenciaMagicaPorNivel));
+        cont.put("velocidadMovimiento", Utils.htmlEncode(velocidadMovimiento));
+        cont.put("rutaPrincipal", Utils.htmlEncode(rutaPrincipal));
         cont.put("esGratis", 0);
         String[] whereArgs = new String[]{Integer.toString(id)};
         if(!actualizarBBDD || mDatabase.update("campeones", cont, "_id=?", whereArgs) == 0) {
@@ -183,9 +183,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
     public void insertarAspectoCampeon(int idAspecto, int idCampeon, String nombre, int numero, String rutaPrincipal, boolean actualizarBBDD) {
         ContentValues cont = new ContentValues();
         cont.put("idCampeon", idCampeon);
-        cont.put("nombre", TextUtils.htmlEncode(nombre));
+        cont.put("nombre", Utils.htmlEncode(nombre));
         cont.put("num", numero);
-        cont.put("rutaPrincipal", TextUtils.htmlEncode(rutaPrincipal));
+        cont.put("rutaPrincipal", Utils.htmlEncode(rutaPrincipal));
         String[] whereArgs = new String[]{Integer.toString(idAspecto)};
         if(!actualizarBBDD || mDatabase.update("aspectos", cont, "_id=?", whereArgs) == 0) {
             cont.put("_id", idAspecto);
@@ -196,19 +196,19 @@ public class BBDDHelper extends SQLiteOpenHelper {
     public void insertarHabilidadCampeon(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
                                          String alcance, String rutaPrincipal, String enfriamiento, int posicion, int esPasiva, boolean actualizarBBDD) {
         ContentValues cont = new ContentValues();
-        cont.put("descripcion", TextUtils.htmlEncode(descripcion));
-        cont.put("tooltip", TextUtils.htmlEncode(tooltip));
-        cont.put("coste", TextUtils.htmlEncode(coste));
-        cont.put("alcance", TextUtils.htmlEncode(alcance));
-        cont.put("rutaPrincipal", TextUtils.htmlEncode(rutaPrincipal));
-        cont.put("enfriamiento", TextUtils.htmlEncode(enfriamiento));
+        cont.put("descripcion", Utils.htmlEncode(descripcion));
+        cont.put("tooltip", Utils.htmlEncode(tooltip));
+        cont.put("coste", Utils.htmlEncode(coste));
+        cont.put("alcance", Utils.htmlEncode(alcance));
+        cont.put("rutaPrincipal", Utils.htmlEncode(rutaPrincipal));
+        cont.put("enfriamiento", Utils.htmlEncode(enfriamiento));
         cont.put("esPasiva", esPasiva);
         cont.put("posicion", posicion);
         cont.put ("esNueva", 1);
-        String[] whereArgs = new String[]{Integer.toString(idCampeon), TextUtils.htmlEncode(nombre)};
+        String[] whereArgs = new String[]{Integer.toString(idCampeon), Utils.htmlEncode(nombre)};
         if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
             cont.put("idCampeon", idCampeon);
-            cont.put("nombre", TextUtils.htmlEncode(nombre));
+            cont.put("nombre", Utils.htmlEncode(nombre));
             mDatabase.insert("habilidades", null, cont);
         }
     }
@@ -231,17 +231,17 @@ public class BBDDHelper extends SQLiteOpenHelper {
         String into = intoOBJ == null ? "" : Utils.clearQuotes(intoOBJ);
         int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
         ContentValues cont = new ContentValues();
-        cont.put("name", TextUtils.htmlEncode(name));
+        cont.put("name", Utils.htmlEncode(name));
         cont.put("base", base);
         cont.put("total", total);
         cont.put("sell", sell);
         cont.put("purchasable", purch);
-        cont.put("description", TextUtils.htmlEncode(description));
-        cont.put("plainText", TextUtils.htmlEncode(pText));
+        cont.put("description", Utils.htmlEncode(description));
+        cont.put("plainText", Utils.htmlEncode(pText));
         cont.put("stacks", stack);
         cont.put("depth", dept);
-        cont.put("fromOBJ", TextUtils.htmlEncode(from));
-        cont.put("intoOBJ", TextUtils.htmlEncode(into));
+        cont.put("fromOBJ", Utils.htmlEncode(from));
+        cont.put("intoOBJ", Utils.htmlEncode(into));
         cont.put("hideFromAll", hide);
         if (requiredChampion==null) {
             cont.putNull("requiredChampion");
@@ -249,7 +249,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         else{
             cont.put("requiredChampion", obtenerIDCampeon (requiredChampion));
         }
-        cont.put("full", TextUtils.htmlEncode(full));
+        cont.put("full", Utils.htmlEncode(full));
         String[] whereArgs = new String[]{Integer.toString(id)};
         if(!actualizarBBDD || mDatabase.update("objetos", cont, "_id=?", whereArgs) == 0) {
             cont.put("_id", id);
@@ -260,8 +260,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
     public void insertarTagObjeto(int idObjeto, String nombreTag, String hyperTag){
         ContentValues cont = new ContentValues();
         cont.put("idObjeto", idObjeto);
-        cont.put("nombreTag", TextUtils.htmlEncode(nombreTag));
-        cont.put("hyperTag", TextUtils.htmlEncode(hyperTag));
+        cont.put("nombreTag", Utils.htmlEncode(nombreTag));
+        if (hyperTag == null){
+            hyperTag="";
+        }
+        cont.put("hyperTag", Utils.htmlEncode(hyperTag));
         mDatabase.insert("tagsObjetos", null, cont);
     }
 
@@ -281,9 +284,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
         mDatabase.delete("rutaVersiones", null, null);
         ContentValues cont = new ContentValues();
         cont.putNull("_id");
-        cont.put("ruta", TextUtils.htmlEncode(ruta));
-        cont.put("versionCampeones", TextUtils.htmlEncode(vCampeon));
-        cont.put("versionObjetos", TextUtils.htmlEncode(vObjeto));
+        cont.put("ruta", Utils.htmlEncode(ruta));
+        cont.put("versionCampeones", Utils.htmlEncode(vCampeon));
+        cont.put("versionObjetos", Utils.htmlEncode(vObjeto));
         mDatabase.insert("rutaVersiones", null, cont);
     }
 
@@ -309,10 +312,10 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     //TODO CHECK RIOT
     public void aniadirMapas(){
-        mDatabase.execSQL("INSERT INTO mapas VALUES (1, '" + TextUtils.htmlEncode(contexto.getResources().getString(R.string.mapa_1)) + "')");
-        mDatabase.execSQL("INSERT INTO mapas VALUES (8, '" + TextUtils.htmlEncode(contexto.getResources().getString(R.string.mapa_8)) + "')");
-        mDatabase.execSQL("INSERT INTO mapas VALUES (10, '" + TextUtils.htmlEncode(contexto.getResources().getString(R.string.mapa_10)) + "')");
-        mDatabase.execSQL("INSERT INTO mapas VALUES (12, '" + TextUtils.htmlEncode(contexto.getResources().getString(R.string.mapa_12)) + "')");
+        mDatabase.execSQL("INSERT INTO mapas VALUES (1, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_1)) + "')");
+        mDatabase.execSQL("INSERT INTO mapas VALUES (8, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_8)) + "')");
+        mDatabase.execSQL("INSERT INTO mapas VALUES (10, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_10)) + "')");
+        mDatabase.execSQL("INSERT INTO mapas VALUES (12, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_12)) + "')");
     }
 
 
