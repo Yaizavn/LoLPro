@@ -132,7 +132,7 @@
             android:layout_alignTop="@+id/objeto_TextoCoste"
             android:layout_marginLeft="40dp"
             android:layout_toRightOf="@+id/objeto_TextoVenta"
-            android:src="@drawable/costebase2" />
+            android:src="@drawable/costebase" />
 
         <ImageView
             android:id="@+id/objeto_imageEstaTienda"

@@ -37,6 +37,10 @@ public class dFragment extends DialogFragment {
         // MainFragment change configuration.
         setRetainInstance(true);
 
+        // Make the dialog not cancelable, user can not close the dialog
+        // pressing the back button
+        setCancelable(false);
+
         // Start the task! You could move this outside this activity if you want.
         if (mTask != null)
             mTask.execute();

@@ -39,7 +39,7 @@
             android:layout_alignStart="@+id/spells_Imagen"
             android:layout_below="@+id/spells_separador"
             android:layout_marginTop="15dp"
-            android:src="@drawable/vida" />
+            android:src="@drawable/coste" />
 
         <ImageView
             android:id="@+id/spells_imageAlcance"
