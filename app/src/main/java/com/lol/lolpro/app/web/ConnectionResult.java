@@ -30,6 +30,7 @@ public class ConnectionResult {
             HttpsURLConnection urlConnection =
                     (HttpsURLConnection) url.openConnection();
             urlConnection.setSSLSocketFactory(sslCont.getSocketFactory());
+            // urlConnectiongetResponseCode() to know what the error is
             InputStream in = urlConnection.getInputStream();
             String line;
             StringBuilder sb = new StringBuilder();

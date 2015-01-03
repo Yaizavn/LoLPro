@@ -2,7 +2,6 @@ package com.lol.lolpro.app.web;
 
 import android.content.Context;
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.lol.lolpro.app.EasyX509TrustManager;
@@ -117,7 +116,7 @@ public class APIConnection {
         }
     }
 
-    private URI createURI(int type, String version){
+    private URI createURI(int type, String version) {
         try {
             return new URI(new StringBuffer(createURI(type).toString()).append(VERSION_HEADER).append(version).toString());
         } catch (URISyntaxException e) {
@@ -127,11 +126,10 @@ public class APIConnection {
 
     private boolean hasCert() {
         try {
-            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 return keyStore.isCertificateEntry(CERT_ALIAS_RIOT);
-            }
-            else{
-                return (keyStore.isCertificateEntry(CERT_ALIAS_RIOT)&&keyStore.isCertificateEntry(CERT_ALIAS_DIGICERT_CA3));
+            } else {
+                return (keyStore.isCertificateEntry(CERT_ALIAS_RIOT) && keyStore.isCertificateEntry(CERT_ALIAS_DIGICERT_CA3));
             }
         } catch (KeyStoreException e) {
             e.printStackTrace();
@@ -150,10 +148,10 @@ public class APIConnection {
                 //  ROOT alias must be "ca"
                 cert = certFact.generateCertificate(caInput);
                 keyStore.setCertificateEntry(CERT_ALIAS_RIOT, cert);
-                if (Build.VERSION.SDK_INT<Build.VERSION_CODES.ICE_CREAM_SANDWICH){
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                     caInput.reset();
                     caInput = context.getAssets().open(APIConnection.CERT_NAME_DIGICERT_CA3);
-                    cert= certFact.generateCertificate(caInput);
+                    cert = certFact.generateCertificate(caInput);
                     keyStore.setCertificateEntry(CERT_ALIAS_DIGICERT_CA3, cert);
                 }
             } finally {
@@ -161,15 +159,14 @@ public class APIConnection {
             }
             // Create an SSLContext that uses our TrustManager
             sslCont = SSLContext.getInstance("TLS");
-            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                tm = new EasyX509TrustManager(keyStore);
+                sslCont.init(null, new TrustManager[]{tm}, null);
+            } else {
                 // Create a KeyStore containing our trusted CAs
                 // Create a TrustManager that trusts the CAs in our KeyStore
                 tmf.init(keyStore);
                 sslCont.init(null, tmf.getTrustManagers(), null);
-            }
-            else{
-                tm = new EasyX509TrustManager(keyStore);
-                sslCont.init(null, new TrustManager[]{tm}, null);
             }
             return true;
         } catch (Exception e) {
@@ -186,9 +183,12 @@ public class APIConnection {
                 insertCert();
             }
             String respuesta = new ConnectionResult(sslCont).getHttpsResult(uriConsulta);
-            extractAndStoreData(respuesta, type);
+            if(!respuesta.isEmpty()){
+                extractAndStoreData(respuesta, type);
+            }
         }
     }
+
     public void extractAndStoreData(String answer, int type) {
         Pattern patt = null;
         Matcher match = null;
@@ -241,7 +241,7 @@ public class APIConnection {
                                 Integer.parseInt(match.group(1)), match2.group(2),
                                 Integer.parseInt(match2.group(3)),
                                 rutaImagenAspecto + match.group(2) + "_" +
-                                Integer.parseInt(match2.group(3)) + ".jpg", type == UPDATE_CHAMPIONS);
+                                        Integer.parseInt(match2.group(3)) + ".jpg", type == UPDATE_CHAMPIONS);
                     }
                     // Almacenamos las habilidades y la pasiva
                     match3 = patt3.matcher(match.group(29));
