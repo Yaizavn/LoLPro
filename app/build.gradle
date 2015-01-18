@@ -1,4 +1,4 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
@@ -21,9 +21,7 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.squareup.picasso:picasso:2.3.2'
-    compile 'com.squareup.okhttp:okhttp:2.0.0'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'org.jsoup:jsoup:1.7.3'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

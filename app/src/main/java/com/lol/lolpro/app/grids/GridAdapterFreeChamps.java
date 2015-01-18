@@ -57,6 +57,7 @@ public class GridAdapterFreeChamps extends BaseAdapter {
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
                 .load(url) //
+                .fit()
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
                 .into((ImageView) convertView.findViewById(R.id.item_image));
