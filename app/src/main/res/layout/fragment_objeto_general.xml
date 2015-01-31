@@ -19,7 +19,7 @@
             android:layout_gravity="left|top"
             android:layout_marginLeft="25dp"
             android:layout_toRightOf="@+id/objeto_Imagen"
-            android:text="@+string/nombre"
+            android:text="@string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -63,7 +63,7 @@
             android:layout_alignTop="@+id/objeto_imageCoste"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/objeto_imageCoste"
-            android:text="@+string/coste"
+            android:text="@string/coste"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -75,7 +75,7 @@
             android:layout_alignTop="@+id/objeto_imagePrecioVenta"
             android:layout_marginLeft="7dp"
             android:layout_toRightOf="@+id/objeto_imagePrecioVenta"
-            android:text="@+string/precio_venta"
+            android:text="@string/precio_venta"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -87,7 +87,7 @@
             android:layout_alignTop="@+id/objeto_imageEstaTienda"
             android:layout_marginLeft="7dp"
             android:layout_toRightOf="@+id/objeto_imageEstaTienda"
-            android:text="@+string/tienda"
+            android:text="@string/tienda"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -151,7 +151,7 @@
             android:layout_alignTop="@+id/objeto_imageCosteBase"
             android:layout_marginLeft="7dp"
             android:layout_toRightOf="@+id/objeto_imageCosteBase"
-            android:text="@+string/coste_base"
+            android:text="@string/coste_base"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -186,7 +186,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="11dp"
-            android:text="@+string/descripcion"
+            android:text="@string/descripcion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -211,7 +211,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="11dp"
-            android:text="@+string/required_champion"
+            android:text="@string/required_champion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -220,14 +220,11 @@
             android:id="@+id/objeto_gridViewCampeonAdmitido"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnWidth="100dp"
-            android:rowHeight="100dp"
-            android:horizontalSpacing="10dp"
-            android:verticalSpacing="10dp"
             android:layout_marginTop="11dp"
-            android:gravity="center"
             android:layout_below="@+id/objeto_TextoCampeonesPermitidos"
-            android:numColumns="1"
+            android:columnWidth="100dp"
+            android:verticalSpacing="10dp"
+            android:numColumns="auto_fit"
             android:stretchMode="columnWidth">
         </GridView>
 
