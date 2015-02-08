@@ -5,6 +5,8 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     tools:context="com.lol.lolpro.app.inicio.InicioGlobal$PlaceholderFragment">
 
     <TextView
