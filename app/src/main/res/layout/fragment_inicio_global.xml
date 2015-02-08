@@ -36,15 +36,13 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/noticias"
         android:id="@+id/inicio_textNoticias"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_weight="0.1"
         android:layout_gravity="center"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:id="@+id/inicio_listNoticias"
         android:layout_weight="0.8"/>
 

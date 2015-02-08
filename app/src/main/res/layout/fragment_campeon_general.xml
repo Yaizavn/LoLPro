@@ -1,22 +1,19 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingBottom="32dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp">
 
         <ImageView
             android:id="@+id/campeon_Imagen"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="left|top"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="39dp" />
+            android:layout_height="100dp"/>
 
         <TextView
             android:id="@+id/campeon_nombre"
@@ -24,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/campeon_Imagen"
             android:layout_toRightOf="@id/campeon_Imagen"
-            android:text="@+string/nombre"
+            android:text="@string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="25sp"
             android:layout_marginLeft="15dp"
@@ -35,12 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/campeon_nombre"
-            android:layout_marginTop="22dp"
-            android:layout_toRightOf="@id/campeon_Imagen"
-            android:text="@+string/nick"
+            android:layout_alignLeft="@id/campeon_nombre"
+            android:layout_marginTop="20dp"
+            android:text="@string/nick"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"/>
+            android:textSize="18sp"/>
 
         <ImageView
             android:id="@+id/campeon_separador"
@@ -48,288 +44,296 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/campeon_Imagen"
             android:layout_below="@id/campeon_Imagen"
-            android:layout_marginRight="11dp"
             android:src="@drawable/separador" />
 
-        <ImageView
-            android:id="@+id/campeon_imageVida"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_Imagen"
-            android:layout_below="@id/campeon_Imagen"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/vida" />
+            android:layout_below="@id/campeon_separador"
+            android:layout_marginTop="20dp">
 
-        <ImageView
-            android:id="@+id/campeon_imageDanioAtaque"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_imageVida"
-            android:layout_below="@id/campeon_imageVida"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/danioataque" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/campeon_imageVelAtaque"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_imageDanioAtaque"
-            android:layout_below="@id/campeon_imageDanioAtaque"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/velataque" />
+                <ImageView
+                    android:id="@+id/campeon_imageVida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/vida" />
+
+                <ImageView
+                    android:id="@+id/campeon_imageDanioAtaque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campeon_imageVida"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/danioataque" />
+
+                <ImageView
+                    android:id="@+id/campeon_imageVelAtaque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campeon_imageDanioAtaque"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/velataque" />
 
 
-        <ImageView
-            android:id="@+id/campeon_imageMana"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_imageVelAtaque"
-            android:layout_below="@id/campeon_imageVelAtaque"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/mana" />
+                <ImageView
+                    android:id="@+id/campeon_imageMana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campeon_imageVelAtaque"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/mana" />
 
-        <ImageView
-            android:id="@+id/campeon_imageVelMovimiento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_imageMana"
-            android:layout_below="@id/campeon_imageMana"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/velmovimiento" />
+                <ImageView
+                    android:id="@+id/campeon_imageVelMovimiento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campeon_imageMana"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/velmovimiento" />
 
-        <TextView
-            android:id="@+id/campeon_texVida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageVida"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_imageVida"
-            android:text="@+string/vida"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/campeon_texVida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageVida"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageVida"
+                    android:text="@string/vida"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_texDanioAtaque"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageDanioAtaque"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_imageDanioAtaque"
-            android:text="@+string/danio_ataque"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/campeon_texDanioAtaque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageDanioAtaque"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageDanioAtaque"
+                    android:text="@string/danio_ataque"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_texVelAtaque"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageVelAtaque"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_imageVelAtaque"
-            android:text="@+string/vel_ataque"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/campeon_texVelAtaque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageVelAtaque"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageVelAtaque"
+                    android:text="@string/vel_ataque"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_texMana"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageMana"
-            android:layout_marginLeft="7dp"
-            android:layout_toRightOf="@id/campeon_imageMana"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/campeon_texMana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageMana"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageMana"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_texVelMov"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/campeon_imageVelMovimiento"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/campeon_imageVelMovimiento"
-            android:text="@+string/vel_movimiento"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/campeon_texVelMov"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageVelMovimiento"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageVelMovimiento"
+                    android:text="@string/vel_movimiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_vida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texVida"
-            android:layout_below="@id/campeon_texVida"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_vida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texVida"
+                    android:layout_below="@id/campeon_texVida"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/campeon_danioAtaque"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texDanioAtaque"
-            android:layout_below="@id/campeon_texDanioAtaque"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_danioAtaque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texDanioAtaque"
+                    android:layout_below="@id/campeon_texDanioAtaque"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/campeon_velAtaque"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texVelAtaque"
-            android:layout_below="@id/campeon_texVelAtaque"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_velAtaque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texVelAtaque"
+                    android:layout_below="@id/campeon_texVelAtaque"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/campeon_mana"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texMana"
-            android:layout_below="@id/campeon_texMana"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_mana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texMana"
+                    android:layout_below="@id/campeon_texMana"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/campeon_velMov"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texVelMov"
-            android:layout_below="@id/campeon_texVelMov"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_velMov"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texVelMov"
+                    android:layout_below="@id/campeon_texVelMov"
+                    android:text="Large Text"
+                    android:layout_marginBottom="40dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
 
-        <ImageView
-            android:id="@+id/campeon_imageRegVida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageVida"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_texVelMov"
-            android:src="@drawable/regvida" />
+            </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/campeon_imageArmadura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_imageRegVida"
-            android:layout_below="@id/campeon_imageRegVida"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/armadura" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="8dp">
 
-        <ImageView
-            android:id="@+id/campeon_imageResMagica"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_imageArmadura"
-            android:layout_below="@id/campeon_imageArmadura"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/resmagica" />
+                <ImageView
+                    android:id="@+id/campeon_imageRegVida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/regvida" />
 
-        <ImageView
-            android:id="@+id/campeon_imageRegMana"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_imageResMagica"
-            android:layout_below="@id/campeon_imageResMagica"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/regmana" />
+                <ImageView
+                    android:id="@+id/campeon_imageArmadura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campeon_imageRegVida"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/armadura" />
 
-        <TextView
-            android:id="@+id/campeon_texRegVida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageRegVida"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_imageRegVida"
-            android:text="@+string/reg_vida"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/campeon_imageResMagica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campeon_imageArmadura"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/resmagica" />
 
-        <TextView
-            android:id="@+id/campeon_texArmadura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageArmadura"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_imageArmadura"
-            android:text="@+string/armadura"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/campeon_imageRegMana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campeon_imageResMagica"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/regmana" />
 
-        <TextView
-            android:id="@+id/campeon_texResMagica"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageResMagica"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_imageResMagica"
-            android:text="@+string/res_magica"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/campeon_texRegVida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageRegVida"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageRegVida"
+                    android:text="@string/reg_vida"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_texRegMana"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/campeon_imageRegMana"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/campeon_imageRegMana"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/campeon_texArmadura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageArmadura"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageArmadura"
+                    android:text="@string/armadura"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_regVida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texRegVida"
-            android:layout_below="@id/campeon_texRegVida"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_texResMagica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageResMagica"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageResMagica"
+                    android:text="@string/res_magica"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_armadura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texArmadura"
-            android:layout_below="@id/campeon_texArmadura"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_texRegMana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/campeon_imageRegMana"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/campeon_imageRegMana"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/campeon_resMagica"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texResMagica"
-            android:layout_below="@id/campeon_texResMagica"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_regVida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texRegVida"
+                    android:layout_below="@id/campeon_texRegVida"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/campeon_regMana"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/campeon_texRegMana"
-            android:layout_below="@id/campeon_texRegMana"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/campeon_armadura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texArmadura"
+                    android:layout_below="@id/campeon_texArmadura"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
 
+                <TextView
+                    android:id="@+id/campeon_resMagica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texResMagica"
+                    android:layout_below="@id/campeon_texResMagica"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/campeon_regMana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/campeon_texRegMana"
+                    android:layout_below="@id/campeon_texRegMana"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
 </ScrollView>

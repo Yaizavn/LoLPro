@@ -8,21 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:isScrollContainer="false"
-        android:scrollbarAlwaysDrawVerticalTrack="false"
-        tools:context="com.lol.lolpro.app.objetos.ObjetoGeneral">
-
-        <TextView
-            android:id="@+id/objeto_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/objeto_Imagen"
-            android:layout_gravity="left|top"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/objeto_Imagen"
-            android:text="@string/nombre"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+        tools:context="com.lol.lolpro.app.objetos.ObjetoGeneral"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp">
 
         <ImageView
             android:id="@+id/objeto_Imagen"
@@ -31,161 +21,184 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_gravity="left|top"
-            android:layout_marginLeft="11dp"
-            android:layout_marginTop="39dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <ImageView
-            android:id="@+id/objeto_imageCoste"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@+id/objeto_Imagen"
-            android:layout_alignStart="@+id/objeto_Imagen"
-            android:layout_below="@+id/objeto_Imagen"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/coste" />
-
-        <ImageView
-            android:id="@+id/objeto_imagePrecioVenta"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@+id/objeto_imageCoste"
-            android:layout_alignStart="@+id/objeto_imageCoste"
-            android:layout_below="@+id/objeto_imageCoste"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/venta" />
 
         <TextView
-            android:id="@+id/objeto_TextoCoste"
+            android:id="@+id/objeto_nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/objeto_imageCoste"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/objeto_imageCoste"
-            android:text="@string/coste"
+            android:layout_alignTop="@+id/objeto_Imagen"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/objeto_Imagen"
+            android:text="@string/nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/objeto_TextoVenta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/objeto_imagePrecioVenta"
-            android:layout_marginLeft="7dp"
-            android:layout_toRightOf="@+id/objeto_imagePrecioVenta"
-            android:text="@string/precio_venta"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/objeto_TextoTienda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/objeto_imageEstaTienda"
-            android:layout_marginLeft="7dp"
-            android:layout_toRightOf="@+id/objeto_imageEstaTienda"
-            android:text="@string/tienda"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/objeto_coste"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_TextoCoste"
-            android:layout_alignStart="@+id/objeto_TextoCoste"
-            android:layout_below="@+id/objeto_TextoCoste"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/objeto_precioVenta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_TextoVenta"
-            android:layout_alignStart="@+id/objeto_TextoVenta"
-            android:layout_below="@+id/objeto_TextoVenta"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/objeto_puedesComprar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_TextoTienda"
-            android:layout_alignStart="@+id/objeto_TextoTienda"
-            android:layout_below="@+id/objeto_TextoTienda"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:id="@+id/objeto_imageCosteBase"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignTop="@+id/objeto_TextoCoste"
-            android:layout_marginLeft="40dp"
-            android:layout_toRightOf="@+id/objeto_TextoVenta"
-            android:src="@drawable/costebase" />
-
-        <ImageView
-            android:id="@+id/objeto_imageEstaTienda"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@+id/objeto_imageCosteBase"
-            android:layout_alignStart="@+id/objeto_imageCosteBase"
-            android:layout_below="@+id/objeto_imageCosteBase"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/ventaverde" />
-
-        <TextView
-            android:id="@+id/objeto_textoCosteBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/objeto_imageCosteBase"
-            android:layout_marginLeft="7dp"
-            android:layout_toRightOf="@+id/objeto_imageCosteBase"
-            android:text="@string/coste_base"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/objeto_costeBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_textoCosteBase"
-            android:layout_alignStart="@+id/objeto_textoCosteBase"
-            android:layout_below="@+id/objeto_textoCosteBase"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/objeto_separador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_Imagen"
-            android:layout_alignStart="@+id/objeto_Imagen"
-            android:layout_below="@+id/objeto_Imagen"
-            android:layout_marginRight="11dp"
+            android:layout_alignLeft="@id/objeto_Imagen"
+            android:layout_alignStart="@id/objeto_Imagen"
+            android:layout_below="@id/objeto_Imagen"
             android:src="@drawable/separador" />
 
+        <LinearLayout
+            android:id="@+id/objeto_propiedades"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/objeto_separador"
+            android:layout_alignLeft="@id/objeto_separador"
+            android:layout_marginTop="20dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/objeto_imageCoste"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/coste" />
+
+
+                <ImageView
+                    android:id="@+id/objeto_imagePrecioVenta"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/objeto_imageCoste"
+                    android:layout_alignStart="@id/objeto_imageCoste"
+                    android:layout_below="@id/objeto_imageCoste"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/venta" />
+
+                <TextView
+                    android:id="@+id/objeto_TextoCoste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/objeto_imageCoste"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/objeto_imageCoste"
+                    android:text="@string/coste"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/objeto_TextoVenta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/objeto_imagePrecioVenta"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/objeto_imagePrecioVenta"
+                    android:text="@string/precio_venta"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/objeto_coste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/objeto_TextoCoste"
+                    android:layout_alignStart="@id/objeto_TextoCoste"
+                    android:layout_below="@id/objeto_TextoCoste"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/objeto_precioVenta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/objeto_TextoVenta"
+                    android:layout_alignStart="@id/objeto_TextoVenta"
+                    android:layout_below="@id/objeto_TextoVenta"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:id="@+id/objeto_imageCosteBase"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/costebase" />
+
+                <ImageView
+                    android:id="@+id/objeto_imageEstaTienda"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/objeto_imageCosteBase"
+                    android:layout_alignStart="@id/objeto_imageCosteBase"
+                    android:layout_below="@id/objeto_imageCosteBase"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/ventaverde" />
+
+                <TextView
+                    android:id="@+id/objeto_textoCosteBase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/objeto_imageCosteBase"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/objeto_imageCosteBase"
+                    android:text="@string/coste_base"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/objeto_TextoTienda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/objeto_imageEstaTienda"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/objeto_imageEstaTienda"
+                    android:text="@string/tienda"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/objeto_costeBase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/objeto_textoCosteBase"
+                    android:layout_alignStart="@id/objeto_textoCosteBase"
+                    android:layout_below="@id/objeto_textoCosteBase"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/objeto_puedesComprar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/objeto_TextoTienda"
+                    android:layout_alignStart="@id/objeto_TextoTienda"
+                    android:layout_below="@id/objeto_TextoTienda"
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/objeto_TextoDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/objeto_imagePrecioVenta"
+            android:layout_below="@id/objeto_propiedades"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="20dp"
             android:text="@string/descripcion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
@@ -195,9 +208,7 @@
             android:id="@+id/objeto_descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/objeto_imagePrecioVenta"
-            android:layout_alignStart="@+id/objeto_imagePrecioVenta"
-            android:layout_below="@+id/objeto_TextoDescripcion"
+            android:layout_below="@id/objeto_TextoDescripcion"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp" />
@@ -207,10 +218,9 @@
             android:id="@+id/objeto_TextoCampeonesPermitidos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/objeto_descripcion"
+            android:layout_below="@id/objeto_descripcion"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="20dp"
             android:text="@string/required_champion"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="12sp"
@@ -220,8 +230,8 @@
             android:id="@+id/objeto_gridViewCampeonAdmitido"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="11dp"
-            android:layout_below="@+id/objeto_TextoCampeonesPermitidos"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/objeto_TextoCampeonesPermitidos"
             android:columnWidth="100dp"
             android:verticalSpacing="10dp"
             android:numColumns="auto_fit"

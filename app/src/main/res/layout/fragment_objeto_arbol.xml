@@ -1,10 +1,10 @@
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8px">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/arbol_textInto"
@@ -64,6 +64,5 @@
         android:layout_below="@id/arbol_textFrom"
         android:text="@string/no_from"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
 
 </LinearLayout>
