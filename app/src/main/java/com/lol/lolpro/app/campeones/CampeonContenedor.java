@@ -52,6 +52,7 @@ public class CampeonContenedor extends Fragment {
             return null;
         }
         ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_CHAMPION);
+        ((Activity_General) getActivity()).setInternalFragment(true);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_campeon_contenedor, container, false);
         DBManager dbMan = DBManager.getInstance();
@@ -106,6 +107,11 @@ public class CampeonContenedor extends Fragment {
         }
         dbMan.closeDatabase(false);
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     /**

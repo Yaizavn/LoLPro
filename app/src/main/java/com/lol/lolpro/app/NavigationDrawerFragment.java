@@ -54,6 +54,7 @@ public class NavigationDrawerFragment extends Fragment {
     private ListView mDrawerListView;
     private View mFragmentContainerView;
 
+    private boolean internalFragment = false;
     private int mCurrentSelectedPosition = -1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
@@ -255,7 +256,9 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
+        if(!internalFragment){
+            outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
+        }
     }
 
     /**
@@ -326,6 +329,14 @@ public class NavigationDrawerFragment extends Fragment {
      */
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
+
+    public boolean getInternalFragment(){
+        return internalFragment;
+    }
+
+    public void setInternalFragment(boolean fragmentInterno){
+        internalFragment = fragmentInterno;
     }
 
     /**

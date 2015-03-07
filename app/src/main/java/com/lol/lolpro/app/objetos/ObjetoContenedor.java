@@ -46,6 +46,7 @@ public class ObjetoContenedor extends Fragment {
             return null;
         }
         ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
+        ((Activity_General) getActivity()).setInternalFragment(true);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_objeto_contenedor, container, false);
         DBManager dbMan = DBManager.getInstance();

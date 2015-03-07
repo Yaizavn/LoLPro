@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lol.lolpro.app.Activity_General;
+import com.lol.lolpro.app.NavigationDrawerFragment;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.bbdd.DescargarBBDD;
@@ -56,7 +57,8 @@ public class InicioGlobal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_INITIAL);
-           View view=inflater.inflate(R.layout.fragment_inicio_global, container, false);
+        ((Activity_General) getActivity()).setInternalFragment(false);
+        View view=inflater.inflate(R.layout.fragment_inicio_global, container, false);
             TextView campGrat = (TextView) view.findViewById(R.id.inicio_textCampeonesGratuitos);
             TextView not = (TextView) view.findViewById(R.id.inicio_textNoticias);
             // Defino la nueva fuente cargandola desde el fichero .ttf

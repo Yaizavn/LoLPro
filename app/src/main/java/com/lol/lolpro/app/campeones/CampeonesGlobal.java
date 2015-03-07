@@ -42,6 +42,7 @@ public class CampeonesGlobal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_CHAMPION);
+        ((Activity_General) getActivity()).setInternalFragment(false);
         return inflater.inflate(R.layout.fragment_campeones_global, container, false);
     }
 

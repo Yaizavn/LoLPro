@@ -126,6 +126,10 @@ public class Activity_General extends ActionBarActivity
         getSupportActionBar().setTitle(mTitle);
     }
 
+    public void setInternalFragment(boolean internal){
+        mNavigationDrawerFragment.setInternalFragment(internal);
+    }
+
     /**
      * Se encarga de crear el menú de opciones
      *

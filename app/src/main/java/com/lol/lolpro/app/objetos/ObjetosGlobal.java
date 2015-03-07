@@ -61,6 +61,7 @@ public class ObjetosGlobal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((Activity_General) getActivity()).updateTitle(Constants.DRAWER_OBJECT);
+        ((Activity_General) getActivity()).setInternalFragment(false);
         return inflater.inflate(R.layout.fragment_objetos_global, container, false);
     }
 
