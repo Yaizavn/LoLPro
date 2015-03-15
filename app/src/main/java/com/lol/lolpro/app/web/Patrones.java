@@ -21,7 +21,7 @@ public class Patrones {
 
     private final static String PPATHVERSIONS = "item\":\"(.*?)\".*?champion\":\"(.*?)\".*?cdn\":\"(.*?)\"";
     public final static Pattern PATTERN_PATH_AND_VERSIONS = Pattern.compile(PPATHVERSIONS, Pattern.DOTALL);
-    private final static String PITEMS = "\"[0-9]+\":\\{\"id\":([0-9]+).*?name\":\"(.+?)\".*?base\":([0-9]+).*?total\":([0-9]+).*?sell\":([0-9]+).*?purchasable\":(true|false).*?description\":\"(.+?)\".*?(?:plaintext\":\"(.+?)\".*?)?(?:stacks\":([0-9]+).*?)?(?:depth\":([0-9]+).*?)?(?:from\":\\[(.+?)\\].*?)?(?:into\":\\[(.+?)\\].*?)?(?:hideFromAll\":(true|false).*?)?(?:requiredChampion\":\"(.+?)\".*?)?(?:tags\":\\[(.+?)\\].*?)?(?:maps\":\\{(.+?)\\}.*?)?full\":\"(.+?)\"";
+    private final static String PITEMS = "\"[0-9]+\":\\{\"id\":([0-9]+).*?name\":\"(.+?)\".*?description\":\"(.+?)\".*?(?:plaintext\":\"(.+?)\".*?)?(?:stacks\":([0-9]+).*?)?(?:depth\":([0-9]+).*?)?(?:from\":\\[(.+?)\\].*?)?(?:into\":\\[(.+?)\\].*?)?(?:hideFromAll\":(true|false).*?)?(?:requiredChampion\":\"(.+?)\".*?)?(?:tags\":\\[(.+?)\\].*?)?(?:maps\":\\{(.+?)\\}.*?)?full\":\"(.+?)\".*?base\":([0-9]+).*?total\":([0-9]+).*?sell\":([0-9]+).*?purchasable\":(true|false)";
     public final static Pattern PATTERN_ITEMS = Pattern.compile(PITEMS, Pattern.DOTALL);
 
     private final static String PTREEITEMS = "header\":\"(.+?)\".*?tags\":\\[(.+?)\\]";

@@ -55,8 +55,7 @@ b=b;
 
 COSAS QUE HAY QUE HACER
 -   .fetch en picasso al bajarse descargarBBDD (no actualizar) y que se baje todas las imagenes
--   Hacer nine patch image en Historia
 -   Hacer layouts girados
 -   Error al arrancar el movil, da un null en las noticias--> mirar porqué y controlar
--   Inicio vacío al volver a abrirlo
+-   Inicio vacío al volver a abrirlo ??
 -   Mirar patrones (por lo menos objetos)

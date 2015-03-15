@@ -317,17 +317,17 @@ public class APIConnection {
                 match = patt.matcher(answer);
                 while (match.find()) {
                     bdConnection.insertarObjeto(Integer.parseInt(match.group(1)), match.group(2),
-                            Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)),
-                            Integer.parseInt(match.group(5)), match.group(6),
-                            match.group(7), match.group(8), match.group(9),
-                            match.group(10), match.group(11), match.group(12),
-                            match.group(13), match.group(14),
-                            rutaImagen + match.group(17), type == UPDATE_OBJECTS);
+                            Integer.parseInt(match.group(14)), Integer.parseInt(match.group(15)),
+                            Integer.parseInt(match.group(16)), match.group(17),
+                            match.group(3), match.group(4), match.group(5),
+                            match.group(6), match.group(7), match.group(8),
+                            match.group(9), match.group(10),
+                            rutaImagen + match.group(13), type == UPDATE_OBJECTS);
                     if (type == UPDATE_OBJECTS) {
                         bdConnection.borrarTagsObjeto(Integer.parseInt(match.group(1)));
                     }
-                    if (match.group(15) != null) {
-                        tags = Utils.clearQuotes(match.group(15)).split(",");
+                    if (match.group(11) != null) {
+                        tags = Utils.clearQuotes(match.group(11)).split(",");
                         for (String tag : tags) {
                             bdConnection.insertarTagObjeto(Integer.parseInt(match.group(1)), tag, hyperTags.get(tag.toUpperCase()));
                         }
