@@ -36,6 +36,8 @@ import com.lol.lolpro.app.utillidades.Utils;
 public class InicioGlobal extends Fragment {
 
     Champion_callback mCallback = null;
+    String[][] mCampeones = null;
+    String[][] mNoticias = null;
 
     /**
      * Constructor vacío
@@ -72,10 +74,8 @@ public class InicioGlobal extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         //TODO constants
-        if (getView() != null){
-            savedInstanceState.putSerializable("free_champs", ((GridAdapterFreeChamps) ((GridView) getView().findViewById(R.id.gridInicio)).getAdapter()).getData());
-            savedInstanceState.putSerializable("news", ((ListAdapterNoticias) ((ListView) getView().findViewById(R.id.inicio_listNoticias)).getAdapter()).getNews());
-        }
+        savedInstanceState.putSerializable("free_champs", mCampeones);
+        savedInstanceState.putSerializable("news", mNoticias);
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
