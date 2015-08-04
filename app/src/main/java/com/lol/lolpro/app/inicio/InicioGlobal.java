@@ -37,13 +37,20 @@ public class InicioGlobal extends Fragment {
 
     Champion_callback mCallback = null;
     String[][] mCampeones = null;
-    String[][] mNoticias = null;
 
     /**
      * Constructor vacío
      */
     public InicioGlobal() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            mCampeones = (String[][]) savedInstanceState.getSerializable("free_champs");
+        }
     }
 
     /**
@@ -75,7 +82,7 @@ public class InicioGlobal extends Fragment {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         //TODO constants
         savedInstanceState.putSerializable("free_champs", mCampeones);
-        savedInstanceState.putSerializable("news", mNoticias);
+//        savedInstanceState.putSerializable("news", ((ListAdapterNoticias) ((ListView) getView().findViewById(R.id.inicio_listNoticias)).getAdapter()).getNews());
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -156,15 +163,16 @@ public class InicioGlobal extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         GridView grid = (GridView) view.findViewById(R.id.gridInicio);
         ListView list = (ListView) view.findViewById(R.id.inicio_listNoticias);
-        if(savedInstanceState != null){
-            grid.setAdapter(new GridAdapterFreeChamps(getActivity(), (String[][]) savedInstanceState.getSerializable("free_champs")));
+        if(savedInstanceState != null){ // mCampeones != null && mNoticias =! null
+            grid.setAdapter(new GridAdapterFreeChamps(getActivity(), mCampeones));
             list.setAdapter(new ListAdapterNoticias(getActivity(), (String[][]) savedInstanceState.getSerializable("news")));
         }
         else {
             if (Utils.existsDB(getActivity())) {
                 DBManager dbMan = DBManager.getInstance();
                 dbMan.openDatabase(false);
-                grid.setAdapter(new GridAdapterFreeChamps(getActivity(), dbMan.getDatabaseHelper().obtenerGratuitos()));
+                mCampeones = dbMan.getDatabaseHelper().obtenerGratuitos();
+                grid.setAdapter(new GridAdapterFreeChamps(getActivity(), mCampeones));
                 dbMan.closeDatabase(false);
             } else {
                 grid.setAdapter(new GridAdapterFreeChamps(getActivity(), null));
