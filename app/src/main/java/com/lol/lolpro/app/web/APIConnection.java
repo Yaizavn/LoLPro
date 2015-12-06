@@ -220,6 +220,7 @@ public class APIConnection {
                 Matcher match5 = null;
                 while (match.find()) {
                     i = 1;
+
                     bdConnection.insertarCampeon(Integer.parseInt(match.group(1)),
                             match.group(2), match.group(3),
                             match.group(4), match.group(7),

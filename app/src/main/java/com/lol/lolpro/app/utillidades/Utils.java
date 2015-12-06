@@ -11,7 +11,6 @@ import com.lol.lolpro.app.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Clase de utilidades
@@ -46,6 +45,9 @@ public class Utils {
     }
 
     public static String clearQuotes(String description) {
+        if (description == null) {
+            description = "";
+        }
         return description.replaceAll("\"", "");
     }
 
