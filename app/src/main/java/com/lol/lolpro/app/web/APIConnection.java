@@ -44,8 +44,8 @@ public class APIConnection {
     public static final int UPDATE_OBJECTS = 4;
     public static final int UPDATE_CHAMPIONS = 5;
 
-    private static final String CERT_NAME_RIOT = "_.api.pvp.net";
-    private static final String CERT_NAME_DIGICERT_CA3 = "DigiCertHighAssuranceCA-3";
+    private static final String CERT_NAME_RIOT = "*.api.pvp.net";
+    private static final String CERT_NAME_DIGICERT_CA3 = "DigiCertSHA2HighAssuranceServerCA";
     private static final String BASE_URI = "https://euw.api.pvp.net/api/lol/";
     private static final String GLOBAL_URI = "https://global.api.pvp.net/api/lol/";
     private static final String CHAMPION_URI = "static-data/euw/v1.2/champion?locale=es_ES&champData=image,stats,lore,partype,skins,passive,spells&";
