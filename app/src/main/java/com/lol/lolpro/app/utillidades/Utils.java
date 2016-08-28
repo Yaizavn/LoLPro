@@ -51,6 +51,13 @@ public class Utils {
         return description.replaceAll("\"", "");
     }
 
+    public static String clearCorchetes(String description) {
+        if (description == null) {
+            description = "";
+        }
+        return description.replaceAll("\\[|\\]", "");
+    }
+
     public static String replaceVarsSpells(String description, ArrayList<ArrayList<String>> vars) {
         int i = vars.size();
         for (int j = 0; j < i; j++) {
@@ -66,6 +73,7 @@ public class Utils {
 
     public static String sanitizeAttackSource(String value, String description, Context contexto) {
         DecimalFormat df = new DecimalFormat("###.##");
+        description = htmlEncode(description);
         if (description.equals("bonusattackdamage") || description.equals("attackdamage")) {
             String[] coeffsVariables = value.split("/");
             description = "";

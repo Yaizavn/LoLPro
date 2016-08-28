@@ -25,7 +25,7 @@ public class ObjetoContenedor extends Fragment {
     private int numPages;
 
     /**
-     * Objeto vacio
+     * Item vacio
      */
     public ObjetoContenedor() {
         // Required empty public constructor

@@ -4,18 +4,25 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Html;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Passive;
+import com.lol.lolpro.app.json.Campeones.Skin;
+import com.lol.lolpro.app.json.Campeones.Spell;
+import com.lol.lolpro.app.json.Campeones.Var;
+import com.lol.lolpro.app.json.EstadoCampeones.BaseEstadoCampeones;
+import com.lol.lolpro.app.json.EstadoCampeones.ChampionState;
+import com.lol.lolpro.app.json.Objetos.Item;
+import com.lol.lolpro.app.json.Realm.BaseRealm;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Clase que se encarga de la gestión de la base de datos
@@ -180,6 +187,46 @@ public class BBDDHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void insertarCampeon(Champion campeon, boolean actualizarBBDD){
+        String rutaImagen = obtenerRutaVersionCampeon();
+        double velAtaque = campeon.getStats().getAttackspeedoffset();
+        velAtaque = 1 / (1.6 * (1 + velAtaque));
+        velAtaque = Math.rint(velAtaque * 1000) / 1000;
+
+        ContentValues cont = new ContentValues();
+        cont.put("key", Utils.htmlEncode(campeon.getKey()));
+        cont.put("nombre", Utils.htmlEncode(campeon.getName()));
+        cont.put("nick", Utils.htmlEncode(campeon.getTitle()));
+        cont.put("historia", Utils.htmlEncode(campeon.getLore()));
+        cont.put("vida", Utils.htmlEncode(campeon.getStats().getHp().toString()));
+        cont.put("vidaPorNivel", Utils.htmlEncode(campeon.getStats().getHpperlevel().toString()));
+        cont.put("regeneracionVida", Utils.htmlEncode(campeon.getStats().getHpregen().toString()));
+        cont.put("regeneracionVidaPorNivel", Utils.htmlEncode(campeon.getStats().getHpregenperlevel().toString()));
+        cont.put("danioAtaque", Utils.htmlEncode(campeon.getStats().getAttackdamage().toString()));
+        cont.put("danioAtaquePorNivel", Utils.htmlEncode(campeon.getStats().getAttackdamageperlevel().toString()));
+        cont.put("armadura", Utils.htmlEncode(campeon.getStats().getArmor().toString()));
+        cont.put("armaduraPorNivel", Utils.htmlEncode(campeon.getStats().getArmorperlevel().toString()));
+        cont.put("velocidadAtaque", velAtaque);
+        cont.put("velocidadAtaquePorNivel", Utils.htmlEncode(campeon.getStats().getAttackspeedperlevel().toString()));
+        cont.put("crit", Utils.htmlEncode(campeon.getStats().getCrit().toString()));
+        cont.put("critPorNivel", Utils.htmlEncode(campeon.getStats().getCritperlevel().toString()));
+        cont.put("tipoMP", Utils.htmlEncode(campeon.getPartype()));
+        cont.put("mana", Utils.htmlEncode(campeon.getStats().getMp().toString()));
+        cont.put("manaPorNivel", Utils.htmlEncode(campeon.getStats().getMpperlevel().toString()));
+        cont.put("regMana", Utils.htmlEncode(campeon.getStats().getMpregen().toString()));
+        cont.put("regManaPorNivel", Utils.htmlEncode(campeon.getStats().getMpregenperlevel().toString()));
+        cont.put("resistenciaMagica", Utils.htmlEncode(campeon.getStats().getSpellblock().toString()));
+        cont.put("resistenciaMagicaPorNivel", Utils.htmlEncode(campeon.getStats().getSpellblockperlevel().toString()));
+        cont.put("velocidadMovimiento", Utils.htmlEncode(campeon.getStats().getMovespeed().toString()));
+        cont.put("rutaPrincipal", Utils.htmlEncode(rutaImagen + campeon.getImage().getFull())); //Por delante añadir rutaImagen
+        cont.put("esGratis", 0);
+        String[] whereArgs = new String[]{Integer.toString(campeon.getId())};
+        if(!actualizarBBDD || mDatabase.update("campeones", cont, "_id=?", whereArgs) == 0) {
+            cont.put("_id", campeon.getId());
+            mDatabase.insert("campeones", null, cont);
+        }
+    }
+
     public void insertarAspectoCampeon(int idAspecto, int idCampeon, String nombre, int numero, String rutaPrincipal, boolean actualizarBBDD) {
         ContentValues cont = new ContentValues();
         cont.put("idCampeon", idCampeon);
@@ -192,6 +239,24 @@ public class BBDDHelper extends SQLiteOpenHelper {
             mDatabase.insert("aspectos", null, cont);
         }
     }
+
+    public void insertarAspectosCampeon(Champion campeon, boolean actualizarBBDD) {
+        String rutaSkins = obtenerRutaAspectosCampeon();
+        ContentValues cont;
+        for (Skin skin: campeon.getSkins()) {
+            cont = new ContentValues();
+            cont.put("idCampeon", campeon.getId());
+            cont.put("nombre", Utils.htmlEncode(skin.getName()));
+            cont.put("num", skin.getNum());
+            cont.put("rutaPrincipal", Utils.htmlEncode(rutaSkins + campeon.getKey() + "_" + skin.getNum() + ".jpg"));
+            String[] whereArgs = new String[]{Integer.toString(skin.getId())};
+            if(!actualizarBBDD || mDatabase.update("aspectos", cont, "_id=?", whereArgs) == 0) {
+                cont.put("_id", skin.getId());
+                mDatabase.insert("aspectos", null, cont);
+            }
+        }
+    }
+
 
     public void insertarHabilidadCampeon(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
                                          String alcance, String rutaPrincipal, String enfriamiento, int posicion, int esPasiva, boolean actualizarBBDD) {
@@ -209,6 +274,88 @@ public class BBDDHelper extends SQLiteOpenHelper {
         if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
             cont.put("idCampeon", idCampeon);
             cont.put("nombre", Utils.htmlEncode(nombre));
+            mDatabase.insert("habilidades", null, cont);
+        }
+    }
+
+    private String prepararTooltip(Spell spell){
+        String description = Utils.htmlEncode(spell.getSanitizedTooltip());
+        for (Var var: spell.getVars()) {
+            description = description.replaceAll("\\{\\{ " + var.getKey() + " \\}\\}", Utils.sanitizeAttackSource (var.getCoeff().get(0).toString(), var.getLink(), contexto));
+        }
+        for (int i = 1; i<spell.getEffectBurn().size(); i++){
+            description = description.replaceAll("\\{\\{ " + "e" + i + " \\}\\}", spell.getEffectBurn().get(i));
+        }
+        description = description.replaceAll("\\(\\{\\{.+?\\}\\}\\)", " ");
+        description = description.replaceAll("\\(\\+\\{\\{.+?\\}\\}%\\)", " ");
+        description = description.replaceAll("\\(\\+\\{\\{.+?\\}\\}\\)", " ");
+        description = description.replaceAll("\\{\\{.+?\\}\\}%", " ");
+        description = description.replaceAll("\\{\\{.+?\\}\\}", " ");
+
+        return description;
+
+    }
+
+    private String prepararCoste(Spell spell){
+        String costBurn = spell.getCostBurn();
+        String resource = Utils.htmlEncode(spell.getResource());
+        resource = resource.replaceAll("\\{\\{ cost \\}\\}", costBurn);
+
+        for (Var var: spell.getVars()) {
+            resource = resource.replaceAll("\\{\\{ " + var.getKey() + " \\}\\}", Utils.sanitizeAttackSource (var.getCoeff().get(0).toString(), var.getLink(), contexto));
+        }
+        for (int i = 1; i<spell.getEffectBurn().size(); i++){
+            resource = resource.replaceAll("\\{\\{ " + "e" + i + " \\}\\}", spell.getEffectBurn().get(i));
+        }
+        return resource;
+
+    }
+
+    public void insertarHabilidadesCampeon(Champion campeon, boolean actualizarBBDD) {
+        int position = 1;
+        ContentValues cont;
+
+        insertarPasivaCampeon(campeon, actualizarBBDD);
+
+        for (Spell spell : campeon.getSpells()) {
+            cont = new ContentValues();
+            cont.put("descripcion", Utils.htmlEncode(spell.getDescription()));
+            cont.put("tooltip", prepararTooltip(spell));
+            cont.put("coste", prepararCoste(spell));
+            cont.put("alcance", Utils.htmlEncode(spell.getRangeBurn().toString()));
+            cont.put("rutaPrincipal", Utils.htmlEncode(obtenerRutaHabilidadesCampeon(0) + spell.getImage().getFull()));
+            cont.put("enfriamiento", Utils.htmlEncode(spell.getCooldownBurn().toString()));
+            cont.put("esPasiva", 0);
+            cont.put("posicion", position++);
+            cont.put ("esNueva", 1);
+            String[] whereArgs = new String[]{Integer.toString(campeon.getId()), Utils.htmlEncode(spell.getName())};
+            if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
+                cont.put("idCampeon", campeon.getId());
+                cont.put("nombre", Utils.htmlEncode(spell.getName()));
+                mDatabase.insert("habilidades", null, cont);
+            }
+        }
+    }
+
+    public void insertarPasivaCampeon(Champion campeon, boolean actualizarBBDD) {
+        Passive pasiva;
+        ContentValues cont;
+
+        pasiva = campeon.getPassive();
+        cont = new ContentValues();
+        cont.put("descripcion", Utils.htmlEncode(pasiva.getDescription()));
+        cont.put("tooltip", "");
+        cont.put("coste", "");
+        cont.put("alcance", "");
+        cont.put("rutaPrincipal", Utils.htmlEncode(obtenerRutaHabilidadesCampeon(1) + pasiva.getImage().getFull()));
+        cont.put("enfriamiento", "");
+        cont.put("esPasiva", 1);
+        cont.put("posicion", 0);
+        cont.put ("esNueva", 1);
+        String[] whereArgs = new String[]{Integer.toString(campeon.getId()), Utils.htmlEncode(pasiva.getName())};
+        if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
+            cont.put("idCampeon", campeon.getId());
+            cont.put("nombre", Utils.htmlEncode(pasiva.getName()));
             mDatabase.insert("habilidades", null, cont);
         }
     }
@@ -257,6 +404,42 @@ public class BBDDHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void insertarObjeto(Item item, boolean actualizarBBDD){
+        String rutaImagen = obtenerRutaVersionObjeto();
+        int purch= item.getGold().getPurchasable() ? 1 : 0;
+        String pText = item.getPlaintext() == null ? "" : item.getPlaintext().toString();
+        int stack = item.getStacks() == null ? 1 : item.getStacks();
+        int dept = item.getDepth() == null  ? 1 : item.getDepth();
+        String from = item.getFrom() == null ? "" : Utils.clearCorchetes(item.getFrom().toString());
+        String into = item.getInto() == null ? "" : Utils.clearCorchetes(item.getInto().toString());
+        int hide = (item.getHideFromAll() == null || !item.getHideFromAll()) ? 0 : 1;
+        ContentValues cont = new ContentValues();
+        cont.put("name", Utils.htmlEncode(item.getName()));
+        cont.put("base", item.getGold().getBase());
+        cont.put("total", item.getGold().getTotal());
+        cont.put("sell", item.getGold().getSell());
+        cont.put("purchasable", purch);
+        cont.put("description", Utils.htmlEncode(item.getDescription()));
+        cont.put("plainText", Utils.htmlEncode(pText));
+        cont.put("stacks", stack);
+        cont.put("depth", dept);
+        cont.put("fromOBJ", Utils.htmlEncode(from));
+        cont.put("intoOBJ", Utils.htmlEncode(into));
+        cont.put("hideFromAll", hide);
+        if (item.getRequiredChampion()==null) {
+            cont.putNull("requiredChampion");
+        }
+        else{
+            cont.put("requiredChampion", obtenerIDCampeon (item.getRequiredChampion()));
+        }
+        cont.put("full", Utils.htmlEncode(rutaImagen + item.getImage().getFull()));
+        String[] whereArgs = new String[]{Integer.toString(item.getId())};
+        if(!actualizarBBDD || mDatabase.update("objetos", cont, "_id=?", whereArgs) == 0) {
+            cont.put("_id", item.getId());
+            mDatabase.insert("objetos", null, cont);
+        }
+    }
+
     public void insertarTagObjeto(int idObjeto, String nombreTag, String hyperTag){
         ContentValues cont = new ContentValues();
         cont.put("idObjeto", idObjeto);
@@ -290,6 +473,17 @@ public class BBDDHelper extends SQLiteOpenHelper {
         mDatabase.insert("rutaVersiones", null, cont);
     }
 
+    public void guardarRutaVersiones(BaseRealm realm) {
+        mDatabase.delete("rutaVersiones", null, null);
+
+        ContentValues cont = new ContentValues();
+        cont.putNull("_id");
+        cont.put("ruta", Utils.htmlEncode(realm.getCdn()));
+        cont.put("versionCampeones", Utils.htmlEncode(realm.getN().getChampion()));
+        cont.put("versionObjetos", Utils.htmlEncode(realm.getN().getItem()));
+        mDatabase.insert("rutaVersiones", null, cont);
+    }
+
     /**
      * Se encarga de poner los campeones cuyos ids se encuentran entre los dados en los parámetros como gratuitos
      * y marcar los antiguos campeones gratuitos como no gratuitos
@@ -309,6 +503,20 @@ public class BBDDHelper extends SQLiteOpenHelper {
             mDatabase.update("campeones", cont, "_id=?", whereArgs);
         }
     }
+
+    public void updateFreeChamps(BaseEstadoCampeones bEstadoCampeones) {
+        ContentValues cont = new ContentValues();
+        cont.put("esGratis", 0);
+        String[] whereArgs = new String[]{"1"};
+        mDatabase.update("campeones", cont, "esGratis=?", whereArgs);
+        for (ChampionState campeonEstado: bEstadoCampeones.getChampions()) {
+            cont = new ContentValues();
+            cont.put("esGratis", 1);
+            whereArgs = new String[]{Integer.toString(campeonEstado.getId())};
+            mDatabase.update("campeones", cont, "_id=?", whereArgs);
+        }
+    }
+
 
     //TODO CHECK RIOT
     public void aniadirMapas(){

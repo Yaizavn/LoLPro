@@ -4,9 +4,19 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lol.lolpro.app.EasyX509TrustManager;
 import com.lol.lolpro.app.bbdd.BBDDHelper;
 import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.json.Campeones.BaseCampeones;
+import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Skin;
+import com.lol.lolpro.app.json.EstadoCampeones.BaseEstadoCampeones;
+import com.lol.lolpro.app.json.EstadoCampeones.ChampionState;
+import com.lol.lolpro.app.json.Objetos.BaseObjeto;
+import com.lol.lolpro.app.json.Objetos.Item;
+import com.lol.lolpro.app.json.Objetos.Tree;
+import com.lol.lolpro.app.json.Realm.BaseRealm;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
@@ -190,168 +200,64 @@ public class APIConnection {
     }
 
     public void extractAndStoreData(String answer, int type) {
-        Pattern patt = null;
-        Matcher match = null;
-        String rutaImagen;
-        String rutaImagenAspecto;
-        String rutaImagenHabilidades;
-        String rutaImagenHabilidadesPasivas;
-        int i;
+        ObjectMapper objectMapper = new ObjectMapper();
         switch (type) {
             case CHAMPIONS:
             case UPDATE_CHAMPIONS:
-                ArrayList<ArrayList<String>> vars = null;
-                ArrayList<String> datos = null;
-                String[] effects;
-                String[] tags;
-                rutaImagen = bdConnection.obtenerRutaVersionCampeon();
-                rutaImagenAspecto = bdConnection.obtenerRutaAspectosCampeon();
-                rutaImagenHabilidades = bdConnection.obtenerRutaHabilidadesCampeon(Constants.PASSIVE_NO);
-                rutaImagenHabilidadesPasivas = bdConnection.obtenerRutaHabilidadesCampeon(Constants.PASSIVE_YES);
-                patt = Patrones.PATTERN_CHAMPION;
-                match = patt.matcher(answer);
-                Pattern patt2 = Patrones.PATTERN_SKINS;
-                Matcher match2 = null;
-                Pattern patt3 = Patrones.PATTERN_ABILITIES;
-                Matcher match3 = null;
-                Pattern patt4 = Patrones.PATTERN_PASSIVE;
-                Matcher match4 = null;
-                Pattern patt5 = Patrones.PATTERN_VARS;
-                Matcher match5 = null;
-                while (match.find()) {
-                    i = 1;
-
-                    bdConnection.insertarCampeon(Integer.parseInt(match.group(1)),
-                            match.group(2), match.group(3),
-                            match.group(4), match.group(7),
-                            match.group(18), match.group(19),
-                            match.group(20), match.group(21),
-                            match.group(11), match.group(12),
-                            match.group(9), match.group(10),
-                            match.group(14), match.group(15),
-                            match.group(16), match.group(17),
-                            match.group(8), match.group(23),
-                            match.group(24), match.group(25),
-                            match.group(25), match.group(27),
-                            match.group(28), match.group(22),
-                            rutaImagen + match.group(5), type == UPDATE_CHAMPIONS);
-                    // Almacenamos las skins
-                    match2 = patt2.matcher(match.group(6));
-                    while (match2.find()) {
-                        bdConnection.insertarAspectoCampeon(Integer.parseInt(match2.group(1)),
-                                Integer.parseInt(match.group(1)), match2.group(2),
-                                Integer.parseInt(match2.group(3)),
-                                rutaImagenAspecto + match.group(2) + "_" +
-                                        Integer.parseInt(match2.group(3)) + ".jpg", type == UPDATE_CHAMPIONS);
+                try {
+                    BaseCampeones bCampeones = objectMapper.readValue(answer, BaseCampeones.class);
+                    for (Champion campeon: bCampeones.getData().getMCampeones().values()) {
+                        bdConnection.insertarCampeon(campeon, type == UPDATE_CHAMPIONS);
+                        bdConnection.insertarHabilidadesCampeon (campeon, type == UPDATE_CHAMPIONS);
+                        bdConnection.insertarAspectosCampeon (campeon, type == UPDATE_CHAMPIONS);
                     }
-                    // Almacenamos las habilidades y la pasiva
-                    match3 = patt3.matcher(match.group(29));
-                    while (match3.find()) {
-                        vars = new ArrayList<ArrayList<String>>();
-                        effects = Utils.clearQuotes(match3.group(8)).split(",");
-                        if (match3.group(9) != null) {
-                            match5 = patt5.matcher(match3.group(9));
-                            while (match5.find()) {
-                                datos = new ArrayList<String>();
-                                datos.add(Utils.htmlEncode(match5.group(1)));
-                                datos.add(Utils.sanitizeAttackSource(match5.group(3).replaceAll(",", "/"), Utils.htmlEncode(match5.group(2)), context));
-                                vars.add(datos);
-                            }
-                        }
-                        datos = new ArrayList<String>();
-                        datos.add("cost");
-                        datos.add(Utils.htmlEncode(match3.group(6)));
-                        vars.add(datos);
-                        for (int j = 1; j < effects.length; j++) {
-                            datos = new ArrayList<String>();
-                            datos.add("e" + j);
-                            datos.add(effects[j]);
-                            vars.add(datos);
-                        }
-                        bdConnection.insertarHabilidadCampeon(Integer.parseInt(match.group(1)),
-                                match3.group(1),
-                                match3.group(2),
-                                Utils.replaceVarsSpells(match3.group(3), vars),
-                                Utils.replaceVarsSpells(match3.group(5), vars),
-                                match3.group(10),
-                                rutaImagenHabilidades + match3.group(4),
-                                match3.group(7),
-                                i++,
-                                0, type == UPDATE_CHAMPIONS
-                        );
-                    }
-                    match4 = patt4.matcher(match.group(30));
-                    while (match4.find()) {
-                        bdConnection.insertarHabilidadCampeon(Integer.parseInt(match.group(1)),
-                                match4.group(1),
-                                match4.group(2),
-                                "",
-                                "",
-                                "",
-                                rutaImagenHabilidadesPasivas + match4.group(3),
-                                "",
-                                0,
-                                1, type == UPDATE_CHAMPIONS
-                        );
-                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 bdConnection.borrarHabilidadesDesfasadas();
                 break;
             case OBJECTS:
             case UPDATE_OBJECTS:
-                // Cogemos los hyperTags del tree
-                patt = Patrones.PATTERN_TREE_ITEMS;
-                match = patt.matcher(answer);
                 Map<String, String> hyperTags = new HashMap<String, String>();
-                String header;
-                while (match.find()) {
-                    header = match.group(1);
-                    tags = Utils.clearQuotes(match.group(2)).split(",");
-                    for (String tag : tags) {
-                        hyperTags.put(tag, header);
-                    }
-                }
-
-                // Insertamos los objetos y los tags asociados
-                rutaImagen = bdConnection.obtenerRutaVersionObjeto();
-                patt = Patrones.PATTERN_ITEMS;
-                match = patt.matcher(answer);
-                while (match.find()) {
-                    bdConnection.insertarObjeto(Integer.parseInt(match.group(1)), match.group(2),
-                            Integer.parseInt(match.group(14)), Integer.parseInt(match.group(15)),
-                            Integer.parseInt(match.group(16)), match.group(17),
-                            match.group(3), match.group(4), match.group(5),
-                            match.group(6), match.group(7), match.group(8),
-                            match.group(9), match.group(10),
-                            rutaImagen + match.group(13), type == UPDATE_OBJECTS);
-                    if (type == UPDATE_OBJECTS) {
-                        bdConnection.borrarTagsObjeto(Integer.parseInt(match.group(1)));
-                    }
-                    if (match.group(11) != null) {
-                        tags = Utils.clearQuotes(match.group(11)).split(",");
-                        for (String tag : tags) {
-                            bdConnection.insertarTagObjeto(Integer.parseInt(match.group(1)), tag, hyperTags.get(tag.toUpperCase()));
+                try {
+                    BaseObjeto bObjeto = objectMapper.readValue(answer, BaseObjeto.class);
+                    // Cogemos los hyperTags del tree
+                    for (Tree tree: bObjeto.getTree()) {
+                        for (String tag: tree.getTags()){
+                            hyperTags.put(tag, tree.getHeader());
                         }
                     }
+                    for (Item item: bObjeto.getData().getMItems().values()) {
+                        bdConnection.insertarObjeto(item, type == UPDATE_OBJECTS);
+                        if (type == UPDATE_OBJECTS) {
+                            bdConnection.borrarTagsObjeto(item.getId());
+                        }
+                        if (item.getTags() != null && !item.getTags().isEmpty()) {
+                            for (String tag : item.getTags()) {
+                                bdConnection.insertarTagObjeto(item.getId(), tag, hyperTags.get(tag.toUpperCase()));
+                            }
+                        }
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 break;
             case IMAGES_AND_VERSIONS:
-                patt = Patrones.PATTERN_PATH_AND_VERSIONS;
-                match = patt.matcher(answer);
-                if (match.find()) {
-                    bdConnection.guardarRutaVersiones(match.group(3), match.group(2), match.group(1));
-                } else {
-                    Log.e("error", "Patron de versiones erroneo");
+                try {
+                    BaseRealm bRealm = objectMapper.readValue(answer, BaseRealm.class);
+                    bdConnection.guardarRutaVersiones(bRealm);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 break;
             case CHAMPION_FREE:
-                patt = Patrones.PATTERN_CHAMPION_FREE;
-                match = patt.matcher(answer);
-                ArrayList<Integer> ids = new ArrayList<Integer>();
-                while (match.find()) {
-                    ids.add(Integer.parseInt(match.group(1)));
+                try {
+                    BaseEstadoCampeones bEstadoCampeones = objectMapper.readValue(answer, BaseEstadoCampeones.class);
+                    bdConnection.updateFreeChamps(bEstadoCampeones);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                bdConnection.updateFreeChamps(ids);
                 break;
         }
     }
