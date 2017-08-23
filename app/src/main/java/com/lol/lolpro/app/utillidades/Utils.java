@@ -11,6 +11,7 @@ import com.lol.lolpro.app.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase de utilidades
@@ -155,5 +156,36 @@ public class Utils {
         } else {
             return TextUtils.htmlEncode(text);
         }
+    }
+
+    public static Integer parseInt(String text) {
+        Integer result;
+        result = null;
+        if (text != null && !text.trim().isEmpty()) {
+            try {
+                result = Integer.parseInt(text.trim());
+            }
+            catch (Exception e) {
+                result = null;
+            }
+        }
+        return result;
+    }
+
+    public static List<Integer> convertListStringToListInt(List<String> lString){
+
+        Integer aux;
+        List<Integer> lResult;
+        lResult = null;
+        if (lString != null && !lString.isEmpty()) {
+            lResult = new ArrayList<Integer>();
+            for (String s : lString) {
+                aux = parseInt(s);
+                if (aux != null) {
+                    lResult.add(aux);
+                }
+            }
+        }
+        return lResult;
     }
 }

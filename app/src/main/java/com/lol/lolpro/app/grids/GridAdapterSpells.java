@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lol.lolpro.app.R;
-import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Passive;
+import com.lol.lolpro.app.json.Campeones.Spell;
 import com.squareup.picasso.Picasso;
 
 
@@ -20,19 +22,17 @@ import com.squareup.picasso.Picasso;
 public class GridAdapterSpells extends BaseAdapter {
 
     private final Context context;
-    private String[][] data;
-    private int idCampeon;
+    private Champion campeon;
 
     /**
      * Constructor
      *
      * @param context recibe el activity al que está asociado el fragment
-     * @param allData datos de los campeones o los objetos
+     * @param campeon datos del campeón
      */
-    public GridAdapterSpells(Context context, String[][] allData, int id) {
+    public GridAdapterSpells(Context context, Champion campeon) {
         this.context = context;
-        data = allData;
-        idCampeon = id;
+        this.campeon = campeon;
     }
 
     /**
@@ -45,14 +45,18 @@ public class GridAdapterSpells extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Spell spell;
+        Passive passive;
+        String url;
         if (convertView == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             convertView = inflater.inflate(R.layout.cell_spells, parent, false);
         }
-        if (data != null) {
-            ((TextView) convertView.findViewById(R.id.spells_nombre)).setText(data[position][0]);
-            if (Integer.parseInt(data[position][7]) == 0) {
-                ((TextView) convertView.findViewById(R.id.spells_descripcion)).setText(data[position][1] + "\n\n" + data[position][2]);
+        if (campeon != null) {
+            if (position != 0) {
+                spell = campeon.getSpells().get(position);
+                ((TextView) convertView.findViewById(R.id.spells_nombre)).setText(spell.getName());
+                ((TextView) convertView.findViewById(R.id.spells_descripcion)).setText(spell.getDescription() + "\n\n" + spell.getTooltip());
                 convertView.findViewById(R.id.spells_imageCoste).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.spells_imageAlcance).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.spells_imageEnfriamiento).setVisibility(View.VISIBLE);
@@ -62,15 +66,18 @@ public class GridAdapterSpells extends BaseAdapter {
                 convertView.findViewById(R.id.spells_textAlcance).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.spells_textCoste).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.spells_textEnfriamiento).setVisibility(View.VISIBLE);
-                if (data[position][3].equals("self")) {
+                if (spell.getRangeBurn().equals("self")) {
                     ((TextView) convertView.findViewById(R.id.spells_alcance)).setText(context.getResources().getString(R.string.alcance_propio));
                 } else {
-                    ((TextView) convertView.findViewById(R.id.spells_alcance)).setText(data[position][3]);
+                    ((TextView) convertView.findViewById(R.id.spells_alcance)).setText(spell.getRangeBurn());
                 }
-                ((TextView) convertView.findViewById(R.id.spells_coste)).setText(data[position][4]);
-                ((TextView) convertView.findViewById(R.id.spells_enfriamiento)).setText(data[position][5] + " " + context.getResources().getString(R.string.segundos));
+                ((TextView) convertView.findViewById(R.id.spells_coste)).setText(spell.getCostBurn());
+                ((TextView) convertView.findViewById(R.id.spells_enfriamiento)).setText(spell.getCooldownBurn() + " " + context.getResources().getString(R.string.segundos));
+                url = spell.getImage().getFull();
             } else {
-                ((TextView) convertView.findViewById(R.id.spells_descripcion)).setText(data[position][1]);
+                passive = campeon.getPassive();
+                ((TextView) convertView.findViewById(R.id.spells_nombre)).setText(passive.getName());
+                ((TextView) convertView.findViewById(R.id.spells_descripcion)).setText(passive.getDescription());
                 convertView.findViewById(R.id.spells_imageCoste).setVisibility(View.GONE);
                 convertView.findViewById(R.id.spells_imageAlcance).setVisibility(View.GONE);
                 convertView.findViewById(R.id.spells_imageEnfriamiento).setVisibility(View.GONE);
@@ -80,9 +87,8 @@ public class GridAdapterSpells extends BaseAdapter {
                 convertView.findViewById(R.id.spells_textAlcance).setVisibility(View.GONE);
                 convertView.findViewById(R.id.spells_textCoste).setVisibility(View.GONE);
                 convertView.findViewById(R.id.spells_textEnfriamiento).setVisibility(View.GONE);
+                url = passive.getImage().getFull();
             }
-            // Get the image URL for the current position.
-            String url = getItem(position);
             // Trigger the download of the URL asynchronously into the image view.
             Picasso.with(context) //
                     .load(url) //
@@ -101,7 +107,7 @@ public class GridAdapterSpells extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return data.length;
+        return campeon.getSpells().size() + 1;
     }
 
     /**
@@ -112,7 +118,15 @@ public class GridAdapterSpells extends BaseAdapter {
      */
     @Override
     public String getItem(int position) {
-        return data[position][6];
+        String url;
+        if (position == 0){
+            url = campeon.getPassive().getImage().getFull();
+        }
+        else {
+            url = campeon.getSpells().get(position -1).getImage().getFull();
+        }
+
+        return url;
     }
 
     /**
@@ -122,7 +136,7 @@ public class GridAdapterSpells extends BaseAdapter {
      * @return Identificados único del campeón u objeto
      */
     public String getId(int position) {
-        return data[position][0];
+        return Integer.toString(position);
     }
 
     /**
@@ -134,16 +148,5 @@ public class GridAdapterSpells extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    /**
-     * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
-     */
-    public void refresh() {
-        DBManager dbMan = DBManager.getInstance();
-        dbMan.openDatabase(false);
-        data = dbMan.getDatabaseHelper().obtenerHabilidadesCampeon(idCampeon);
-        dbMan.closeDatabase(false);
-        notifyDataSetChanged();
     }
 }

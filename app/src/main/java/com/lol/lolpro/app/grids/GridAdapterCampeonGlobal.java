@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
-import com.lol.lolpro.app.utillidades.Utils;
+import com.lol.lolpro.app.json.Campeones.Champion;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,18 +24,44 @@ import com.squareup.picasso.Picasso;
 public class GridAdapterCampeonGlobal extends BaseAdapter {
 
     private final Context context;
-    private String[][] data;
+    private List<Champion> lChampion;
 
     /**
      * Constructor
      *
      * @param context   recibe el activity al que está asociado el fragment
-     * @param allData      datos de los campeones o los objetos
      */
-    public GridAdapterCampeonGlobal(Context context, String[][] allData) {
-        this.context = context;
-        data = allData;
+    public GridAdapterCampeonGlobal(Context context) {
+
+		this(context, null);
+
     }
+
+	/**
+	 * Constructor
+	 * @param context   recibe el activity al que está asociado el fragment
+	 * @param lChampionAux Listado de Campeones a mostrar
+	 */
+	public GridAdapterCampeonGlobal(Context context, List<Champion> lChampionAux) {
+
+		DBManager dbMan;
+
+		this.context = context;
+
+		if (lChampionAux == null) {
+
+			dbMan = DBManager.getInstance();
+			dbMan.openDatabase(false);
+
+			lChampionAux = dbMan.getDatabaseHelper().obtenerCampeones();
+
+			dbMan.closeDatabase(false);
+
+		}
+
+		this.lChampion = new ArrayList<Champion>(lChampionAux);
+
+	}
 
     /**
      * Crea un view con la imagen del campeón u objeto que se encuentra en una posición determinada para añadirlo al grid
@@ -44,21 +73,23 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Champion champion;
         if (convertView == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             convertView = inflater.inflate(R.layout.cell_image_name_champion, parent, false);
         }
-        convertView.setTag(getId(position));
-        // Get the image URL for the current position.
-        String url = getItem(position);
+
+        champion = getItem(position);
+
+        convertView.setTag(champion);
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
-                .load(url) //
+                .load(champion.getImage().getFull()) //
                 .fit()
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
                 .into((ImageView) convertView.findViewById(R.id.name_champion_image));
-        ((TextView) convertView.findViewById(R.id.name_champion_text)).setText(data[position][1]);
+        ((TextView) convertView.findViewById(R.id.name_champion_text)).setText(champion.getName());
         return convertView;
     }
 
@@ -69,7 +100,7 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return data.length;
+        return lChampion.size();
     }
 
     /**
@@ -79,18 +110,8 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
      * @return Ruta de la imagen del campeón u objeto
      */
     @Override
-    public String getItem(int position) {
-        return data[position][2];
-    }
-
-    /**
-     * Devuelve el identificador del campeón u objeto
-     *
-     * @param position posición del campeón u objeto para el que se devolverá el identificador
-     * @return Identificados único del campeón u objeto
-     */
-    public String getId(int position) {
-        return data[position][0];
+    public Champion getItem(int position) {
+        return lChampion.get(position);
     }
 
     /**
@@ -102,16 +123,5 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    /**
-     * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
-     */
-    public void refresh(){
-        DBManager dbMan = DBManager.getInstance();
-        dbMan.openDatabase(false);
-        data = dbMan.getDatabaseHelper().obtenerNombreRutaCampeones();
-        dbMan.closeDatabase(false);
-        notifyDataSetChanged();
     }
 }

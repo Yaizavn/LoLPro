@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Objetos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -80,7 +83,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "PercentSpellVampMod",
     "PercentLifeStealMod"
 })
-public class Stats {
+public class Stats implements Parcelable {
 
     @JsonProperty("rFlatArmorModPerLevel")
     private Double rFlatArmorModPerLevel;
@@ -1525,4 +1528,162 @@ public class Stats {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.rFlatArmorModPerLevel);
+        dest.writeValue(this.rFlatArmorPenetrationMod);
+        dest.writeValue(this.rFlatArmorPenetrationModPerLevel);
+        dest.writeValue(this.rFlatCritChanceModPerLevel);
+        dest.writeValue(this.rFlatCritDamageModPerLevel);
+        dest.writeValue(this.rFlatEnergyRegenModPerLevel);
+        dest.writeValue(this.rFlatDodgeMod);
+        dest.writeValue(this.rFlatDodgeModPerLevel);
+        dest.writeValue(this.rFlatGoldPer10Mod);
+        dest.writeValue(this.rFlatHPModPerLevel);
+        dest.writeValue(this.rFlatHPRegenModPerLevel);
+        dest.writeValue(this.rFlatMPRegenModPerLevel);
+        dest.writeValue(this.rFlatMagicDamageModPerLevel);
+        dest.writeValue(this.rFlatMagicPenetrationMod);
+        dest.writeValue(this.rFlatMagicPenetrationModPerLevel);
+        dest.writeValue(this.rFlatMPModPerLevel);
+        dest.writeValue(this.rFlatEnergyModPerLevel);
+        dest.writeValue(this.rFlatMovementSpeedModPerLevel);
+        dest.writeValue(this.rFlatPhysicalDamageModPerLevel);
+        dest.writeValue(this.rFlatSpellBlockModPerLevel);
+        dest.writeValue(this.rFlatTimeDeadMod);
+        dest.writeValue(this.rFlatTimeDeadModPerLevel);
+        dest.writeValue(this.rPercentArmorPenetrationMod);
+        dest.writeValue(this.rPercentArmorPenetrationModPerLevel);
+        dest.writeValue(this.rPercentAttackSpeedModPerLevel);
+        dest.writeValue(this.rPercentCooldownMod);
+        dest.writeValue(this.rPercentCooldownModPerLevel);
+        dest.writeValue(this.rPercentMagicPenetrationMod);
+        dest.writeValue(this.rPercentMagicPenetrationModPerLevel);
+        dest.writeValue(this.rPercentMovementSpeedModPerLevel);
+        dest.writeValue(this.rPercentTimeDeadMod);
+        dest.writeValue(this.rPercentTimeDeadModPerLevel);
+        dest.writeValue(this.flatArmorMod);
+        dest.writeValue(this.flatAttackSpeedMod);
+        dest.writeValue(this.flatBlockMod);
+        dest.writeValue(this.flatCritChanceMod);
+        dest.writeValue(this.flatCritDamageMod);
+        dest.writeValue(this.flatEnergyRegenMod);
+        dest.writeValue(this.flatEnergyPoolMod);
+        dest.writeValue(this.flatEXPBonus);
+        dest.writeValue(this.flatHPPoolMod);
+        dest.writeValue(this.flatHPRegenMod);
+        dest.writeValue(this.flatMPPoolMod);
+        dest.writeValue(this.flatMPRegenMod);
+        dest.writeValue(this.flatMagicDamageMod);
+        dest.writeValue(this.flatMovementSpeedMod);
+        dest.writeValue(this.flatPhysicalDamageMod);
+        dest.writeValue(this.flatSpellBlockMod);
+        dest.writeValue(this.percentArmorMod);
+        dest.writeValue(this.percentAttackSpeedMod);
+        dest.writeValue(this.percentBlockMod);
+        dest.writeValue(this.percentCritChanceMod);
+        dest.writeValue(this.percentCritDamageMod);
+        dest.writeValue(this.percentDodgeMod);
+        dest.writeValue(this.percentEXPBonus);
+        dest.writeValue(this.percentHPPoolMod);
+        dest.writeValue(this.percentHPRegenMod);
+        dest.writeValue(this.percentMPPoolMod);
+        dest.writeValue(this.percentMPRegenMod);
+        dest.writeValue(this.percentMagicDamageMod);
+        dest.writeValue(this.percentMovementSpeedMod);
+        dest.writeValue(this.percentPhysicalDamageMod);
+        dest.writeValue(this.percentSpellBlockMod);
+        dest.writeValue(this.percentSpellVampMod);
+        dest.writeValue(this.percentLifeStealMod);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Stats() {
+    }
+
+    protected Stats(Parcel in) {
+        this.rFlatArmorModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatArmorPenetrationMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatArmorPenetrationModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatCritChanceModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatCritDamageModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatEnergyRegenModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatDodgeMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatDodgeModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatGoldPer10Mod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatHPModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatHPRegenModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatMPRegenModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatMagicDamageModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatMagicPenetrationMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatMagicPenetrationModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatMPModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatEnergyModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatMovementSpeedModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatPhysicalDamageModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatSpellBlockModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatTimeDeadMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rFlatTimeDeadModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentArmorPenetrationMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentArmorPenetrationModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentAttackSpeedModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentCooldownMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentCooldownModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentMagicPenetrationMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentMagicPenetrationModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentMovementSpeedModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentTimeDeadMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.rPercentTimeDeadModPerLevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatArmorMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatAttackSpeedMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatBlockMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatCritChanceMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatCritDamageMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatEnergyRegenMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatEnergyPoolMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatEXPBonus = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatHPPoolMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatHPRegenMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatMPPoolMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatMPRegenMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatMagicDamageMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatMovementSpeedMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatPhysicalDamageMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.flatSpellBlockMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentArmorMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentAttackSpeedMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentBlockMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentCritChanceMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentCritDamageMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentDodgeMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentEXPBonus = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentHPPoolMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentHPRegenMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentMPPoolMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentMPRegenMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentMagicDamageMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentMovementSpeedMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentPhysicalDamageMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentSpellBlockMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentSpellVampMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.percentLifeStealMod = (Double) in.readValue(Double.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Stats> CREATOR = new Parcelable.Creator<Stats>() {
+        @Override
+        public Stats createFromParcel(Parcel source) {
+            return new Stats(source);
+        }
+
+        @Override
+        public Stats[] newArray(int size) {
+            return new Stats[size];
+        }
+    };
 }

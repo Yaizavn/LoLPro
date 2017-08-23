@@ -10,8 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.SkinDecorator;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -22,19 +23,17 @@ import com.squareup.picasso.Picasso;
 public class GridAdapterSkins extends BaseAdapter {
 
     private final Context context;
-    private String[][] data;
-    private int idCampeon;
+    private Champion campeon;
 
     /**
      * Constructor
      *
      * @param context   recibe el activity al que está asociado el fragment
-     * @param allData      datos de los campeones o los objetos
+     * @param campeon   Datos del campeon
      */
-    public GridAdapterSkins(Context context, String[][] allData, int id) {
+    public GridAdapterSkins(Context context, Champion campeon) {
         this.context = context;
-        data = allData;
-        idCampeon = id;
+        this.campeon = campeon;
     }
 
     /**
@@ -66,7 +65,7 @@ public class GridAdapterSkins extends BaseAdapter {
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
                 .into((ImageView) convertView.findViewById(R.id.skins_image));
-        ((TextView) convertView.findViewById(R.id.skins_text)).setText(data[position][1]);
+        ((TextView) convertView.findViewById(R.id.skins_text)).setText(campeon.getSkins().get(position).getName());
         return convertView;
     }
 
@@ -77,7 +76,7 @@ public class GridAdapterSkins extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return data.length;
+        return campeon.getSkins().size();
     }
 
     /**
@@ -88,7 +87,7 @@ public class GridAdapterSkins extends BaseAdapter {
      */
     @Override
     public String getItem(int position) {
-        return data[position][2];
+        return ((SkinDecorator)campeon.getSkins().get(position)).getRuta();
     }
 
     /**
@@ -98,7 +97,7 @@ public class GridAdapterSkins extends BaseAdapter {
      * @return Identificados único del campeón u objeto
      */
     public String getId(int position) {
-        return data[position][0];
+        return Integer.toString(position);
     }
 
     /**
@@ -110,16 +109,5 @@ public class GridAdapterSkins extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    /**
-     * Se encarga de notificar que ha habido cambios y debe recargarse el grid con los nuevos datos.
-     */
-    public void refresh(){
-        DBManager dbMan = DBManager.getInstance();
-        dbMan.openDatabase(false);
-        data = dbMan.getDatabaseHelper().obtenerAspectosCampeon(idCampeon);
-        dbMan.closeDatabase(false);
-        notifyDataSetChanged();
     }
 }

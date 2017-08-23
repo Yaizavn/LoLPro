@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Campeones;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -22,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "w",
     "h"
 })
-public class Image {
+public class Image implements Parcelable {
 
     @JsonProperty("full")
     private String full;
@@ -191,4 +194,46 @@ public class Image {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.full);
+        dest.writeString(this.sprite);
+        dest.writeString(this.group);
+        dest.writeValue(this.x);
+        dest.writeValue(this.y);
+        dest.writeValue(this.w);
+        dest.writeValue(this.h);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Image() {
+    }
+
+    protected Image(Parcel in) {
+        this.full = in.readString();
+        this.sprite = in.readString();
+        this.group = in.readString();
+        this.x = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.y = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.w = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.h = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>() {
+        @Override
+        public Image createFromParcel(Parcel source) {
+            return new Image(source);
+        }
+
+        @Override
+        public Image[] newArray(int size) {
+            return new Image[size];
+        }
+    };
 }

@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Objetos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -18,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "tier",
     "type"
 })
-public class Rune {
+public class Rune implements Parcelable {
 
     @JsonProperty("isRune")
     private Boolean isRune;
@@ -99,4 +102,38 @@ public class Rune {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.isRune);
+        dest.writeString(this.tier);
+        dest.writeString(this.type);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Rune() {
+    }
+
+    protected Rune(Parcel in) {
+        this.isRune = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.tier = in.readString();
+        this.type = in.readString();
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Rune> CREATOR = new Parcelable.Creator<Rune>() {
+        @Override
+        public Rune createFromParcel(Parcel source) {
+            return new Rune(source);
+        }
+
+        @Override
+        public Rune[] newArray(int size) {
+            return new Rune[size];
+        }
+    };
 }

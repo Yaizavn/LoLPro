@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.lol.lolpro.app.Activity_General;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.json.Objetos.Item;
 import com.lol.lolpro.app.utillidades.Constants;
 
 public class ObjetoContenedor extends Fragment {
@@ -27,7 +28,7 @@ public class ObjetoContenedor extends Fragment {
     /**
      * Item vacio
      */
-    public ObjetoContenedor() {
+    public  ObjetoContenedor() {
         // Required empty public constructor
     }
 
@@ -53,25 +54,13 @@ public class ObjetoContenedor extends Fragment {
         dbMan.openDatabase(false);
 
         Bundle args = getArguments();
-        String[] datos = dbMan.getDatabaseHelper().obtenerDatosObjetos(args.getInt("id", Constants.INVALID_ID));
-        args.putStringArray("data", datos);
-        if (datos[12] != null) {
-            args.putSerializable("campeonReq", dbMan.getDatabaseHelper().obtenerNombreRutaCampeon(Integer.parseInt(datos[12])));
-        }
-        if (!datos[9].isEmpty()) {
-            args.putSerializable("dataFrom", dbMan.getDatabaseHelper().obtenerNombreRutaObjetos(datos[9].split(",")));
-        }
-        if (!datos[10].isEmpty()) {
-            args.putSerializable("dataInto", dbMan.getDatabaseHelper().obtenerNombreRutaObjetos(datos[10].split(",")));
-        }
         dbMan.closeDatabase(false);
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        mPagerAdapter = new ObjetoPageAdapter(getChildFragmentManager(), args);
+        mPagerAdapter = new ObjetoPageAdapter(getChildFragmentManager(), (Item) args.getParcelable("item"));
         numPages = mPagerAdapter.getCount();
         mViewPager = (ViewPager) view.findViewById(R.id.objeto_viewPager);
         mViewPager.setAdapter(mPagerAdapter);
-
 
         // Create a tab listener that is called when the user changes tabs.
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {

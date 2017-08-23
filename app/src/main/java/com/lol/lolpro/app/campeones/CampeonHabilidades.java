@@ -12,6 +12,7 @@ import android.widget.GridView;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterSpells;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.json.Campeones.Champion;
 import com.lol.lolpro.app.utillidades.Constants;
 
 /**
@@ -30,10 +31,10 @@ public class CampeonHabilidades extends Fragment {
         View view=inflater.inflate(R.layout.fragment_campeon_habilidades, container, false);
         GridView grid = (GridView) view.findViewById(R.id.gridHabilidades);
         Bundle args = getArguments();
-        String[][] spells = (String[][]) args.getSerializable("spells");
+        Champion campeon = args.getParcelable("champion");
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        grid.setAdapter(new GridAdapterSpells(getActivity(), spells, args.getInt("id", Constants.INVALID_ID)));
+        grid.setAdapter(new GridAdapterSpells(getActivity(), campeon));
         dbMan.closeDatabase(false);
         return view;
     }

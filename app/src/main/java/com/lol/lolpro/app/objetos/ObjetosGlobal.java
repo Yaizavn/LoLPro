@@ -11,6 +11,8 @@ import android.widget.GridView;
 
 import com.lol.lolpro.app.Activity_General;
 import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
+import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Objetos.Item;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
@@ -73,17 +75,15 @@ public class ObjetosGlobal extends Fragment {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        DBManager dbMan = DBManager.getInstance();
-        dbMan.openDatabase(false);
 
         GridView grid = (GridView) view.findViewById(R.id.gridObjetosGlobal);
-        grid.setAdapter(new GridAdapterObjetoGlobal(getActivity(), dbMan.getDatabaseHelper().obtenerNombreRutaObjetos()));
+        /*Es el nuevo obtenerObjeto*/
+        grid.setAdapter(new GridAdapterObjetoGlobal(getActivity()));
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity
-                mCallback.onObjectSelected(Integer.parseInt(v.getTag().toString()));
+                mCallback.onObjectSelected((Item) parent.getItemAtPosition(new Long(id).intValue()));
             }
         });
-        dbMan.closeDatabase(false);
     }
 }

@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Campeones;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -19,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "sanitizedDescription",
     "image"
 })
-public class Passive {
+public class Passive implements Parcelable {
 
     @JsonProperty("name")
     private String name;
@@ -122,4 +125,40 @@ public class Passive {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeString(this.sanitizedDescription);
+        dest.writeParcelable(this.image, flags);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Passive() {
+    }
+
+    protected Passive(Parcel in) {
+        this.name = in.readString();
+        this.description = in.readString();
+        this.sanitizedDescription = in.readString();
+        this.image = in.readParcelable(Image.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Passive> CREATOR = new Parcelable.Creator<Passive>() {
+        @Override
+        public Passive createFromParcel(Parcel source) {
+            return new Passive(source);
+        }
+
+        @Override
+        public Passive[] newArray(int size) {
+            return new Passive[size];
+        }
+    };
 }

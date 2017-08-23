@@ -59,9 +59,6 @@ public class CampeonContenedor extends Fragment {
         dbMan.openDatabase(false);
 
         Bundle args = getArguments();
-        args.putStringArray("data", dbMan.getDatabaseHelper().obtenerDatosCampeon(args.getInt("id", Constants.INVALID_ID)));
-        args.putSerializable("spells", dbMan.getDatabaseHelper().obtenerHabilidadesCampeon(args.getInt("id", Constants.INVALID_ID)));
-        args.putSerializable("skins", dbMan.getDatabaseHelper().obtenerAspectosCampeon(args.getInt("id", Constants.INVALID_ID)));
         actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new CampeonPageAdapter(getChildFragmentManager(), args);

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lol.lolpro.app.json.Campeones.Champion;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.R;
 
@@ -37,9 +38,10 @@ public class CampeonHistoria extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle args = getArguments();
-        String[] championData = args.getStringArray("data");
+        Champion campeon;
+        campeon = args.getParcelable("champion");
         View view = inflater.inflate(R.layout.fragment_campeon_historia, container, false);
-        if (championData != null) {
+        if (campeon != null) {
             TextView historia = (TextView) view.findViewById(R.id.historia_historia);
             TextView nombre = (TextView) view.findViewById(R.id.historia_nombreCampeon);
             // Defino la nueva fuente cargandola desde el fichero .ttf
@@ -47,8 +49,8 @@ public class CampeonHistoria extends Fragment {
             // Aplico el nuevo tipo de letra
             historia.setTypeface(miPropiaTypeFace);
             nombre.setTypeface(miPropiaTypeFace);
-            nombre.setText(championData[1]);
-            historia.setText(championData[3]);
+            nombre.setText(campeon.getName());
+            historia.setText(campeon.getLore());
         }
         return view;
     }

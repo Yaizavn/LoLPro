@@ -3,7 +3,6 @@ package com.lol.lolpro.app.objetos;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,13 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lol.lolpro.app.campeones.CampeonesGlobal;
-import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
-import com.lol.lolpro.app.grids.GridAdapterObjetoGlobal;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
+import com.lol.lolpro.app.json.Campeones.Champion;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
 /**
@@ -95,16 +95,16 @@ public class ObjetoGeneral extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
        GridView grid = (GridView) view.findViewById(R.id.objeto_gridViewCampeonAdmitido);
         Bundle args = getArguments();
-        String[][] datos = (String[][]) args.getSerializable("campeonReq");
-        if (datos!=null) {
+        List<Champion> lChampionReq = args.getParcelableArrayList("campeonReq");
+        if (lChampionReq!=null) {
             view.findViewById(R.id.objeto_TextoCampeonesPermitidos).setVisibility(View.VISIBLE);
             view.findViewById(R.id.objeto_gridViewCampeonAdmitido).setVisibility(View.VISIBLE);
-            grid.setAdapter(new GridAdapterCampeonGlobal(getActivity(), datos));
+            grid.setAdapter(new GridAdapterCampeonGlobal(getActivity(), lChampionReq));
 
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
                     //Send the event to the host activity
-                    mCallback.onChampionSelected(Integer.parseInt(v.getTag().toString()));
+                    mCallback.onChampionSelected((Champion) parent.getItemAtPosition(new Long(id).intValue()));
                 }
             });
         }

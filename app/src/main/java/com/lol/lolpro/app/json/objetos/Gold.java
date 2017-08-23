@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Objetos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -19,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "sell",
     "purchasable"
 })
-public class Gold {
+public class Gold implements Parcelable {
 
     @JsonProperty("base")
     private Integer base;
@@ -122,4 +125,40 @@ public class Gold {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.base);
+        dest.writeValue(this.total);
+        dest.writeValue(this.sell);
+        dest.writeValue(this.purchasable);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Gold() {
+    }
+
+    protected Gold(Parcel in) {
+        this.base = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.total = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.sell = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.purchasable = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Gold> CREATOR = new Parcelable.Creator<Gold>() {
+        @Override
+        public Gold createFromParcel(Parcel source) {
+            return new Gold(source);
+        }
+
+        @Override
+        public Gold[] newArray(int size) {
+            return new Gold[size];
+        }
+    };
 }

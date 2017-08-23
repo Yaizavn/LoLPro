@@ -1,17 +1,22 @@
 
 package com.lol.lolpro.app.json.Objetos;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Generated;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Generated;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -40,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "gold",
     "rune"
 })
-public class Item {
+public class Item implements Parcelable {
 
     @JsonProperty("id")
     private Integer id;
@@ -81,7 +86,7 @@ public class Item {
     @JsonProperty("maps")
     private Maps maps;
     @JsonProperty("image")
-    private Image image;
+    private ImageItem image;
     @JsonProperty("stats")
     private Stats stats;
     @JsonProperty("gold")
@@ -477,7 +482,7 @@ public class Item {
      *     The image
      */
     @JsonProperty("image")
-    public Image getImage() {
+    public ImageItem getImage() {
         return image;
     }
 
@@ -487,7 +492,7 @@ public class Item {
      *     The image
      */
     @JsonProperty("image")
-    public void setImage(Image image) {
+    public void setImage(ImageItem image) {
         this.image = image;
     }
 
@@ -561,4 +566,78 @@ public class Item {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.group);
+        dest.writeString(this.description);
+        dest.writeString(this.sanitizedDescription);
+        dest.writeString(this.colloq);
+        dest.writeString(this.plaintext);
+        dest.writeValue(this.consumed);
+        dest.writeValue(this.stacks);
+        dest.writeValue(this.depth);
+        dest.writeValue(this.consumeOnFull);
+        dest.writeStringList(this.from);
+        dest.writeStringList(this.into);
+        dest.writeValue(this.specialRecipe);
+        dest.writeValue(this.inStore);
+        dest.writeValue(this.hideFromAll);
+        dest.writeString(this.requiredChampion);
+        dest.writeStringList(this.tags);
+        dest.writeParcelable(this.maps, flags);
+        dest.writeParcelable(this.image, flags);
+        dest.writeParcelable(this.stats, flags);
+        dest.writeParcelable(this.gold, flags);
+        dest.writeParcelable(this.rune, flags);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Item() {
+    }
+
+    protected Item(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.name = in.readString();
+        this.group = in.readString();
+        this.description = in.readString();
+        this.sanitizedDescription = in.readString();
+        this.colloq = in.readString();
+        this.plaintext = in.readString();
+        this.consumed = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.stacks = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.depth = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.consumeOnFull = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.from = in.createStringArrayList();
+        this.into = in.createStringArrayList();
+        this.specialRecipe = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.inStore = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.hideFromAll = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.requiredChampion = in.readString();
+        this.tags = in.createStringArrayList();
+        this.maps = in.readParcelable(Maps.class.getClassLoader());
+        this.image = in.readParcelable(ImageItem.class.getClassLoader());
+        this.stats = in.readParcelable(Stats.class.getClassLoader());
+        this.gold = in.readParcelable(Gold.class.getClassLoader());
+        this.rune = in.readParcelable(Rune.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel source) {
+            return new Item(source);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 }

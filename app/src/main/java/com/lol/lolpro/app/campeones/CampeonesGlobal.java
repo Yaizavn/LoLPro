@@ -13,6 +13,7 @@ import com.lol.lolpro.app.Activity_General;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
 import com.lol.lolpro.app.R;
+import com.lol.lolpro.app.json.Campeones.Champion;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
 
@@ -59,7 +60,7 @@ public class CampeonesGlobal extends Fragment {
         try {
             mCallback = (Champion_callback) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(activity.toString() + "must implement Champion_callback");
         }
     }
 
@@ -74,11 +75,11 @@ public class CampeonesGlobal extends Fragment {
         GridView grid = (GridView) view.findViewById(R.id.gridCampeonesGlobal);
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        grid.setAdapter(new GridAdapterCampeonGlobal(getActivity(), dbMan.getDatabaseHelper().obtenerNombreRutaCampeones()));
+        grid.setAdapter(new GridAdapterCampeonGlobal(getActivity()));
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity
-                mCallback.onChampionSelected(Integer.parseInt(v.getTag().toString()));
+                mCallback.onChampionSelected((Champion) parent.getItemAtPosition((int) id));
             }
         });
         dbMan.closeDatabase(false);

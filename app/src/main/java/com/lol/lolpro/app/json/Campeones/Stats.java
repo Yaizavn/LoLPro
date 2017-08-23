@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Campeones;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -35,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "spellblock",
     "spellblockperlevel"
 })
-public class Stats {
+public class Stats implements Parcelable {
 
     @JsonProperty("armor")
     private Double armor;
@@ -490,4 +493,72 @@ public class Stats {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.armor);
+        dest.writeValue(this.armorperlevel);
+        dest.writeValue(this.attackdamage);
+        dest.writeValue(this.attackdamageperlevel);
+        dest.writeValue(this.attackrange);
+        dest.writeValue(this.attackspeedoffset);
+        dest.writeValue(this.attackspeedperlevel);
+        dest.writeValue(this.crit);
+        dest.writeValue(this.critperlevel);
+        dest.writeValue(this.hp);
+        dest.writeValue(this.hpperlevel);
+        dest.writeValue(this.hpregen);
+        dest.writeValue(this.hpregenperlevel);
+        dest.writeValue(this.movespeed);
+        dest.writeValue(this.mp);
+        dest.writeValue(this.mpperlevel);
+        dest.writeValue(this.mpregen);
+        dest.writeValue(this.mpregenperlevel);
+        dest.writeValue(this.spellblock);
+        dest.writeValue(this.spellblockperlevel);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Stats() {
+    }
+
+    protected Stats(Parcel in) {
+        this.armor = (Double) in.readValue(Double.class.getClassLoader());
+        this.armorperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.attackdamage = (Double) in.readValue(Double.class.getClassLoader());
+        this.attackdamageperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.attackrange = (Double) in.readValue(Double.class.getClassLoader());
+        this.attackspeedoffset = (Double) in.readValue(Double.class.getClassLoader());
+        this.attackspeedperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.crit = (Double) in.readValue(Double.class.getClassLoader());
+        this.critperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.hp = (Double) in.readValue(Double.class.getClassLoader());
+        this.hpperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.hpregen = (Double) in.readValue(Double.class.getClassLoader());
+        this.hpregenperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.movespeed = (Double) in.readValue(Double.class.getClassLoader());
+        this.mp = (Double) in.readValue(Double.class.getClassLoader());
+        this.mpperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.mpregen = (Double) in.readValue(Double.class.getClassLoader());
+        this.mpregenperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.spellblock = (Double) in.readValue(Double.class.getClassLoader());
+        this.spellblockperlevel = (Double) in.readValue(Double.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Stats> CREATOR = new Parcelable.Creator<Stats>() {
+        @Override
+        public Stats createFromParcel(Parcel source) {
+            return new Stats(source);
+        }
+
+        @Override
+        public Stats[] newArray(int size) {
+            return new Stats[size];
+        }
+    };
 }

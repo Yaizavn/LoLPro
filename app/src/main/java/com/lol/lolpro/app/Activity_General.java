@@ -2,14 +2,9 @@ package com.lol.lolpro.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.lol.lolpro.app.bbdd.DescargarBBDD;
@@ -18,8 +13,9 @@ import com.lol.lolpro.app.bbdd.dFragment;
 import com.lol.lolpro.app.campeones.CampeonContenedor;
 import com.lol.lolpro.app.campeones.CampeonesGlobal;
 import com.lol.lolpro.app.inicio.InicioGlobal;
+import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Objetos.Item;
 import com.lol.lolpro.app.objetos.ObjetoContenedor;
-import com.lol.lolpro.app.objetos.ObjetoGeneral;
 import com.lol.lolpro.app.objetos.ObjetosGlobal;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
@@ -154,28 +150,22 @@ public class Activity_General extends ActionBarActivity
 
     /**
      * Se encarga del manejo al seleccionar un campeón en un fragment
-     *
-     * @param index Posición del campeón seleccionado
+     * @param champion Campeón seleccionado
      */
     @Override
-    public void onChampionSelected(int index) {
+    public void onChampionSelected(Champion champion) {
         Bundle args = new Bundle();
-        args.putInt("id", index);
+        args.putParcelable("champion", champion);
         Fragment fragment = new CampeonContenedor();
         fragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
                 .addToBackStack(null).commit();
     }
 
-    /**
-     * Se encarga del manejo al seleccionar un objeto en un fragment
-     *
-     * @param index Posición del campeón seleccionado
-     */
     @Override
-    public void onObjectSelected(int index) {
+    public void onObjectSelected(Item objetoSeleccionado) {
         Bundle args = new Bundle();
-        args.putInt("id", index);
+        args.putParcelable("item", objetoSeleccionado);
         Fragment fragment = new ObjetoContenedor();
         fragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)

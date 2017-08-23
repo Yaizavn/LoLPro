@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.R;
-import com.lol.lolpro.app.utillidades.Utils;
+import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.json.Campeones.Champion;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
 /**
@@ -20,7 +22,7 @@ import com.squareup.picasso.Picasso;
 public class GridAdapterFreeChamps extends BaseAdapter {
 
     private final Context context;
-    private String[][] data;
+    private List<Champion> data;
 
     /**
      * Constructor
@@ -28,12 +30,12 @@ public class GridAdapterFreeChamps extends BaseAdapter {
      * @param context   recibe el activity al que está asociado el fragment
      * @param allData      datos de los campeones o los objetos
      */
-    public GridAdapterFreeChamps(Context context, String[][] allData) {
+    public GridAdapterFreeChamps(Context context, List<Champion> allData) {
         this.context = context;
         data = allData;
     }
 
-    public String[][] getData(){
+    public List<Champion> getData(){
         return data;
     }
 
@@ -53,10 +55,10 @@ public class GridAdapterFreeChamps extends BaseAdapter {
         }
         convertView.setTag(getId(position));
         // Get the image URL for the current position.
-        String url = getItem(position);
+        Champion campeon = getItem(position);
         // Trigger the download of the URL asynchronously into the image view.
         Picasso.with(context) //
-                .load(url) //
+                .load(campeon.getImage().getFull()) //
                 .fit()
                 .placeholder(R.drawable.cargar)
                 .error(R.drawable.error)
@@ -72,7 +74,7 @@ public class GridAdapterFreeChamps extends BaseAdapter {
     @Override
     public int getCount() {
         if(data!=null){
-            return data.length;
+            return data.size();
         }
         else return 0;
     }
@@ -84,8 +86,8 @@ public class GridAdapterFreeChamps extends BaseAdapter {
      * @return Ruta de la imagen del campeón u objeto
      */
     @Override
-    public String getItem(int position) {
-        return data[position][2];
+    public Champion getItem(int position) {
+        return data.get(position);
     }
 
     /**
@@ -95,7 +97,7 @@ public class GridAdapterFreeChamps extends BaseAdapter {
      * @return Identificados único del campeón u objeto
      */
     public String getId(int position) {
-        return data[position][0];
+        return data.get(position).getId().toString();
     }
 
     /**
@@ -115,7 +117,7 @@ public class GridAdapterFreeChamps extends BaseAdapter {
     public void refresh(){
         DBManager dbMan = DBManager.getInstance();
         dbMan.openDatabase(false);
-        data = dbMan.getDatabaseHelper().obtenerGratuitos();
+        data = dbMan.getDatabaseHelper().obtenerCampeonesGratuitos();
         dbMan.closeDatabase(false);
         notifyDataSetChanged();
     }

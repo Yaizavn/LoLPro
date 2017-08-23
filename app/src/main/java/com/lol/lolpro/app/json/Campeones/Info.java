@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Campeones;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -19,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "magic",
     "difficulty"
 })
-public class Info {
+public class Info implements Parcelable {
 
     @JsonProperty("attack")
     private Integer attack;
@@ -122,4 +125,40 @@ public class Info {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.attack);
+        dest.writeValue(this.defense);
+        dest.writeValue(this.magic);
+        dest.writeValue(this.difficulty);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Info() {
+    }
+
+    protected Info(Parcel in) {
+        this.attack = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.defense = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.magic = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.difficulty = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Info> CREATOR = new Parcelable.Creator<Info>() {
+        @Override
+        public Info createFromParcel(Parcel source) {
+            return new Info(source);
+        }
+
+        @Override
+        public Info[] newArray(int size) {
+            return new Info[size];
+        }
+    };
 }

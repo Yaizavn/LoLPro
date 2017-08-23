@@ -1,17 +1,22 @@
 
 package com.lol.lolpro.app.json.Campeones;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Generated;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Generated;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -34,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "passive",
     "recommended"
 })
-public class Champion {
+public class Champion implements Parcelable {
 
     @JsonProperty("id")
     private Integer id;
@@ -423,4 +428,69 @@ public class Champion {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.key);
+        dest.writeString(this.name);
+        dest.writeString(this.title);
+        dest.writeParcelable(this.image, flags);
+        dest.writeList(this.skins);
+        dest.writeString(this.lore);
+        dest.writeString(this.blurb);
+        dest.writeStringList(this.allytips);
+        dest.writeStringList(this.enemytips);
+        dest.writeStringList(this.tags);
+        dest.writeString(this.partype);
+        dest.writeParcelable(this.info, flags);
+        dest.writeParcelable(this.stats, flags);
+        dest.writeList(this.spells);
+        dest.writeParcelable(this.passive, flags);
+        dest.writeList(this.recommended);
+        dest.writeValue(additionalProperties);
+    }
+
+    public Champion() {
+    }
+
+    protected Champion(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.key = in.readString();
+        this.name = in.readString();
+        this.title = in.readString();
+        this.image = in.readParcelable(Image.class.getClassLoader());
+        this.skins = new ArrayList<Skin>();
+        in.readList(this.skins, Skin.class.getClassLoader());
+        this.lore = in.readString();
+        this.blurb = in.readString();
+        this.allytips = in.createStringArrayList();
+        this.enemytips = in.createStringArrayList();
+        this.tags = in.createStringArrayList();
+        this.partype = in.readString();
+        this.info = in.readParcelable(Info.class.getClassLoader());
+        this.stats = in.readParcelable(Stats.class.getClassLoader());
+        this.spells = new ArrayList<Spell>();
+        in.readList(this.spells, Spell.class.getClassLoader());
+        this.passive = in.readParcelable(Passive.class.getClassLoader());
+        this.recommended = new ArrayList<Recommended>();
+        in.readList(this.recommended, Recommended.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Champion> CREATOR = new Parcelable.Creator<Champion>() {
+        @Override
+        public Champion createFromParcel(Parcel source) {
+            return new Champion(source);
+        }
+
+        @Override
+        public Champion[] newArray(int size) {
+            return new Champion[size];
+        }
+    };
 }

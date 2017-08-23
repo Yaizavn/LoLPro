@@ -5,24 +5,32 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.Html;
 
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.SkinDecorator;
+import com.lol.lolpro.app.json.Campeones.Image;
 import com.lol.lolpro.app.json.Campeones.Passive;
 import com.lol.lolpro.app.json.Campeones.Skin;
 import com.lol.lolpro.app.json.Campeones.Spell;
+import com.lol.lolpro.app.json.Campeones.Stats;
 import com.lol.lolpro.app.json.Campeones.Var;
 import com.lol.lolpro.app.json.EstadoCampeones.BaseEstadoCampeones;
 import com.lol.lolpro.app.json.EstadoCampeones.ChampionState;
+import com.lol.lolpro.app.json.Objetos.Gold;
+import com.lol.lolpro.app.json.Objetos.ImageItem;
 import com.lol.lolpro.app.json.Objetos.Item;
 import com.lol.lolpro.app.json.Realm.BaseRealm;
+import com.lol.lolpro.app.json.Realm.BaseRealmDecorator;
+import com.lol.lolpro.app.json.Realm.N;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Clase que se encarga de la gestión de la base de datos
@@ -70,7 +78,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 ", name TEXT, base INTEGER, total INTEGER, sell INTEGER, purchasable INTEGER," +
                 " description TEXT, plainText TEXT, stacks INTEGER, depth INTEGER, fromOBJ TEXT, intoOBJ TEXT," +
                 " hideFromAll INTEGER, requiredChampion INTEGER, full TEXT, FOREIGN KEY(requiredChampion) REFERENCES campeones(_id))");
-        //tags TEXT, maps TEXT,
         db.execSQL("CREATE TABLE tagsCampeones (" +
                 "idCampeon INTEGER, nombreTag TEXT, FOREIGN KEY(idCampeon) REFERENCES campeones(_id))");
         db.execSQL("CREATE TABLE tagsObjetos (" +
@@ -123,72 +130,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
         }
     }
 
-    /**
-     * Se encarga de actualizar los datos de un campeón si ha sufrido cambios debido a un cambio de versión
-     *
-     * @param id                  Identificador único de cada campeón
-     * @param nombre              Nombre del campeón
-     * @param nick                Nick del campeón
-     * @param historia            CampeonHistoria del campeón
-     * @param vida                Vida del campeón
-     * @param regeneracionVida    Regeneración de vida por segundo del campeón
-     * @param danioAtaque         Daño de ataque del campeón
-     * @param armadura            Resistencia de ataques físicos del campeón
-     * @param velocidadAtaque     Velocidad de ataque por segundo del campeón
-     * @param resistenciaMagica   Resistencia a habilidaddes o poder mágico del campeón
-     * @param velocidadMovimiento Número de unidades que se desplaza el acmpeón por segundo
-     * @param rutaPrincipal       Ruta en la que se encuentra la imagen principal del campeón
-     */
-    public void insertarCampeon(int id, String key, String nombre, String nick, String historia, String vida,
-                                String vidaPorNivel, String regeneracionVida,
-                                String regeneracionVidaPorNivel, String danioAtaque,
-                                String danioAtaquePorNivel, String armadura,
-                                String armaduraPorNivel, String velocidadAtaque,
-                                String velocidadAtaquePorNivel, String crit, String critPorNivel,
-                                String tipoMP, String mana, String manaPorNivel, String regMana,
-                                String regManaPorNivel, String resistenciaMagica,
-                                String resistenciaMagicaPorNivel, String velocidadMovimiento,
-                                String rutaPrincipal, boolean actualizarBBDD) {
-        double velAtaque = Double.parseDouble(velocidadAtaque);
-        velAtaque = 1 / (1.6 * (1 + velAtaque));
-        velAtaque = Math.rint(velAtaque * 1000) / 1000;
-
-        ContentValues cont = new ContentValues();
-        cont.put("key", Utils.htmlEncode(key));
-        cont.put("nombre", Utils.htmlEncode(nombre));
-        cont.put("nick", Utils.htmlEncode(nick));
-        cont.put("historia", Utils.htmlEncode(historia));
-        cont.put("vida", Utils.htmlEncode(vida));
-        cont.put("vidaPorNivel", Utils.htmlEncode(vidaPorNivel));
-        cont.put("regeneracionVida", Utils.htmlEncode(regeneracionVida));
-        cont.put("regeneracionVidaPorNivel", Utils.htmlEncode(regeneracionVidaPorNivel));
-        cont.put("danioAtaque", Utils.htmlEncode(danioAtaque));
-        cont.put("danioAtaquePorNivel", Utils.htmlEncode(danioAtaquePorNivel));
-        cont.put("armadura", Utils.htmlEncode(armadura));
-        cont.put("armaduraPorNivel", Utils.htmlEncode(armaduraPorNivel));
-        cont.put("velocidadAtaque", velAtaque);
-        cont.put("velocidadAtaquePorNivel", Utils.htmlEncode(velocidadAtaquePorNivel));
-        cont.put("crit", Utils.htmlEncode(crit));
-        cont.put("critPorNivel", Utils.htmlEncode(critPorNivel));
-        cont.put("tipoMP", Utils.htmlEncode(tipoMP));
-        cont.put("mana", Utils.htmlEncode(mana));
-        cont.put("manaPorNivel", Utils.htmlEncode(manaPorNivel));
-        cont.put("regMana", Utils.htmlEncode(regMana));
-        cont.put("regManaPorNivel", Utils.htmlEncode(regManaPorNivel));
-        cont.put("resistenciaMagica", Utils.htmlEncode(resistenciaMagica));
-        cont.put("resistenciaMagicaPorNivel", Utils.htmlEncode(resistenciaMagicaPorNivel));
-        cont.put("velocidadMovimiento", Utils.htmlEncode(velocidadMovimiento));
-        cont.put("rutaPrincipal", Utils.htmlEncode(rutaPrincipal));
-        cont.put("esGratis", 0);
-        String[] whereArgs = new String[]{Integer.toString(id)};
-        if(!actualizarBBDD || mDatabase.update("campeones", cont, "_id=?", whereArgs) == 0) {
-            cont.put("_id", id);
-            mDatabase.insert("campeones", null, cont);
-        }
-    }
-
     public void insertarCampeon(Champion campeon, boolean actualizarBBDD){
-        String rutaImagen = obtenerRutaVersionCampeon();
+        String rutaImagen = getBaseRealm().getRutaVersionCampeon();
         double velAtaque = campeon.getStats().getAttackspeedoffset();
         velAtaque = 1 / (1.6 * (1 + velAtaque));
         velAtaque = Math.rint(velAtaque * 1000) / 1000;
@@ -225,23 +168,66 @@ public class BBDDHelper extends SQLiteOpenHelper {
             cont.put("_id", campeon.getId());
             mDatabase.insert("campeones", null, cont);
         }
-    }
-
-    public void insertarAspectoCampeon(int idAspecto, int idCampeon, String nombre, int numero, String rutaPrincipal, boolean actualizarBBDD) {
-        ContentValues cont = new ContentValues();
-        cont.put("idCampeon", idCampeon);
-        cont.put("nombre", Utils.htmlEncode(nombre));
-        cont.put("num", numero);
-        cont.put("rutaPrincipal", Utils.htmlEncode(rutaPrincipal));
-        String[] whereArgs = new String[]{Integer.toString(idAspecto)};
-        if(!actualizarBBDD || mDatabase.update("aspectos", cont, "_id=?", whereArgs) == 0) {
-            cont.put("_id", idAspecto);
-            mDatabase.insert("aspectos", null, cont);
+        insertarHabilidadesCampeon (campeon, actualizarBBDD);
+        insertarAspectosCampeon (campeon, actualizarBBDD);
+        if (actualizarBBDD){
+            borrarHabilidadesDesfasadas();
         }
     }
 
-    public void insertarAspectosCampeon(Champion campeon, boolean actualizarBBDD) {
-        String rutaSkins = obtenerRutaAspectosCampeon();
+    private void insertarHabilidadesCampeon(Champion campeon, boolean actualizarBBDD) {
+        int position = 1;
+        ContentValues cont;
+        BaseRealmDecorator baseRealmDecorator = getBaseRealm();
+
+        insertarPasivaCampeon(campeon, actualizarBBDD);
+
+        for (Spell spell : campeon.getSpells()) {
+            cont = new ContentValues();
+            cont.put("descripcion", Utils.htmlEncode(spell.getDescription()));
+            cont.put("tooltip", prepararTooltip(spell));
+            cont.put("coste", prepararCoste(spell));
+            cont.put("alcance", Utils.htmlEncode(spell.getRangeBurn()));
+            cont.put("rutaPrincipal", Utils.htmlEncode(baseRealmDecorator.getRutaHabilidadesCampeon(Constants.PASSIVE_NO) + spell.getImage().getFull()));
+            cont.put("enfriamiento", Utils.htmlEncode(spell.getCooldownBurn()));
+            cont.put("esPasiva", 0);
+            cont.put("posicion", position++);
+            cont.put ("esNueva", 1);
+            String[] whereArgs = new String[]{Integer.toString(campeon.getId()), Utils.htmlEncode(spell.getName())};
+            if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
+                cont.put("idCampeon", campeon.getId());
+                cont.put("nombre", Utils.htmlEncode(spell.getName()));
+                mDatabase.insert("habilidades", null, cont);
+            }
+        }
+    }
+
+    private void insertarPasivaCampeon(Champion campeon, boolean actualizarBBDD) {
+        Passive pasiva;
+        ContentValues cont;
+        BaseRealmDecorator baseRealmDecorator = getBaseRealm();
+
+        pasiva = campeon.getPassive();
+        cont = new ContentValues();
+        cont.put("descripcion", Utils.htmlEncode(pasiva.getDescription()));
+        cont.put("tooltip", "");
+        cont.put("coste", "");
+        cont.put("alcance", "");
+        cont.put("rutaPrincipal", Utils.htmlEncode(baseRealmDecorator.getRutaHabilidadesCampeon(Constants.PASSIVE_YES) + pasiva.getImage().getFull()));
+        cont.put("enfriamiento", "");
+        cont.put("esPasiva", 1);
+        cont.put("posicion", 0);
+        cont.put ("esNueva", 1);
+        String[] whereArgs = new String[]{Integer.toString(campeon.getId()), Utils.htmlEncode(pasiva.getName())};
+        if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
+            cont.put("idCampeon", campeon.getId());
+            cont.put("nombre", Utils.htmlEncode(pasiva.getName()));
+            mDatabase.insert("habilidades", null, cont);
+        }
+    }
+
+    private void insertarAspectosCampeon(Champion campeon, boolean actualizarBBDD) {
+        String rutaSkins = getBaseRealm().getRutaAspectosCampeon();
         ContentValues cont;
         for (Skin skin: campeon.getSkins()) {
             cont = new ContentValues();
@@ -254,27 +240,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 cont.put("_id", skin.getId());
                 mDatabase.insert("aspectos", null, cont);
             }
-        }
-    }
-
-
-    public void insertarHabilidadCampeon(int idCampeon, String nombre, String descripcion, String tooltip, String coste,
-                                         String alcance, String rutaPrincipal, String enfriamiento, int posicion, int esPasiva, boolean actualizarBBDD) {
-        ContentValues cont = new ContentValues();
-        cont.put("descripcion", Utils.htmlEncode(descripcion));
-        cont.put("tooltip", Utils.htmlEncode(tooltip));
-        cont.put("coste", Utils.htmlEncode(coste));
-        cont.put("alcance", Utils.htmlEncode(alcance));
-        cont.put("rutaPrincipal", Utils.htmlEncode(rutaPrincipal));
-        cont.put("enfriamiento", Utils.htmlEncode(enfriamiento));
-        cont.put("esPasiva", esPasiva);
-        cont.put("posicion", posicion);
-        cont.put ("esNueva", 1);
-        String[] whereArgs = new String[]{Integer.toString(idCampeon), Utils.htmlEncode(nombre)};
-        if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
-            cont.put("idCampeon", idCampeon);
-            cont.put("nombre", Utils.htmlEncode(nombre));
-            mDatabase.insert("habilidades", null, cont);
         }
     }
 
@@ -293,7 +258,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
         description = description.replaceAll("\\{\\{.+?\\}\\}", " ");
 
         return description;
-
     }
 
     private String prepararCoste(Spell spell){
@@ -311,103 +275,177 @@ public class BBDDHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertarHabilidadesCampeon(Champion campeon, boolean actualizarBBDD) {
-        int position = 1;
-        ContentValues cont;
-
-        insertarPasivaCampeon(campeon, actualizarBBDD);
-
-        for (Spell spell : campeon.getSpells()) {
-            cont = new ContentValues();
-            cont.put("descripcion", Utils.htmlEncode(spell.getDescription()));
-            cont.put("tooltip", prepararTooltip(spell));
-            cont.put("coste", prepararCoste(spell));
-            cont.put("alcance", Utils.htmlEncode(spell.getRangeBurn().toString()));
-            cont.put("rutaPrincipal", Utils.htmlEncode(obtenerRutaHabilidadesCampeon(0) + spell.getImage().getFull()));
-            cont.put("enfriamiento", Utils.htmlEncode(spell.getCooldownBurn().toString()));
-            cont.put("esPasiva", 0);
-            cont.put("posicion", position++);
-            cont.put ("esNueva", 1);
-            String[] whereArgs = new String[]{Integer.toString(campeon.getId()), Utils.htmlEncode(spell.getName())};
-            if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
-                cont.put("idCampeon", campeon.getId());
-                cont.put("nombre", Utils.htmlEncode(spell.getName()));
-                mDatabase.insert("habilidades", null, cont);
-            }
-        }
-    }
-
-    public void insertarPasivaCampeon(Champion campeon, boolean actualizarBBDD) {
-        Passive pasiva;
-        ContentValues cont;
-
-        pasiva = campeon.getPassive();
-        cont = new ContentValues();
-        cont.put("descripcion", Utils.htmlEncode(pasiva.getDescription()));
-        cont.put("tooltip", "");
-        cont.put("coste", "");
-        cont.put("alcance", "");
-        cont.put("rutaPrincipal", Utils.htmlEncode(obtenerRutaHabilidadesCampeon(1) + pasiva.getImage().getFull()));
-        cont.put("enfriamiento", "");
-        cont.put("esPasiva", 1);
-        cont.put("posicion", 0);
-        cont.put ("esNueva", 1);
-        String[] whereArgs = new String[]{Integer.toString(campeon.getId()), Utils.htmlEncode(pasiva.getName())};
-        if (!actualizarBBDD || mDatabase.update("habilidades", cont, "idCampeon=? AND nombre=? ", whereArgs) == 0) {
-            cont.put("idCampeon", campeon.getId());
-            cont.put("nombre", Utils.htmlEncode(pasiva.getName()));
-            mDatabase.insert("habilidades", null, cont);
-        }
-    }
-
-    public void borrarHabilidadesDesfasadas() {
+    private void borrarHabilidadesDesfasadas() {
         mDatabase.delete("habilidades", "esNueva=0", null);
         ContentValues cont = new ContentValues();
         cont.put ("esNueva", 0);
         mDatabase.update("habilidades", cont, "esNueva=1",null);
     }
 
-    public void insertarObjeto(int id, String name, int base, int total, int sell, String purchasable,
-                               String description, String plainText, String stacks, String depth, String fromOBJ,
-                               String intoOBJ, String hideFromAll, String requiredChampion, String full, boolean actualizarBBDD){
-        int purch= Boolean.parseBoolean(purchasable) ? 1 : 0;
-        String pText = plainText == null ? "" : plainText;
-        int stack = stacks == null ? 1 : Integer.parseInt(stacks);
-        int dept = depth == null  ? 1 : Integer.parseInt(depth);
-        String from = fromOBJ == null ? "" : Utils.clearQuotes(fromOBJ);
-        String into = intoOBJ == null ? "" : Utils.clearQuotes(intoOBJ);
-        int hide = (hideFromAll == null || !Boolean.parseBoolean(hideFromAll)) ? 0 : 1;
-        ContentValues cont = new ContentValues();
-        cont.put("name", Utils.htmlEncode(name));
-        cont.put("base", base);
-        cont.put("total", total);
-        cont.put("sell", sell);
-        cont.put("purchasable", purch);
-        cont.put("description", Utils.htmlEncode(description));
-        cont.put("plainText", Utils.htmlEncode(pText));
-        cont.put("stacks", stack);
-        cont.put("depth", dept);
-        cont.put("fromOBJ", Utils.htmlEncode(from));
-        cont.put("intoOBJ", Utils.htmlEncode(into));
-        cont.put("hideFromAll", hide);
-        if (requiredChampion==null) {
-            cont.putNull("requiredChampion");
-        }
-        else{
-            cont.put("requiredChampion", obtenerIDCampeon (requiredChampion));
-        }
-        cont.put("full", Utils.htmlEncode(full));
+    public Champion obtenerCampeon(int id) {
+        Champion campeon = null;
+        Image image;
+        Stats stats;
+        String[] columns = new String[]{"key", "nombre", "nick", "historia", "vida", "vidaPorNivel",
+                "regeneracionVida", "regeneracionVidaPorNivel", "danioAtaque", "danioAtaquePorNivel",
+                "armadura", "armaduraPorNivel", "velocidadAtaque", "velocidadAtaquePorNivel", "crit",
+                "critPorNivel", "tipoMP", "mana", "manaPorNivel", "regMana", "regManaPorNivel", "resistenciaMagica",
+                "resistenciaMagicaPorNivel", "velocidadMovimiento", "rutaPrincipal"};
         String[] whereArgs = new String[]{Integer.toString(id)};
-        if(!actualizarBBDD || mDatabase.update("objetos", cont, "_id=?", whereArgs) == 0) {
-            cont.put("_id", id);
-            mDatabase.insert("objetos", null, cont);
+        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "_id=?", whereArgs, null, null, null);
+        if (cursor.moveToNext()) {
+            campeon = new Champion();
+            stats = new Stats();
+            image = new Image();
+            campeon.setId(id);
+            campeon.setKey(cursor.getString(0));
+            campeon.setName(cursor.getString(1));
+            campeon.setTitle(cursor.getString(2));
+            campeon.setLore(Utils.sanitizeChampStory(cursor.getString(3)));
+            stats.setHp(Double.parseDouble(cursor.getString(4)));
+            stats.setHpperlevel(Double.parseDouble(cursor.getString(5)));
+            stats.setHpregen(Double.parseDouble(cursor.getString(6)));
+            stats.setHpregenperlevel(Double.parseDouble(cursor.getString(7)));
+            stats.setAttackdamage(Double.parseDouble(cursor.getString(8)));
+            stats.setAttackdamageperlevel(Double.parseDouble(cursor.getString(9)));
+            stats.setArmor(Double.parseDouble(cursor.getString(10)));
+            stats.setArmorperlevel(Double.parseDouble(cursor.getString(11)));
+            stats.setAttackspeedoffset(Double.parseDouble(cursor.getString(12)));
+            stats.setAttackspeedperlevel(Double.parseDouble(cursor.getString(13)));
+            stats.setCrit(Double.parseDouble(cursor.getString(14)));
+            stats.setCritperlevel(Double.parseDouble(cursor.getString(15)));
+            campeon.setPartype(cursor.getString(16));
+            stats.setMp(Double.parseDouble(cursor.getString(17)));
+            stats.setMpperlevel(Double.parseDouble(cursor.getString(18)));
+            stats.setMpregen(Double.parseDouble(cursor.getString(19)));
+            stats.setMpregenperlevel(Double.parseDouble(cursor.getString(20)));
+            stats.setSpellblock(Double.parseDouble(cursor.getString(21)));
+            stats.setSpellblockperlevel(Double.parseDouble(cursor.getString(22)));
+            stats.setMovespeed(Double.parseDouble(cursor.getString(23)));
+            image.setFull(cursor.getString(24));
+            campeon.setImage(image);
+            campeon.setStats(stats);
+            obtenerAspectosCampeon(campeon);
+            obtenerHabilidadesCampeon(campeon);
+            obtenerPasivaCampeon(campeon);
+        }
+        cursor.close();
+        return campeon;
+    }
+
+    public void obtenerAspectosCampeon(Champion campeon) {
+        List<Skin> lSkin = new ArrayList<Skin>();
+        Skin skin;
+        SkinDecorator skinDecorator;
+        String[] columns = new String[]{"_id", "nombre", "rutaPrincipal, num"};
+        String[] whereArgs = new String[]{Integer.toString(campeon.getId())};
+        Cursor cursor = mReadOnlyDatabase.query("aspectos", columns, "idCampeon=?", whereArgs, null, null, "num");
+        while (cursor.moveToNext()) {
+            skin = new Skin();
+            skinDecorator = new SkinDecorator(skin);
+            skin.setId(Integer.parseInt (cursor.getString(0)));
+            skin.setName(cursor.getString(1));
+            skinDecorator.setRuta(cursor.getString (2));
+            skin.setNum(Integer.parseInt (cursor.getString (3)));
+            lSkin.add(skinDecorator);
+        }
+        cursor.close();
+        campeon.setSkins(lSkin);
+    }
+
+    public void obtenerHabilidadesCampeon(Champion campeon) {
+        List<Spell> lSpell = new ArrayList<Spell>();
+        Spell spell;
+        Image image;
+        String[] columns = new String[]{"nombre", "descripcion", "tooltip", "alcance", "coste",
+                "enfriamiento", "rutaPrincipal", "esPasiva"};
+        String[] whereArgs = new String[]{Integer.toString(campeon.getId())};
+        Cursor cursor = mReadOnlyDatabase.query("habilidades", columns, "idCampeon=? AND esPasiva = 0", whereArgs, null, null, "posicion");
+        while (cursor.moveToNext()) {
+            spell = new Spell();
+            image = new Image();
+            spell.setName(cursor.getString(0));
+            spell.setDescription(Utils.sanitizeText(cursor.getString(1)));
+            spell.setTooltip(Utils.sanitizeText(cursor.getString(2)));
+            spell.setRangeBurn(Utils.sanitizeText(cursor.getString(3)));
+            spell.setCostBurn(cursor.getString(4));
+            spell.setCooldownBurn(cursor.getString(5));
+            image.setFull(cursor.getString(6));
+            spell.setImage(image);
+            lSpell.add(spell);
+        }
+        cursor.close();
+        campeon.setSpells(lSpell);
+    }
+
+    public void obtenerPasivaCampeon(Champion campeon) {
+        Passive passive;
+        Image image;
+        String[] columns = new String[]{"nombre", "descripcion", "tooltip", "alcance", "coste",
+                "enfriamiento", "rutaPrincipal", "esPasiva"};
+        String[] whereArgs = new String[]{Integer.toString(campeon.getId())};
+        Cursor cursor = mReadOnlyDatabase.query("habilidades", columns, "idCampeon=? AND esPasiva = 1", whereArgs, null, null, "posicion");
+        if (cursor.moveToNext()) {
+            passive = new Passive();
+            image = new Image();
+            passive.setName(cursor.getString(0));
+            passive.setDescription(Utils.sanitizeText(cursor.getString(1)));
+            image.setFull(cursor.getString(6));
+            passive.setImage(image);
+            campeon.setPassive(passive);
+        }
+        cursor.close();
+
+    }
+
+    public void updateFreeChamps(BaseEstadoCampeones bEstadoCampeones) {
+        ContentValues cont = new ContentValues();
+        cont.put("esGratis", 0);
+        String[] whereArgs = new String[]{"1"};
+        mDatabase.update("campeones", cont, "esGratis=?", whereArgs);
+        for (ChampionState campeonEstado: bEstadoCampeones.getChampions()) {
+            cont = new ContentValues();
+            cont.put("esGratis", 1);
+            whereArgs = new String[]{Integer.toString(campeonEstado.getId())};
+            mDatabase.update("campeones", cont, "_id=?", whereArgs);
         }
     }
 
-    public void insertarObjeto(Item item, boolean actualizarBBDD){
-        String rutaImagen = obtenerRutaVersionObjeto();
+
+    public ArrayList<Champion> obtenerCampeonesGratuitos() {
+        ArrayList<Champion> lChampion = new ArrayList<Champion>();
+        Champion champion;
+        String[] columns = new String[]{"_id", "nombre"};
+        String[] whereArgs = new String[]{"1"};
+        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "esGratis=?", whereArgs, null, null, "nombre");
+        while (cursor.moveToNext()) {
+            champion = obtenerCampeon(Integer.parseInt(cursor.getString (0)));
+            if (champion != null){
+                lChampion.add (champion);
+            }
+        }
+        cursor.close();
+        return lChampion;
+    }
+
+    /* Antiguo ObtenerNombreRutaCampeones*/
+    public List<Champion> obtenerCampeones() {
+        List <Champion> lChampion = new ArrayList<Champion>();
+        Champion champion;
+        String[] columns = new String[]{"_id", "nombre"};
+        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, null, null, null, null, "nombre");
+        while (cursor.moveToNext()) {
+            lChampion.add(obtenerCampeon(cursor.getInt(0)));
+        }
+        cursor.close();
+        return lChampion;
+    }
+
+
+    public void insertarObjeto(Item item, Map<String, String> mHyperTags, boolean actualizarBBDD){
+        String rutaImagen = getBaseRealm().getRutaVersionObjeto();
         int purch= item.getGold().getPurchasable() ? 1 : 0;
-        String pText = item.getPlaintext() == null ? "" : item.getPlaintext().toString();
+        String pText = item.getPlaintext() == null ? "" : item.getPlaintext();
         int stack = item.getStacks() == null ? 1 : item.getStacks();
         int dept = item.getDepth() == null  ? 1 : item.getDepth();
         String from = item.getFrom() == null ? "" : Utils.clearCorchetes(item.getFrom().toString());
@@ -438,40 +476,130 @@ public class BBDDHelper extends SQLiteOpenHelper {
             cont.put("_id", item.getId());
             mDatabase.insert("objetos", null, cont);
         }
-    }
-
-    public void insertarTagObjeto(int idObjeto, String nombreTag, String hyperTag){
-        ContentValues cont = new ContentValues();
-        cont.put("idObjeto", idObjeto);
-        cont.put("nombreTag", Utils.htmlEncode(nombreTag));
-        if (hyperTag == null){
-            hyperTag="";
+        if (actualizarBBDD) {
+            borrarTagsObjeto(item.getId());
         }
-        cont.put("hyperTag", Utils.htmlEncode(hyperTag));
-        mDatabase.insert("tagsObjetos", null, cont);
+        insertarTagsObjeto(item, mHyperTags);
     }
 
-    public void borrarTagsObjeto(int idObjeto){
+    private Integer obtenerIDCampeon(String name) {
+        String[] columns = new String[]{"_id"};
+        String[] whereArgs = new String[]{name};
+        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "nombre LIKE ?", whereArgs, null, null, null);
+
+        Integer result = null;
+        if (cursor.moveToNext()) {
+            result = cursor.getInt(0);
+        }
+        cursor.close();
+        return result;
+    }
+
+    private void insertarTagsObjeto(Item item, Map<String, String> mHyperTags){
+        String hyperTag;
+        if (item.getTags() != null && !item.getTags().isEmpty()) {
+            for (String tag : item.getTags()) {
+                hyperTag = mHyperTags.get(tag.toUpperCase());
+                ContentValues cont = new ContentValues();
+                cont.put("idObjeto", item.getId());
+                cont.put("nombreTag", Utils.htmlEncode(tag));
+                if (hyperTag == null){
+                    hyperTag="";
+                }
+                cont.put("hyperTag", Utils.htmlEncode(hyperTag));
+                mDatabase.insert("tagsObjetos", null, cont);
+            }
+        }
+    }
+
+    private void borrarTagsObjeto(int idObjeto){
         String[] whereArgs = new String[]{Integer.toString(idObjeto)};
         mDatabase.delete("tagsObjetos", "idObjeto=?", whereArgs);
     }
 
-   /**
-     * Almacena en la base de datos la última url y la última versión de los campeones y lso objetos
-     *
-     * @param ruta     última ruta conocida para las imágenes de campeones y objetos
-     * @param vCampeon última versión concoida para los campeones
-     * @param vObjeto  última versión conocida para los objetos
-     */
-    public void guardarRutaVersiones(String ruta, String vCampeon, String vObjeto) {
-        mDatabase.delete("rutaVersiones", null, null);
-        ContentValues cont = new ContentValues();
-        cont.putNull("_id");
-        cont.put("ruta", Utils.htmlEncode(ruta));
-        cont.put("versionCampeones", Utils.htmlEncode(vCampeon));
-        cont.put("versionObjetos", Utils.htmlEncode(vObjeto));
-        mDatabase.insert("rutaVersiones", null, cont);
+    public Item obtenerObjeto(int id) {
+        return obtenerObjetos (Collections.singletonList(id)).get(0);
     }
+
+    public List<Item> obtenerObjetos(Collection<Integer> cId) {
+        List <Item> cItem;
+        Item item;
+        Gold gold;
+        ImageItem imageItem;
+        ArrayList<String> aux;
+        StringBuilder listIds;
+
+        cItem = null;
+        if (cId != null && !cId.isEmpty()) {
+
+            cItem = new ArrayList<Item>();
+            String[] columns = new String[]{"name", "base", "total", "sell", "purchasable",
+                    "description", "plainText", "stacks", "depth", "fromOBJ", "intoOBJ",
+                    "hideFromAll", "requiredChampion", "full"};
+            listIds = new StringBuilder();
+            for (Integer id : cId) {
+                listIds.append(Integer.toString(id));
+                listIds.append(",");
+            }
+            listIds = listIds.replace(listIds.length() - 1, listIds.length(), "");
+            String[] whereArgs = new String[]{listIds.toString()};
+            Cursor cursor = mReadOnlyDatabase.query("objetos", columns, "_id in (?)", whereArgs, null, null, null);
+            while (cursor.moveToNext()) {
+                item = new Item();
+                gold = new Gold();
+                imageItem = new ImageItem();
+                item.setName(cursor.getString(0));
+                gold.setBase(Integer.parseInt (cursor.getString(1)));
+                gold.setTotal(Integer.parseInt (cursor.getString(2)));
+                gold.setSell(Integer.parseInt (cursor.getString(3)));
+                gold.setPurchasable(cursor.getString(4).equals("1"));
+                item.setDescription(Utils.sanitizeText(cursor.getString(5)));
+                item.setPlaintext(Utils.sanitizeText(cursor.getString(6)));
+                item.setStacks(Integer.parseInt (cursor.getString(7)));
+                item.setDepth(Integer.parseInt (cursor.getString(8)));
+                if (!cursor.getString(9).trim().isEmpty()) {
+                    aux = new ArrayList<String>();
+                    Collections.addAll(aux, cursor.getString(9).split(","));
+                    item.setFrom(aux);
+                }
+                if (!cursor.getString(10).trim().isEmpty()) {
+                    aux = new ArrayList<String>();
+                    Collections.addAll(aux, cursor.getString(10).split(","));
+                    item.setInto(aux);
+                }
+                item.setHideFromAll(cursor.getString(11).equals("1"));
+                item.setRequiredChampion(cursor.getString(12));
+                imageItem.setFull(cursor.getString(13));
+                item.setImage(imageItem);
+                item.setGold(gold);
+                cItem.add (item);
+            }
+            cursor.close();
+
+        }
+
+        return cItem;
+
+    }
+
+
+    /*Antiguo obtenerNombreRutaObjetos*/
+    public List<Item> obtenerObjetos() {
+        List<Item> lItem = new ArrayList<Item>();
+        Item item;
+        String[] columns = new String[]{"_id", "name"};
+        String[] whereArgs = new String[]{"0"};
+        Cursor cursor = mReadOnlyDatabase.query("objetos", columns, "hideFromAll=?", whereArgs, null, null, "name");
+        while (cursor.moveToNext()) {
+            item = obtenerObjeto(cursor.getInt(0));
+            if (item != null){
+                lItem.add (item);
+            }
+        }
+        cursor.close();
+        return lItem;
+    }
+
 
     public void guardarRutaVersiones(BaseRealm realm) {
         mDatabase.delete("rutaVersiones", null, null);
@@ -484,192 +612,24 @@ public class BBDDHelper extends SQLiteOpenHelper {
         mDatabase.insert("rutaVersiones", null, cont);
     }
 
-    /**
-     * Se encarga de poner los campeones cuyos ids se encuentran entre los dados en los parámetros como gratuitos
-     * y marcar los antiguos campeones gratuitos como no gratuitos
-     *
-     * @param ids Contiene los ids de los campeones gratuitos esa semana
-     */
-    public void updateFreeChamps(ArrayList<Integer> ids) {
-        ContentValues cont = new ContentValues();
-        cont.put("esGratis", 0);
-        String[] whereArgs = new String[]{Integer.toString(1)};
-        mDatabase.update("campeones", cont, "esGratis=?", whereArgs);
-        Iterator<Integer> it = ids.iterator();
-        cont = new ContentValues();
-        cont.put("esGratis", 1);
-        while (it.hasNext()){
-            whereArgs = new String[]{Integer.toString(it.next())};
-            mDatabase.update("campeones", cont, "_id=?", whereArgs);
-        }
-    }
+    public BaseRealmDecorator getBaseRealm() {
 
-    public void updateFreeChamps(BaseEstadoCampeones bEstadoCampeones) {
-        ContentValues cont = new ContentValues();
-        cont.put("esGratis", 0);
-        String[] whereArgs = new String[]{"1"};
-        mDatabase.update("campeones", cont, "esGratis=?", whereArgs);
-        for (ChampionState campeonEstado: bEstadoCampeones.getChampions()) {
-            cont = new ContentValues();
-            cont.put("esGratis", 1);
-            whereArgs = new String[]{Integer.toString(campeonEstado.getId())};
-            mDatabase.update("campeones", cont, "_id=?", whereArgs);
-        }
-    }
+        N n = new N();
+        BaseRealm baseRealm = new BaseRealm();
+        baseRealm.setN(n);
+        BaseRealmDecorator baseRealmDecorator = new BaseRealmDecorator(baseRealm);
 
-
-    //TODO CHECK RIOT
-    public void aniadirMapas(){
-        mDatabase.execSQL("INSERT INTO mapas VALUES (1, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_1)) + "')");
-        mDatabase.execSQL("INSERT INTO mapas VALUES (8, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_8)) + "')");
-        mDatabase.execSQL("INSERT INTO mapas VALUES (10, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_10)) + "')");
-        mDatabase.execSQL("INSERT INTO mapas VALUES (12, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_12)) + "')");
-    }
-
-
-    public String obtenerIDCampeon(String name) {
-        String[] columns = new String[]{"_id"};
-        String[] whereArgs = new String[]{name};
-        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "nombre LIKE ?", whereArgs, null, null, null);
-
-        String result = "null";
-        if (cursor.moveToNext()) {
-            result = Integer.toString(cursor.getInt(0));
-        }
-        cursor.close();
-        return result;
-    }
-    /**
-     * Se encarga de obtener el identificador, el nombre y la ruta completa de la imagen principal de todos los campeones
-     *
-     * @return Array de String en el en que en cada fila encontraremos un campeón. Además:
-     * identificador del campeón en la primera columna
-     * Nombre del campeón en la segunda columna
-     * Ruta de la imagen principal del campeón en la tercera columna
-     */
-    public String[][] obtenerNombreRutaCampeones() {
-        String[] columns = new String[]{"_id", "nombre", "rutaPrincipal"};
-        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, null, null, null, null, "nombre");
-        String[][] result = new String[cursor.getCount()][cursor.getColumnCount()];
-        int pos = 0;
-        int pos2 = 0;
-        while (cursor.moveToNext()) {
-            result[pos][pos2++] = Integer.toString(cursor.getInt(0));
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result[pos][pos2] = Html.fromHtml(cursor.getString(2)).toString();
-            pos2 = 0;
-            pos++;
-        }
-        cursor.close();
-        return result;
-    }
-
-    public String[][] obtenerNombreRutaCampeon(int id) {
-        String[] columns = new String[]{"nombre", "rutaPrincipal"};
-        String[] whereArgs = new String[]{Integer.toString(id)};
-        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "_id=?", whereArgs, null, null, null);
-        String[][] result = new String[cursor.getCount()][cursor.getColumnCount()+1];
-        int pos = 0;
-        int pos2 = 0;
-        if (cursor.moveToNext()) {
-            result[pos][pos2++] = Integer.toString(id);
-            result[pos][pos2++] =  Html.fromHtml(cursor.getString(0)).toString();
-            result[pos][pos2] = Html.fromHtml(cursor.getString(1)).toString();
-        }
-        cursor.close();
-        return result;
-    }
-
-    /**
-     * Se encarga de obtener el identificador, el nombre y la ruta completa de la imagen principal de todos los objetos
-     *
-     * @return Array de String en el en que en cada fila encontraremos un objeto. Además:
-     * identificador del objeto en la primera columna
-     * Nombre del objeto en la segunda columna
-     * Ruta de la imagen principal del objeto en la tercera columna
-     */
-    public String[][] obtenerNombreRutaObjetos() {
-        String[] columns = new String[]{"_id", "name", "full"};
-        String[] whereArgs = new String[]{"0"};
-        Cursor cursor = mReadOnlyDatabase.query("objetos", columns, "hideFromAll=?", whereArgs, null, null, "name");
-        String[][] result = new String[cursor.getCount()][cursor.getColumnCount()];
-        int pos = 0;
-        int pos2 = 0;
-        while (cursor.moveToNext()) {
-            result[pos][pos2++] = Integer.toString(cursor.getInt(0));
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result[pos][pos2] = Html.fromHtml(cursor.getString(2)).toString();
-            pos2 = 0;
-            pos++;
-        }
-        cursor.close();
-        return result;
-    }
-
-    public String[][] obtenerNombreRutaObjetos(String[] ids) {
-        String idsString="";
-        for (int j = 0; j < ids.length-1; j++) {
-            idsString += "_id=" + ids[j] + " OR ";
-        }
-        idsString += "_id=" + ids[ids.length-1];
-        String[] columns = new String[]{"_id", "name", "full"};
-        Cursor cursor = mReadOnlyDatabase.query("objetos", columns, "(" + idsString + ")", null, null, null, null);
-        String[][] result = new String[cursor.getCount()][cursor.getColumnCount()];
-        int pos = 0;
-        int pos2 = 0;
-        while (cursor.moveToNext()) {
-            result[pos][pos2++] = Integer.toString(cursor.getInt(0));
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result[pos][pos2] = Html.fromHtml(cursor.getString(2)).toString();
-            pos2 = 0;
-            pos++;
-        }
-        cursor.close();
-        return result;
-    }
-
-    /**
-     * Se encarga de obtener la última ruta y versión de los campeones
-     *
-     * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
-     */
-    public String obtenerRutaVersionCampeon() {
-        String[] columns = new String[]{"ruta", "versionCampeones"};
+        String[] columns = new String[]{"ruta", "versionCampeones", "versionObjetos"};
         Cursor cursor = mReadOnlyDatabase.query("rutaVersiones", columns, null, null, null, null, null);
-        String result = "";
         if (cursor.moveToNext()) {
-            result += Html.fromHtml(cursor.getString(0)).toString() + "/";
-            result += Html.fromHtml(cursor.getString(1)).toString() + "/img/champion/";
+            baseRealm.setCdn(cursor.getString(0));
+            n.setChampion(cursor.getString(1));
+            n.setItem(cursor.getString(2));
         }
         cursor.close();
-        return result;
-    }
 
-    public String obtenerRutaAspectosCampeon() {
-        String[] columns = new String[]{"ruta"};
-        Cursor cursor = mReadOnlyDatabase.query("rutaVersiones", columns, null, null, null, null, null);
-        String result = "";
-        if (cursor.moveToNext()) {
-            result += Html.fromHtml(cursor.getString(0)).toString() + "/img/champion/splash/";
-        }
-        cursor.close();
-        return result;
-    }
+        return baseRealmDecorator;
 
-    public String obtenerRutaHabilidadesCampeon(int esPasiva) {
-        String[] columns = new String[]{"ruta", "versionCampeones"};
-        Cursor cursor = mReadOnlyDatabase.query("rutaVersiones", columns, null, null, null, null, null);
-        String result = "";
-        if (cursor.moveToNext()) {
-            if (esPasiva== Constants.PASSIVE_YES) {
-                result += Html.fromHtml(cursor.getString(0)).toString() + "/" + Html.fromHtml(cursor.getString(1)).toString() + "/img/passive/";
-            }
-           else {
-                result += Html.fromHtml(cursor.getString(0)).toString() + "/" + Html.fromHtml(cursor.getString(1)).toString() + "/img/spell/";
-            }
-        }
-        cursor.close();
-        return result;
     }
 
     /**
@@ -678,32 +638,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @return String con la última versión conocida
      */
     public String obtenerVersionCampeon() {
-        String[] columns = new String[]{"versionCampeones"};
-        Cursor cursor = mReadOnlyDatabase.query("rutaVersiones", columns, null, null, null, null, null);
-        String result = "";
-        if (cursor.moveToNext()) {
-            result += Html.fromHtml(cursor.getString(0)).toString();
-        }
-        cursor.close();
-        return result;
-    }
-
-
-    /**
-     * Se encarga de obtener la última ruta y versión de los objetos
-     *
-     * @return String con la ruta compuesta por la última ruta conocida y la última versión conocida
-     */
-    public String obtenerRutaVersionObjeto() {
-        String[] columns = new String[]{"ruta", "versionObjetos"};
-        Cursor cursor = mReadOnlyDatabase.query("rutaVersiones", columns, null, null, null, null, null);
-        String result = "";
-        if (cursor.moveToNext()) {
-            result += Html.fromHtml(cursor.getString(0)).toString() + "/";
-            result += Html.fromHtml(cursor.getString(1)).toString() + "/img/item/";
-        }
-        cursor.close();
-        return result;
+        return getBaseRealm().getN().getChampion();
     }
 
     /**
@@ -712,177 +647,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
      * @return String con la última versión conocida
      */
     public String obtenerVersionObjeto() {
-        String[] columns = new String[]{"versionObjetos"};
-        Cursor cursor = mReadOnlyDatabase.query("rutaVersiones", columns, null, null, null, null, null);
-        String result = "";
-        if (cursor.moveToNext()) {
-            result += Html.fromHtml(cursor.getString(0)).toString();
-        }
-        cursor.close();
-        return result;
+        return getBaseRealm().getN().getItem();
     }
 
-    /**
-     * Se encarga de obtener todos los datos de un campeón para un identificador dado
-     *
-     * @param id identificador único del campeón a buscar
-     * @return Array con:
-     * Nombre en la primera posición
-     * Nick en la segunda posición
-     * CampeonHistoria en la tercera posición
-     * Regeneración de vida en la cuarta posición
-     * Daño de ataque en la quinta posición
-     * Armadura en la sexta posición
-     * Velocidad de ataque en la septima posición
-     * Resistencia mágica en la octava posición
-     * Velocidad de movimiento en la novena posición
-     * Ruta de la imagen principal en la decima posición
-     */
-    public String[] obtenerDatosCampeon(int id) {
-        String[] columns = new String[]{"key", "nombre", "nick", "historia", "vida", "vidaPorNivel",
-                "regeneracionVida", "regeneracionVidaPorNivel", "danioAtaque", "danioAtaquePorNivel",
-                "armadura", "armaduraPorNivel", "velocidadAtaque", "velocidadAtaquePorNivel", "crit",
-                "critPorNivel", "tipoMP", "mana", "manaPorNivel", "regMana", "regManaPorNivel", "resistenciaMagica",
-                "resistenciaMagicaPorNivel", "velocidadMovimiento", "rutaPrincipal"};
-        String[] whereArgs = new String[]{Integer.toString(id)};
-        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "_id=?", whereArgs, null, null, null);
-        String[] result = new String[cursor.getColumnCount()];
-        int pos2 = 0;
-        if (cursor.moveToNext()) {
-            result[pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(2)).toString();
-            result[pos2++] = Utils.sanitizeChampStory(Html.fromHtml(cursor.getString(3)).toString());
-            result[pos2++] = Html.fromHtml(cursor.getString(4)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(5)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(6)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(7)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(8)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(9)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(10)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(11)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(12)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(13)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(14)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(15)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(16)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(17)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(18)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(19)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(20)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(21)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(22)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(23)).toString();
-            result[pos2] = Html.fromHtml(cursor.getString(24)).toString();
-        }
-        cursor.close();
-        return result;
-    }
-
-    public String[][] obtenerAspectosCampeon(int idCampeon) {
-        String[] columns = new String[]{"_id", "nombre", "rutaPrincipal, num"};
-        String[] whereArgs = new String[]{Integer.toString(idCampeon)};
-        Cursor cursor = mReadOnlyDatabase.query("aspectos", columns, "idCampeon=?", whereArgs, null, null, null);
-        String[][] result = new String[cursor.getCount()][cursor.getColumnCount()];
-        int pos = 0;
-        int pos2 = 0;
-        while (cursor.moveToNext()) {
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(2)).toString();
-            result[pos][pos2] = Html.fromHtml(cursor.getString(3)).toString();
-            pos2 = 0;
-            pos++;
-        }
-        return result;
-    }
-
-    public String[][] obtenerHabilidadesCampeon(int idCampeon) {
-        String[] columns = new String[]{"nombre", "descripcion", "tooltip", "alcance", "coste",
-                "enfriamiento", "rutaPrincipal", "esPasiva"};
-        String[] whereArgs = new String[]{Integer.toString(idCampeon)};
-        Cursor cursor = mReadOnlyDatabase.query("habilidades", columns, "idCampeon=?", whereArgs, null, null, "posicion");
-        String[][] result = new String[cursor.getCount()][cursor.getColumnCount()];
-        int pos = 0;
-        int pos2 = 0;
-        while (cursor.moveToNext()) {
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(1)).toString());
-            result[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(2)).toString());
-            result[pos][pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(3)).toString());
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(4)).toString();
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(5)).toString();
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(6)).toString();
-            result[pos][pos2] = Html.fromHtml(cursor.getString(7)).toString();
-            pos2 = 0;
-            pos++;
-        }
-        return result;
-    }
-
-    /**
-     * Se encarga de obtener todos los datos de un objeto para un identificador dado
-     *
-     * @param id identificador único del objeto a buscar
-     * @return Array con:
-     * Nombre en la primera posición
-     * coste base en la segunda posición
-     * coste en la tercera posición
-     * Descripción de vida en la cuarta posición
-     * Entero que indica con uno que el objeto puede comprarse en la tienda y con 0 que no puede comprarse, en la quinta posición
-     * Ruta de la imagen principal del objeto en la sexta posición
-     */
-    public String[] obtenerDatosObjetos(int id) {
-        String[] columns = new String[]{"name", "base", "total", "sell", "purchasable",
-                "description", "plainText", "stacks", "depth", "fromOBJ", "intoOBJ", "hideFromAll", "requiredChampion",
-                "full"};
-        String[] whereArgs = new String[]{Integer.toString(id)};
-        Cursor cursor = mReadOnlyDatabase.query("objetos", columns, "_id=?", whereArgs, null, null, null);
-        String[] result = new String[cursor.getColumnCount()];
-        int pos2 = 0;
-        if (cursor.moveToNext()) {
-            result[pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result[pos2++] = cursor.getString(1);
-            result[pos2++] = cursor.getString(2);
-            result[pos2++] = cursor.getString(3);
-            result[pos2++] = cursor.getString(4);
-            result[pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(5)).toString());
-            result[pos2++] = Utils.sanitizeText(Html.fromHtml(cursor.getString(6)).toString());
-            result[pos2++] = cursor.getString(7);
-            result[pos2++] = cursor.getString(8);
-            result[pos2++] = Html.fromHtml(cursor.getString(9)).toString();
-            result[pos2++] = Html.fromHtml(cursor.getString(10)).toString();
-            result[pos2++] = cursor.getString(11);
-            result[pos2++] = cursor.getString(12);
-            result[pos2] = Html.fromHtml(cursor.getString(13)).toString();
-        }
-        cursor.close();
-        return result;
-    }
-
-    /**
-     * Se encarga de obtener un array con los campeones gratuitos de la semana
-     *
-     * @return En cada fila encontraremos un campeón
-     * identificador del campeón en la columna 1
-     * Nombre del campeón en la columna 2
-     * Ruta principal de la imagen del campeón en la columna 3
-     */
-    public String[][] obtenerGratuitos() {
-        String[] columns = new String[]{"_id", "nombre", "rutaPrincipal"};
-        String[] whereArgs = new String[]{"1"};
-        Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "esGratis=?", whereArgs, null, null, "nombre");
-        String[][] result = new String[cursor.getCount()][cursor.getColumnCount()];
-        int pos = 0;
-        int pos2 = 0;
-        while (cursor.moveToNext()) {
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(0)).toString();
-            result[pos][pos2++] = Html.fromHtml(cursor.getString(1)).toString();
-            result[pos][pos2] = Html.fromHtml(cursor.getString(2)).toString();
-            pos2 = 0;
-            pos++;
-        }
-        cursor.close();
-        return result;
+    //TODO CHECK RIOT
+    public void aniadirMapas(){
+        mDatabase.execSQL("INSERT INTO mapas VALUES (1, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_1)) + "')");
+        mDatabase.execSQL("INSERT INTO mapas VALUES (8, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_8)) + "')");
+        mDatabase.execSQL("INSERT INTO mapas VALUES (10, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_10)) + "')");
+        mDatabase.execSQL("INSERT INTO mapas VALUES (12, '" + Utils.htmlEncode(contexto.getResources().getString(R.string.mapa_12)) + "')");
     }
 }

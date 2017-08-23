@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Objetos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -19,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "8",
     "10"
 })
-public class Maps {
+public class Maps implements Parcelable {
 
     @JsonProperty("1")
     private Boolean _1;
@@ -122,4 +125,40 @@ public class Maps {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this._1);
+        dest.writeValue(this._12);
+        dest.writeValue(this._8);
+        dest.writeValue(this._10);
+        dest.writeValue(this.additionalProperties);
+    }
+
+    public Maps() {
+    }
+
+    protected Maps(Parcel in) {
+        this._1 = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this._12 = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this._8 = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this._10 = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+    }
+
+    public static final Parcelable.Creator<Maps> CREATOR = new Parcelable.Creator<Maps>() {
+        @Override
+        public Maps createFromParcel(Parcel source) {
+            return new Maps(source);
+        }
+
+        @Override
+        public Maps[] newArray(int size) {
+            return new Maps[size];
+        }
+    };
 }

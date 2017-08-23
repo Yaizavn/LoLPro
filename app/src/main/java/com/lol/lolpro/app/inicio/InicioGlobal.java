@@ -20,15 +20,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lol.lolpro.app.Activity_General;
-import com.lol.lolpro.app.NavigationDrawerFragment;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.bbdd.DescargarBBDD;
 import com.lol.lolpro.app.bbdd.dFragment;
 import com.lol.lolpro.app.grids.GridAdapterFreeChamps;
+import com.lol.lolpro.app.json.Campeones.Champion;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
+
+import java.util.ArrayList;
 
 /**
  * Implementa la funcionalidad del fragment
@@ -36,7 +38,7 @@ import com.lol.lolpro.app.utillidades.Utils;
 public class InicioGlobal extends Fragment {
 
     Champion_callback mCallback = null;
-    String[][] mCampeones = null;
+    ArrayList<Champion> lCampeon = null;
 
     /**
      * Constructor vacío
@@ -49,7 +51,7 @@ public class InicioGlobal extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState != null){
-            mCampeones = (String[][]) savedInstanceState.getSerializable("free_champs");
+            lCampeon = savedInstanceState.getParcelableArrayList("free_champs");
         }
     }
 
@@ -81,7 +83,7 @@ public class InicioGlobal extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         //TODO constants
-        savedInstanceState.putSerializable("free_champs", mCampeones);
+        savedInstanceState.putParcelableArrayList("free_champs", lCampeon);
 //        savedInstanceState.putSerializable("news", ((ListAdapterNoticias) ((ListView) getView().findViewById(R.id.inicio_listNoticias)).getAdapter()).getNews());
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -163,16 +165,16 @@ public class InicioGlobal extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         GridView grid = (GridView) view.findViewById(R.id.gridInicio);
         ListView list = (ListView) view.findViewById(R.id.inicio_listNoticias);
-        if(savedInstanceState != null){ // mCampeones != null && mNoticias =! null
-            grid.setAdapter(new GridAdapterFreeChamps(getActivity(), mCampeones));
+        if(savedInstanceState != null){ // lCampeon != null && mNoticias =! null
+            grid.setAdapter(new GridAdapterFreeChamps(getActivity(), lCampeon));
             list.setAdapter(new ListAdapterNoticias(getActivity(), (String[][]) savedInstanceState.getSerializable("news")));
         }
         else {
             if (Utils.existsDB(getActivity())) {
                 DBManager dbMan = DBManager.getInstance();
                 dbMan.openDatabase(false);
-                mCampeones = dbMan.getDatabaseHelper().obtenerGratuitos();
-                grid.setAdapter(new GridAdapterFreeChamps(getActivity(), mCampeones));
+                lCampeon = dbMan.getDatabaseHelper().obtenerCampeonesGratuitos();
+                grid.setAdapter(new GridAdapterFreeChamps(getActivity(), lCampeon));
                 dbMan.closeDatabase(false);
             } else {
                 grid.setAdapter(new GridAdapterFreeChamps(getActivity(), null));
@@ -188,7 +190,7 @@ public class InicioGlobal extends Fragment {
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Send the event to the host activity
-                mCallback.onChampionSelected(Integer.parseInt(v.getTag().toString()));
+                mCallback.onChampionSelected((Champion) parent.getItemAtPosition(new Long(id).intValue()));
             }
         });
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

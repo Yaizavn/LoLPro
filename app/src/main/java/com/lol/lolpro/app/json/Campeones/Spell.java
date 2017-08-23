@@ -1,11 +1,12 @@
-
 package com.lol.lolpro.app.json.Campeones;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,27 +17,27 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "name",
-    "description",
-    "sanitizedDescription",
-    "tooltip",
-    "sanitizedTooltip",
-    "leveltip",
-    "image",
-    "resource",
-    "maxrank",
-    "cost",
-    "costType",
-    "costBurn",
-    "cooldown",
-    "cooldownBurn",
-    "effect",
-    "effectBurn",
-    "vars",
-    "range",
-    "rangeBurn",
-    "key",
-    "altimages"
+        "name",
+        "description",
+        "sanitizedDescription",
+        "tooltip",
+        "sanitizedTooltip",
+        "leveltip",
+        "image",
+        "resource",
+        "maxrank",
+        "cost",
+        "costType",
+        "costBurn",
+        "cooldown",
+        "cooldownBurn",
+        "effect",
+        "effectBurn",
+        "vars",
+        "range",
+        "rangeBurn",
+        "key",
+        "altimages"
 })
 public class Spell {
 
@@ -86,9 +87,7 @@ public class Spell {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
-     * @return
-     *     The name
+     * @return The name
      */
     @JsonProperty("name")
     public String getName() {
@@ -96,9 +95,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param name
-     *     The name
+     * @param name The name
      */
     @JsonProperty("name")
     public void setName(String name) {
@@ -106,9 +103,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The description
+     * @return The description
      */
     @JsonProperty("description")
     public String getDescription() {
@@ -116,9 +111,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param description
-     *     The description
+     * @param description The description
      */
     @JsonProperty("description")
     public void setDescription(String description) {
@@ -126,9 +119,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The sanitizedDescription
+     * @return The sanitizedDescription
      */
     @JsonProperty("sanitizedDescription")
     public String getSanitizedDescription() {
@@ -136,9 +127,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param sanitizedDescription
-     *     The sanitizedDescription
+     * @param sanitizedDescription The sanitizedDescription
      */
     @JsonProperty("sanitizedDescription")
     public void setSanitizedDescription(String sanitizedDescription) {
@@ -146,9 +135,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The tooltip
+     * @return The tooltip
      */
     @JsonProperty("tooltip")
     public String getTooltip() {
@@ -156,9 +143,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param tooltip
-     *     The tooltip
+     * @param tooltip The tooltip
      */
     @JsonProperty("tooltip")
     public void setTooltip(String tooltip) {
@@ -166,9 +151,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The sanitizedTooltip
+     * @return The sanitizedTooltip
      */
     @JsonProperty("sanitizedTooltip")
     public String getSanitizedTooltip() {
@@ -176,9 +159,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param sanitizedTooltip
-     *     The sanitizedTooltip
+     * @param sanitizedTooltip The sanitizedTooltip
      */
     @JsonProperty("sanitizedTooltip")
     public void setSanitizedTooltip(String sanitizedTooltip) {
@@ -186,9 +167,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The leveltip
+     * @return The leveltip
      */
     @JsonProperty("leveltip")
     public Leveltip getLeveltip() {
@@ -196,9 +175,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param leveltip
-     *     The leveltip
+     * @param leveltip The leveltip
      */
     @JsonProperty("leveltip")
     public void setLeveltip(Leveltip leveltip) {
@@ -206,9 +183,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The image
+     * @return The image
      */
     @JsonProperty("image")
     public Image getImage() {
@@ -216,9 +191,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param image
-     *     The image
+     * @param image The image
      */
     @JsonProperty("image")
     public void setImage(Image image) {
@@ -226,9 +199,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The resource
+     * @return The resource
      */
     @JsonProperty("resource")
     public String getResource() {
@@ -236,9 +207,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param resource
-     *     The resource
+     * @param resource The resource
      */
     @JsonProperty("resource")
     public void setResource(String resource) {
@@ -246,9 +215,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The maxrank
+     * @return The maxrank
      */
     @JsonProperty("maxrank")
     public Integer getMaxrank() {
@@ -256,9 +223,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param maxrank
-     *     The maxrank
+     * @param maxrank The maxrank
      */
     @JsonProperty("maxrank")
     public void setMaxrank(Integer maxrank) {
@@ -266,9 +231,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The cost
+     * @return The cost
      */
     @JsonProperty("cost")
     public List<Integer> getCost() {
@@ -276,9 +239,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param cost
-     *     The cost
+     * @param cost The cost
      */
     @JsonProperty("cost")
     public void setCost(List<Integer> cost) {
@@ -286,9 +247,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The costType
+     * @return The costType
      */
     @JsonProperty("costType")
     public String getCostType() {
@@ -296,9 +255,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param costType
-     *     The costType
+     * @param costType The costType
      */
     @JsonProperty("costType")
     public void setCostType(String costType) {
@@ -306,9 +263,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The costBurn
+     * @return The costBurn
      */
     @JsonProperty("costBurn")
     public String getCostBurn() {
@@ -316,9 +271,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param costBurn
-     *     The costBurn
+     * @param costBurn The costBurn
      */
     @JsonProperty("costBurn")
     public void setCostBurn(String costBurn) {
@@ -326,9 +279,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The cooldown
+     * @return The cooldown
      */
     @JsonProperty("cooldown")
     public List<Double> getCooldown() {
@@ -336,9 +287,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param cooldown
-     *     The cooldown
+     * @param cooldown The cooldown
      */
     @JsonProperty("cooldown")
     public void setCooldown(List<Double> cooldown) {
@@ -346,9 +295,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The cooldownBurn
+     * @return The cooldownBurn
      */
     @JsonProperty("cooldownBurn")
     public String getCooldownBurn() {
@@ -356,9 +303,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param cooldownBurn
-     *     The cooldownBurn
+     * @param cooldownBurn The cooldownBurn
      */
     @JsonProperty("cooldownBurn")
     public void setCooldownBurn(String cooldownBurn) {
@@ -366,9 +311,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The effect
+     * @return The effect
      */
     @JsonProperty("effect")
     public List<Object> getEffect() {
@@ -376,9 +319,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param effect
-     *     The effect
+     * @param effect The effect
      */
     @JsonProperty("effect")
     public void setEffect(List<Object> effect) {
@@ -386,9 +327,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The effectBurn
+     * @return The effectBurn
      */
     @JsonProperty("effectBurn")
     public List<String> getEffectBurn() {
@@ -396,9 +335,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param effectBurn
-     *     The effectBurn
+     * @param effectBurn The effectBurn
      */
     @JsonProperty("effectBurn")
     public void setEffectBurn(List<String> effectBurn) {
@@ -406,9 +343,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The vars
+     * @return The vars
      */
     @JsonProperty("vars")
     public List<Var> getVars() {
@@ -416,9 +351,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param vars
-     *     The vars
+     * @param vars The vars
      */
     @JsonProperty("vars")
     public void setVars(List<Var> vars) {
@@ -426,9 +359,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The range
+     * @return The range
      */
     @JsonProperty("range")
     public List<Integer> getRange() {
@@ -436,9 +367,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param range
-     *     The range
+     * @param range The range
      */
     @JsonProperty("range")
     public void setRange(List<Integer> range) {
@@ -446,9 +375,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The rangeBurn
+     * @return The rangeBurn
      */
     @JsonProperty("rangeBurn")
     public String getRangeBurn() {
@@ -456,9 +383,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param rangeBurn
-     *     The rangeBurn
+     * @param rangeBurn The rangeBurn
      */
     @JsonProperty("rangeBurn")
     public void setRangeBurn(String rangeBurn) {
@@ -466,9 +391,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The key
+     * @return The key
      */
     @JsonProperty("key")
     public String getKey() {
@@ -476,9 +399,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param key
-     *     The key
+     * @param key The key
      */
     @JsonProperty("key")
     public void setKey(String key) {
@@ -486,9 +407,7 @@ public class Spell {
     }
 
     /**
-     * 
-     * @return
-     *     The altimages
+     * @return The altimages
      */
     @JsonProperty("altimages")
     public List<Image> getAltimages() {
@@ -496,15 +415,13 @@ public class Spell {
     }
 
     /**
-     * 
-     * @param altimages
-     *     The altimages
+     * @param altimages The altimages
      */
     @JsonProperty("altimages")
     public void setAltimages(List<Image> altimages) {
         this.altimages = altimages;
     }
- 
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
