@@ -47,14 +47,21 @@ public class APIConnection {
 	public static final int UPDATE_OBJECTS = 4;
 	public static final int UPDATE_CHAMPIONS = 5;
 
-	private static final String CERT_NAME_RIOT = "*.api.riotgames.com.cer";
+	private static final String CERT_NAME_RIOT = "api.riotgames.com.cer";
 	private static final String CERT_NAME_DIGICERT_CA3 = "DigiCertSHA2HighAssuranceServerCA";
-	private static final String GLOBAL_URI = "https://euw1.api.riotgames.com/lol/";
+	/*private static final String GLOBAL_URI = "https://euw1.api.riotgames.com/lol/";
 	private static final String CHAMPION_URI = "static-data/v3/champions?locale=es_ES&tags=image&tags=stats&tags=lore&tags=partype&tags=skins&tags=passive&tags=spells&";
-	private static final String ITEM_URI = "static-data/v3/items?locale=es_ES&itemListData=all&";
+	private static final String ITEM_URI = "static-data/v3/items?locale=es_ES&tags=all&";
 	private static final String METADATA_URI = "static-data/v3/realms?";
 	private static final String CHAMPION_FREE_URI = "platform/v3/champions?freeToPlay=true&";
-	private static final String API_KEY = "api_key=RGAPI-db6a644a-ff3f-4d4b-bc33-affa8b5f974d";
+	private static final String API_KEY = "api_key=RGAPI-01d41a62-2b76-4ba9-a33e-f91d32b44e38";
+	private static final String VERSION_HEADER = "&version=";*/
+	private static final String GLOBAL_URI = "http://crispi.no-ip.org/";
+	private static final String CHAMPION_URI = "champions.json";
+	private static final String ITEM_URI = "items.json";
+	private static final String METADATA_URI = "realms.json";
+	private static final String CHAMPION_FREE_URI = "freeChampions.json";
+	private static final String API_KEY = "";
 	private static final String VERSION_HEADER = "&version=";
 
 	private static final String CERT_ALIAS_RIOT = "RIOT";
@@ -184,12 +191,15 @@ public class APIConnection {
 			if (!hasCert()) {
 				insertCert();
 			}
-			String respuesta = new ConnectionResult(sslCont).getHttpsResult(uriConsulta);
+			String respuesta = new ConnectionResult(sslCont).getHttpResult(uriConsulta);
+
 			if(!respuesta.isEmpty()){
 				extractAndStoreData(respuesta, type);
 			}
 		}
 	}
+
+
 
 	public void extractAndStoreData(String answer, int type) {
 		ObjectMapper objectMapper = new ObjectMapper();

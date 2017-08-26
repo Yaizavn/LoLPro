@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Objetos.Item;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.squareup.picasso.Picasso;
 
@@ -47,25 +48,25 @@ public class ObjetoGeneral extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_objeto_general, container, false);
         Bundle args = getArguments();
-        String[] datos = args.getStringArray("data");
-        if (datos != null) {
+        Item item = args.getParcelable("item");
+        if (item != null) {
             String tienda = view.getResources().getString(R.string.si);
-            if (datos[4].contentEquals("0")) {
+            if (!item.getInStore()) {
                 tienda = view.getResources().getString(R.string.no);
             }
-            ((TextView) view.findViewById(R.id.objeto_nombre)).setText(datos[0]);
-            ((TextView) view.findViewById(R.id.objeto_costeBase)).setText(datos[1]);
-            ((TextView) view.findViewById(R.id.objeto_coste)).setText(datos[2]);
-            ((TextView) view.findViewById(R.id.objeto_precioVenta)).setText(datos[3]);
-            if (datos[6].isEmpty()) {
-                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(datos[6] + "\n\n" + datos[5]);
+            ((TextView) view.findViewById(R.id.objeto_nombre)).setText(item.getName());
+            ((TextView) view.findViewById(R.id.objeto_costeBase)).setText(item.getGold().getBase());
+            ((TextView) view.findViewById(R.id.objeto_coste)).setText(item.getGold().getTotal());
+            ((TextView) view.findViewById(R.id.objeto_precioVenta)).setText(item.getGold().getSell());
+            if (!item.getSanitizedDescription().isEmpty()) {
+                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(item.getSanitizedDescription() + "\n\n" + item.getDescription());
             }
             else{
-                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(datos[5]);
+                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(item.getDescription());
             }
             ((TextView) view.findViewById(R.id.objeto_puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
-                    .load(datos[13]) //
+                    .load(item.getImage().getFull()) //
                     .placeholder(R.drawable.cargar)
                     .error(R.drawable.error)
                     .into((ImageView) view.findViewById(R.id.objeto_Imagen));

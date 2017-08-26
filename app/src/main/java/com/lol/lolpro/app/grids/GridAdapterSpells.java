@@ -54,7 +54,7 @@ public class GridAdapterSpells extends BaseAdapter {
         }
         if (campeon != null) {
             if (position != 0) {
-                spell = campeon.getSpells().get(position);
+                spell = campeon.getSpells().get(position-1);
                 ((TextView) convertView.findViewById(R.id.spells_nombre)).setText(spell.getName());
                 ((TextView) convertView.findViewById(R.id.spells_descripcion)).setText(spell.getDescription() + "\n\n" + spell.getTooltip());
                 convertView.findViewById(R.id.spells_imageCoste).setVisibility(View.VISIBLE);

@@ -528,12 +528,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
         ImageItem imageItem;
         ArrayList<String> aux;
         StringBuilder listIds;
-
         cItem = null;
         if (cId != null && !cId.isEmpty()) {
 
             cItem = new ArrayList<Item>();
-            String[] columns = new String[]{"name", "base", "total", "sell", "purchasable",
+            String[] columns = new String[]{"_id", "name", "base", "total", "sell", "purchasable",
                     "description", "plainText", "stacks", "depth", "fromOBJ", "intoOBJ",
                     "hideFromAll", "requiredChampion", "full"};
             listIds = new StringBuilder();
@@ -548,28 +547,30 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 item = new Item();
                 gold = new Gold();
                 imageItem = new ImageItem();
-                item.setName(cursor.getString(0));
-                gold.setBase(Integer.parseInt (cursor.getString(1)));
-                gold.setTotal(Integer.parseInt (cursor.getString(2)));
-                gold.setSell(Integer.parseInt (cursor.getString(3)));
-                gold.setPurchasable(cursor.getString(4).equals("1"));
-                item.setDescription(Utils.sanitizeText(cursor.getString(5)));
-                item.setPlaintext(Utils.sanitizeText(cursor.getString(6)));
-                item.setStacks(Integer.parseInt (cursor.getString(7)));
-                item.setDepth(Integer.parseInt (cursor.getString(8)));
-                if (!cursor.getString(9).trim().isEmpty()) {
-                    aux = new ArrayList<String>();
-                    Collections.addAll(aux, cursor.getString(9).split(","));
-                    item.setFrom(aux);
-                }
+                item.setId(cursor.getInt(0));
+                item.setName(cursor.getString(1));
+                gold.setBase(Integer.parseInt (cursor.getString(2)));
+                gold.setTotal(Integer.parseInt (cursor.getString(3)));
+                gold.setSell(Integer.parseInt (cursor.getString(4)));
+                gold.setPurchasable(cursor.getString(5).equals("1"));
+                item.setDescription(Utils.sanitizeText(cursor.getString(6)));
+                item.setPlaintext(Utils.sanitizeText(cursor.getString(7)));
+                item.setStacks(Integer.parseInt (cursor.getString(8)));
+                item.setDepth(Integer.parseInt (cursor.getString(9)));
                 if (!cursor.getString(10).trim().isEmpty()) {
                     aux = new ArrayList<String>();
                     Collections.addAll(aux, cursor.getString(10).split(","));
+                    item.setFrom(aux);
+                }
+                if (!cursor.getString(11).trim().isEmpty()) {
+                    aux = new ArrayList<String>();
+
+                    Collections.addAll(aux, cursor.getString(11).split(","));
                     item.setInto(aux);
                 }
-                item.setHideFromAll(cursor.getString(11).equals("1"));
-                item.setRequiredChampion(cursor.getString(12));
-                imageItem.setFull(cursor.getString(13));
+                item.setHideFromAll(cursor.getString(12).equals("1"));
+                item.setRequiredChampion(cursor.getString(13));
+                imageItem.setFull(cursor.getString(14));
                 item.setImage(imageItem);
                 item.setGold(gold);
                 cItem.add (item);
