@@ -16,6 +16,7 @@ import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
 import com.lol.lolpro.app.json.Campeones.Champion;
 import com.lol.lolpro.app.json.Objetos.Item;
 import com.lol.lolpro.app.utillidades.Champion_callback;
+import com.lol.lolpro.app.utillidades.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -51,19 +52,14 @@ public class ObjetoGeneral extends Fragment {
         Item item = args.getParcelable("item");
         if (item != null) {
             String tienda = view.getResources().getString(R.string.si);
-            if (!item.getInStore()) {
+            if (!item.getGold().getPurchasable()) {
                 tienda = view.getResources().getString(R.string.no);
             }
             ((TextView) view.findViewById(R.id.objeto_nombre)).setText(item.getName());
-            ((TextView) view.findViewById(R.id.objeto_costeBase)).setText(item.getGold().getBase());
-            ((TextView) view.findViewById(R.id.objeto_coste)).setText(item.getGold().getTotal());
-            ((TextView) view.findViewById(R.id.objeto_precioVenta)).setText(item.getGold().getSell());
-            if (!item.getSanitizedDescription().isEmpty()) {
-                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(item.getSanitizedDescription() + "\n\n" + item.getDescription());
-            }
-            else{
-                ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(item.getDescription());
-            }
+            ((TextView) view.findViewById(R.id.objeto_costeBase)).setText(item.getGold().getBase().toString());
+            ((TextView) view.findViewById(R.id.objeto_coste)).setText(item.getGold().getTotal().toString());
+            ((TextView) view.findViewById(R.id.objeto_precioVenta)).setText(item.getGold().getSell().toString());
+            ((TextView) view.findViewById(R.id.objeto_descripcion)).setText(Utils.sanitizeText(item.getDescription()));
             ((TextView) view.findViewById(R.id.objeto_puedesComprar)).setText(tienda);
             Picasso.with(getActivity()) //
                     .load(item.getImage().getFull()) //

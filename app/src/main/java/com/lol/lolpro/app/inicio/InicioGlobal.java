@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -130,7 +130,7 @@ public class InicioGlobal extends Fragment {
 
                 // Show the fragment.
                 // I'm not sure which of the following two lines is best to use but this one works well.
-                dFrag.show(((ActionBarActivity)getActivity()).getSupportFragmentManager(), "aa");
+                dFrag.show(((AppCompatActivity)getActivity()).getSupportFragmentManager(), "aa");
                 //new DescargarBBDD((ActionBarActivity)getActivity()).execute();
                 return true;
             }

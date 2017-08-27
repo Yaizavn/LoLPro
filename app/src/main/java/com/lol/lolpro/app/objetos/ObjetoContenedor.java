@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +55,7 @@ public class ObjetoContenedor extends Fragment {
 
         Bundle args = getArguments();
         dbMan.closeDatabase(false);
-        actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mPagerAdapter = new ObjetoPageAdapter(getChildFragmentManager(), (Item) args.getParcelable("item"));
         numPages = mPagerAdapter.getCount();

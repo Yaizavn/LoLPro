@@ -3,7 +3,7 @@ package com.lol.lolpro.app;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,7 +25,7 @@ import com.lol.lolpro.app.utillidades.Utils;
 /**
  * Activity principal en el que se colocarán todos los fragments
  */
-public class Activity_General extends ActionBarActivity
+public class Activity_General extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         Champion_callback, Object_callback{
 

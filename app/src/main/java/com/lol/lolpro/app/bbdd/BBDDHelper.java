@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.json.Campeones.Champion;
@@ -527,7 +528,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
         Gold gold;
         ImageItem imageItem;
         ArrayList<String> aux;
-        StringBuilder listIds;
         cItem = null;
         if (cId != null && !cId.isEmpty()) {
 
@@ -535,14 +535,14 @@ public class BBDDHelper extends SQLiteOpenHelper {
             String[] columns = new String[]{"_id", "name", "base", "total", "sell", "purchasable",
                     "description", "plainText", "stacks", "depth", "fromOBJ", "intoOBJ",
                     "hideFromAll", "requiredChampion", "full"};
-            listIds = new StringBuilder();
+            List<String> parameters = new ArrayList<>();
+            List<String> lIds = new ArrayList<>();
             for (Integer id : cId) {
-                listIds.append(Integer.toString(id));
-                listIds.append(",");
+                parameters.add("?");
+                lIds.add(id.toString());
             }
-            listIds = listIds.replace(listIds.length() - 1, listIds.length(), "");
-            String[] whereArgs = new String[]{listIds.toString()};
-            Cursor cursor = mReadOnlyDatabase.query("objetos", columns, "_id in (?)", whereArgs, null, null, null);
+            String[] whereArgs = lIds.toArray(new String[0]);
+            Cursor cursor = mReadOnlyDatabase.query("objetos", columns, "_id in (" + TextUtils.join(",", parameters) + ")", whereArgs, null, null, null);
             while (cursor.moveToNext()) {
                 item = new Item();
                 gold = new Gold();
