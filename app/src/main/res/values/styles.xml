@@ -1,8 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"> -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="BaseTheme.Blue" parent="AppTheme">
+        <!-- Attributes for all APIs -->
+        <item name="colorPrimary">@android:color/holo_blue_bright</item>
+        <item name="colorPrimaryDark">@android:color/holo_blue_dark</item>
+        <item name="colorAccent">@android:color/holo_blue_light</item>
+        <item name="dialogTheme">@android:style/Theme.Holo.Dialog</item>
     </style>
 
 </resources>

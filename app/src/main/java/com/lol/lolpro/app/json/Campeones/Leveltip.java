@@ -1,6 +1,9 @@
 
 package com.lol.lolpro.app.json.Campeones;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "label",
     "effect"
 })
-public class Leveltip {
+public class Leveltip implements Parcelable {
 
     @JsonProperty("label")
     private List<String> label = new ArrayList<String>();
@@ -77,5 +80,41 @@ public class Leveltip {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringList(this.label);
+        dest.writeStringList(this.effect);
+        dest.writeValue(additionalProperties);
+    }
+
+    public Leveltip() {
+    }
+
+    protected Leveltip(Parcel in) {
+        this.label = new ArrayList<String>();
+        in.readList(this.label, String.class.getClassLoader());
+        this.effect = new ArrayList<String>();
+        in.readList(this.effect, String.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+
+    }
+
+    public static final Parcelable.Creator<Leveltip> CREATOR = new Parcelable.Creator<Leveltip>() {
+        @Override
+        public Leveltip createFromParcel(Parcel source) {
+            return new Leveltip(source);
+        }
+
+        @Override
+        public Leveltip[] newArray(int size) {
+            return new Leveltip[size];
+        }
+    };
 
 }

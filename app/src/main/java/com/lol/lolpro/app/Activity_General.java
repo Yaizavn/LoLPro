@@ -43,6 +43,7 @@ public class Activity_General extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.BaseTheme_Blue);
         //TODO initializeInstance y guardarla para no eliminarla al rotar
         //TODO guardar campeonesgratuitos para eliminar setWriteAheadLoggingEnabled(true) -> optimizar memoria y eliminar concurrencia de threads
         DBManager.initializeInstance(this);

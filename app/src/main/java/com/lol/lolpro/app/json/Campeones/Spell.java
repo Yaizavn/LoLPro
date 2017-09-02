@@ -1,5 +1,8 @@
 package com.lol.lolpro.app.json.Campeones;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "key",
         "altimages"
 })
-public class Spell {
+public class Spell implements Parcelable{
 
     @JsonProperty("name")
     private String name;
@@ -431,5 +434,84 @@ public class Spell {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeString(this.sanitizedDescription);
+        dest.writeString(this.tooltip);
+        dest.writeString(this.sanitizedTooltip);
+        dest.writeParcelable(this.leveltip, flags);
+        dest.writeParcelable(this.image, flags);
+        dest.writeString(this.resource);
+        dest.writeInt(this.maxrank);
+        dest.writeList(this.cost);
+        dest.writeString(this.costType);
+        dest.writeString(this.costBurn);
+        dest.writeList(this.cooldown);
+        dest.writeString(this.cooldownBurn);
+        dest.writeList(this.effect);
+        dest.writeStringList(this.effectBurn);
+        dest.writeList(this.vars);
+        dest.writeList(this.range);
+        dest.writeString(this.rangeBurn);
+        dest.writeString(this.key);
+        dest.writeList(this.altimages);
+        dest.writeValue(additionalProperties);
+    }
+
+    public Spell() {
+    }
+
+    protected Spell(Parcel in) {
+        this.name = in.readString();
+        this.description = in.readString();
+        this.sanitizedDescription = in.readString();
+        this.tooltip = in.readString();
+        this.sanitizedTooltip = in.readString();
+        this.leveltip = in.readParcelable(Leveltip.class.getClassLoader());
+        this.image = in.readParcelable(Image.class.getClassLoader());
+        this.resource = in.readString();
+        this.maxrank = in.readInt();
+        this.cost = new ArrayList<Integer>();
+        in.readList(this.cost, Integer.class.getClassLoader());
+        this.costType = in.readString();
+        this.costBurn = in.readString();
+        this.cooldown = new ArrayList<Double>();
+        in.readList(this.cooldown, Double.class.getClassLoader());
+        this.cooldownBurn =  in.readString();
+        this.effect = new ArrayList<Object>();
+        in.readList(this.effect, Object.class.getClassLoader());
+        this.effectBurn = new ArrayList<String>();
+        in.readList(this.effectBurn, String.class.getClassLoader());
+        this.vars = new ArrayList<Var>();
+        in.readList(this.vars, Var.class.getClassLoader());
+        this.range = new ArrayList<Integer>();
+        in.readList(this.range, Integer.class.getClassLoader());
+        this.rangeBurn =  in.readString();
+        this.key =  in.readString();
+        this.altimages = new ArrayList<Image>();
+        in.readList(this.altimages, Image.class.getClassLoader());
+        this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+
+    }
+
+    public static final Parcelable.Creator<Spell> CREATOR = new Parcelable.Creator<Spell>() {
+        @Override
+        public Spell createFromParcel(Parcel source) {
+            return new Spell(source);
+        }
+
+        @Override
+        public Spell[] newArray(int size) {
+            return new Spell[size];
+        }
+    };
 
 }
