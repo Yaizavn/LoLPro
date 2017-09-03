@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
+import com.lol.lolpro.app.campeones.CampeonManager;
 import com.lol.lolpro.app.json.Campeones.Champion;
 import com.squareup.picasso.Picasso;
 
@@ -44,18 +45,11 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
 	 */
 	public GridAdapterCampeonGlobal(Context context, List<Champion> lChampionAux) {
 
-		DBManager dbMan;
-
 		this.context = context;
 
 		if (lChampionAux == null) {
 
-			dbMan = DBManager.getInstance();
-			dbMan.openDatabase(false);
-
-			lChampionAux = dbMan.getDatabaseHelper().obtenerCampeones();
-
-			dbMan.closeDatabase(false);
+			lChampionAux = CampeonManager.getInstance().getCampeones();
 
 		}
 
