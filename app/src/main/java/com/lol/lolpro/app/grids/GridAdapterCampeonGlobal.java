@@ -13,6 +13,7 @@ import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.campeones.CampeonManager;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.ChampionDecorator;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class GridAdapterCampeonGlobal extends BaseAdapter {
 	 * @param context   recibe el activity al que está asociado el fragment
 	 * @param lChampionAux Listado de Campeones a mostrar
 	 */
-	public GridAdapterCampeonGlobal(Context context, List<Champion> lChampionAux) {
+	public GridAdapterCampeonGlobal(Context context, List<ChampionDecorator> lChampionAux) {
 
 		this.context = context;
 

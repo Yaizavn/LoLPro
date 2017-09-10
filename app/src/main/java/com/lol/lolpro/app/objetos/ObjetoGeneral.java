@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.grids.GridAdapterCampeonGlobal;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.ChampionDecorator;
 import com.lol.lolpro.app.json.Objetos.Item;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Utils;
@@ -92,7 +93,7 @@ public class ObjetoGeneral extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
        GridView grid = (GridView) view.findViewById(R.id.objeto_gridViewCampeonAdmitido);
         Bundle args = getArguments();
-        List<Champion> lChampionReq = args.getParcelableArrayList("campeonReq");
+        List<ChampionDecorator> lChampionReq = args.getParcelableArrayList("campeonReq");
         if (lChampionReq!=null) {
             view.findViewById(R.id.objeto_TextoCampeonesPermitidos).setVisibility(View.VISIBLE);
             view.findViewById(R.id.objeto_gridViewCampeonAdmitido).setVisibility(View.VISIBLE);

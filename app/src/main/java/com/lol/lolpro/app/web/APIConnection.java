@@ -10,6 +10,7 @@ import com.lol.lolpro.app.bbdd.BBDDHelper;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.json.Campeones.BaseCampeones;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.ChampionDecorator;
 import com.lol.lolpro.app.json.EstadoCampeones.BaseEstadoCampeones;
 import com.lol.lolpro.app.json.Objetos.BaseObjeto;
 import com.lol.lolpro.app.json.Objetos.Item;
@@ -264,7 +265,7 @@ public class APIConnection {
 
 	public boolean hayNuevosGratuitos() {
 
-		List<Champion> lCampeonAntiguoGratuito, lCampeonNuevoGratuito;
+		List<ChampionDecorator> lCampeonAntiguoGratuito, lCampeonNuevoGratuito;
 
 		lCampeonAntiguoGratuito = bdConnection.obtenerCampeonesGratuitos();
 

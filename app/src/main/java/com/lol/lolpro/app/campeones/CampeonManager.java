@@ -3,6 +3,7 @@ package com.lol.lolpro.app.campeones;
 import com.lol.lolpro.app.bbdd.BBDDHelper;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.ChampionDecorator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +18,7 @@ public class CampeonManager {
     private static CampeonManager instance;
     private CampeonModel cmCampeones;
     private boolean estaCompleto;
+    private boolean estaCompletoGratuitos;
 
     public static CampeonManager getInstance() {
         if (instance == null) {
@@ -28,10 +30,11 @@ public class CampeonManager {
     private CampeonManager() {
         this.cmCampeones = new CampeonModel();
         estaCompleto = false;
+        estaCompletoGratuitos = false;
     }
 
-    public Champion getCampeon(int idCampeon) {
-        Champion campeon = cmCampeones.getCampeon(idCampeon);
+    public ChampionDecorator getCampeon(int idCampeon) {
+        ChampionDecorator campeon = cmCampeones.getCampeon(idCampeon);
         if (campeon == null){
             DBManager.getInstance().openDatabase(false);
             BBDDHelper dbHelper = DBManager.getInstance().getDatabaseHelper();
@@ -42,22 +45,24 @@ public class CampeonManager {
         return campeon;
     }
 
-    public Collection<Champion> getCampeones(Collection<Integer> cIds) {
-        Collection <Champion> cCampeones = new ArrayList<Champion>();
+    public Collection<ChampionDecorator> getCampeones(Collection<Integer> cIds) {
+        Collection <ChampionDecorator> cCampeones = new ArrayList<ChampionDecorator>();
         for (Integer id : cIds) {
             cCampeones.add (getCampeon(id));
         }
         return cCampeones;
     }
 
-    public List<Champion> getCampeones() {
-        List<Champion> todosCampeones;
+    public List<ChampionDecorator> getCampeones() {
+        List<ChampionDecorator> todosCampeones;
         if (!estaCompleto){
             DBManager.getInstance().openDatabase(false);
             BBDDHelper dbHelper = DBManager.getInstance().getDatabaseHelper();
             todosCampeones = dbHelper.obtenerCampeones();
+            cmCampeones.addCampeon(todosCampeones);
             DBManager.getInstance().closeDatabase(false);
             estaCompleto = true;
+            estaCompletoGratuitos = true;
         }
         else{
             todosCampeones= cmCampeones.getCampeones();
@@ -65,19 +70,21 @@ public class CampeonManager {
         return todosCampeones;
     }
 
-    public List<Champion> getCampeonesGratuitos() {
-        List<Champion> CampeonesGratuitos;
-        if (!estaCompleto){
+    public List<ChampionDecorator> getCampeonesGratuitos() {
+        List<ChampionDecorator> campeonesGratuitos;
+        if (!estaCompletoGratuitos){
             DBManager.getInstance().openDatabase(false);
             BBDDHelper dbHelper = DBManager.getInstance().getDatabaseHelper();
-            todosCampeones = dbHelper.obtenerCampeonesGratuitos();
+            campeonesGratuitos = dbHelper.obtenerCampeonesGratuitos();
+            cmCampeones.addCampeon(campeonesGratuitos);
             DBManager.getInstance().closeDatabase(false);
-            estaCompleto = true;
+            estaCompletoGratuitos = true;
         }
         else{
-            todosCampeones= cmCampeones.getCampeones();
+            campeonesGratuitos= cmCampeones.getCampeonesGratuitos();
+
         }
-        return todosCampeones;
+        return campeonesGratuitos;
     }
 
 }

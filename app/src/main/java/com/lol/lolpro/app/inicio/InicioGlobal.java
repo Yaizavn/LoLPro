@@ -26,6 +26,7 @@ import com.lol.lolpro.app.bbdd.DescargarBBDD;
 import com.lol.lolpro.app.bbdd.dFragment;
 import com.lol.lolpro.app.grids.GridAdapterFreeChamps;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.ChampionDecorator;
 import com.lol.lolpro.app.utillidades.Champion_callback;
 import com.lol.lolpro.app.utillidades.Constants;
 import com.lol.lolpro.app.utillidades.Utils;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 public class InicioGlobal extends Fragment {
 
     Champion_callback mCallback = null;
-    ArrayList<Champion> lCampeon = null;
+    ArrayList<ChampionDecorator> lCampeon = null;
 
     /**
      * Constructor vacío

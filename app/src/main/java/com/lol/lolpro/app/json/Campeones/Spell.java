@@ -434,7 +434,6 @@ public class Spell implements Parcelable{
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
-
     @Override
     public int describeContents() {
         return 0;

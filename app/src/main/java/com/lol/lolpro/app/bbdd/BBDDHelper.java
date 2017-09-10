@@ -9,6 +9,7 @@ import android.text.TextUtils;
 
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.ChampionDecorator;
 import com.lol.lolpro.app.json.Campeones.Decorator.SkinDecorator;
 import com.lol.lolpro.app.json.Campeones.Image;
 import com.lol.lolpro.app.json.Campeones.Passive;
@@ -283,7 +284,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
         mDatabase.update("habilidades", cont, "esNueva=1",null);
     }
 
-    public Champion obtenerCampeon(int id) {
+    public ChampionDecorator obtenerCampeon(int id) {
+        ChampionDecorator campeonDecorator = null;
         Champion campeon = null;
         Image image;
         Stats stats;
@@ -291,7 +293,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "regeneracionVida", "regeneracionVidaPorNivel", "danioAtaque", "danioAtaquePorNivel",
                 "armadura", "armaduraPorNivel", "velocidadAtaque", "velocidadAtaquePorNivel", "crit",
                 "critPorNivel", "tipoMP", "mana", "manaPorNivel", "regMana", "regManaPorNivel", "resistenciaMagica",
-                "resistenciaMagicaPorNivel", "velocidadMovimiento", "rutaPrincipal"};
+                "resistenciaMagicaPorNivel", "velocidadMovimiento", "rutaPrincipal", "esGratis"};
         String[] whereArgs = new String[]{Integer.toString(id)};
         Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "_id=?", whereArgs, null, null, null);
         if (cursor.moveToNext()) {
@@ -329,10 +331,13 @@ public class BBDDHelper extends SQLiteOpenHelper {
             obtenerAspectosCampeon(campeon);
             obtenerHabilidadesCampeon(campeon);
             obtenerPasivaCampeon(campeon);
+            campeonDecorator = new ChampionDecorator(campeon);
+            campeonDecorator.setGratuito(cursor.getInt(25)==1);
         }
         cursor.close();
-        return campeon;
+        return campeonDecorator;
     }
+
 
     public void obtenerAspectosCampeon(Champion campeon) {
         List<Skin> lSkin = new ArrayList<Skin>();
@@ -413,9 +418,9 @@ public class BBDDHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Champion> obtenerCampeonesGratuitos() {
-        ArrayList<Champion> lChampion = new ArrayList<Champion>();
-        Champion champion;
+    public ArrayList<ChampionDecorator> obtenerCampeonesGratuitos() {
+        ArrayList<ChampionDecorator> lChampion = new ArrayList<ChampionDecorator>();
+        ChampionDecorator champion;
         String[] columns = new String[]{"_id", "nombre"};
         String[] whereArgs = new String[]{"1"};
         Cursor cursor = mReadOnlyDatabase.query("campeones", columns, "esGratis=?", whereArgs, null, null, "nombre");
@@ -430,9 +435,8 @@ public class BBDDHelper extends SQLiteOpenHelper {
     }
 
     /* Antiguo ObtenerNombreRutaCampeones*/
-    public List<Champion> obtenerCampeones() {
-        List <Champion> lChampion = new ArrayList<Champion>();
-        Champion champion;
+    public List<ChampionDecorator> obtenerCampeones() {
+        List <ChampionDecorator> lChampion = new ArrayList<ChampionDecorator>();
         String[] columns = new String[]{"_id", "nombre"};
         Cursor cursor = mReadOnlyDatabase.query("campeones", columns, null, null, null, null, "nombre");
         while (cursor.moveToNext()) {

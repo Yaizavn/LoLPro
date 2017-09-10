@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.lol.lolpro.app.R;
 import com.lol.lolpro.app.bbdd.DBManager;
 import com.lol.lolpro.app.json.Campeones.Champion;
+import com.lol.lolpro.app.json.Campeones.Decorator.ChampionDecorator;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 public class GridAdapterFreeChamps extends BaseAdapter {
 
     private final Context context;
-    private List<Champion> data;
+    private List<ChampionDecorator> data;
 
     /**
      * Constructor
@@ -30,12 +31,12 @@ public class GridAdapterFreeChamps extends BaseAdapter {
      * @param context   recibe el activity al que está asociado el fragment
      * @param allData      datos de los campeones o los objetos
      */
-    public GridAdapterFreeChamps(Context context, List<Champion> allData) {
+    public GridAdapterFreeChamps(Context context, List<ChampionDecorator> allData) {
         this.context = context;
         data = allData;
     }
 
-    public List<Champion> getData(){
+    public List<ChampionDecorator> getData(){
         return data;
     }
 
