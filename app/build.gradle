@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion 17
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -28,16 +28,25 @@ android {
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
     }
+    compileOptions {
+    }
 }
 
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'org.jsoup:jsoup:1.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.2'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
-    compile 'javax.annotation:javax.annotation-api:1.2'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'org.jsoup:jsoup:1.7.3'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.4.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.4.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
+    implementation 'javax.annotation:javax.annotation-api:1.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:gridlayout-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    /*implementation 'com.android.support:recyclerview-v7:28.0.0-alpha3'
+                implementation 'com.android.support:design:28.0.0-alpha3'
+                implementation 'com.android.support:support-core-ui:28.0.0-alpha3'
+                implementation 'com.android.support:support-core-utils:28.0.0-alpha3'
+                implementation 'com.android.support:support-fragment:28.0.0-alpha3'*/
 }

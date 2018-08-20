@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
  * Clase que se encarga de obtner los últimos urls y los títulos de las últimas noticias de http://euw.leagueoflegends.com
  */
 public class SpiderNoticias {
-    public static final String NEWSURL = "http://euw.leagueoflegends.com/es/news/";
+    public static final String NEWSURL = "https://euw.leagueoflegends.com/es/news/";
 
     /**
      * Constructor vacío

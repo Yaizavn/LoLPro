@@ -55,9 +55,9 @@ public class APIConnection {
 	private static final String ITEM_URI = "static-data/v3/items?locale=es_ES&tags=all&";
 	private static final String METADATA_URI = "static-data/v3/realms?";
 	private static final String CHAMPION_FREE_URI = "platform/v3/champions?freeToPlay=true&";
-	private static final String API_KEY = "api_key=RGAPI-01d41a62-2b76-4ba9-a33e-f91d32b44e38";
+	private static final String API_KEY = "api_key=RGAPI-0d37d81c-e625-4b74-814f-a45c61369ef5";
 	private static final String VERSION_HEADER = "&version=";*/
-	private static final String GLOBAL_URI = "http://crispi.no-ip.org/";
+	private static final String GLOBAL_URI = "https://crispi.no-ip.org/";
 	private static final String CHAMPION_URI = "champions.json";
 	private static final String ITEM_URI = "items.json";
 	private static final String METADATA_URI = "realms.json";
